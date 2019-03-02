@@ -1,0 +1,19 @@
+{
+  "name": "media-tracker-back-end",
+  "version": "1.0.0",
+  "description": "Back-End for the Media Tracker app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Simone3/MediaTrackerBackEnd.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Simone3/MediaTrackerBackEnd/issues"
+  },
+  "homepage": "https://github.com/Simone3/MediaTrackerBackEnd#readme"
+}
