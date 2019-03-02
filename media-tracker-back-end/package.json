@@ -2,7 +2,7 @@
   "name": "media-tracker-back-end",
   "version": "1.0.0",
   "description": "Back-End for the Media Tracker app",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Simone3/MediaTrackerBackEnd/issues"
   },
-  "homepage": "https://github.com/Simone3/MediaTrackerBackEnd#readme"
+  "homepage": "https://github.com/Simone3/MediaTrackerBackEnd#readme",
+  "devDependencies": {
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.3333"
+  }
 }
