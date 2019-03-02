@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/Simone3/MediaTrackerBackEnd#readme",
   "devDependencies": {
+    "@types/express": "^4.16.1",
     "ts-node": "^8.0.2",
     "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
   }
 }
