@@ -1,6 +1,6 @@
 
 import express, { Router, Response } from 'express';
-import { getAllMediaItems } from '../actions/media-item';
+import { getAllMediaItems } from '../controllers/media-item';
 
 var router: Router = express.Router();
 
