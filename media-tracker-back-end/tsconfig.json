@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
   "outDir": "build",
-  "rootDir": "src",
+  "rootDir": "app",
   "sourceMap": true,
   "noImplicitAny": true,
   "noUnusedLocals": true,
@@ -9,10 +9,10 @@
   "module": "commonjs",
   "target": "es6",
   "strict": true,
-  "typeRoots": ["node_modules/@types", "src/custom-types"], 
+  "typeRoots": ["node_modules/@types", "app/custom-types"], 
   "baseUrl": ".",
   "moduleResolution": "node",
   "esModuleInterop": true  },
-  "include": ["./src/**/*"],
+  "include": ["./app/**/*"],
   "exclude": ["node_modules"]
 }

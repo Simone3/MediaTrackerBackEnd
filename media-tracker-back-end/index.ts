@@ -1,5 +1,8 @@
-import { App } from './src/App';
+import { server } from './app/server';
+import { config } from './app/config/config';
 
-var app: App = new App();
-app.run();
+server.listen(config.serverPort, () => {
+
+	console.log(`Server running on port ${config.serverPort}`);
+});
 
