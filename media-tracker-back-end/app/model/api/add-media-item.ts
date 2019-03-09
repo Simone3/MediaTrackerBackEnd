@@ -1,15 +1,15 @@
-import { MediaItem } from './media-item';
+import { NewMediaItem } from './media-item';
 import { CommonRequest, CommonResponse } from './common';
 
 /**
- * Request for the "addMediaItem" API
+ * Request for the "add media item" API
  */
 export type AddMediaItemRequest = CommonRequest & {
 
-	newMediaItem: MediaItem;
+	newMediaItem: NewMediaItem;
 };
 
 /**
- * Response for the "addMediaItem" API
+ * Response for the "add media item" API
  */
 export type AddMediaItemResponse = CommonResponse;

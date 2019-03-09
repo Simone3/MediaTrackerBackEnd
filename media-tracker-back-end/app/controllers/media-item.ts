@@ -1,13 +1,92 @@
+import { Document, Model, model} from "mongoose";
+import { MediaItemInternal } from "../model/internal/media-item";
+import { MediaItemSchema } from "../schemas/media-item";
+
+interface MediaItemDocument extends MediaItemInternal, Document {}
+
+const MediaItemModel: Model<MediaItemDocument> = model<MediaItemDocument>("MediaItem", MediaItemSchema);
 
 /**
- * Action to retrieve all available media items
+ * Controller for media items, wraps the persistence logic
  */
-export function getAllMediaItems(): object[] {
+class MediaItemController {
+
+	/**
+	 * Gets all saved media items, as a promise
+	 */
+	public getAllMediaItems(): Promise<MediaItemInternal[]> {
+
+		return new Promise((resolve, reject) => {
+
+			MediaItemModel.find()
+				.then((mediaItems: MediaItemDocument[]) => {
+
+					resolve(this.mapDocumentToInternalList(mediaItems));
+				})
+				.catch((error: any) => {
+
+					reject(error);
+				});
+		});
+	}
+
+	/**
+	 * Saves a new media item, returning it back as a promise
+	 * @param newMediaItem the new media item
+	 */
+	public addMediaItem(newMediaItem: MediaItemInternal): Promise<MediaItemInternal> {
+
+		return new Promise((resolve, reject) => {
+
+			var mediaItemCreate = this.mapInternalToDocument(newMediaItem);
+
+			mediaItemCreate.save((error: any, mediaItemCreate: MediaItemDocument) => {
+			   
+				if(error) {
+					
+					reject(error);
+				}
+				else {
+
+					resolve(mediaItemCreate);
+				}
+			});
+		});
+	}
+
+	/**
+	 * Helper
+	 */
+	private mapInternalToDocument(source: MediaItemInternal): MediaItemDocument {
+
+		var target: MediaItemDocument = new MediaItemModel();
+		target = Object.assign(target, source);
+		return target;
+	}
 	
-	return [
-		{'id': 1, 'name': 'test1'},
-		{'id': 2, 'name': 'test2'},
-		{'id': 3, 'name': 'test3'}
-	];
+	/**
+	 * Helper
+	 */
+	private mapDocumentToInternalList(sources: MediaItemDocument[]): MediaItemInternal[] {
+
+		return sources.map((source) => {
+
+			return this.mapDocumentToInternal(source);
+		});
+	}
+
+	/**
+	 * Helper
+	 */
+	private mapDocumentToInternal(source: MediaItemDocument): MediaItemInternal {
+
+		return source;
+	}
 }
+
+/**
+ * Singleton implementation of the media item controller
+ */
+export const mediaItemController = new MediaItemController();
+
 

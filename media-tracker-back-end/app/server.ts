@@ -3,7 +3,7 @@ import { mediaItemRouter} from './routes/media-item';
 import { catchAllRouter} from './routes/catch-all';
 
 var app = express();
-app.use('/media-item', mediaItemRouter);
+app.use('/media-items', mediaItemRouter);
 app.use(catchAllRouter);
 
 /**

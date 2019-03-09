@@ -1,6 +1,9 @@
+/**
+ * Model for a media item, internal type NOT to be exposed via API
+ */
 export type MediaItemInternal = {
 
-	id: string;
+	_id: any,
 	name: string;
 	author?: string;
-}
+};
