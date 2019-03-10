@@ -1,14 +1,14 @@
 /**
  * Type shared by all API requests
  */
-export type CommonRequest = {
+export class CommonRequest {
 
-};
+}
 
 /**
  * Type shared by all API responses
  */
-export type CommonResponse = {
+export class CommonResponse {
 
 	message?: string;
 };

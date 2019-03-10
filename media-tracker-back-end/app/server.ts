@@ -2,7 +2,11 @@ import express from 'express';
 import { mediaItemRouter} from './routes/media-item';
 import { catchAllRouter} from './routes/catch-all';
 
+// Base setup
 var app = express();
+app.use(express.json());
+
+// Routes
 app.use('/media-items', mediaItemRouter);
 app.use(catchAllRouter);
 

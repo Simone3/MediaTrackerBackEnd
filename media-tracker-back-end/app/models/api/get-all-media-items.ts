@@ -4,7 +4,7 @@ import { CommonResponse } from './common';
 /**
  * Response for the "get all media items" API
  */
-export type GetAllMediaItemsResponse = CommonResponse & {
+export class GetAllMediaItemsResponse extends CommonResponse {
 
-	mediaItems: MediaItem[];
+	mediaItems: MediaItem[] = [];
 };

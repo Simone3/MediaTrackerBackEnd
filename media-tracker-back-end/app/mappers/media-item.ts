@@ -1,5 +1,5 @@
 import { MediaItemInternal } from '../models/internal/media-item';
-import { MediaItem } from '../models/api/media-item';
+import { MediaItem, NewMediaItem } from '../models/api/media-item';
 
 /**
  * Helper class to translate between internal and public media item models
@@ -32,7 +32,7 @@ class MediaItemMapper {
 	/**
 	 * List of public models to list of internal models
 	 */
-	public apiToInternalList(sources: MediaItem[]): MediaItemInternal[] {
+	public apiToInternalList<T extends (MediaItem | NewMediaItem)>(sources: T[]): MediaItemInternal[] {
 
 		return sources.map((source) => {
 
@@ -43,10 +43,13 @@ class MediaItemMapper {
 	/**
 	 * Public model to internal model
 	 */
-	public apiToInternal(source: MediaItem): MediaItemInternal {
+	public apiToInternal<T extends (MediaItem | NewMediaItem)>(source: T): MediaItemInternal {
+
+		const isNew = (source instanceof NewMediaItem);
+		const id = (isNew ? null : (<MediaItem>source).uid);
 
 		return {
-			_id: source.uid,
+			_id: id,
 			name: source.name,
 			author: source.author
 		};
@@ -57,3 +60,5 @@ class MediaItemMapper {
  * Singleton instance of the media items mapper
  */
 export const mediaItemMapper = new MediaItemMapper();
+
+

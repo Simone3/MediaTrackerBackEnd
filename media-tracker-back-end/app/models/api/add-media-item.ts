@@ -1,15 +1,22 @@
+import { ValidateNested, IsDefined } from 'class-validator';
+import { Type } from 'class-transformer';
 import { NewMediaItem } from './media-item';
 import { CommonRequest, CommonResponse } from './common';
 
 /**
  * Request for the "add media item" API
  */
-export type AddMediaItemRequest = CommonRequest & {
+export class AddMediaItemRequest extends CommonRequest {
 
-	newMediaItem: NewMediaItem;
+	@IsDefined()
+	@Type(() => NewMediaItem)
+	@ValidateNested()
+	newMediaItem!: NewMediaItem;
 };
 
 /**
  * Response for the "add media item" API
  */
-export type AddMediaItemResponse = CommonResponse;
+export class AddMediaItemResponse extends CommonResponse {
+
+}
