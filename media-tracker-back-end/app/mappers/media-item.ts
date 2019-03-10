@@ -1,5 +1,5 @@
-import { MediaItemInternal } from 'app/model/internal/media-item';
-import { MediaItem } from 'app/model/api/media-item';
+import { MediaItemInternal } from '../models/internal/media-item';
+import { MediaItem } from '../models/api/media-item';
 
 /**
  * Helper class to translate between internal and public media item models

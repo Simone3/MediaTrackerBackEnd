@@ -1,10 +1,10 @@
 
 import express, { Router, Response } from 'express';
 import { mediaItemController } from '../controllers/media-item';
-import { GetAllMediaItemsResponse } from '../model/api/get-all-media-items';
-import { MediaItemInternal } from '../model/internal/media-item';
-import { AddMediaItemResponse } from '../model/api/add-media-item';
-import { mediaItemMapper } from '../model/mappers/media-item';
+import { GetAllMediaItemsResponse } from '../models/api/get-all-media-items';
+import { MediaItemInternal } from '../models/internal/media-item';
+import { AddMediaItemResponse } from '../models/api/add-media-item';
+import { mediaItemMapper } from '../mappers/media-item';
 
 var router: Router = express.Router();
 

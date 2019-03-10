@@ -1,5 +1,5 @@
 import { Document, Model, model} from "mongoose";
-import { MediaItemInternal } from "../model/internal/media-item";
+import { MediaItemInternal } from "../models/internal/media-item";
 import { MediaItemSchema } from "../schemas/media-item";
 
 interface MediaItemDocument extends MediaItemInternal, Document {}
