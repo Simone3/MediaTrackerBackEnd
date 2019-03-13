@@ -4,19 +4,19 @@ import { MediaItem } from './media-item';
 import { CommonRequest, CommonResponse } from './common';
 
 /**
- * Request for the "add media item" API
+ * Request for the "update media item" API
  */
-export class AddMediaItemRequest extends CommonRequest {
+export class UpdateMediaItemRequest extends CommonRequest {
 
 	@IsDefined()
 	@Type(() => MediaItem)
 	@ValidateNested()
-	newMediaItem!: MediaItem;
+	mediaItem!: MediaItem;
 };
 
 /**
- * Response for the "add media item" API
+ * Response for the "update media item" API
  */
-export class AddMediaItemResponse extends CommonResponse {
+export class UpdateMediaItemResponse extends CommonResponse {
 
 }

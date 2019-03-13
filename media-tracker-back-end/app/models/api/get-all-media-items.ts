@@ -1,4 +1,4 @@
-import { MediaItem } from './media-item';
+import { IdentifiedMediaItem } from './media-item';
 import { CommonResponse } from './common';
 
 /**
@@ -6,5 +6,5 @@ import { CommonResponse } from './common';
  */
 export class GetAllMediaItemsResponse extends CommonResponse {
 
-	mediaItems: MediaItem[] = [];
+	mediaItems: IdentifiedMediaItem[] = [];
 };

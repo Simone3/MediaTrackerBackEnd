@@ -1,9 +1,9 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 /**
- * Model for a new media item to be created, publicly exposed via API
+ * Model for a media item, publicly exposed via API
  */
-export class NewMediaItem {
+export class MediaItem {
 
 	/**
 	 * The media item name
@@ -21,9 +21,9 @@ export class NewMediaItem {
 };
 
 /**
- * Model for an existing media item, publicly exposed via API
+ * Model for a media item with an ID property, publicly exposed via API
  */
-export class MediaItem extends NewMediaItem {
+export class IdentifiedMediaItem extends MediaItem {
 
 	/**
 	 * The media item unique ID

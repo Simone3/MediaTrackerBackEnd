@@ -1,5 +1,6 @@
-import { transformAndValidate } from 'class-transformer-validator';
+import { transformAndValidate, TransformValidationOptions } from 'class-transformer-validator';
 import { AddMediaItemRequest } from "../models/api/add-media-item";
+import { UpdateMediaItemRequest } from '../models/api/update-media-item';
 
 /**
  * Parser/validator for public media item API inputs
@@ -11,7 +12,23 @@ class MediaItemValidator {
 	 */
 	public parseAndValidateAddMediaItemRequest(source: object): Promise<AddMediaItemRequest> {
 
-		return transformAndValidate(AddMediaItemRequest, source, {
+		return transformAndValidate(AddMediaItemRequest, source, this.getDefaultTransformValidationOptions());
+	}
+
+	/**
+	 * Parses and validates the API input
+	 */
+	public parseAndValidateUpdateMediaItemRequest(source: object): Promise<UpdateMediaItemRequest> {
+
+		return transformAndValidate(UpdateMediaItemRequest, source, this.getDefaultTransformValidationOptions());
+	}
+
+	/**
+	 * Helper
+	 */
+	private getDefaultTransformValidationOptions(): TransformValidationOptions {
+
+		return {
 			transformer: {
 				strategy: "exposeAll"
 			},
@@ -20,7 +37,7 @@ class MediaItemValidator {
 				forbidNonWhitelisted: true,
 				forbidUnknownValues: true
 			}
-		});
+		}
 	}
 }
 

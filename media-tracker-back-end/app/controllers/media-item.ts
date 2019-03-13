@@ -31,16 +31,17 @@ class MediaItemController {
 	}
 
 	/**
-	 * Saves a new media item, returning it back as a promise
-	 * @param newMediaItem the new media item
+	 * Saves a new or an existing media item, returning it back as a promise
+	 * @param mediaItem the media item to insert or update
 	 */
-	public addMediaItem(newMediaItem: MediaItemInternal): Promise<MediaItemInternal> {
+	public saveMediaItem(mediaItem: MediaItemInternal): Promise<MediaItemInternal> {
 
 		return new Promise((resolve, reject) => {
 
-			var mediaItemCreate = this.mapInternalToDocument(newMediaItem);
+			var mediaItemDocument = this.mapInternalToDocument(mediaItem);
+			mediaItemDocument.isNew = !mediaItemDocument._id;
 
-			mediaItemCreate.save((error: any, mediaItemCreate: MediaItemDocument) => {
+			mediaItemDocument.save((error: any, savedMediaItem: MediaItemDocument) => {
 			   
 				if(error) {
 					
@@ -48,9 +49,43 @@ class MediaItemController {
 				}
 				else {
 
-					resolve(mediaItemCreate);
+					if(savedMediaItem) {
+
+						resolve(savedMediaItem);
+					}
+					else {
+
+						reject('Media Item not found');
+					}
 				}
 			});
+		});
+	}
+
+	/**
+	 * Deletes a media item with the given ID, returning a void promise
+	 * @param id the media item ID
+	 */
+	public deleteMediaItem(id: string): Promise<void> {
+
+		return new Promise((resolve, reject) => {
+
+			MediaItemModel.findByIdAndRemove(id)
+				.then((deletedMediaItem) => {
+
+					if(deletedMediaItem) {
+
+						resolve();
+					}
+					else {
+
+						reject('Media Item not found');
+					}
+				})
+				.catch((error: any) => {
+
+					reject(error);
+				});
 		});
 	}
 
