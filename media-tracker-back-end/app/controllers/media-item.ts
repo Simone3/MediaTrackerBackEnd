@@ -1,4 +1,4 @@
-import { Document, Model, model} from "mongoose";
+import { Document, Model, model } from "mongoose";
 import { MediaItemInternal } from "../models/internal/media-item";
 import { MediaItemSchema, MEDIA_ITEM_COLLECTION_NAME } from "../schemas/media-item";
 import { AbstractModelController } from "./helper";
@@ -46,7 +46,29 @@ class MediaItemController extends AbstractModelController {
 	 */
 	public deleteMediaItem(id: string): Promise<void> {
 
-		return this.deleteHelper(MediaItemModel, id, 'Media Item not found');
+		return this.deleteByIdHelper(MediaItemModel, id, 'Media Item not found');
+	}
+
+	/**
+	 * Deletes all media items for the given category, returning the number of deleted elements as a promise
+	 * @param categoryId category ID
+	 */
+	public deleteAllMediaItemsInCategory(categoryId: string): Promise<number> {
+
+		return this.deleteHelper(MediaItemModel, {
+			category: categoryId
+		});
+	}
+
+	/**
+	 * Deletes all media items for the given user, returning the number of deleted elements as a promise
+	 * @param userId user ID
+	 */
+	public deleteAllMediaItemsForUser(userId: string): Promise<number> {
+
+		return this.deleteHelper(MediaItemModel, {
+			owner: userId
+		});
 	}
 }
 

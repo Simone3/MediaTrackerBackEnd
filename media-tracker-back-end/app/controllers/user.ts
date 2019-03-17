@@ -1,7 +1,8 @@
-import { Document, Model, model} from "mongoose";
+import { Document, Model, model } from "mongoose";
 import { UserInternal } from "../models/internal/user";
 import { UserSchema, USER_COLLECTION_NAME } from "../schemas/user";
 import { AbstractModelController } from "./helper";
+import { categoryController } from "./category";
 
 /**
  * Mongoose document for users
@@ -32,8 +33,14 @@ class UserController extends AbstractModelController {
 	 * @param id the user ID
 	 */
 	public deleteUser(id: string): Promise<void> {
+		
+		// First delete all user categories
+		return categoryController.deleteAllCategories(id)
+			.then(() => {
 
-		return this.deleteHelper(UserModel, id, 'User not found');
+				// Then delete user
+				return this.deleteByIdHelper(UserModel, id, 'User not found');
+			});
 	}
 }
 

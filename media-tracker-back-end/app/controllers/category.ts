@@ -1,7 +1,8 @@
-import { Document, Model, model} from "mongoose";
+import { Document, Model, model } from "mongoose";
 import { CategoryInternal } from "../models/internal/category";
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../schemas/category";
 import { AbstractModelController } from "./helper";
+import { mediaItemController } from "./media-item";
 
 /**
  * Mongoose document for categories
@@ -42,7 +43,30 @@ class CategoryController extends AbstractModelController {
 	 */
 	public deleteCategory(id: string): Promise<void> {
 
-		return this.deleteHelper(CategoryModel, id, 'Category not found');
+		// First delete all media items in the category
+		return mediaItemController.deleteAllMediaItemsInCategory(id)
+			.then(() => {
+
+				// Then delete the category
+				return this.deleteByIdHelper(CategoryModel, id, 'Category not found')
+			});
+	}
+
+	/**
+	 * Deletes all categories for the given user, returning the number of deleted elements as a promise
+	 * @param userId user ID
+	 */
+	public deleteAllCategories(userId: string): Promise<number> {
+
+		// First delete all user media items
+		return mediaItemController.deleteAllMediaItemsForUser(userId)
+			.then(() => {
+
+				// Then delete all categories
+				return this.deleteHelper(CategoryModel, {
+					owner: userId
+				});
+			})
 	}
 }
 
