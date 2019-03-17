@@ -32,18 +32,18 @@ class MediaItemMapper {
 	/**
 	 * List of public models to list of internal models
 	 */
-	public apiToInternalList<T extends (IdentifiedMediaItem | MediaItem)>(sources: T[]): MediaItemInternal[] {
+	public apiToInternalList<T extends (IdentifiedMediaItem | MediaItem)>(sources: T[], userId: string, categoryId: string): MediaItemInternal[] {
 
 		return sources.map((source) => {
 
-			return this.apiToInternal(source);
+			return this.apiToInternal(source, userId, categoryId);
 		});
 	}
 
 	/**
 	 * Public model to internal model
 	 */
-	public apiToInternal<T extends (IdentifiedMediaItem | MediaItem)>(source: T): MediaItemInternal {
+	public apiToInternal<T extends (IdentifiedMediaItem | MediaItem)>(source: T, userId: string, categoryId: string): MediaItemInternal {
 
 		const isNew = (source instanceof MediaItem);
 		const id = (isNew ? null : (<IdentifiedMediaItem>source).uid);
@@ -51,7 +51,9 @@ class MediaItemMapper {
 		return {
 			_id: id,
 			name: source.name,
-			author: source.author
+			author: source.author,
+			category: categoryId,
+			owner: userId
 		};
 	}
 }

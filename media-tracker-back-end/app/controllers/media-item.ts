@@ -1,32 +1,33 @@
 import { Document, Model, model} from "mongoose";
 import { MediaItemInternal } from "../models/internal/media-item";
-import { MediaItemSchema } from "../schemas/media-item";
+import { MediaItemSchema, MEDIA_ITEM_COLLECTION_NAME } from "../schemas/media-item";
+import { AbstractModelController } from "./helper";
 
+/**
+ * Media item document for Mongoose
+ */
 interface MediaItemDocument extends MediaItemInternal, Document {}
 
-const MediaItemModel: Model<MediaItemDocument> = model<MediaItemDocument>("MediaItem", MediaItemSchema);
+/**
+ * Mongoose model for media items
+ */
+const MediaItemModel: Model<MediaItemDocument> = model<MediaItemDocument>(MEDIA_ITEM_COLLECTION_NAME, MediaItemSchema);
 
 /**
  * Controller for media items, wraps the persistence logic
  */
-class MediaItemController {
+class MediaItemController extends AbstractModelController {
 
 	/**
-	 * Gets all saved media items, as a promise
+	 * Gets all saved media items for the given user and category, as a promise
+	 * @param userId user ID
+	 * @param categoryId category ID
 	 */
-	public getAllMediaItems(): Promise<MediaItemInternal[]> {
+	public getAllMediaItems(userId: string, categoryId: string): Promise<MediaItemInternal[]> {
 
-		return new Promise((resolve, reject) => {
-
-			MediaItemModel.find()
-				.then((mediaItems: MediaItemDocument[]) => {
-
-					resolve(this.mapDocumentToInternalList(mediaItems));
-				})
-				.catch((error: any) => {
-
-					reject(error);
-				});
+		return this.findHelper(MediaItemModel, {
+			owner: userId,
+			category: categoryId
 		});
 	}
 
@@ -36,30 +37,7 @@ class MediaItemController {
 	 */
 	public saveMediaItem(mediaItem: MediaItemInternal): Promise<MediaItemInternal> {
 
-		return new Promise((resolve, reject) => {
-
-			var mediaItemDocument = this.mapInternalToDocument(mediaItem);
-			mediaItemDocument.isNew = !mediaItemDocument._id;
-
-			mediaItemDocument.save((error: any, savedMediaItem: MediaItemDocument) => {
-			   
-				if(error) {
-					
-					reject(error);
-				}
-				else {
-
-					if(savedMediaItem) {
-
-						resolve(savedMediaItem);
-					}
-					else {
-
-						reject('Media Item not found');
-					}
-				}
-			});
-		});
+		return this.saveHelper(mediaItem, new MediaItemModel(), 'Media Item not found');
 	}
 
 	/**
@@ -68,54 +46,7 @@ class MediaItemController {
 	 */
 	public deleteMediaItem(id: string): Promise<void> {
 
-		return new Promise((resolve, reject) => {
-
-			MediaItemModel.findByIdAndRemove(id)
-				.then((deletedMediaItem) => {
-
-					if(deletedMediaItem) {
-
-						resolve();
-					}
-					else {
-
-						reject('Media Item not found');
-					}
-				})
-				.catch((error: any) => {
-
-					reject(error);
-				});
-		});
-	}
-
-	/**
-	 * Helper
-	 */
-	private mapInternalToDocument(source: MediaItemInternal): MediaItemDocument {
-
-		var target: MediaItemDocument = new MediaItemModel();
-		target = Object.assign(target, source);
-		return target;
-	}
-	
-	/**
-	 * Helper
-	 */
-	private mapDocumentToInternalList(sources: MediaItemDocument[]): MediaItemInternal[] {
-
-		return sources.map((source) => {
-
-			return this.mapDocumentToInternal(source);
-		});
-	}
-
-	/**
-	 * Helper
-	 */
-	private mapDocumentToInternal(source: MediaItemDocument): MediaItemInternal {
-
-		return source;
+		return this.deleteHelper(MediaItemModel, id, 'Media Item not found');
 	}
 }
 

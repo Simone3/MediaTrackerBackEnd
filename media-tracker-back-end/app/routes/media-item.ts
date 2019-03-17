@@ -1,22 +1,23 @@
 
 import express, { Router } from 'express';
 import { mediaItemController } from '../controllers/media-item';
-import { GetAllMediaItemsResponse } from '../models/api/get-all-media-items';
-import { AddMediaItemResponse } from '../models/api/add-media-item';
+import { GetAllMediaItemsResponse, AddMediaItemResponse, UpdateMediaItemResponse, DeleteMediaItemResponse, AddMediaItemRequest, UpdateMediaItemRequest } from '../models/api/media-item';
 import { mediaItemMapper } from '../mappers/media-item';
-import { mediaItemValidator } from '../validators/media-item';
-import { UpdateMediaItemResponse } from 'app/models/api/update-media-item';
-import { DeleteMediaItemResponse } from 'app/models/api/delete-media-item';
+import { parserValidator } from '../controllers/parser-validator';
 
 var router: Router = express.Router();
 
 /**
  * Route to get all saved media items
  */
-router.get('/', (_, response, __) => {
+router.get('/users/:userId/categories/:categoryId/media-items', (request, response, __) => {
 
-	// Get media items from DB
-	mediaItemController.getAllMediaItems()
+	const {
+		userId,
+		categoryId
+	} = request.params;
+
+	mediaItemController.getAllMediaItems(userId, categoryId)
 		.then((mediaItems) => {
 
 			const body: GetAllMediaItemsResponse = {
@@ -34,72 +35,70 @@ router.get('/', (_, response, __) => {
 /**
  * Route to add a new media item
  */
-router.post('/', (request, response, __) => {
+router.post('/users/:userId/categories/:categoryId/media-items', (request, response, __) => {
 
-	// Parse and validate request
-	mediaItemValidator.parseAndValidateAddMediaItemRequest(request.body)
+	const {
+		userId,
+		categoryId
+	} = request.params;
+
+	parserValidator.parseAndValidate(AddMediaItemRequest, request.body)
 		.then((body) => {
 
-			// Save media item to DB
-			const newMediaItem = mediaItemMapper.apiToInternal(body.newMediaItem);
-			mediaItemController.saveMediaItem(newMediaItem)
-				.then(() => {
+			const newMediaItem = mediaItemMapper.apiToInternal(body.newMediaItem, userId, categoryId);
+			return mediaItemController.saveMediaItem(newMediaItem)
+		})
+		.then(() => {
 		
-					const body: AddMediaItemResponse = {};
-		
-					response.json(body);
-				})
-				.catch((error) => {
-		
-					response.status(500).send('Cannot add media item: ' + error);
-				});
+			const body: AddMediaItemResponse = {};
+			response.json(body);
 		})
 		.catch((error) => {
 
-			response.status(500).send('Invalid request: ' + error);
+			response.status(500).send('Cannot add media item: ' + error);
 		});
 });
 
 /**
  * Route to update an existing media item
  */
-router.put('/:id', (request, response, __) => {
+router.put('/users/:userId/categories/:categoryId/media-items/:id', (request, response, __) => {
 
-	// Parse and validate request
-	mediaItemValidator.parseAndValidateUpdateMediaItemRequest(request.body)
+	const {
+		id,
+		userId,
+		categoryId
+	} = request.params;
+
+	parserValidator.parseAndValidate(UpdateMediaItemRequest, request.body)
 		.then((body) => {
 
-			// Save media item to DB
-			const mediaItem = mediaItemMapper.apiToInternal(body.mediaItem);
-			mediaItem._id = request.params.id;
-			mediaItemController.saveMediaItem(mediaItem)
-				.then(() => {
+			const mediaItem = mediaItemMapper.apiToInternal(body.mediaItem, userId, categoryId);
+			mediaItem._id = id;
+			return mediaItemController.saveMediaItem(mediaItem)
+		})
+		.then(() => {
 		
-					const body: UpdateMediaItemResponse = {};
-		
-					response.json(body);
-				})
-				.catch((error) => {
-		
-					response.status(500).send('Cannot update media item: ' + error);
-				});
+			const body: UpdateMediaItemResponse = {};
+			response.json(body);
 		})
 		.catch((error) => {
 
-			response.status(500).send('Invalid request: ' + error);
+			response.status(500).send('Cannot update media item: ' + error);
 		});
 });
 
 /**
  * Route to delete a media item
  */
-router.delete('/:id', (request, response, __) => {
+router.delete('/users/:userId/categories/:categoryId/media-items/:id', (request, response, __) => {
 
-	mediaItemController.deleteMediaItem(request.params.id)
+	const {id} = request.params;
+
+	mediaItemController.deleteMediaItem(id)
 		.then(() => {
 			
 			const body: DeleteMediaItemResponse = {};
-
 			response.json(body);
 		})
 		.catch((error) => {
