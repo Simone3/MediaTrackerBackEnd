@@ -6,57 +6,344 @@
 	},
 	"item": [
 		{
-			"name": "GetAllMediaItems",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
+			"name": "User",
+			"item": [
+				{
+					"name": "AddUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newUser\": {\n    \t\"name\": \"Del1\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/media-items",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"media-items"
-					]
+				{
+					"name": "UpdateUser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\n    \t\"name\": \"Prova4Mod\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e29247fc1bd2e9c1fc5fb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e29247fc1bd2e9c1fc5fb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e844d9c52163bf800f56a"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "AddMediaItem",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{}"
+			"name": "Category",
+			"item": [
+				{
+					"name": "GetAllCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e844d9c52163bf800f56a",
+								"categories"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/media-items",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"media-items"
-					]
+				{
+					"name": "AddCategory",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newCategory\": {\n    \t\"name\": \"CatDel2\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e844d9c52163bf800f56a",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCategory",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\": {\n    \t\"name\": \"MyCoolMovies\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2afa99f2f502145dd625",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e2a0e7fc1bd2e9c1fc5fd",
+								"categories",
+								"5c8e2afa99f2f502145dd625"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a/categories/5c8e846b9c52163bf800f56c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e844d9c52163bf800f56a",
+								"categories",
+								"5c8e846b9c52163bf800f56c"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "MediaItem",
+			"item": [
+				{
+					"name": "GetAllMediaItems",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a/categories/5c8e846b9c52163bf800f56c/media-items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e844d9c52163bf800f56a",
+								"categories",
+								"5c8e846b9c52163bf800f56c",
+								"media-items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddMediaItem",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newMediaItem\": {\n    \t\"name\": \"Del4\",\n    \t\"author\": \"AuthorName\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a/categories/5c8e84679c52163bf800f56b/media-items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e844d9c52163bf800f56a",
+								"categories",
+								"5c8e84679c52163bf800f56b",
+								"media-items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateMediaItem",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mediaItem\": {\n    \t\"name\": \"Changed\",\n    \t\"author\": \"ChangedAuthor\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items/5c8e2d58357bab24ac2bdbf5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e2a0e7fc1bd2e9c1fc5fd",
+								"categories",
+								"5c8e2d02357bab24ac2bdbf4",
+								"media-items",
+								"5c8e2d58357bab24ac2bdbf5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteMediaItem",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items/5c8e2d58357bab24ac2bdbf5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e2a0e7fc1bd2e9c1fc5fd",
+								"categories",
+								"5c8e2d02357bab24ac2bdbf4",
+								"media-items",
+								"5c8e2d58357bab24ac2bdbf5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
