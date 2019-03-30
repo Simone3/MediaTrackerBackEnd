@@ -90,8 +90,8 @@ class MediaItemController extends AbstractModelController {
 	 */
 	public searchMediaItems(userId: string, categoryId: string, term: string, filterBy?: MediaItemFilterInternal): Promise<MediaItemInternal[]> {
 
-		const termRegExp = new RegExp(term, 'i');
-
+		const termRegExp = new RegExp(this.escapeRegExp(term), 'i');
+		
 		const conditions: QueryConditions = {
 			owner: userId,
 			category: categoryId,

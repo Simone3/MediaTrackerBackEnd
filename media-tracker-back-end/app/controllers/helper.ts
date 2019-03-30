@@ -10,7 +10,21 @@ const COLLATION: CollationOptions = {
 /**
  * Abstract helper controller that contains util methods for extending classes
  */
-export abstract class AbstractModelController {
+abstract class AbstractController {
+
+	/**
+	 * Helper to RegExp-escape a string
+	 */
+	protected escapeRegExp(string: string): string {
+
+		return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+}
+
+/**
+ * Abstract helper controller that contains util methods for extending classes
+ */
+export abstract class AbstractModelController extends AbstractController {
 
 	/**
 	 * Helper to get from the database all elements of a model
