@@ -229,7 +229,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a/categories/5c8e846b9c52163bf800f56c/media-items",
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -237,9 +237,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e844d9c52163bf800f56a",
+								"5c8e2a0e7fc1bd2e9c1fc5fd",
 								"categories",
-								"5c8e846b9c52163bf800f56c",
+								"5c8e2d02357bab24ac2bdbf4",
 								"media-items"
 							]
 						}
@@ -260,10 +260,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newMediaItem\": {\n    \t\"name\": \"Del4\",\n    \t\"author\": \"AuthorName\"\n    }\n}"
+							"raw": "{\n    \"newMediaItem\": {\n    \t\"name\": \"zzzz\",\n    \t\"author\": \"test\",\n    \t\"importance\": 100\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a/categories/5c8e84679c52163bf800f56b/media-items",
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -271,9 +271,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e844d9c52163bf800f56a",
+								"5c8e2a0e7fc1bd2e9c1fc5fd",
 								"categories",
-								"5c8e84679c52163bf800f56b",
+								"5c8e2d02357bab24ac2bdbf4",
 								"media-items"
 							]
 						}
@@ -338,6 +338,76 @@
 								"5c8e2d02357bab24ac2bdbf4",
 								"media-items",
 								"5c8e2d58357bab24ac2bdbf5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FilterMediaItems",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 20\n\t},\n    \"sortBy\": [\n        {\n            \"field\": \"IMPORTANCE\",\n            \"ascending\": false\n        },\n        {\n            \"field\": \"NAME\",\n            \"ascending\": true\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e2a0e7fc1bd2e9c1fc5fd",
+								"categories",
+								"5c8e2d02357bab24ac2bdbf4",
+								"media-items",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchMediaItems",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 20\n\t},\n    \"searchTerm\": \"cccc\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5c8e2a0e7fc1bd2e9c1fc5fd",
+								"categories",
+								"5c8e2d02357bab24ac2bdbf4",
+								"media-items",
+								"search"
 							]
 						}
 					},
