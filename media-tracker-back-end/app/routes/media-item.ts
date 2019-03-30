@@ -1,12 +1,12 @@
 
 import express, { Router } from 'express';
-import { mediaItemController } from '../controllers/media-item';
+import { mediaItemController } from '../controllers/entities/media-item';
 import {
 	GetAllMediaItemsResponse, AddMediaItemResponse, UpdateMediaItemResponse, DeleteMediaItemResponse, AddMediaItemRequest,
 	UpdateMediaItemRequest,	FilterMediaItemsResponse, FilterMediaItemsRequest, SearchMediaItemsRequest, SearchMediaItemsResponse
 } from '../models/api/media-item';
 import { mediaItemMapper } from '../mappers/media-item';
-import { parserValidator } from '../controllers/parser-validator';
+import { parserValidator } from '../controllers/utilities/parser-validator';
 
 var router: Router = express.Router();
 

@@ -1,9 +1,9 @@
 
 import express, { Router } from 'express';
-import { categoryController } from '../controllers/category';
+import { categoryController } from '../controllers/entities/category';
 import { GetAllCategoriesResponse, AddCategoryResponse, UpdateCategoryResponse, DeleteCategoryResponse, AddCategoryRequest, UpdateCategoryRequest } from '../models/api/category';
 import { categoryMapper } from '../mappers/category';
-import { parserValidator } from '../controllers/parser-validator';
+import { parserValidator } from '../controllers/utilities/parser-validator';
 
 var router: Router = express.Router();
 

@@ -1,9 +1,9 @@
 
 import express, { Router } from 'express';
-import { userController } from '../controllers/user';
+import { userController } from '../controllers/entities/user';
 import { AddUserResponse, UpdateUserResponse, DeleteUserResponse, AddUserRequest, UpdateUserRequest } from '../models/api/user';
 import { userMapper } from '../mappers/user';
-import { parserValidator } from '../controllers/parser-validator';
+import { parserValidator } from '../controllers/utilities/parser-validator';
 
 var router: Router = express.Router();
 

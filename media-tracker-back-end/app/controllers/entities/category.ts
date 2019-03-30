@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
-import { CategoryInternal } from "../models/internal/category";
-import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../schemas/category";
-import { AbstractModelController, Queryable } from "./helper";
+import { CategoryInternal } from "../../models/internal/category";
+import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../../schemas/category";
+import { AbstractModelController, Queryable } from "../database/helper";
 import { mediaItemController } from "./media-item";
 
 /**

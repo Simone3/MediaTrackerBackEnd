@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { server } from './app/server';
 import { config } from './app/config/config';
-import { database } from './app/controllers/database';
+import { database } from './app/controllers/database/database';
 
 server.listen(config.serverPort, () => {
 

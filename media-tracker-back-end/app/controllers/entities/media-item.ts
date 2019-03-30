@@ -1,7 +1,8 @@
 import { Document, Model, model } from "mongoose";
-import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortFieldInternal, MediaItemSortByInternal } from "../models/internal/media-item";
-import { MediaItemSchema, MEDIA_ITEM_COLLECTION_NAME } from "../schemas/media-item";
-import { AbstractModelController, Queryable, Sortable } from "./helper";
+import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortFieldInternal, MediaItemSortByInternal } from "../../models/internal/media-item";
+import { MediaItemSchema, MEDIA_ITEM_COLLECTION_NAME } from "../../schemas/media-item";
+import { AbstractModelController, Queryable, Sortable } from "../database/helper";
+import { miscUtilsController } from "../utilities/misc-utils";
 
 /**
  * Media item document for Mongoose
@@ -90,7 +91,7 @@ class MediaItemController extends AbstractModelController {
 	 */
 	public searchMediaItems(userId: string, categoryId: string, term: string, filterBy?: MediaItemFilterInternal): Promise<MediaItemInternal[]> {
 
-		const termRegExp = new RegExp(this.escapeRegExp(term), 'i');
+		const termRegExp = new RegExp(miscUtilsController.escapeRegExp(term), 'i');
 		
 		const conditions: QueryConditions = {
 			owner: userId,

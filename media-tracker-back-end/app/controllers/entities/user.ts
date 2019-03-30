@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
-import { UserInternal } from "../models/internal/user";
-import { UserSchema, USER_COLLECTION_NAME } from "../schemas/user";
-import { AbstractModelController } from "./helper";
+import { UserInternal } from "../../models/internal/user";
+import { UserSchema, USER_COLLECTION_NAME } from "../../schemas/user";
+import { AbstractModelController } from "../database/helper";
 import { categoryController } from "./category";
 
 /**
