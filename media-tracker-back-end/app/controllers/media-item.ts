@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
-import { MediaItemInternal } from "../models/internal/media-item";
+import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortFieldInternal, MediaItemSortByInternal } from "../models/internal/media-item";
 import { MediaItemSchema, MEDIA_ITEM_COLLECTION_NAME } from "../schemas/media-item";
-import { AbstractModelController } from "./helper";
+import { AbstractModelController, Queryable, Sortable } from "./helper";
 
 /**
  * Media item document for Mongoose
@@ -12,6 +12,16 @@ interface MediaItemDocument extends MediaItemInternal, Document {}
  * Mongoose model for media items
  */
 const MediaItemModel: Model<MediaItemDocument> = model<MediaItemDocument>(MEDIA_ITEM_COLLECTION_NAME, MediaItemSchema);
+
+/**
+ * Helper type for media item query conditions
+ */
+type QueryConditions = Queryable<MediaItemInternal>;
+
+/**
+ * Helper type for media item soring conditions
+ */
+type OrderBy = Sortable<MediaItemInternal>
 
 /**
  * Controller for media items, wraps the persistence logic
@@ -25,10 +35,79 @@ class MediaItemController extends AbstractModelController {
 	 */
 	public getAllMediaItems(userId: string, categoryId: string): Promise<MediaItemInternal[]> {
 
-		return this.findHelper(MediaItemModel, {
+		return this.filterAndOrderMediaItems(userId, categoryId);
+	}
+
+	/**
+	 * Gets all media items matching the given filter and ordered with the given ordering options, as a promise
+	 * @param userId user ID
+	 * @param categoryId category ID
+	 * @param filterBy filter options
+	 * @param orderBy sort otions
+	 */
+	public filterAndOrderMediaItems(userId: string, categoryId: string, filterBy?: MediaItemFilterInternal, sortBy?: MediaItemSortByInternal[]): Promise<MediaItemInternal[]> {
+
+		const conditions: QueryConditions = {
 			owner: userId,
 			category: categoryId
-		});
+		};
+		this.setConditionsFromFilter(conditions, filterBy);
+
+		const sort: OrderBy = {};
+		if(sortBy) {
+
+			for(const value of sortBy) {
+
+				switch(value.field) {
+
+					case MediaItemSortFieldInternal.IMPORTANCE:
+						sort.importance = value.ascending ? 'asc' : 'desc';
+						break;
+
+					case MediaItemSortFieldInternal.AUTHOR:
+						sort.author = value.ascending ? 'asc' : 'desc';
+						break;
+
+					case MediaItemSortFieldInternal.NAME:
+						sort.name = value.ascending ? 'asc' : 'desc';
+						break;
+
+					default:
+						throw "Unhandled orderBy value";
+				}
+			}
+		}
+
+		return this.findHelper(MediaItemModel, conditions, sort);
+	}
+
+	/**
+	 * Searches media items by term, returning the results divided in two lists: those matching the given filters and those not matching them
+	 * @param userId user ID
+	 * @param categoryId category ID
+	 * @param term the search term
+	 * @param filterBy the optional filters
+	 */
+	public searchMediaItems(userId: string, categoryId: string, term: string, filterBy?: MediaItemFilterInternal): Promise<MediaItemInternal[]> {
+
+		const termRegExp = new RegExp(term, 'i');
+
+		const conditions: QueryConditions = {
+			owner: userId,
+			category: categoryId,
+			$or: [{
+				name: termRegExp
+			}, {
+				author: termRegExp
+			}]
+		};
+		this.setConditionsFromFilter(conditions, filterBy);
+
+		const sortBy: OrderBy = {
+			name: 'asc'
+		};
+
+		return this.findHelper(MediaItemModel, conditions, sortBy);
 	}
 
 	/**
@@ -55,9 +134,11 @@ class MediaItemController extends AbstractModelController {
 	 */
 	public deleteAllMediaItemsInCategory(categoryId: string): Promise<number> {
 
-		return this.deleteHelper(MediaItemModel, {
+		const conditions: QueryConditions = {
 			category: categoryId
-		});
+		};
+
+		return this.deleteHelper(MediaItemModel, conditions);
 	}
 
 	/**
@@ -66,9 +147,25 @@ class MediaItemController extends AbstractModelController {
 	 */
 	public deleteAllMediaItemsForUser(userId: string): Promise<number> {
 
-		return this.deleteHelper(MediaItemModel, {
+		const conditions: QueryConditions = {
 			owner: userId
-		});
+		};
+
+		return this.deleteHelper(MediaItemModel, conditions);
+	}
+
+	/**
+	 * Helper to set the query conditions based on the given filters
+	 */
+	private setConditionsFromFilter(conditions: Queryable<MediaItemDocument>, filterBy?: MediaItemFilterInternal) {
+		
+		if (filterBy) {
+			
+			if(filterBy.importance) {
+
+				conditions.importance = filterBy.importance;
+			}
+		}
 	}
 }
 

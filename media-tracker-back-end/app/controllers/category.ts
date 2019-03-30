@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
 import { CategoryInternal } from "../models/internal/category";
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../schemas/category";
-import { AbstractModelController } from "./helper";
+import { AbstractModelController, Queryable } from "./helper";
 import { mediaItemController } from "./media-item";
 
 /**
@@ -15,6 +15,11 @@ interface CategoryDocument extends CategoryInternal, Document {}
 const CategoryModel: Model<CategoryDocument> = model<CategoryDocument>(CATEGORY_COLLECTION_NAME, CategorySchema);
 
 /**
+ * Helper type for category query conditions
+ */
+type QueryConditions = Queryable<CategoryInternal>;
+
+/**
  * Controller for categories, wraps the persistence logic
  */
 class CategoryController extends AbstractModelController {
@@ -25,7 +30,11 @@ class CategoryController extends AbstractModelController {
 	 */
 	public getAllCategories(userId: string): Promise<CategoryInternal[]> {
 
-		return this.findHelper(CategoryModel, {owner: userId});
+		const conditions: QueryConditions = {
+			owner: userId
+		};
+
+		return this.findHelper(CategoryModel, conditions);
 	}
 
 	/**
@@ -62,10 +71,12 @@ class CategoryController extends AbstractModelController {
 		return mediaItemController.deleteAllMediaItemsForUser(userId)
 			.then(() => {
 
-				// Then delete all categories
-				return this.deleteHelper(CategoryModel, {
+				const conditions: QueryConditions = {
 					owner: userId
-				});
+				};
+
+				// Then delete all categories
+				return this.deleteHelper(CategoryModel, conditions);
 			})
 	}
 }

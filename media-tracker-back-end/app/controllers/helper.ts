@@ -1,4 +1,11 @@
-import { Document, Model } from "mongoose";
+import { Document, Model, CollationOptions } from "mongoose";
+
+/**
+ * Collation search options (for case insensitive ordering)
+ */
+const COLLATION: CollationOptions = {
+	locale: 'en'
+};
 
 /**
  * Abstract helper controller that contains util methods for extending classes
@@ -9,13 +16,17 @@ export abstract class AbstractModelController {
 	 * Helper to get from the database all elements of a model
 	 * @param databaseModel the database model
 	 * @param conditions optional query conditions
+	 * @param sortBy optional sort conditions
 	 * @return a promise that will eventually contain the list of all internal model representations of the persisted elements
 	 */
-	protected findHelper<I, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: any): Promise<I[]> {
+	protected findHelper<I, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>): Promise<I[]> {
 
 		return new Promise((resolve, reject) => {
 
-			databaseModel.find(conditions)
+			databaseModel
+				.find(conditions)
+				.collation(COLLATION)
+				.sort(sortBy)
 				.then((documents: D[]) => {
 
 					resolve(documents);
@@ -110,7 +121,7 @@ export abstract class AbstractModelController {
 	 * @param conditions query conditions
 	 * @returns a promise with the number of deleted elements
 	 */
-	protected deleteHelper<I, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: any): Promise<number> {
+	protected deleteHelper<I, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: Queryable<I>): Promise<number> {
 
 		return new Promise((resolve, reject) => {
 
@@ -126,4 +137,19 @@ export abstract class AbstractModelController {
 		});
 	}
 }
+
+/**
+ * Helper type to make all properties in T be optionally asc or desc
+ */
+export type Sortable<T> = {
+    [P in keyof T]?: 'asc' | 'desc';
+};
+
+/**
+ * Helper type to make all properties in T optional, possibily regular expressions and possibly with nested OR conditions
+ */
+export type Queryable<T> = {
+    [P in keyof T]?: T[P] | RegExp;
+} & {$or?: Queryable<T>[]};
+
 

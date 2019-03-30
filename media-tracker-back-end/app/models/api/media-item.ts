@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsOptional, IsString, ValidateNested, IsDefined } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsNotEmpty, IsOptional, IsString, ValidateNested, IsDefined, IsEnum, IsBoolean, IsInt } from 'class-validator';
+import { Type, Transform } from 'class-transformer';
 import { CommonRequest, CommonResponse } from './common';
 
 /**
@@ -20,6 +20,13 @@ export class MediaItem {
 	@IsOptional()
 	@IsString()
 	author?: string;
+
+	/**
+	 * The media item importance level
+	 */
+	@IsNotEmpty()
+	@IsInt()
+	importance!: number;
 };
 
 /**
@@ -40,6 +47,9 @@ export class IdentifiedMediaItem extends MediaItem {
  */
 export class AddMediaItemRequest extends CommonRequest {
 
+	/**
+	 * The media item to add
+	 */
 	@IsDefined()
 	@Type(() => MediaItem)
 	@ValidateNested()
@@ -65,6 +75,9 @@ export class DeleteMediaItemResponse extends CommonResponse {
  */
 export class GetAllMediaItemsResponse extends CommonResponse {
 
+	/**
+	 * The retrieved media items
+	 */
 	mediaItems: IdentifiedMediaItem[] = [];
 };
 
@@ -73,6 +86,9 @@ export class GetAllMediaItemsResponse extends CommonResponse {
  */
 export class UpdateMediaItemRequest extends CommonRequest {
 
+	/**
+	 * The media item to update
+	 */
 	@IsDefined()
 	@Type(() => MediaItem)
 	@ValidateNested()
@@ -85,3 +101,137 @@ export class UpdateMediaItemRequest extends CommonRequest {
 export class UpdateMediaItemResponse extends CommonResponse {
 
 }
+
+/**
+ * Request for the "filter media items" API
+ */
+export class FilterMediaItemsRequest extends CommonRequest {
+
+	/**
+	 * Filtering options
+	 */
+	@IsOptional()
+	@Type(() => MediaItemFilter)
+	@ValidateNested()
+	filter?: MediaItemFilter;
+
+	/**
+	 * Ordering options
+	 */
+	@IsOptional()
+	@IsDefined({each: true})
+	@Type(() => MediaItemSortBy)
+	@ValidateNested()
+	sortBy?: MediaItemSortBy[];
+};
+
+/**
+ * Response for the "filter media items" API
+ */
+export class FilterMediaItemsResponse extends CommonResponse {
+
+	/**
+	 * The retrieved media items
+	 */
+	mediaItems: IdentifiedMediaItem[] = [];
+}
+
+/**
+ * Request for the "search media items" API
+ */
+export class SearchMediaItemsRequest extends CommonRequest {
+
+	/**
+	 * Currently active filtering options
+	 */
+	@IsOptional()
+	@Type(() => MediaItemFilter)
+	@ValidateNested()
+	filter?: MediaItemFilter;
+
+	/**
+	 * The search term
+	 */
+	@IsNotEmpty()
+	@IsString()
+	searchTerm!: string;
+};
+
+/**
+ * Response for the "search media items" API
+ */
+export class SearchMediaItemsResponse extends CommonResponse {
+
+	/**
+	 * The retrieved media items
+	 */
+	mediaItems: IdentifiedMediaItem[] = [];
+};
+
+/**
+ * Media items filtering options
+ */
+export class MediaItemFilter {
+
+	/**
+	 * Importance level to filter
+	 */
+	@IsOptional()
+	@IsInt()
+	importance?: number;
+}
+
+/**
+ * Values for ordering options
+ */
+export enum MediaItemSortField {
+
+	IMPORTANCE,
+	AUTHOR,
+	NAME
+}
+
+/**
+ * Helper for enum transformation
+ */
+function mediaItemSortFieldTypeToString(field: MediaItemSortField): string {
+    return MediaItemSortField[field];
+}
+
+/**
+ * Media items sort by options
+ */
+export class MediaItemSortBy {
+
+	/**
+	 * The sort by field
+	 */
+	@IsDefined()
+	@IsEnum(MediaItemSortField)
+	@Transform(mediaItemSortFieldTypeToString)
+	field!: MediaItemSortField;
+
+	/**
+	 * True if ASC, false if DESC
+	 */
+	@IsDefined()
+	@IsBoolean()
+	ascending!: boolean;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

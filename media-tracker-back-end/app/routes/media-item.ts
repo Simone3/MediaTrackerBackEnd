@@ -1,7 +1,10 @@
 
 import express, { Router } from 'express';
 import { mediaItemController } from '../controllers/media-item';
-import { GetAllMediaItemsResponse, AddMediaItemResponse, UpdateMediaItemResponse, DeleteMediaItemResponse, AddMediaItemRequest, UpdateMediaItemRequest } from '../models/api/media-item';
+import {
+	GetAllMediaItemsResponse, AddMediaItemResponse, UpdateMediaItemResponse, DeleteMediaItemResponse, AddMediaItemRequest,
+	UpdateMediaItemRequest,	FilterMediaItemsResponse, FilterMediaItemsRequest, SearchMediaItemsRequest, SearchMediaItemsResponse
+} from '../models/api/media-item';
 import { mediaItemMapper } from '../mappers/media-item';
 import { parserValidator } from '../controllers/parser-validator';
 
@@ -21,7 +24,7 @@ router.get('/users/:userId/categories/:categoryId/media-items', (request, respon
 		.then((mediaItems) => {
 
 			const body: GetAllMediaItemsResponse = {
-				mediaItems: mediaItemMapper.internalToApiList(mediaItems)
+				mediaItems: mediaItemMapper.toApiMediaItemList(mediaItems)
 			};
 			
 			response.json(body);
@@ -29,6 +32,68 @@ router.get('/users/:userId/categories/:categoryId/media-items', (request, respon
 		.catch((error) => {
 
 			response.status(500).send('Cannot get all media items: ' + error);
+		});
+});
+
+/**
+ * Route to get saved media items with filtering/ordering options
+ */
+router.post('/users/:userId/categories/:categoryId/media-items/filter', (request, response, __) => {
+
+	const {
+		userId,
+		categoryId
+	} = request.params;
+
+	parserValidator.parseAndValidate(FilterMediaItemsRequest, request.body)
+		.then((body) => {
+
+			const filterOptions = (body.filter ? mediaItemMapper.toInternalFilter(body.filter) : undefined);
+			const orderOptions = (body.sortBy ? mediaItemMapper.toInternalSortList(body.sortBy) : undefined);
+			return mediaItemController.filterAndOrderMediaItems(userId, categoryId, filterOptions, orderOptions);
+		})
+		.then((mediaItems) => {
+		
+			const body: FilterMediaItemsResponse = {
+				mediaItems: mediaItemMapper.toApiMediaItemList(mediaItems)
+			};
+
+			response.json(body);
+		})
+		.catch((error) => {
+
+			response.status(500).send('Cannot filter media items: ' + error);
+		});
+});
+
+/**
+ * Route to get search saved media items by term
+ */
+router.post('/users/:userId/categories/:categoryId/media-items/search', (request, response, __) => {
+
+	const {
+		userId,
+		categoryId
+	} = request.params;
+
+	parserValidator.parseAndValidate(SearchMediaItemsRequest, request.body)
+		.then((body) => {
+
+			const filterBy = (body.filter ? mediaItemMapper.toInternalFilter(body.filter) : body.filter);
+			const searchTerm = body.searchTerm;
+			return mediaItemController.searchMediaItems(userId, categoryId, searchTerm, filterBy);
+		})
+		.then((result) => {
+
+			const body: SearchMediaItemsResponse = {
+				mediaItems: mediaItemMapper.toApiMediaItemList(result)
+			};
+			
+			response.json(body);
+		})
+		.catch((error) => {
+
+			response.status(500).send('Cannot search media items: ' + error);
 		});
 });
 
@@ -45,7 +110,7 @@ router.post('/users/:userId/categories/:categoryId/media-items', (request, respo
 	parserValidator.parseAndValidate(AddMediaItemRequest, request.body)
 		.then((body) => {
 
-			const newMediaItem = mediaItemMapper.apiToInternal(body.newMediaItem, userId, categoryId);
+			const newMediaItem = mediaItemMapper.toInternalMediaItem(body.newMediaItem, userId, categoryId);
 			return mediaItemController.saveMediaItem(newMediaItem)
 		})
 		.then(() => {
@@ -73,7 +138,7 @@ router.put('/users/:userId/categories/:categoryId/media-items/:id', (request, re
 	parserValidator.parseAndValidate(UpdateMediaItemRequest, request.body)
 		.then((body) => {
 
-			const mediaItem = mediaItemMapper.apiToInternal(body.mediaItem, userId, categoryId);
+			const mediaItem = mediaItemMapper.toInternalMediaItem(body.mediaItem, userId, categoryId);
 			mediaItem._id = id;
 			return mediaItemController.saveMediaItem(mediaItem)
 		})
