@@ -219,6 +219,27 @@ export class MediaItemSortBy {
 	ascending!: boolean;
 }
 
+/**
+ * Response for the "search catalog" API
+ */
+export class SearchMediaItemCatalogResponse extends CommonResponse {
+
+	/**
+	 * The search results
+	 */
+	searchResults: SearchMediaItemCatalogResult[] = [];
+};
+
+/**
+ * Media item catalog search result
+ */
+export class SearchMediaItemCatalogResult {
+
+	apiId: string = "";
+    title: string = "";
+	releaseDate?: string;
+}
+
 
 
 

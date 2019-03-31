@@ -1,5 +1,5 @@
-import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, MediaItemSortFieldInternal } from '../models/internal/media-item';
-import { IdentifiedMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField } from '../models/api/media-item';
+import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from '../models/internal/media-item';
+import { IdentifiedMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResult } from '../models/api/media-item';
 
 /**
  * Helper class to translate between internal and public media item models
@@ -151,7 +151,28 @@ class MediaItemMapper {
 		}
 	}
 
+	/**
+	 * List of internal models to list of public models
+	 */
+	public toApiCatalogSearchResultList(sources: SearchMediaItemCatalogResult[]): SearchMediaItemCatalogResultInternal[] {
 
+		return sources.map((source) => {
+
+			return this.toApiCatalogSearchResult(source);
+		});
+	}
+	
+	/**
+	 * Internal model to public model
+	 */
+	public toApiCatalogSearchResult(source: SearchMediaItemCatalogResult): SearchMediaItemCatalogResultInternal {
+
+		return {
+			apiId: source.apiId,
+			title: source.title,
+			releaseDate: source.releaseDate,
+		}
+	}
 }
 
 /**

@@ -41,3 +41,13 @@ export type MediaItemSortByInternal = {
 	ascending: boolean;
 }
 
+/**
+ * Media item catalog search result, internal type NOT to be exposed via API
+ */
+export type SearchMediaItemCatalogResultInternal = {
+
+	apiId: number,
+    title: string,
+	releaseDate?: string
+}
+

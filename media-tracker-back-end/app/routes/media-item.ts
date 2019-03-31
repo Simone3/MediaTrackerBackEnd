@@ -3,7 +3,7 @@ import express, { Router } from 'express';
 import { mediaItemController } from '../controllers/entities/media-item';
 import {
 	GetAllMediaItemsResponse, AddMediaItemResponse, UpdateMediaItemResponse, DeleteMediaItemResponse, AddMediaItemRequest,
-	UpdateMediaItemRequest,	FilterMediaItemsResponse, FilterMediaItemsRequest, SearchMediaItemsRequest, SearchMediaItemsResponse
+	UpdateMediaItemRequest,	FilterMediaItemsResponse, FilterMediaItemsRequest, SearchMediaItemsRequest, SearchMediaItemsResponse, SearchMediaItemCatalogResponse
 } from '../models/api/media-item';
 import { mediaItemMapper } from '../mappers/media-item';
 import { parserValidator } from '../controllers/utilities/parser-validator';
@@ -67,7 +67,7 @@ router.post('/users/:userId/categories/:categoryId/media-items/filter', (request
 });
 
 /**
- * Route to get search saved media items by term
+ * Route to search saved media items by term
  */
 router.post('/users/:userId/categories/:categoryId/media-items/search', (request, response, __) => {
 
@@ -169,6 +169,30 @@ router.delete('/users/:userId/categories/:categoryId/media-items/:id', (request,
 		.catch((error) => {
 
 			response.status(500).send('Cannot delete media item: ' + error);
+		});
+});
+
+/**
+ * Route to search media items from the catalog by term
+ */
+router.get('/catalog/media-items/search/:searchTerm', (request, response, __) => {
+
+	const {
+		searchTerm
+	} = request.params;
+
+	mediaItemController.searchMediaItemCatalogByTerm(searchTerm)
+		.then((searchResults) => {
+
+			const body: SearchMediaItemCatalogResponse = {
+				searchResults: mediaItemMapper.toApiCatalogSearchResultList(searchResults)
+			};
+			
+			response.json(body);
+		})
+		.catch((error) => {
+
+			response.status(500).send('Cannot search media item catalog: ' + error);
 		});
 });
 

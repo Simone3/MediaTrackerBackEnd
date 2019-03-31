@@ -1,8 +1,12 @@
 import { Document, Model, model } from "mongoose";
-import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortFieldInternal, MediaItemSortByInternal } from "../../models/internal/media-item";
+import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortFieldInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal } from "../../models/internal/media-item";
 import { MediaItemSchema, MEDIA_ITEM_COLLECTION_NAME } from "../../schemas/media-item";
 import { Queryable, Sortable, queryHelper } from "../database/query-helper";
 import { miscUtilsController } from "../utilities/misc-utils";
+import { TheMovieDbSearchQueryParams, TheMovieDbSearchResponse } from "../../models/external_services/movies";
+import { config } from "../../config/config";
+import { restJsonInvoker } from "../external_services/rest-json-invoker";
+import { theMovieDbMapper } from "../../mappers/the-movie-db";
 
 /**
  * Media item document for Mongoose
@@ -158,7 +162,7 @@ class MediaItemController {
 	/**
 	 * Helper to set the query conditions based on the given filters
 	 */
-	private setConditionsFromFilter(conditions: Queryable<MediaItemDocument>, filterBy?: MediaItemFilterInternal) {
+	private setConditionsFromFilter(conditions: Queryable<MediaItemDocument>, filterBy?: MediaItemFilterInternal): void {
 		
 		if (filterBy) {
 			
@@ -167,6 +171,39 @@ class MediaItemController {
 				conditions.importance = filterBy.importance;
 			}
 		}
+	}
+
+	/**
+	 * TODO move this method in the movies controller when the split is performed
+	 */
+	public searchMediaItemCatalogByTerm(searchTerm: string): Promise<SearchMediaItemCatalogResultInternal[]> {
+
+		return new Promise((resolve, reject) => {
+		
+			const url = config.theMovieDbBasePath + config.theMovieDbSearchRelativePath;
+
+			const queryParams: TheMovieDbSearchQueryParams = {
+				query: searchTerm,
+				api_key: config.theMovieDbApiKey
+			};
+
+			restJsonInvoker.invokeGet(url, TheMovieDbSearchResponse, queryParams)
+				.then((response) => {
+
+					if(response.results) {
+
+						resolve(theMovieDbMapper.toInternalCatalogSearchResultList(response.results));
+					}
+					else {
+
+						resolve([]);
+					}
+				})
+				.catch((error) => {
+					
+					reject("TheMovieDB invocation error: " + error);
+				});
+		});
 	}
 }
 
