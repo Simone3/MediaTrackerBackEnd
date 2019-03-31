@@ -1,4 +1,9 @@
 /**
+ * Enum for HTTP methods
+ */
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD';
+
+/**
  * Helper controller that contains misc useful methods
  */
 class MiscUtilsController {
