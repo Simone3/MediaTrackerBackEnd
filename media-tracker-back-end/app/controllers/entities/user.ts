@@ -1,8 +1,8 @@
 import { Document, Model, model } from "mongoose";
 import { UserInternal } from "../../models/internal/user";
 import { UserSchema, USER_COLLECTION_NAME } from "../../schemas/user";
-import { AbstractModelController } from "../database/helper";
 import { categoryController } from "./category";
+import { queryHelper } from "../database/query-helper";
 
 /**
  * Mongoose document for users
@@ -15,9 +15,9 @@ interface UserDocument extends UserInternal, Document {}
 const UserModel: Model<UserDocument> = model<UserDocument>(USER_COLLECTION_NAME, UserSchema);
 
 /**
- * Controller for users, wraps the persistence logic
+ * Controller for user entities
  */
-class UserController extends AbstractModelController {
+class UserController {
 
 	/**
 	 * Saves a new or an existing user, returning it back as a promise
@@ -25,7 +25,7 @@ class UserController extends AbstractModelController {
 	 */
 	public saveUser(user: UserInternal): Promise<UserInternal> {
 
-		return this.saveHelper(user, new UserModel(), 'User not found');
+		return queryHelper.save(user, new UserModel(), 'User not found');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class UserController extends AbstractModelController {
 			.then(() => {
 
 				// Then delete user
-				return this.deleteByIdHelper(UserModel, id, 'User not found');
+				return queryHelper.deleteById(UserModel, id, 'User not found');
 			});
 	}
 }

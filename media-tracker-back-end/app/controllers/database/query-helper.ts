@@ -8,9 +8,9 @@ const COLLATION: CollationOptions = {
 };
 
 /**
- * Abstract helper controller that contains util methods for extending classes
+ * Helper controller that contains util methods for database manipulation
  */
-export abstract class AbstractModelController {
+class QueryHelper {
 
 	/**
 	 * Helper to get from the database all elements of a model
@@ -19,7 +19,7 @@ export abstract class AbstractModelController {
 	 * @param sortBy optional sort conditions
 	 * @return a promise that will eventually contain the list of all internal model representations of the persisted elements
 	 */
-	protected findHelper<I, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>): Promise<I[]> {
+	public find<I, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>): Promise<I[]> {
 
 		return new Promise((resolve, reject) => {
 
@@ -45,7 +45,7 @@ export abstract class AbstractModelController {
 	 * @param notFoundError error to be returned if no element was found
 	 * @returns the promise that will eventually return the newly saved element
 	 */
-	protected saveHelper<I, D extends Document & I>(internalModel: I, emptyDocument: D, notFoundError: string): Promise<I> {
+	public save<I, D extends Document & I>(internalModel: I, emptyDocument: D, notFoundError: string): Promise<I> {
 
 		return new Promise((resolve, reject) => {
 
@@ -92,7 +92,7 @@ export abstract class AbstractModelController {
 	 * @param notFoundError error to be returned if no element was found
 	 * @returns a void promise
 	 */
-	protected deleteByIdHelper<I, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string, notFoundError: string): Promise<void> {
+	public deleteById<I, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string, notFoundError: string): Promise<void> {
 
 		return new Promise((resolve, reject) => {
 
@@ -121,7 +121,7 @@ export abstract class AbstractModelController {
 	 * @param conditions query conditions
 	 * @returns a promise with the number of deleted elements
 	 */
-	protected deleteHelper<I, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: Queryable<I>): Promise<number> {
+	public delete<I, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: Queryable<I>): Promise<number> {
 
 		return new Promise((resolve, reject) => {
 
@@ -137,6 +137,11 @@ export abstract class AbstractModelController {
 		});
 	}
 }
+
+/**
+ * Singleton implementation of the query helper
+ */
+export const queryHelper = new QueryHelper();
 
 /**
  * Helper type to make all properties in T be optionally asc or desc

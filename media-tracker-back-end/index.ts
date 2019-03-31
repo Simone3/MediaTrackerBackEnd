@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { server } from './app/server';
 import { config } from './app/config/config';
-import { database } from './app/controllers/database/database';
+import { databaseManager } from './app/controllers/database/database-manager';
 
 server.listen(config.serverPort, () => {
 
-	database.setup(config.databaseUrl)
+	databaseManager.initConnection(config.databaseUrl)
 		.then(() => {
 
 			console.log(`Server running on port ${config.serverPort}`);

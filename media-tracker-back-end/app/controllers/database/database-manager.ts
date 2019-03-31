@@ -1,14 +1,14 @@
 import mongoose, { ConnectionOptions} from 'mongoose';
 
 /**
- * Database controller that allows to initialize the data connection
+ * Database controller that handles generic DB setup, like its connection
  */
-class DatabaseController {
+class DatabaseManager {
 
 	/**
 	 * Initializes the database connection
 	 */
-	public setup(databaseUrl: string): Promise<void> {
+	public initConnection(databaseUrl: string): Promise<void> {
 		
 		return new Promise((resolve, reject) => {
 			
@@ -33,6 +33,6 @@ class DatabaseController {
 	}
 }
 
-export const database: DatabaseController = new DatabaseController();
+export const databaseManager = new DatabaseManager();
 
 

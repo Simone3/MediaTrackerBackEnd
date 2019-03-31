@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
 import { CategoryInternal } from "../../models/internal/category";
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../../schemas/category";
-import { AbstractModelController, Queryable } from "../database/helper";
+import { Queryable, queryHelper } from "../database/query-helper";
 import { mediaItemController } from "./media-item";
 
 /**
@@ -20,9 +20,9 @@ const CategoryModel: Model<CategoryDocument> = model<CategoryDocument>(CATEGORY_
 type QueryConditions = Queryable<CategoryInternal>;
 
 /**
- * Controller for categories, wraps the persistence logic
+ * Controller for category entities
  */
-class CategoryController extends AbstractModelController {
+class CategoryController {
 
 	/**
 	 * Gets all saved categories for the given user, as a promise
@@ -34,7 +34,7 @@ class CategoryController extends AbstractModelController {
 			owner: userId
 		};
 
-		return this.findHelper(CategoryModel, conditions);
+		return queryHelper.find(CategoryModel, conditions);
 	}
 
 	/**
@@ -43,7 +43,7 @@ class CategoryController extends AbstractModelController {
 	 */
 	public saveCategory(category: CategoryInternal): Promise<CategoryInternal> {
 
-		return this.saveHelper(category, new CategoryModel(), 'Category not found');
+		return queryHelper.save(category, new CategoryModel(), 'Category not found');
 	}
 
 	/**
@@ -57,7 +57,7 @@ class CategoryController extends AbstractModelController {
 			.then(() => {
 
 				// Then delete the category
-				return this.deleteByIdHelper(CategoryModel, id, 'Category not found')
+				return queryHelper.deleteById(CategoryModel, id, 'Category not found')
 			});
 	}
 
@@ -76,7 +76,7 @@ class CategoryController extends AbstractModelController {
 				};
 
 				// Then delete all categories
-				return this.deleteHelper(CategoryModel, conditions);
+				return queryHelper.delete(CategoryModel, conditions);
 			})
 	}
 }

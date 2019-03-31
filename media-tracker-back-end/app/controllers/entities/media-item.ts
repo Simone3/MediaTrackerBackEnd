@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
 import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortFieldInternal, MediaItemSortByInternal } from "../../models/internal/media-item";
 import { MediaItemSchema, MEDIA_ITEM_COLLECTION_NAME } from "../../schemas/media-item";
-import { AbstractModelController, Queryable, Sortable } from "../database/helper";
+import { Queryable, Sortable, queryHelper } from "../database/query-helper";
 import { miscUtilsController } from "../utilities/misc-utils";
 
 /**
@@ -25,9 +25,9 @@ type QueryConditions = Queryable<MediaItemInternal>;
 type OrderBy = Sortable<MediaItemInternal>
 
 /**
- * Controller for media items, wraps the persistence logic
+ * Controller for media item entities
  */
-class MediaItemController extends AbstractModelController {
+class MediaItemController {
 
 	/**
 	 * Gets all saved media items for the given user and category, as a promise
@@ -79,7 +79,7 @@ class MediaItemController extends AbstractModelController {
 			}
 		}
 
-		return this.findHelper(MediaItemModel, conditions, sort);
+		return queryHelper.find(MediaItemModel, conditions, sort);
 	}
 
 	/**
@@ -108,7 +108,7 @@ class MediaItemController extends AbstractModelController {
 			name: 'asc'
 		};
 
-		return this.findHelper(MediaItemModel, conditions, sortBy);
+		return queryHelper.find(MediaItemModel, conditions, sortBy);
 	}
 
 	/**
@@ -117,7 +117,7 @@ class MediaItemController extends AbstractModelController {
 	 */
 	public saveMediaItem(mediaItem: MediaItemInternal): Promise<MediaItemInternal> {
 
-		return this.saveHelper(mediaItem, new MediaItemModel(), 'Media Item not found');
+		return queryHelper.save(mediaItem, new MediaItemModel(), 'Media Item not found');
 	}
 
 	/**
@@ -126,7 +126,7 @@ class MediaItemController extends AbstractModelController {
 	 */
 	public deleteMediaItem(id: string): Promise<void> {
 
-		return this.deleteByIdHelper(MediaItemModel, id, 'Media Item not found');
+		return queryHelper.deleteById(MediaItemModel, id, 'Media Item not found');
 	}
 
 	/**
@@ -139,7 +139,7 @@ class MediaItemController extends AbstractModelController {
 			category: categoryId
 		};
 
-		return this.deleteHelper(MediaItemModel, conditions);
+		return queryHelper.delete(MediaItemModel, conditions);
 	}
 
 	/**
@@ -152,7 +152,7 @@ class MediaItemController extends AbstractModelController {
 			owner: userId
 		};
 
-		return this.deleteHelper(MediaItemModel, conditions);
+		return queryHelper.delete(MediaItemModel, conditions);
 	}
 
 	/**
