@@ -1,9 +1,9 @@
 import { Document, Model, model } from "mongoose";
-import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortFieldInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal } from "../../models/internal/media-item";
+import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortFieldInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from "../../models/internal/media-item";
 import { MediaItemSchema, MEDIA_ITEM_COLLECTION_NAME } from "../../schemas/media-item";
 import { Queryable, Sortable, queryHelper } from "../database/query-helper";
 import { miscUtilsController } from "../utilities/misc-utils";
-import { TheMovieDbSearchQueryParams, TheMovieDbSearchResponse } from "../../models/external_services/movies";
+import { TheMovieDbSearchQueryParams, TheMovieDbSearchResponse, TheMovieDbDetailsQueryParams, TheMovieDbDetailsResponse } from "../../models/external_services/movies";
 import { config } from "../../config/config";
 import { restJsonInvoker } from "../external_services/rest-json-invoker";
 import { theMovieDbMapper } from "../../mappers/the-movie-db";
@@ -180,7 +180,7 @@ class MediaItemController {
 
 		return new Promise((resolve, reject) => {
 		
-			const url = config.theMovieDbBasePath + config.theMovieDbSearchRelativePath;
+			const url = miscUtilsController.buildUrl([config.theMovieDbBasePath, config.theMovieDbSearchRelativePath]);
 
 			const queryParams: TheMovieDbSearchQueryParams = {
 				query: searchTerm,
@@ -198,6 +198,33 @@ class MediaItemController {
 
 						resolve([]);
 					}
+				})
+				.catch((error) => {
+					
+					reject("TheMovieDB invocation error: " + error);
+				});
+		});
+	}
+
+	/**
+	 * TODO move this method in the movies controller when the split is performed
+	 */
+	public getMediaItemFromCatalog(catalogItemId: string): Promise<CatalogMediaItemInternal> {
+
+		return new Promise((resolve, reject) => {
+		
+			const pathParams = {movieId: catalogItemId};
+			const url = miscUtilsController.buildUrl([config.theMovieDbBasePath, config.theMovieDbGetDetailsRelativePath], pathParams);
+
+			const queryParams: TheMovieDbDetailsQueryParams = {
+				append_to_response: "credits",
+				api_key: config.theMovieDbApiKey
+			};
+
+			restJsonInvoker.invokeGet(url, TheMovieDbDetailsResponse, queryParams)
+				.then((response) => {
+
+					resolve(theMovieDbMapper.toInternalMediaItem(response));
 				})
 				.catch((error) => {
 					

@@ -7,5 +7,6 @@ export const config: Config = {
 	theMovieDbBasePath: 'http://api.themoviedb.org/3',
 	theMovieDbSearchRelativePath: '/search/movie/?',
 	theMovieDbGetDetailsRelativePath: '/movie/:movieId',
-	theMovieDbApiKey: '<api_key>'
+	theMovieDbApiKey: '<api_key>',
+	theMovieDbDirectorJobName: 'Director'
 };

@@ -3,7 +3,7 @@ import express, { Router } from 'express';
 import { mediaItemController } from '../controllers/entities/media-item';
 import {
 	GetAllMediaItemsResponse, AddMediaItemResponse, UpdateMediaItemResponse, DeleteMediaItemResponse, AddMediaItemRequest,
-	UpdateMediaItemRequest,	FilterMediaItemsResponse, FilterMediaItemsRequest, SearchMediaItemsRequest, SearchMediaItemsResponse, SearchMediaItemCatalogResponse
+	UpdateMediaItemRequest,	FilterMediaItemsResponse, FilterMediaItemsRequest, SearchMediaItemsRequest, SearchMediaItemsResponse, SearchMediaItemCatalogResponse, GetMediaItemFromCatalogResponse
 } from '../models/api/media-item';
 import { mediaItemMapper } from '../mappers/media-item';
 import { parserValidator } from '../controllers/utilities/parser-validator';
@@ -193,6 +193,30 @@ router.get('/catalog/media-items/search/:searchTerm', (request, response, __) =>
 		.catch((error) => {
 
 			response.status(500).send('Cannot search media item catalog: ' + error);
+		});
+});
+
+/**
+ * Route to get the details for a catalog media item
+ */
+router.get('/catalog/media-items/:catalogId', (request, response, __) => {
+
+	const {
+		catalogId
+	} = request.params;
+
+	mediaItemController.getMediaItemFromCatalog(catalogId)
+		.then((catalogMediaItem) => {
+
+			const body: GetMediaItemFromCatalogResponse = {
+				catalogDetails: mediaItemMapper.toApiCatalogDetails(catalogMediaItem)
+			};
+			
+			response.json(body);
+		})
+		.catch((error) => {
+
+			response.status(500).send('Cannot get media item from catalog: ' + error);
 		});
 });
 

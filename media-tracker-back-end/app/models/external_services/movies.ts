@@ -39,3 +39,89 @@ export type TheMovieDbSearchQueryParams = {
 	query: string,
 	api_key: string,
 };
+
+/**
+ * Response of the external movie details service
+ */
+export class TheMovieDbDetailsResponse {
+
+	@IsNotEmpty()
+	@IsInt()
+	id!: number;
+	
+	@IsOptional()
+	@IsString()
+	release_date?: string;
+	
+	@IsOptional()
+	@IsDefined({each: true})
+	@Type(() => TheMovieDbGenre)
+	@ValidateNested()
+	genres?: TheMovieDbGenre[];
+	
+	@IsNotEmpty()
+	@IsString()
+	title!: string;
+	
+	@IsOptional()
+	@IsString()
+	overview?: string;
+	
+	@IsOptional()
+	@IsInt()
+	runtime?: number;
+	
+	@IsOptional()
+	@Type(() => TheMovieDbCredits)
+	@ValidateNested()
+	credits?: TheMovieDbCredits;
+	
+	@IsOptional()
+	@IsString()
+	backdropPath?: string;
+}
+
+/**
+ * Credits model for the external movie details service
+ */
+export class TheMovieDbCredits {
+
+	@IsOptional()
+	@IsDefined({each: true})
+	@Type(() => TheMovieDbCrewPerson)
+	@ValidateNested()
+	crew?: TheMovieDbCrewPerson[];
+}
+
+/**
+ * Crew model for the external movie details service
+ */
+export class TheMovieDbCrewPerson {
+
+	@IsNotEmpty()
+	@IsString()
+	name!: string;
+
+	@IsOptional()
+	@IsString()
+	job?: string;
+}
+
+/**
+ * Genre model for the external movie details service
+ */
+export class TheMovieDbGenre {
+
+	@IsNotEmpty()
+	@IsString()
+	name!: string;
+}
+
+/**
+ * Query params of the external movie details service
+ */
+export type TheMovieDbDetailsQueryParams = {
+
+	append_to_response: string,
+	api_key: string,
+};

@@ -3,9 +3,9 @@ import { Type, Transform } from 'class-transformer';
 import { CommonRequest, CommonResponse } from './common';
 
 /**
- * Model for a media item, publicly exposed via API
+ * Model for a media item with base properties, publicly exposed via API
  */
-export class MediaItem {
+export class CatalogMediaItem {
 
 	/**
 	 * The media item name
@@ -20,6 +20,12 @@ export class MediaItem {
 	@IsOptional()
 	@IsString()
 	author?: string;
+}
+
+/**
+ * Model for a media item with all properties except ID, publicly exposed via API
+ */
+export class MediaItem extends CatalogMediaItem {
 
 	/**
 	 * The media item importance level
@@ -30,7 +36,7 @@ export class MediaItem {
 };
 
 /**
- * Model for a media item with an ID property, publicly exposed via API
+ * Model for a media item with all properties including ID, publicly exposed via API
  */
 export class IdentifiedMediaItem extends MediaItem {
 
@@ -235,12 +241,21 @@ export class SearchMediaItemCatalogResponse extends CommonResponse {
  */
 export class SearchMediaItemCatalogResult {
 
-	apiId: string = "";
+	catalogId: number = 0;
     title: string = "";
 	releaseDate?: string;
 }
 
+/**
+ * Response for the "get from catalog" API
+ */
+export class GetMediaItemFromCatalogResponse extends CommonResponse {
 
+	/**
+	 * The media item details
+	 */
+	catalogDetails: CatalogMediaItem = new CatalogMediaItem;
+};
 
 
 

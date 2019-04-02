@@ -1,11 +1,11 @@
-import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from '../models/internal/media-item';
-import { IdentifiedMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResult } from '../models/api/media-item';
+import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from '../models/internal/media-item';
+import { IdentifiedMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResult, CatalogMediaItem } from '../models/api/media-item';
 
 /**
  * Helper class to translate between internal and public media item models
  */
 class MediaItemMapper {
-
+	
 	/**
 	 * List of internal models to list of public models
 	 */
@@ -168,11 +168,23 @@ class MediaItemMapper {
 	public toApiCatalogSearchResult(source: SearchMediaItemCatalogResult): SearchMediaItemCatalogResultInternal {
 
 		return {
-			apiId: source.apiId,
+			catalogId: source.catalogId,
 			title: source.title,
 			releaseDate: source.releaseDate,
 		}
 	}
+
+	/**
+	 * Internal model to public model
+	 */
+	public toApiCatalogDetails(source: CatalogMediaItemInternal): CatalogMediaItem {
+		
+		return {
+			name: source.name,
+			author: source.author
+		}
+	}
+
 }
 
 /**

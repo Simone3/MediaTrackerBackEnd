@@ -5,5 +5,6 @@ export type Config = {
 	theMovieDbBasePath: string,
 	theMovieDbSearchRelativePath: string,
 	theMovieDbGetDetailsRelativePath: string,
-	theMovieDbApiKey: string
+	theMovieDbApiKey: string,
+	theMovieDbDirectorJobName: string
 }

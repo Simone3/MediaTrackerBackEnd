@@ -2,15 +2,22 @@ import { CategoryInternal } from "./category";
 import { UserInternal } from "./user";
 
 /**
- * Model for a media item, internal type NOT to be exposed via API
+ * Model for a media item with base properties, internal type NOT to be exposed via API
  */
-export type MediaItemInternal = {
+export type CatalogMediaItemInternal = {
 
-	_id: any;
-	owner: UserInternal | string;
-	category: CategoryInternal | string;
 	name: string;
 	author?: string;
+};
+
+/**
+ * Model for a media item with all properties, internal type NOT to be exposed via API
+ */
+export type MediaItemInternal = CatalogMediaItemInternal & {
+
+	_id: any;
+	category: CategoryInternal | string;
+	owner: UserInternal | string;
 	importance: number;
 };
 
@@ -46,7 +53,7 @@ export type MediaItemSortByInternal = {
  */
 export type SearchMediaItemCatalogResultInternal = {
 
-	apiId: number,
+	catalogId: number,
     title: string,
 	releaseDate?: string
 }
