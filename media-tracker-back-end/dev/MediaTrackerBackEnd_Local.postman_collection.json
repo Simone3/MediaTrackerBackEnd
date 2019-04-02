@@ -392,7 +392,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 20\n\t},\n    \"searchTerm\": \"cccc\"\n}"
+							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 20\n\t},\n    \"searchTerm\": \"]\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items/search",
@@ -408,6 +408,58 @@
 								"5c8e2d02357bab24ac2bdbf4",
 								"media-items",
 								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchMediaItemCatalog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/catalog/media-items/search/The Lord of Rings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"catalog",
+								"media-items",
+								"search",
+								"The Lord of Rings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMediaItemFromCatalog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/catalog/media-items/search/The Lord of Rings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"catalog",
+								"media-items",
+								"search",
+								"The Lord of Rings"
 							]
 						}
 					},
