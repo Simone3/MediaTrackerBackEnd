@@ -124,7 +124,10 @@ router.post('/users/:userId/categories/:categoryId/media-items', (request, respo
 			mediaItemController.saveMediaItem(newMediaItem)
 				.then(() => {
 				
-					const body: AddMediaItemResponse = {};
+					const body: AddMediaItemResponse = {
+						message: 'Media item successfully added'
+					};
+	
 					response.json(body);
 				})
 				.catch((error) => {
@@ -157,7 +160,10 @@ router.put('/users/:userId/categories/:categoryId/media-items/:id', (request, re
 			mediaItemController.saveMediaItem(mediaItem)
 				.then(() => {
 				
-					const body: UpdateMediaItemResponse = {};
+					const body: UpdateMediaItemResponse = {
+						message: 'Media item successfully updated'
+					};
+	
 					response.json(body);
 				})
 				.catch((error) => {
@@ -181,7 +187,10 @@ router.delete('/users/:userId/categories/:categoryId/media-items/:id', (request,
 	mediaItemController.deleteMediaItem(id)
 		.then(() => {
 			
-			const body: DeleteMediaItemResponse = {};
+			const body: DeleteMediaItemResponse = {
+				message: 'Media item successfully deleted'
+			};
+
 			response.json(body);
 		})
 		.catch((error) => {

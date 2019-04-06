@@ -22,7 +22,8 @@ router.post('/users', (request, response, __) => {
 				.then((savedUser) => {
 				
 					const body: AddUserResponse = {
-						uid: savedUser._id
+						message: 'User successfully added',
+						userId: savedUser._id
 					};
 
 					response.json(body);
@@ -51,7 +52,10 @@ router.put('/users/:id', (request, response, __) => {
 			userController.saveUser(user)
 				.then(() => {
 				
-					const body: UpdateUserResponse = {};
+					const body: UpdateUserResponse = {
+						message: 'User successfully updated'
+					};
+		
 					response.json(body);
 				})
 				.catch((error) => {
@@ -73,7 +77,10 @@ router.delete('/users/:id', (request, response, __) => {
 	userController.deleteUser(request.params.id)
 		.then(() => {
 			
-			const body: DeleteUserResponse = {};
+			const body: DeleteUserResponse = {
+				message: 'User successfully deleted'
+			};
+
 			response.json(body);
 		})
 		.catch((error) => {

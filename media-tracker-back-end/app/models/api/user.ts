@@ -49,7 +49,7 @@ export class AddUserResponse extends CommonResponse {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	uid!: string;
+	userId!: string;
 }
 
 /**

@@ -45,7 +45,10 @@ router.post('/users/:userId/categories', (request, response, __) => {
 			categoryController.saveCategory(newCategory)
 				.then(() => {
 			
-					const body: AddCategoryResponse = {};
+					const body: AddCategoryResponse = {
+						message: 'Category successfully added'
+					};
+
 					response.json(body);
 				})
 				.catch((error) => {
@@ -74,7 +77,10 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
 			categoryController.saveCategory(category)
 			.then(() => {
 			
-				const body: UpdateCategoryResponse = {};
+				const body: UpdateCategoryResponse = {
+					message: 'Category successfully updated'
+				};
+
 				response.json(body);
 			})
 			.catch((error) => {
@@ -96,7 +102,10 @@ router.delete('/users/:userId/categories/:id', (request, response, __) => {
 	categoryController.deleteCategory(request.params.id)
 		.then(() => {
 			
-			const body: DeleteCategoryResponse = {};
+			const body: DeleteCategoryResponse = {
+				message: 'Category successfully deleted'
+			};
+
 			response.json(body);
 		})
 		.catch((error) => {
