@@ -1,11 +1,27 @@
 export type Config = {
 
-	serverPort: number,
-	databaseUrl: string,
-	theMovieDbBasePath: string,
-	theMovieDbSearchRelativePath: string,
-	theMovieDbGetDetailsRelativePath: string,
-	theMovieDbApiKey: string,
-	theMovieDbDirectorJobName: string,
-	externalApiTimeoutMilliseconds: number,
+	server: ServerConfig,
+	db: DbConfig,
+	externalApis: ExternalApisConfig
+}
+
+type ServerConfig = {
+	port: number,
+}
+
+type DbConfig = {
+	url: string,
+}
+
+type ExternalApisConfig = {
+	timeoutMilliseconds: number,
+	theMovieDb: TheMovieDbConfig
+}
+
+type TheMovieDbConfig = {
+	apiKey: string,
+	basePath: string,
+	searchRelativePath: string,
+	getDetailsRelativePath: string,
+	directorJobName: string,
 }

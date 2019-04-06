@@ -54,7 +54,7 @@ class TheMovieDbMapper {
 
                 for(let person of crew) {
 
-                    if(person && config.theMovieDbDirectorJobName === person.job) {
+                    if(person && config.externalApis.theMovieDb.directorJobName === person.job) {
 
                         return person.name;
                     }

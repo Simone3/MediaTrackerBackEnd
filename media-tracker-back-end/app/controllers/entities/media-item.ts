@@ -181,18 +181,18 @@ class MediaItemController {
 
 		return new Promise((resolve, reject) => {
 		
-			const url = miscUtilsController.buildUrl([config.theMovieDbBasePath, config.theMovieDbSearchRelativePath]);
+			const url = miscUtilsController.buildUrl([config.externalApis.theMovieDb.basePath, config.externalApis.theMovieDb.searchRelativePath]);
 
 			const queryParams: TheMovieDbSearchQueryParams = {
 				query: searchTerm,
-				api_key: config.theMovieDbApiKey
+				api_key: config.externalApis.theMovieDb.apiKey
 			};
 
 			restJsonInvoker.invokeGet({
 				url: url,
 				responseBodyClass: TheMovieDbSearchResponse,
 				queryParams: queryParams,
-				timeoutMilliseconds: config.externalApiTimeoutMilliseconds
+				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
 			})
 			.then((response) => {
 
@@ -220,18 +220,18 @@ class MediaItemController {
 		return new Promise((resolve, reject) => {
 		
 			const pathParams = {movieId: catalogItemId};
-			const url = miscUtilsController.buildUrl([config.theMovieDbBasePath, config.theMovieDbGetDetailsRelativePath], pathParams);
+			const url = miscUtilsController.buildUrl([config.externalApis.theMovieDb.basePath, config.externalApis.theMovieDb.getDetailsRelativePath], pathParams);
 
 			const queryParams: TheMovieDbDetailsQueryParams = {
 				append_to_response: "credits",
-				api_key: config.theMovieDbApiKey
+				api_key: config.externalApis.theMovieDb.apiKey
 			};
 
 			restJsonInvoker.invokeGet({
 				url: url,
 				responseBodyClass: TheMovieDbDetailsResponse,
 				queryParams: queryParams,
-				timeoutMilliseconds: config.externalApiTimeoutMilliseconds
+				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
 			})
 			.then((response) => {
 
