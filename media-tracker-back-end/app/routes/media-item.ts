@@ -7,6 +7,8 @@ import {
 } from '../models/api/media-item';
 import { mediaItemMapper } from '../mappers/media-item';
 import { parserValidator } from '../controllers/utilities/parser-validator';
+import { ErrorResponse } from '../models/api/common';
+import { AppError } from '../models/error/error';
 
 var router: Router = express.Router();
 
@@ -31,7 +33,7 @@ router.get('/users/:userId/categories/:categoryId/media-items', (request, respon
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot get all media items: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 
@@ -50,19 +52,23 @@ router.post('/users/:userId/categories/:categoryId/media-items/filter', (request
 
 			const filterOptions = (body.filter ? mediaItemMapper.toInternalFilter(body.filter) : undefined);
 			const orderOptions = (body.sortBy ? mediaItemMapper.toInternalSortList(body.sortBy) : undefined);
-			return mediaItemController.filterAndOrderMediaItems(userId, categoryId, filterOptions, orderOptions);
-		})
-		.then((mediaItems) => {
-		
-			const body: FilterMediaItemsResponse = {
-				mediaItems: mediaItemMapper.toApiMediaItemList(mediaItems)
-			};
+			mediaItemController.filterAndOrderMediaItems(userId, categoryId, filterOptions, orderOptions)
+				.then((mediaItems) => {
+				
+					const body: FilterMediaItemsResponse = {
+						mediaItems: mediaItemMapper.toApiMediaItemList(mediaItems)
+					};
 
-			response.json(body);
+					response.json(body);
+				})
+				.catch((error) => {
+
+					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+				})
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot filter media items: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -81,19 +87,23 @@ router.post('/users/:userId/categories/:categoryId/media-items/search', (request
 
 			const filterBy = (body.filter ? mediaItemMapper.toInternalFilter(body.filter) : body.filter);
 			const searchTerm = body.searchTerm;
-			return mediaItemController.searchMediaItems(userId, categoryId, searchTerm, filterBy);
-		})
-		.then((result) => {
+			mediaItemController.searchMediaItems(userId, categoryId, searchTerm, filterBy)
+				.then((result) => {
 
-			const body: SearchMediaItemsResponse = {
-				mediaItems: mediaItemMapper.toApiMediaItemList(result)
-			};
-			
-			response.json(body);
+					const body: SearchMediaItemsResponse = {
+						mediaItems: mediaItemMapper.toApiMediaItemList(result)
+					};
+					
+					response.json(body);
+				})
+				.catch((error) => {
+
+					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+				})
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot search media items: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -111,16 +121,20 @@ router.post('/users/:userId/categories/:categoryId/media-items', (request, respo
 		.then((body) => {
 
 			const newMediaItem = mediaItemMapper.toInternalMediaItem(body.newMediaItem, userId, categoryId);
-			return mediaItemController.saveMediaItem(newMediaItem)
-		})
-		.then(() => {
-		
-			const body: AddMediaItemResponse = {};
-			response.json(body);
+			mediaItemController.saveMediaItem(newMediaItem)
+				.then(() => {
+				
+					const body: AddMediaItemResponse = {};
+					response.json(body);
+				})
+				.catch((error) => {
+
+					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+				})
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot add media item: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -140,16 +154,20 @@ router.put('/users/:userId/categories/:categoryId/media-items/:id', (request, re
 
 			const mediaItem = mediaItemMapper.toInternalMediaItem(body.mediaItem, userId, categoryId);
 			mediaItem._id = id;
-			return mediaItemController.saveMediaItem(mediaItem)
-		})
-		.then(() => {
-		
-			const body: UpdateMediaItemResponse = {};
-			response.json(body);
+			mediaItemController.saveMediaItem(mediaItem)
+				.then(() => {
+				
+					const body: UpdateMediaItemResponse = {};
+					response.json(body);
+				})
+				.catch((error) => {
+
+					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+				})
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot update media item: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -168,7 +186,7 @@ router.delete('/users/:userId/categories/:categoryId/media-items/:id', (request,
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot delete media item: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 
@@ -192,7 +210,7 @@ router.get('/catalog/media-items/search/:searchTerm', (request, response, __) =>
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot search media item catalog: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 
@@ -216,7 +234,7 @@ router.get('/catalog/media-items/:catalogId', (request, response, __) => {
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot get media item from catalog: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 

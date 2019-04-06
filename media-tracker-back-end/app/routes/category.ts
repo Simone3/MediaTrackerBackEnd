@@ -4,6 +4,8 @@ import { categoryController } from '../controllers/entities/category';
 import { GetAllCategoriesResponse, AddCategoryResponse, UpdateCategoryResponse, DeleteCategoryResponse, AddCategoryRequest, UpdateCategoryRequest } from '../models/api/category';
 import { categoryMapper } from '../mappers/category';
 import { parserValidator } from '../controllers/utilities/parser-validator';
+import { ErrorResponse } from '../models/api/common';
+import { AppError } from '../models/error/error';
 
 var router: Router = express.Router();
 
@@ -25,7 +27,7 @@ router.get('/users/:userId/categories', (request, response, __) => {
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot get all categories: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 
@@ -40,16 +42,20 @@ router.post('/users/:userId/categories', (request, response, __) => {
 		.then((body) => {
 
 			const newCategory = categoryMapper.apiToInternal(body.newCategory, userId);
-			return categoryController.saveCategory(newCategory)
-		})
-		.then(() => {
-		
-			const body: AddCategoryResponse = {};
-			response.json(body);
+			categoryController.saveCategory(newCategory)
+				.then(() => {
+			
+					const body: AddCategoryResponse = {};
+					response.json(body);
+				})
+				.catch((error) => {
+
+					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+				});
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot add category: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -65,16 +71,20 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
 
 			const category = categoryMapper.apiToInternal(body.category, userId);
 			category._id = request.params.id;
-			return categoryController.saveCategory(category)
-		})
-		.then(() => {
-		
-			const body: UpdateCategoryResponse = {};
-			response.json(body);
+			categoryController.saveCategory(category)
+			.then(() => {
+			
+				const body: UpdateCategoryResponse = {};
+				response.json(body);
+			})
+			.catch((error) => {
+
+				response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			});
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot update category: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -91,7 +101,7 @@ router.delete('/users/:userId/categories/:id', (request, response, __) => {
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot delete category: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 

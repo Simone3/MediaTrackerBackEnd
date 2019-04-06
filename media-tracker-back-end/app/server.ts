@@ -1,6 +1,6 @@
 import express from 'express';
-import { mediaItemRouter} from './routes/media-item';
-import { catchAllRouter} from './routes/catch-all';
+import { mediaItemRouter } from './routes/media-item';
+import { catchAllRouter } from './routes/catch-all';
 import { userRouter } from './routes/user';
 import { categoryRouter } from './routes/category';
 

@@ -7,6 +7,7 @@ import { TheMovieDbSearchQueryParams, TheMovieDbSearchResponse, TheMovieDbDetail
 import { config } from "../../config/config";
 import { restJsonInvoker } from "../external_services/rest-json-invoker";
 import { theMovieDbMapper } from "../../mappers/the-movie-db";
+import { AppError } from "../../models/error/error";
 
 /**
  * Media item document for Mongoose
@@ -78,7 +79,7 @@ class MediaItemController {
 						break;
 
 					default:
-						throw "Unhandled orderBy value";
+						throw AppError.GENERIC.withDetails('Unhandled orderBy value');
 				}
 			}
 		}
@@ -121,7 +122,7 @@ class MediaItemController {
 	 */
 	public saveMediaItem(mediaItem: MediaItemInternal): Promise<MediaItemInternal> {
 
-		return queryHelper.save(mediaItem, new MediaItemModel(), 'Media Item not found');
+		return queryHelper.save(mediaItem, new MediaItemModel());
 	}
 
 	/**
@@ -130,7 +131,7 @@ class MediaItemController {
 	 */
 	public deleteMediaItem(id: string): Promise<void> {
 
-		return queryHelper.deleteById(MediaItemModel, id, 'Media Item not found');
+		return queryHelper.deleteById(MediaItemModel, id);
 	}
 
 	/**
@@ -201,7 +202,7 @@ class MediaItemController {
 				})
 				.catch((error) => {
 					
-					reject("TheMovieDB invocation error: " + error);
+					reject(AppError.EXTERNAL_API_GENERIC.unlessAppError(error));
 				});
 		});
 	}
@@ -228,7 +229,7 @@ class MediaItemController {
 				})
 				.catch((error) => {
 					
-					reject("TheMovieDB invocation error: " + error);
+					reject(AppError.EXTERNAL_API_GENERIC.unlessAppError(error));
 				});
 		});
 	}

@@ -1,4 +1,5 @@
 import { Document, Model, CollationOptions } from "mongoose";
+import { AppError } from "../../models/error/error";
 
 /**
  * Collation search options (for case insensitive ordering)
@@ -33,7 +34,7 @@ class QueryHelper {
 				})
 				.catch((error: any) => {
 
-					reject(error);
+					reject(AppError.DATABASE_FIND.unlessAppError(error));
 				});
 		});
 	}
@@ -42,10 +43,9 @@ class QueryHelper {
 	 * Helper to insert a new or updated an existing model to the database
 	 * @param internalModel the internal model that works as the data source
 	 * @param emptyDocument the empty document that will get all "internalModel" data and will then be saved to the DB
-	 * @param notFoundError error to be returned if no element was found
 	 * @returns the promise that will eventually return the newly saved element
 	 */
-	public save<I, D extends Document & I>(internalModel: I, emptyDocument: D, notFoundError: string): Promise<I> {
+	public save<I, D extends Document & I>(internalModel: I, emptyDocument: D): Promise<I> {
 
 		return new Promise((resolve, reject) => {
 
@@ -68,7 +68,7 @@ class QueryHelper {
 			   
 				if(error) {
 					
-					reject(error);
+					reject(AppError.DATABASE_SAVE.unlessAppError(error));
 				}
 				else {
 
@@ -78,7 +78,7 @@ class QueryHelper {
 					}
 					else {
 
-						reject(notFoundError);
+						reject(AppError.DATABASE_SAVE.withDetails('Cannot find document'));
 					}
 				}
 			});
@@ -89,10 +89,9 @@ class QueryHelper {
 	 * Helper to delete a database element by ID
 	 * @param databaseModel the database model
 	 * @param id the element ID
-	 * @param notFoundError error to be returned if no element was found
 	 * @returns a void promise
 	 */
-	public deleteById<I, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string, notFoundError: string): Promise<void> {
+	public deleteById<I, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string): Promise<void> {
 
 		return new Promise((resolve, reject) => {
 
@@ -105,12 +104,12 @@ class QueryHelper {
 					}
 					else {
 
-						reject(notFoundError);
+						reject(AppError.DATABASE_DELETE.withDetails('Cannot find document'));
 					}
 				})
 				.catch((error: any) => {
 
-					reject(error);
+					reject(AppError.DATABASE_DELETE.unlessAppError(error));
 				});
 		});
 	}
@@ -132,7 +131,7 @@ class QueryHelper {
 				})
 				.catch((error: any) => {
 
-					reject(error);
+					reject(AppError.DATABASE_DELETE.unlessAppError(error));
 				});
 		});
 	}

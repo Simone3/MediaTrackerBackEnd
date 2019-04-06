@@ -43,7 +43,7 @@ class CategoryController {
 	 */
 	public saveCategory(category: CategoryInternal): Promise<CategoryInternal> {
 
-		return queryHelper.save(category, new CategoryModel(), 'Category not found');
+		return queryHelper.save(category, new CategoryModel());
 	}
 
 	/**
@@ -57,7 +57,7 @@ class CategoryController {
 			.then(() => {
 
 				// Then delete the category
-				return queryHelper.deleteById(CategoryModel, id, 'Category not found')
+				return queryHelper.deleteById(CategoryModel, id)
 			});
 	}
 

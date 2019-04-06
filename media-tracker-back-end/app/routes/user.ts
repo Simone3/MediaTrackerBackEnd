@@ -4,6 +4,8 @@ import { userController } from '../controllers/entities/user';
 import { AddUserResponse, UpdateUserResponse, DeleteUserResponse, AddUserRequest, UpdateUserRequest } from '../models/api/user';
 import { userMapper } from '../mappers/user';
 import { parserValidator } from '../controllers/utilities/parser-validator';
+import { ErrorResponse } from '../models/api/common';
+import { AppError } from '../models/error/error';
 
 var router: Router = express.Router();
 
@@ -16,19 +18,23 @@ router.post('/users', (request, response, __) => {
 		.then((body) => {
 
 			const newUser = userMapper.apiToInternal(body.newUser);
-			return userController.saveUser(newUser)
-		})
-		.then((savedUser) => {
-		
-			const body: AddUserResponse = {
-				uid: savedUser._id
-			};
+			userController.saveUser(newUser)
+				.then((savedUser) => {
+				
+					const body: AddUserResponse = {
+						uid: savedUser._id
+					};
 
-			response.json(body);
+					response.json(body);
+				})
+				.catch((error) => {
+
+					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+				})
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot add user: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -42,16 +48,20 @@ router.put('/users/:id', (request, response, __) => {
 
 			const user = userMapper.apiToInternal(body.user);
 			user._id = request.params.id;
-			return userController.saveUser(user)
-		})
-		.then(() => {
-		
-			const body: UpdateUserResponse = {};
-			response.json(body);
+			userController.saveUser(user)
+				.then(() => {
+				
+					const body: UpdateUserResponse = {};
+					response.json(body);
+				})
+				.catch((error) => {
+
+					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+				})
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot update user: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -68,7 +78,7 @@ router.delete('/users/:id', (request, response, __) => {
 		})
 		.catch((error) => {
 
-			response.status(500).send('Cannot delete user: ' + error);
+			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 

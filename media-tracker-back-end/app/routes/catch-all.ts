@@ -1,12 +1,13 @@
 
 import express, { Router, Response } from 'express';
+import { ErrorResponse } from '../models/api/common';
+import { AppError } from '../models/error/error';
 
 var router: Router = express.Router();
 
 router.all('*', (_, res: Response) => {
 
-	res.status(404)
-		.send({message: 'Not found'});
+	res.status(404).send(new ErrorResponse(AppError.NOT_FOUND));
 });
 
 /**

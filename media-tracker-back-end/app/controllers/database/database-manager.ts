@@ -1,4 +1,5 @@
 import mongoose, { ConnectionOptions} from 'mongoose';
+import { AppError } from '../../models/error/error';
 
 /**
  * Database controller that handles generic DB setup, like its connection
@@ -20,9 +21,9 @@ class DatabaseManager {
 	
 			var db = mongoose.connection;
 	
-			db.on('error', (err: any) => {
+			db.on('error', (error: any) => {
 				
-				reject(err);
+				reject(AppError.DATABASE_INIT.unlessAppError(error));
 			});
 	
 			db.once('open', () => {

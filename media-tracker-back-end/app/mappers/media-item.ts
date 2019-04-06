@@ -1,5 +1,6 @@
 import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from '../models/internal/media-item';
 import { IdentifiedMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResult, CatalogMediaItem } from '../models/api/media-item';
+import { AppError } from '../models/error/error';
 
 /**
  * Helper class to translate between internal and public media item models
@@ -133,7 +134,7 @@ class MediaItemMapper {
 			case MediaItemSortFieldInternal.AUTHOR: return MediaItemSortField.AUTHOR;
 			case MediaItemSortFieldInternal.IMPORTANCE: return MediaItemSortField.IMPORTANCE;
 			case MediaItemSortFieldInternal.NAME: return MediaItemSortField.NAME;
-			default: throw "Cannot map " + source;
+			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
 		}
 	}
 
@@ -147,7 +148,7 @@ class MediaItemMapper {
 			case MediaItemSortField.AUTHOR: return MediaItemSortFieldInternal.AUTHOR;
 			case MediaItemSortField.IMPORTANCE: return MediaItemSortFieldInternal.IMPORTANCE;
 			case MediaItemSortField.NAME: return MediaItemSortFieldInternal.NAME;
-			default: throw "Cannot map " + source;
+			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
 		}
 	}
 

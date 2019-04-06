@@ -3,6 +3,7 @@ import { UrlOptions } from 'request';
 import { parserValidator } from '../utilities/parser-validator';
 import { ClassType } from 'class-transformer-validator';
 import { HttpMethod } from '../utilities/misc-utils';
+import { AppError } from '../../models/error/error';
 
 /**
  * Helper controller to invoke external JSON-based REST services
@@ -63,12 +64,12 @@ export class RestJsonInvoker {
 						})
 						.catch((error) => {
 	
-							reject("External service response parsing error: " + error);
+							reject(AppError.EXTERNAL_API_PARSE.unlessAppError(error));
 						})
 				})
 				.catch((error) => {
 
-					reject("External service invocation error: " + error);
+					reject(AppError.EXTERNAL_API_INVOKE.unlessAppError(error));
 				});
 		});
 	}

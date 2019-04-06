@@ -25,7 +25,7 @@ class UserController {
 	 */
 	public saveUser(user: UserInternal): Promise<UserInternal> {
 
-		return queryHelper.save(user, new UserModel(), 'User not found');
+		return queryHelper.save(user, new UserModel());
 	}
 
 	/**
@@ -39,7 +39,7 @@ class UserController {
 			.then(() => {
 
 				// Then delete user
-				return queryHelper.deleteById(UserModel, id, 'User not found');
+				return queryHelper.deleteById(UserModel, id);
 			});
 	}
 }
