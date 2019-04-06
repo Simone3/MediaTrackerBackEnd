@@ -29,12 +29,12 @@ router.post('/users', (request, response, __) => {
 				})
 				.catch((error) => {
 
-					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -56,12 +56,12 @@ router.put('/users/:id', (request, response, __) => {
 				})
 				.catch((error) => {
 
-					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -78,7 +78,7 @@ router.delete('/users/:id', (request, response, __) => {
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 

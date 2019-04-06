@@ -33,7 +33,7 @@ router.get('/users/:userId/categories/:categoryId/media-items', (request, respon
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 
@@ -63,12 +63,12 @@ router.post('/users/:userId/categories/:categoryId/media-items/filter', (request
 				})
 				.catch((error) => {
 
-					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -98,12 +98,12 @@ router.post('/users/:userId/categories/:categoryId/media-items/search', (request
 				})
 				.catch((error) => {
 
-					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -129,12 +129,12 @@ router.post('/users/:userId/categories/:categoryId/media-items', (request, respo
 				})
 				.catch((error) => {
 
-					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -162,12 +162,12 @@ router.put('/users/:userId/categories/:categoryId/media-items/:id', (request, re
 				})
 				.catch((error) => {
 
-					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -186,7 +186,7 @@ router.delete('/users/:userId/categories/:categoryId/media-items/:id', (request,
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 
@@ -210,7 +210,7 @@ router.get('/catalog/media-items/search/:searchTerm', (request, response, __) =>
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 
@@ -234,7 +234,7 @@ router.get('/catalog/media-items/:catalogId', (request, response, __) => {
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 

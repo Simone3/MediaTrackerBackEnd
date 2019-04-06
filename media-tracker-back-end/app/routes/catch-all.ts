@@ -7,7 +7,7 @@ var router: Router = express.Router();
 
 router.all('*', (_, res: Response) => {
 
-	res.status(404).send(new ErrorResponse(AppError.NOT_FOUND));
+	res.status(404).json(new ErrorResponse(AppError.NOT_FOUND));
 });
 
 /**

@@ -27,7 +27,7 @@ router.get('/users/:userId/categories', (request, response, __) => {
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 
@@ -50,12 +50,12 @@ router.post('/users/:userId/categories', (request, response, __) => {
 				})
 				.catch((error) => {
 
-					response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				});
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -79,12 +79,12 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
 			})
 			.catch((error) => {
 
-				response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+				response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 			});
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
 
@@ -101,7 +101,7 @@ router.delete('/users/:userId/categories/:id', (request, response, __) => {
 		})
 		.catch((error) => {
 
-			response.status(500).send(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
 
