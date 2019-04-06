@@ -1,5 +1,6 @@
 import { CategoryInternal } from "./category";
 import { UserInternal } from "./user";
+import { PersistedEntityInternal } from "./common";
 
 /**
  * Model for a media item with base properties, internal type NOT to be exposed via API
@@ -13,9 +14,8 @@ export type CatalogMediaItemInternal = {
 /**
  * Model for a media item with all properties, internal type NOT to be exposed via API
  */
-export type MediaItemInternal = CatalogMediaItemInternal & {
+export type MediaItemInternal = CatalogMediaItemInternal & PersistedEntityInternal & {
 
-	_id: any;
 	category: CategoryInternal | string;
 	owner: UserInternal | string;
 	importance: number;

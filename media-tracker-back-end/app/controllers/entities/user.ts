@@ -2,7 +2,7 @@ import { Document, Model, model } from "mongoose";
 import { UserInternal } from "../../models/internal/user";
 import { UserSchema, USER_COLLECTION_NAME } from "../../schemas/user";
 import { categoryController } from "./category";
-import { queryHelper } from "../database/query-helper";
+import { queryHelper, Queryable } from "../database/query-helper";
 
 /**
  * Mongoose document for users
@@ -15,6 +15,11 @@ interface UserDocument extends UserInternal, Document {}
 const UserModel: Model<UserDocument> = model<UserDocument>(USER_COLLECTION_NAME, UserSchema);
 
 /**
+ * Helper type for user query conditions
+ */
+type QueryConditions = Queryable<UserInternal>;
+
+/**
  * Controller for user entities
  */
 class UserController {
@@ -25,7 +30,10 @@ class UserController {
 	 */
 	public saveUser(user: UserInternal): Promise<UserInternal> {
 
-		return queryHelper.save(user, new UserModel());
+		const conditions: QueryConditions = {
+			name: user.name
+		};
+		return queryHelper.checkUniquenessAndSave(UserModel, user, new UserModel(), conditions);
 	}
 
 	/**

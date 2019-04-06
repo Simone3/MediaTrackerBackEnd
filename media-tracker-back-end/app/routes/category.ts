@@ -42,7 +42,7 @@ router.post('/users/:userId/categories', (request, response, __) => {
 		.then((body) => {
 
 			const newCategory = categoryMapper.apiToInternal(body.newCategory, userId);
-			categoryController.saveCategory(newCategory)
+			categoryController.saveCategory(newCategory, body.allowSameName)
 				.then(() => {
 			
 					const body: AddCategoryResponse = {
@@ -74,7 +74,7 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
 
 			const category = categoryMapper.apiToInternal(body.category, userId);
 			category._id = request.params.id;
-			categoryController.saveCategory(category)
+			categoryController.saveCategory(category, body.allowSameName)
 			.then(() => {
 			
 				const body: UpdateCategoryResponse = {

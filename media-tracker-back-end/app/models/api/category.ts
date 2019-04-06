@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, ValidateNested, IsDefined } from 'class-validator';
+import { IsNotEmpty, IsString, ValidateNested, IsDefined, IsBoolean, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CommonRequest, CommonResponse } from './common';
 
@@ -33,10 +33,20 @@ export class IdentifiedCategory extends Category {
  */
 export class AddCategoryRequest extends CommonRequest {
 
+	/**
+	 * The category to add
+	 */
 	@IsDefined()
 	@Type(() => Category)
 	@ValidateNested()
 	newCategory!: Category;
+
+	/**
+	 * If true, the category is allowed to have the same name of another existing category
+	 */
+	@IsOptional()
+	@IsBoolean()
+	allowSameName?: boolean;
 };
 
 /**
@@ -66,10 +76,20 @@ export class GetAllCategoriesResponse extends CommonResponse {
  */
 export class UpdateCategoryRequest extends CommonRequest {
 
+	/**
+	 * The category to update
+	 */
 	@IsDefined()
 	@Type(() => Category)
 	@ValidateNested()
 	category!: Category;
+
+	/**
+	 * If true, the category is allowed to have the same name of another existing category
+	 */
+	@IsOptional()
+	@IsBoolean()
+	allowSameName?: boolean;
 };
 
 /**

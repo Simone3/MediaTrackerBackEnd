@@ -40,10 +40,22 @@ class CategoryController {
 	/**
 	 * Saves a new or an existing category, returning it back as a promise
 	 * @param category the category to insert or update
+	 * @param allowSameName whether to check or not if an existing category has the same name
 	 */
-	public saveCategory(category: CategoryInternal): Promise<CategoryInternal> {
+	public saveCategory(category: CategoryInternal, allowSameName?: boolean): Promise<CategoryInternal> {
 
-		return queryHelper.save(category, new CategoryModel());
+		if(allowSameName) {
+
+			return queryHelper.save(category, new CategoryModel());
+		}
+		else {
+
+			const conditions: QueryConditions = {
+				owner: category.owner,
+				name: category.name
+			};
+			return queryHelper.checkUniquenessAndSave(CategoryModel, category, new CategoryModel(), conditions);
+		}
 	}
 
 	/**

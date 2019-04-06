@@ -9,6 +9,7 @@ export class AppError {
 	public static DATABASE_INIT = new AppError('db.connection', 'Initial connection to the database cannot be established');
 	public static DATABASE_FIND = new AppError('db.find', 'Database find query returned an error');
 	public static DATABASE_SAVE = new AppError('db.save', 'Database save query returned an error');
+	public static DATABASE_SAVE_UNIQUENESS = new AppError('db.save.uniqueness', 'Cannot save element because one or more field values are already present in the database');
 	public static DATABASE_DELETE = new AppError('db.delete', 'Database delete query returned an error');
 	public static EXTERNAL_API_INVOKE = new AppError('external.api.invocation', 'External API invocation returned an error');
 	public static EXTERNAL_API_TIMEOUT = new AppError('external.api.timeout', 'External API invocation timed out');

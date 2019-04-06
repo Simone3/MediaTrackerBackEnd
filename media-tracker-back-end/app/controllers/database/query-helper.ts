@@ -1,5 +1,6 @@
 import { Document, Model, CollationOptions } from "mongoose";
 import { AppError } from "../../models/error/error";
+import { PersistedEntityInternal } from "../../models/internal/common";
 
 /**
  * Collation search options (for case insensitive ordering)
@@ -20,7 +21,7 @@ class QueryHelper {
 	 * @param sortBy optional sort conditions
 	 * @return a promise that will eventually contain the list of all internal model representations of the persisted elements
 	 */
-	public find<I, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>): Promise<I[]> {
+	public find<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>): Promise<I[]> {
 
 		return new Promise((resolve, reject) => {
 
@@ -40,12 +41,61 @@ class QueryHelper {
 	}
 
 	/**
+	 * Helper to first check uniqueness conditions and then, if no duplicates are found, save a document
+	 * @param databaseModel the database model
+	 * @param internalModel the internal model that works as the data source
+	 * @param emptyDocument the empty document that will get all "internalModel" data and will then be saved to the DB
+	 * @param uniquenessConditions if existing documents match these conditions, the new document won't be saved and an error will be thrown
+	 */
+	public checkUniquenessAndSave<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, internalModel: I, emptyDocument: D, uniquenessConditions: Queryable<I>): Promise<I> {
+
+		return new Promise((resolve, reject) => {
+
+			this.find(databaseModel, uniquenessConditions)
+				.then((results) => {
+
+					// Check results with same values (excluding the new model itself, this could be an update!)
+					let duplicates = [];
+					for(let result of results) {
+
+						if(!internalModel._id || String(result._id) !== String(internalModel._id)) {
+
+							duplicates.push(result);
+						}
+					}
+
+					// If we have duplicates throw error, otherwise save document
+					if(duplicates.length > 0) {
+
+						reject(AppError.DATABASE_SAVE_UNIQUENESS.withDetails('Duplicates: ' + JSON.stringify(duplicates.map(elem => elem._id))));
+					}
+					else {
+
+						this.save(internalModel, emptyDocument)
+							.then((saveResult) => {
+
+								resolve(saveResult);
+							})
+							.catch((error) => {
+
+								reject(AppError.DATABASE_SAVE.unlessAppError(error));
+							});
+					}
+				})
+				.catch((error) => {
+
+					reject(AppError.DATABASE_SAVE.unlessAppError(error));
+				});
+		});
+	}
+
+	/**
 	 * Helper to insert a new or updated an existing model to the database
 	 * @param internalModel the internal model that works as the data source
 	 * @param emptyDocument the empty document that will get all "internalModel" data and will then be saved to the DB
 	 * @returns the promise that will eventually return the newly saved element
 	 */
-	public save<I, D extends Document & I>(internalModel: I, emptyDocument: D): Promise<I> {
+	public save<I extends PersistedEntityInternal, D extends Document & I>(internalModel: I, emptyDocument: D): Promise<I> {
 
 		return new Promise((resolve, reject) => {
 
@@ -91,7 +141,7 @@ class QueryHelper {
 	 * @param id the element ID
 	 * @returns a void promise
 	 */
-	public deleteById<I, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string): Promise<void> {
+	public deleteById<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string): Promise<void> {
 
 		return new Promise((resolve, reject) => {
 
@@ -120,7 +170,7 @@ class QueryHelper {
 	 * @param conditions query conditions
 	 * @returns a promise with the number of deleted elements
 	 */
-	public delete<I, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: Queryable<I>): Promise<number> {
+	public delete<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: Queryable<I>): Promise<number> {
 
 		return new Promise((resolve, reject) => {
 
@@ -155,5 +205,3 @@ export type Sortable<T> = {
 export type Queryable<T> = {
     [P in keyof T]?: T[P] | RegExp;
 } & {$or?: Queryable<T>[]};
-
-

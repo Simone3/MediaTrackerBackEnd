@@ -60,6 +60,13 @@ export class AddMediaItemRequest extends CommonRequest {
 	@Type(() => MediaItem)
 	@ValidateNested()
 	newMediaItem!: MediaItem;
+
+	/**
+	 * If true, the media item is allowed to have the same name of another existing media item
+	 */
+	@IsOptional()
+	@IsBoolean()
+	allowSameName?: boolean;
 };
 
 /**
@@ -99,6 +106,13 @@ export class UpdateMediaItemRequest extends CommonRequest {
 	@Type(() => MediaItem)
 	@ValidateNested()
 	mediaItem!: MediaItem;
+
+	/**
+	 * If true, the media item is allowed to have the same name of another existing media item
+	 */
+	@IsOptional()
+	@IsBoolean()
+	allowSameName?: boolean;
 };
 
 /**

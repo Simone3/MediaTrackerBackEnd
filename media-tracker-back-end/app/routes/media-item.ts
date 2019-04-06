@@ -121,7 +121,7 @@ router.post('/users/:userId/categories/:categoryId/media-items', (request, respo
 		.then((body) => {
 
 			const newMediaItem = mediaItemMapper.toInternalMediaItem(body.newMediaItem, userId, categoryId);
-			mediaItemController.saveMediaItem(newMediaItem)
+			mediaItemController.saveMediaItem(newMediaItem, body.allowSameName)
 				.then(() => {
 				
 					const body: AddMediaItemResponse = {
@@ -157,7 +157,7 @@ router.put('/users/:userId/categories/:categoryId/media-items/:id', (request, re
 
 			const mediaItem = mediaItemMapper.toInternalMediaItem(body.mediaItem, userId, categoryId);
 			mediaItem._id = id;
-			mediaItemController.saveMediaItem(mediaItem)
+			mediaItemController.saveMediaItem(mediaItem, body.allowSameName)
 				.then(() => {
 				
 					const body: UpdateMediaItemResponse = {

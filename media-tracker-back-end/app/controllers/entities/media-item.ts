@@ -119,10 +119,23 @@ class MediaItemController {
 	/**
 	 * Saves a new or an existing media item, returning it back as a promise
 	 * @param mediaItem the media item to insert or update
+	 * @param allowSameName whether to check or not if an existing category has the same name
 	 */
-	public saveMediaItem(mediaItem: MediaItemInternal): Promise<MediaItemInternal> {
+	public saveMediaItem(mediaItem: MediaItemInternal, allowSameName?: boolean): Promise<MediaItemInternal> {
 
-		return queryHelper.save(mediaItem, new MediaItemModel());
+		if(allowSameName) {
+
+			return queryHelper.save(mediaItem, new MediaItemModel());
+		}
+		else {
+
+			const conditions: QueryConditions = {
+				owner: mediaItem.owner,
+				category: mediaItem.category,
+				name: mediaItem.name
+			};
+			return queryHelper.checkUniquenessAndSave(MediaItemModel, mediaItem, new MediaItemModel(), conditions);
+		}
 	}
 
 	/**
