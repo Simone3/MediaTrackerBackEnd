@@ -188,22 +188,27 @@ class MediaItemController {
 				api_key: config.theMovieDbApiKey
 			};
 
-			restJsonInvoker.invokeGet(url, TheMovieDbSearchResponse, queryParams)
-				.then((response) => {
+			restJsonInvoker.invokeGet({
+				url: url,
+				responseBodyClass: TheMovieDbSearchResponse,
+				queryParams: queryParams,
+				timeoutMilliseconds: config.externalApiTimeoutMilliseconds
+			})
+			.then((response) => {
 
-					if(response.results) {
+				if(response.results) {
 
-						resolve(theMovieDbMapper.toInternalCatalogSearchResultList(response.results));
-					}
-					else {
+					resolve(theMovieDbMapper.toInternalCatalogSearchResultList(response.results));
+				}
+				else {
 
-						resolve([]);
-					}
-				})
-				.catch((error) => {
-					
-					reject(AppError.EXTERNAL_API_GENERIC.unlessAppError(error));
-				});
+					resolve([]);
+				}
+			})
+			.catch((error) => {
+				
+				reject(AppError.GENERIC.unlessAppError(error));
+			});
 		});
 	}
 
@@ -222,15 +227,20 @@ class MediaItemController {
 				api_key: config.theMovieDbApiKey
 			};
 
-			restJsonInvoker.invokeGet(url, TheMovieDbDetailsResponse, queryParams)
-				.then((response) => {
+			restJsonInvoker.invokeGet({
+				url: url,
+				responseBodyClass: TheMovieDbDetailsResponse,
+				queryParams: queryParams,
+				timeoutMilliseconds: config.externalApiTimeoutMilliseconds
+			})
+			.then((response) => {
 
-					resolve(theMovieDbMapper.toInternalMediaItem(response));
-				})
-				.catch((error) => {
-					
-					reject(AppError.EXTERNAL_API_GENERIC.unlessAppError(error));
-				});
+				resolve(theMovieDbMapper.toInternalMediaItem(response));
+			})
+			.catch((error) => {
+				
+				reject(AppError.GENERIC.unlessAppError(error));
+			});
 		});
 	}
 }

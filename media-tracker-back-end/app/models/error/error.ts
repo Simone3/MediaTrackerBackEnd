@@ -11,6 +11,7 @@ export class AppError {
 	public static DATABASE_SAVE = new AppError('db.save', 'Database save query returned an error');
 	public static DATABASE_DELETE = new AppError('db.delete', 'Database delete query returned an error');
 	public static EXTERNAL_API_INVOKE = new AppError('external.api.invocation', 'External API invocation returned an error');
+	public static EXTERNAL_API_TIMEOUT = new AppError('external.api.timeout', 'External API invocation timed out');
 	public static EXTERNAL_API_PARSE = new AppError('external.api.parsing', 'Cannot parse external API response');
 	public static EXTERNAL_API_GENERIC = new AppError('external.api.generic', 'Generic error while invoking external API');
 

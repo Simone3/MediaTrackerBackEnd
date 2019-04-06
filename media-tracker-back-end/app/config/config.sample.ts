@@ -8,5 +8,6 @@ export const config: Config = {
 	theMovieDbSearchRelativePath: '/search/movie/?',
 	theMovieDbGetDetailsRelativePath: '/movie/:movieId',
 	theMovieDbApiKey: '<api_key>',
-	theMovieDbDirectorJobName: 'Director'
+	theMovieDbDirectorJobName: 'Director',
+	externalApiTimeoutMilliseconds: 5000
 };

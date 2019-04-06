@@ -6,5 +6,6 @@ export type Config = {
 	theMovieDbSearchRelativePath: string,
 	theMovieDbGetDetailsRelativePath: string,
 	theMovieDbApiKey: string,
-	theMovieDbDirectorJobName: string
+	theMovieDbDirectorJobName: string,
+	externalApiTimeoutMilliseconds: number,
 }
