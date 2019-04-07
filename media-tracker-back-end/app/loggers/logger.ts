@@ -1,6 +1,21 @@
 
-import { configure, getLogger, Logger } from 'log4js';
+import { configure, getLogger, Logger, PatternLayout } from 'log4js';
 import { config } from '../config/config';
+import { requestScopeContext } from '../controllers/utilities/request-scope-context';
+
+/**
+ * Pattern layout for log4js
+ */
+const layout: PatternLayout = {
+	type: 'pattern',
+	pattern: '[%d] [%x{correlationId}] %p %c - %m',
+	tokens: {
+		correlationId: () => {
+
+			return requestScopeContext.correlationId || 'NONE';
+		}
+	}
+}
 
 /**
  * Global log4js configuration
@@ -9,10 +24,12 @@ configure({
 	appenders: {
 		file: {
 			type: 'dateFile',
-			filename: config.log.file
+			filename: config.log.file,
+			layout: layout
 		},
 		console: {
-			type: 'console'
+			type: 'console',
+			layout: layout
 		}
 	},
 	categories: {
