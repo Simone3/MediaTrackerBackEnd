@@ -125,6 +125,11 @@ class MediaTrackerLogger {
 export const logger = new MediaTrackerLogger('Application');
 
 /**
- * Logger for API input-output
+ * Logger for APIs input-output
  */
 export const inputOutputLogger = new MediaTrackerLogger('Input-Output');
+
+/**
+ * Logger for external APIs input-output
+ */
+export const externalInvocationsInputOutputLogger = new MediaTrackerLogger('External-API');

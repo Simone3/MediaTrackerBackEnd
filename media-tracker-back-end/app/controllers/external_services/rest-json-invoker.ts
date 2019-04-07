@@ -5,7 +5,8 @@ import { parserValidator } from '../utilities/parser-validator';
 import { ClassType } from 'class-transformer-validator';
 import { HttpMethod } from '../utilities/misc-utils';
 import { AppError } from '../../models/error/error';
-import { logger } from '../../loggers/logger';
+import { logger, externalInvocationsInputOutputLogger } from '../../loggers/logger';
+import { config } from '../../config/config';
 
 /**
  * Helper controller to invoke external JSON-based REST services
@@ -20,8 +21,6 @@ export class RestJsonInvoker {
 	 * @returns a promise that will eventually contain the parsed response body
 	 */
 	public invokeGet <O extends object> (parameters: InvocationParamsWithoutBody<O>): Promise<O> {
-
-		logger.debug('External API GET invocation started');
 
 		return this.invokeHelper({
 			...parameters,
@@ -38,8 +37,6 @@ export class RestJsonInvoker {
 	 * @returns a promise that will eventually contain the parsed response body
 	 */
 	public invokePost <I extends object, O extends object> (parameters: InvocationParamsWithBody<I, O>): Promise<O> {
-
-		logger.debug('External API POST invocation started');
 
 		return this.invokeHelper({
 			...parameters,
@@ -66,10 +63,14 @@ export class RestJsonInvoker {
 					'Accept-Charset': 'utf-8'
 				}
 			};
+
+			this.logRequest(options);
 		
 			request(options)
 				.then((rawResponse) => {
 	
+					this.logResponse(options, rawResponse);
+
 					parserValidator.parseAndValidate(parameters.responseBodyClass, rawResponse)
 						.then((parsedResponse) => {
 	
@@ -84,18 +85,19 @@ export class RestJsonInvoker {
 				.catch((error) => {
 
 					logger.error('External API invocation error: %s', error);
-					reject(this.invocationErrorToAppError(error));
+					reject(this.invocationErrorToAppError(options, error));
 				});
 		});
 	}
-
+	
 	/**
 	 * Helper to transform a request() error into an AppError
 	 */
-	private invocationErrorToAppError(error: any): AppError {
+	private invocationErrorToAppError(requestOptions: UrlOptions & RequestPromiseOptions, error: any): AppError {
 
 		if(error instanceof StatusCodeError) {
 
+			this.logResponse(requestOptions, error.response);
 			return AppError.EXTERNAL_API_INVOKE.withDetails(error);
 		}
 		else if(error instanceof RequestError) {
@@ -108,6 +110,28 @@ export class RestJsonInvoker {
 		}
 
 		return AppError.EXTERNAL_API_GENERIC.withDetails(error);
+	}
+
+	/**
+	 * Helper to log the invocation request
+	 */
+	private logRequest(requestOptions: UrlOptions & RequestPromiseOptions): void {
+
+		if(config.log.logExternalApisInputOutput) {
+			
+			externalInvocationsInputOutputLogger.info('External Service %s %s %s - Sent Request: %s', requestOptions.method, requestOptions.url, requestOptions.qs, requestOptions.body);
+		}
+	}
+
+	/**
+	 * Helper to log the invocation response
+	 */
+	private logResponse(requestOptions: UrlOptions & RequestPromiseOptions, response: any): void {
+
+		if(config.log.logExternalApisInputOutput) {
+
+			externalInvocationsInputOutputLogger.info('External Service %s %s - Received Response: %s', requestOptions.method, requestOptions.url, response);
+		}
 	}
 }
 
