@@ -3,6 +3,7 @@ import { CategoryInternal } from "../../models/internal/category";
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../../schemas/category";
 import { Queryable, queryHelper } from "../database/query-helper";
 import { mediaItemController } from "./media-item";
+import { logger } from "../../loggers/logger";
 
 /**
  * Mongoose document for categories
@@ -46,10 +47,12 @@ class CategoryController {
 
 		if(allowSameName) {
 
+			logger.debug('Same name is allowed');
 			return queryHelper.save(category, new CategoryModel());
 		}
 		else {
 
+			logger.debug('Same name is NOT allowed');
 			const conditions: QueryConditions = {
 				owner: category.owner,
 				name: category.name
@@ -64,11 +67,11 @@ class CategoryController {
 	 */
 	public deleteCategory(id: string): Promise<void> {
 
-		// First delete all media items in the category
+		logger.debug('First delete all media items in the category');
 		return mediaItemController.deleteAllMediaItemsInCategory(id)
 			.then(() => {
 
-				// Then delete the category
+				logger.debug('Then delete the category');
 				return queryHelper.deleteById(CategoryModel, id)
 			});
 	}
@@ -79,7 +82,7 @@ class CategoryController {
 	 */
 	public deleteAllCategories(userId: string): Promise<number> {
 
-		// First delete all user media items
+		logger.debug('First delete all user media items');
 		return mediaItemController.deleteAllMediaItemsForUser(userId)
 			.then(() => {
 
@@ -87,7 +90,7 @@ class CategoryController {
 					owner: userId
 				};
 
-				// Then delete all categories
+				logger.debug('Then delete all categories');
 				return queryHelper.delete(CategoryModel, conditions);
 			})
 	}

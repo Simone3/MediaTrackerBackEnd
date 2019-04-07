@@ -8,6 +8,7 @@ import { config } from "../../config/config";
 import { restJsonInvoker } from "../external_services/rest-json-invoker";
 import { theMovieDbMapper } from "../../mappers/the-movie-db";
 import { AppError } from "../../models/error/error";
+import { logger } from "../../loggers/logger";
 
 /**
  * Media item document for Mongoose
@@ -79,6 +80,7 @@ class MediaItemController {
 						break;
 
 					default:
+						logger.error('Unexpected order by value: %s', value.field);
 						throw AppError.GENERIC.withDetails('Unhandled orderBy value');
 				}
 			}
@@ -125,10 +127,12 @@ class MediaItemController {
 
 		if(allowSameName) {
 
+			logger.debug('Same name is allowed');
 			return queryHelper.save(mediaItem, new MediaItemModel());
 		}
 		else {
 
+			logger.debug('Same name is NOT allowed');
 			const conditions: QueryConditions = {
 				owner: mediaItem.owner,
 				category: mediaItem.category,
@@ -220,6 +224,7 @@ class MediaItemController {
 			})
 			.catch((error) => {
 				
+				logger.error('Movie catalog invocation error: %s', error);
 				reject(AppError.GENERIC.unlessAppError(error));
 			});
 		});
@@ -252,6 +257,7 @@ class MediaItemController {
 			})
 			.catch((error) => {
 				
+				logger.error('Movie catalog invocation error: %s', error);
 				reject(AppError.GENERIC.unlessAppError(error));
 			});
 		});

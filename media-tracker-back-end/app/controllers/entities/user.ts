@@ -3,6 +3,7 @@ import { UserInternal } from "../../models/internal/user";
 import { UserSchema, USER_COLLECTION_NAME } from "../../schemas/user";
 import { categoryController } from "./category";
 import { queryHelper, Queryable } from "../database/query-helper";
+import { logger } from "../../loggers/logger";
 
 /**
  * Mongoose document for users
@@ -42,11 +43,11 @@ class UserController {
 	 */
 	public deleteUser(id: string): Promise<void> {
 		
-		// First delete all user categories
+		logger.debug('First delete all user categories');
 		return categoryController.deleteAllCategories(id)
 			.then(() => {
 
-				// Then delete user
+				logger.debug('Then delete user');
 				return queryHelper.deleteById(UserModel, id);
 			});
 	}

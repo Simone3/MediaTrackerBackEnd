@@ -6,6 +6,7 @@ import { userMapper } from '../mappers/user';
 import { parserValidator } from '../controllers/utilities/parser-validator';
 import { ErrorResponse } from '../models/api/common';
 import { AppError } from '../models/error/error';
+import { logger } from '../loggers/logger';
 
 var router: Router = express.Router();
 
@@ -30,11 +31,13 @@ router.post('/users', (request, response, __) => {
 				})
 				.catch((error) => {
 
+					logger.error('Add user generic error: %s', error);
 					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
+			logger.error('Add user request error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
@@ -60,11 +63,13 @@ router.put('/users/:id', (request, response, __) => {
 				})
 				.catch((error) => {
 
+					logger.error('Update user generic error: %s', error);
 					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
+			logger.error('Update user request error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
@@ -85,6 +90,7 @@ router.delete('/users/:id', (request, response, __) => {
 		})
 		.catch((error) => {
 
+			logger.error('Delete user generic error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });

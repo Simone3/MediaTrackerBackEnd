@@ -1,6 +1,7 @@
 import { Document, Model, CollationOptions } from "mongoose";
 import { AppError } from "../../models/error/error";
 import { PersistedEntityInternal } from "../../models/internal/common";
+import { logger } from "../../loggers/logger";
 
 /**
  * Collation search options (for case insensitive ordering)
@@ -23,6 +24,8 @@ class QueryHelper {
 	 */
 	public find<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>): Promise<I[]> {
 
+		logger.debug('Database find started');
+
 		return new Promise((resolve, reject) => {
 
 			databaseModel
@@ -35,6 +38,7 @@ class QueryHelper {
 				})
 				.catch((error: any) => {
 
+					logger.error('Database find error: %s', error);
 					reject(AppError.DATABASE_FIND.unlessAppError(error));
 				});
 		});
@@ -48,6 +52,8 @@ class QueryHelper {
 	 * @param uniquenessConditions if existing documents match these conditions, the new document won't be saved and an error will be thrown
 	 */
 	public checkUniquenessAndSave<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, internalModel: I, emptyDocument: D, uniquenessConditions: Queryable<I>): Promise<I> {
+
+		logger.debug('Database check uniquenes and then save started');
 
 		return new Promise((resolve, reject) => {
 
@@ -67,6 +73,7 @@ class QueryHelper {
 					// If we have duplicates throw error, otherwise save document
 					if(duplicates.length > 0) {
 
+						logger.error('Uniqueness constraint error, cannot save. Dusplicates: %s', duplicates);
 						reject(AppError.DATABASE_SAVE_UNIQUENESS.withDetails('Duplicates: ' + JSON.stringify(duplicates.map(elem => elem._id))));
 					}
 					else {
@@ -78,12 +85,14 @@ class QueryHelper {
 							})
 							.catch((error) => {
 
+								logger.error('Database save error after uniqueness check: %s', error);
 								reject(AppError.DATABASE_SAVE.unlessAppError(error));
 							});
 					}
 				})
 				.catch((error) => {
 
+					logger.error('Database uniqueness check error: %s', error);
 					reject(AppError.DATABASE_SAVE.unlessAppError(error));
 				});
 		});
@@ -96,6 +105,8 @@ class QueryHelper {
 	 * @returns the promise that will eventually return the newly saved element
 	 */
 	public save<I extends PersistedEntityInternal, D extends Document & I>(internalModel: I, emptyDocument: D): Promise<I> {
+
+		logger.debug('Database save started');
 
 		return new Promise((resolve, reject) => {
 
@@ -118,6 +129,7 @@ class QueryHelper {
 			   
 				if(error) {
 					
+					logger.error('Database save error: %s', error);
 					reject(AppError.DATABASE_SAVE.unlessAppError(error));
 				}
 				else {
@@ -128,6 +140,7 @@ class QueryHelper {
 					}
 					else {
 
+						logger.error('Cannot find document after save');
 						reject(AppError.DATABASE_SAVE.withDetails('Cannot find document'));
 					}
 				}
@@ -143,6 +156,8 @@ class QueryHelper {
 	 */
 	public deleteById<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string): Promise<void> {
 
+		logger.debug('Database delete by ID started');
+
 		return new Promise((resolve, reject) => {
 
 			databaseModel.findByIdAndRemove(id)
@@ -154,11 +169,13 @@ class QueryHelper {
 					}
 					else {
 
+						logger.error('Delete error, cannot find document');
 						reject(AppError.DATABASE_DELETE.withDetails('Cannot find document'));
 					}
 				})
 				.catch((error: any) => {
 
+					logger.error('Database delete error: %s', error);
 					reject(AppError.DATABASE_DELETE.unlessAppError(error));
 				});
 		});
@@ -172,6 +189,8 @@ class QueryHelper {
 	 */
 	public delete<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: Queryable<I>): Promise<number> {
 
+		logger.debug('Database delete with conditions started');
+
 		return new Promise((resolve, reject) => {
 
 			databaseModel.deleteMany(conditions)
@@ -181,6 +200,7 @@ class QueryHelper {
 				})
 				.catch((error: any) => {
 
+					logger.error('Database delete error: %s', error);
 					reject(AppError.DATABASE_DELETE.unlessAppError(error));
 				});
 		});

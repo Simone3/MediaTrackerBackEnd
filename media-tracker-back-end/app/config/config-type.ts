@@ -2,7 +2,8 @@ export type Config = {
 
 	server: ServerConfig,
 	db: DbConfig,
-	externalApis: ExternalApisConfig
+	externalApis: ExternalApisConfig,
+	log: LogConfig
 }
 
 type ServerConfig = {
@@ -24,4 +25,12 @@ type TheMovieDbConfig = {
 	searchRelativePath: string,
 	getDetailsRelativePath: string,
 	directorJobName: string,
+}
+
+type LogConfig = {
+	level: 'debug' | 'info' | 'error',
+	file: string,
+	logApisInputOutput: boolean,
+	logExternalApisInputOutput: boolean,
+	logDatabaseQueries: boolean
 }

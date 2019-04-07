@@ -1,11 +1,12 @@
 import { TheMovieDbSearchResult, TheMovieDbDetailsResponse, TheMovieDbCredits } from "../models/external_services/movies";
 import { SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from "../models/internal/media-item";
-import { config } from "../config/config.sample";
+import { config } from "../config/config";
+import { AbstractMapper } from "./common";
 
 /**
  * Helper class to translate between external (TheMovieDB) and internal media item models
  */
-class TheMovieDbMapper {
+class TheMovieDbMapper extends AbstractMapper {
 	
 	/**
 	 * List of external models to list of internal models
@@ -23,22 +24,22 @@ class TheMovieDbMapper {
 	 */
 	public toInternalCatalogSearchResult(source: TheMovieDbSearchResult): SearchMediaItemCatalogResultInternal {
 		
-		return {
+		return this.logMapping(source, {
 			catalogId: source.id,
 			title: source.title,
 			releaseDate: source.release_date
-		};
+		});
 	}
 
 	/**
 	 * External model to internal model
 	 */
-	public toInternalMediaItem(response: TheMovieDbDetailsResponse): CatalogMediaItemInternal {
+	public toInternalMediaItem(source: TheMovieDbDetailsResponse): CatalogMediaItemInternal {
 		
-		return {
-			author: this.getDirectorName(response.credits),
-			name: response.title,
-		};
+		return this.logMapping(source, {
+			author: this.getDirectorName(source.credits),
+			name: source.title,
+		});
 	}
 
 	/**

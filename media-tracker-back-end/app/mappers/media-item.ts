@@ -1,11 +1,12 @@
 import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from '../models/internal/media-item';
 import { IdentifiedMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResult, CatalogMediaItem } from '../models/api/media-item';
 import { AppError } from '../models/error/error';
+import { AbstractMapper } from './common';
 
 /**
  * Helper class to translate between internal and public media item models
  */
-class MediaItemMapper {
+class MediaItemMapper extends AbstractMapper {
 	
 	/**
 	 * List of internal models to list of public models
@@ -23,12 +24,12 @@ class MediaItemMapper {
 	 */
 	public toApiMediaItem(source: MediaItemInternal): IdentifiedMediaItem {
 		
-		return {
+		return this.logMapping(source, {
 			uid: source._id,
 			name: source.name,
 			author: source.author,
 			importance: source.importance
-		};
+		});
 	}
 
 	/**
@@ -50,14 +51,14 @@ class MediaItemMapper {
 		const isNew = (source instanceof MediaItem);
 		const id = (isNew ? null : (<IdentifiedMediaItem>source).uid);
 
-		return {
+		return this.logMapping(source, {
 			_id: id,
 			name: source.name,
 			author: source.author,
 			category: categoryId,
 			owner: userId,
 			importance: source.importance
-		};
+		});
 	}
 
 	/**
@@ -65,9 +66,9 @@ class MediaItemMapper {
 	 */
 	public toApiFilter(source: MediaItemFilterInternal): MediaItemFilter {
 
-		return {
+		return this.logMapping(source, {
 			importance: source.importance
-		};
+		});
 	}
 
 	/**
@@ -75,9 +76,9 @@ class MediaItemMapper {
 	 */
 	public toInternalFilter(source: MediaItemFilter): MediaItemFilterInternal {
 
-		return {
+		return this.logMapping(source, {
 			importance: source.importance
-		};
+		});
 	}
 
 	/**
@@ -107,10 +108,10 @@ class MediaItemMapper {
 	 */
 	public toApiSort(source: MediaItemSortByInternal): MediaItemSortBy {
 
-		return {
+		return this.logMapping(source, {
 			ascending: source.ascending,
 			field: this.toApiSortField(source.field)
-		};
+		});
 	}
 
 	/**
@@ -118,10 +119,10 @@ class MediaItemMapper {
 	 */
 	public toInternalSort(source: MediaItemSortBy): MediaItemSortByInternal {
 		
-		return {
+		return this.logMapping(source, {
 			ascending: source.ascending,
 			field: this.toInternalSortField(source.field)
-		};
+		});
 	}
 
 	/**
@@ -168,11 +169,11 @@ class MediaItemMapper {
 	 */
 	public toApiCatalogSearchResult(source: SearchMediaItemCatalogResult): SearchMediaItemCatalogResultInternal {
 
-		return {
+		return this.logMapping(source, {
 			catalogId: source.catalogId,
 			title: source.title,
 			releaseDate: source.releaseDate,
-		}
+		});
 	}
 
 	/**
@@ -180,10 +181,10 @@ class MediaItemMapper {
 	 */
 	public toApiCatalogDetails(source: CatalogMediaItemInternal): CatalogMediaItem {
 		
-		return {
+		return this.logMapping(source, {
 			name: source.name,
 			author: source.author
-		}
+		});
 	}
 
 }

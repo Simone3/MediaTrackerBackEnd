@@ -9,6 +9,7 @@ import { mediaItemMapper } from '../mappers/media-item';
 import { parserValidator } from '../controllers/utilities/parser-validator';
 import { ErrorResponse } from '../models/api/common';
 import { AppError } from '../models/error/error';
+import { logger } from '../loggers/logger';
 
 var router: Router = express.Router();
 
@@ -33,6 +34,7 @@ router.get('/users/:userId/categories/:categoryId/media-items', (request, respon
 		})
 		.catch((error) => {
 
+			logger.error('Get media items generic error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
@@ -63,11 +65,13 @@ router.post('/users/:userId/categories/:categoryId/media-items/filter', (request
 				})
 				.catch((error) => {
 
+					logger.error('Filter media items generic error: %s', error);
 					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
+			logger.error('Filter media items request error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
@@ -98,11 +102,13 @@ router.post('/users/:userId/categories/:categoryId/media-items/search', (request
 				})
 				.catch((error) => {
 
+					logger.error('Search media items generic error: %s', error);
 					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
+			logger.error('Search media items request error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
@@ -132,11 +138,13 @@ router.post('/users/:userId/categories/:categoryId/media-items', (request, respo
 				})
 				.catch((error) => {
 
+					logger.error('Add media item generic error: %s', error);
 					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
+			logger.error('Add media item request error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
@@ -167,12 +175,14 @@ router.put('/users/:userId/categories/:categoryId/media-items/:id', (request, re
 					response.json(body);
 				})
 				.catch((error) => {
-
+					
+					logger.error('Update media item generic error: %s', error);
 					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				})
 		})
 		.catch((error) => {
 
+			logger.error('Update media item request error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
@@ -195,6 +205,7 @@ router.delete('/users/:userId/categories/:categoryId/media-items/:id', (request,
 		})
 		.catch((error) => {
 
+			logger.error('Delete media item generic error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
@@ -219,6 +230,7 @@ router.get('/catalog/media-items/search/:searchTerm', (request, response, __) =>
 		})
 		.catch((error) => {
 
+			logger.error('Media item catalog search generic error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
@@ -243,6 +255,7 @@ router.get('/catalog/media-items/:catalogId', (request, response, __) => {
 		})
 		.catch((error) => {
 
+			logger.error('Media item catalog details generic error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });

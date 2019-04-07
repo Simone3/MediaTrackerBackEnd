@@ -1,5 +1,6 @@
 import mongoose, { ConnectionOptions} from 'mongoose';
 import { AppError } from '../../models/error/error';
+import { logger } from '../../loggers/logger';
 
 /**
  * Database controller that handles generic DB setup, like its connection
@@ -13,6 +14,8 @@ class DatabaseManager {
 		
 		return new Promise((resolve, reject) => {
 			
+			logger.info('Starting database connection...');
+
 			var options: ConnectionOptions = {
 				useNewUrlParser: true
 			};
@@ -23,11 +26,13 @@ class DatabaseManager {
 	
 			db.on('error', (error: any) => {
 				
+				logger.error('Database connection error: %s', error);
 				reject(AppError.DATABASE_INIT.unlessAppError(error));
 			});
 	
 			db.once('open', () => {
 	
+				logger.info('Database connection opened');
 				resolve();
 			});
 		});

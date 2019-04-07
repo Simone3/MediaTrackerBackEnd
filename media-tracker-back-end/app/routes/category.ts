@@ -6,6 +6,7 @@ import { categoryMapper } from '../mappers/category';
 import { parserValidator } from '../controllers/utilities/parser-validator';
 import { ErrorResponse } from '../models/api/common';
 import { AppError } from '../models/error/error';
+import { logger } from '../loggers/logger';
 
 var router: Router = express.Router();
 
@@ -27,6 +28,7 @@ router.get('/users/:userId/categories', (request, response, __) => {
 		})
 		.catch((error) => {
 
+			logger.error('Get categories generic error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
@@ -53,11 +55,13 @@ router.post('/users/:userId/categories', (request, response, __) => {
 				})
 				.catch((error) => {
 
+					logger.error('Add category generic error: %s', error);
 					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 				});
 		})
 		.catch((error) => {
 
+			logger.error('Add category request error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
@@ -85,11 +89,13 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
 			})
 			.catch((error) => {
 
+				logger.error('Update category generic error: %s', error);
 				response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 			});
 		})
 		.catch((error) => {
 
+			logger.error('Update category request error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
 		});
 });
@@ -110,6 +116,7 @@ router.delete('/users/:userId/categories/:id', (request, response, __) => {
 		})
 		.catch((error) => {
 
+			logger.error('Delete category generic error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });

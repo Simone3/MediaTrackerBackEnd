@@ -16,5 +16,12 @@ export const config: Config = {
 			getDetailsRelativePath: '/movie/:movieId',
 			directorJobName: 'Director'
 		}
+	},
+	log: {
+		level: 'debug',
+		file: '<path>/media-tracker.log',
+		logApisInputOutput: true,
+		logExternalApisInputOutput: true,
+		logDatabaseQueries: true
 	}
 };

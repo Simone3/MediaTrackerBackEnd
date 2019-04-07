@@ -1,10 +1,11 @@
 import { CategoryInternal } from '../models/internal/category';
 import { IdentifiedCategory, Category } from '../models/api/category';
+import { AbstractMapper } from './common';
 
 /**
  * Helper class to translate between internal and public category models
  */
-class CategoryMapper {
+class CategoryMapper extends AbstractMapper {
 
 	/**
 	 * List of internal models to list of public models
@@ -22,10 +23,10 @@ class CategoryMapper {
 	 */
 	public internalToApi(source: CategoryInternal): IdentifiedCategory {
 		
-		return {
+		return this.logMapping(source, {
 			uid: source._id,
 			name: source.name
-		};
+		});
 	}
 
 	/**
@@ -47,11 +48,11 @@ class CategoryMapper {
 		const isNew = (source instanceof Category);
 		const id = (isNew ? null : (<IdentifiedCategory>source).uid);
 
-		return {
+		return this.logMapping(source, {
 			_id: id,
 			name: source.name,
 			owner: userId
-		};
+		});
 	}
 }
 

@@ -5,6 +5,7 @@ import { parserValidator } from '../utilities/parser-validator';
 import { ClassType } from 'class-transformer-validator';
 import { HttpMethod } from '../utilities/misc-utils';
 import { AppError } from '../../models/error/error';
+import { logger } from '../../loggers/logger';
 
 /**
  * Helper controller to invoke external JSON-based REST services
@@ -19,6 +20,8 @@ export class RestJsonInvoker {
 	 * @returns a promise that will eventually contain the parsed response body
 	 */
 	public invokeGet <O extends object> (parameters: InvocationParamsWithoutBody<O>): Promise<O> {
+
+		logger.debug('External API GET invocation started');
 
 		return this.invokeHelper({
 			...parameters,
@@ -35,6 +38,8 @@ export class RestJsonInvoker {
 	 * @returns a promise that will eventually contain the parsed response body
 	 */
 	public invokePost <I extends object, O extends object> (parameters: InvocationParamsWithBody<I, O>): Promise<O> {
+
+		logger.debug('External API POST invocation started');
 
 		return this.invokeHelper({
 			...parameters,
@@ -72,11 +77,13 @@ export class RestJsonInvoker {
 						})
 						.catch((error) => {
 	
+							logger.error('External API response parse error: %s', error);
 							reject(AppError.EXTERNAL_API_PARSE.unlessAppError(error));
 						})
 				})
 				.catch((error) => {
 
+					logger.error('External API invocation error: %s', error);
 					reject(this.invocationErrorToAppError(error));
 				});
 		});
