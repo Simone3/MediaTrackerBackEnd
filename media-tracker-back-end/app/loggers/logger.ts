@@ -120,3 +120,8 @@ export const inputOutputLogger = new MediaTrackerLogger('Input-Output');
  * Logger for external APIs input-output
  */
 export const externalInvocationsInputOutputLogger = new MediaTrackerLogger('External-API');
+
+/**
+ * Logger for database queries
+ */
+export const databaseLogger = new MediaTrackerLogger('Database');

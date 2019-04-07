@@ -1,6 +1,7 @@
 import mongoose, { ConnectionOptions} from 'mongoose';
 import { AppError } from '../../models/error/error';
-import { logger } from '../../loggers/logger';
+import { logger, databaseLogger } from '../../loggers/logger';
+import { config } from '../../config/config';
 
 /**
  * Database controller that handles generic DB setup, like its connection
@@ -19,6 +20,14 @@ class DatabaseManager {
 			var options: ConnectionOptions = {
 				useNewUrlParser: true
 			};
+
+			if(config.log.logDatabaseQueries) {
+
+				mongoose.set('debug', (collection: any, method: any, query: any, document: any) => {
+					
+					databaseLogger.info('Accessing collection %s with %s query %s and document %s', collection, method, query, document);
+				});
+			}
 	
 			mongoose.connect(databaseUrl, options);
 	
