@@ -2,6 +2,7 @@
 import { configure, getLogger, Logger, PatternLayout } from 'log4js';
 import { config } from '../config/config';
 import { requestScopeContext } from '../controllers/utilities/request-scope-context';
+import { logRedactor } from './log-redactor';
 
 /**
  * Pattern layout for log4js
@@ -95,21 +96,7 @@ class MediaTrackerLogger {
 
 			return args.map((arg) => {
 
-				if(arg) {
-
-					if(arg instanceof Object) {
-
-						return JSON.stringify(arg);
-					}
-					else {
-
-						return arg;
-					}
-				}
-				else {
-
-				}
-				return '-';
+				return logRedactor.processAndStringify(arg);
 			});
 		}
 		else {
