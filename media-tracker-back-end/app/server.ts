@@ -6,6 +6,7 @@ import { categoryRouter } from './routes/category';
 import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddleware } from './loggers/express-logger';
 import { config } from './config/config';
 import { requestScopeContextMiddleware } from './controllers/utilities/request-scope-context';
+import { groupRouter } from './routes/group';
 
 // Base setup
 var app = express();
@@ -23,6 +24,7 @@ if(config.log.logApisInputOutput) {
 // Routes
 app.use('/', userRouter);
 app.use('/', categoryRouter);
+app.use('/', groupRouter);
 app.use('/', mediaItemRouter);
 app.use(catchAllRouter);
 
