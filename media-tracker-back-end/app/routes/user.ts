@@ -47,11 +47,13 @@ router.post('/users', (request, response, __) => {
  */
 router.put('/users/:id', (request, response, __) => {
 
+	const {id} = request.params;
+
 	parserValidator.parseAndValidate(UpdateUserRequest, request.body)
 		.then((body) => {
 
 			const user = userMapper.apiToInternal(body.user);
-			user._id = request.params.id;
+			user._id = id;
 			userController.saveUser(user)
 				.then(() => {
 				
@@ -79,7 +81,9 @@ router.put('/users/:id', (request, response, __) => {
  */
 router.delete('/users/:id', (request, response, __) => {
 
-	userController.deleteUser(request.params.id)
+	const {id} = request.params;
+
+	userController.deleteUser(id)
 		.then(() => {
 			
 			const body: DeleteUserResponse = {

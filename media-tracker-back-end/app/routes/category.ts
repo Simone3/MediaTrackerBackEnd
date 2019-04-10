@@ -71,13 +71,16 @@ router.post('/users/:userId/categories', (request, response, __) => {
  */
 router.put('/users/:userId/categories/:id', (request, response, __) => {
 
-	const {userId} = request.params;
+	const {
+		userId,
+		id
+	} = request.params;
 
 	parserValidator.parseAndValidate(UpdateCategoryRequest, request.body)
 		.then((body) => {
 
 			const category = categoryMapper.apiToInternal(body.category, userId);
-			category._id = request.params.id;
+			category._id = id;
 			categoryController.saveCategory(category, body.allowSameName)
 			.then(() => {
 			
@@ -105,7 +108,9 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
  */
 router.delete('/users/:userId/categories/:id', (request, response, __) => {
 
-	categoryController.deleteCategory(request.params.id)
+	const {id} = request.params;
+
+	categoryController.deleteCategory(id)
 		.then(() => {
 			
 			const body: DeleteCategoryResponse = {
