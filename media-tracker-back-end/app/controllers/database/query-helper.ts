@@ -24,8 +24,6 @@ class QueryHelper {
 	 */
 	public find<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>, populate?: Populatable<I>): Promise<I[]> {
 
-		logger.debug('Database find started');
-
 		return new Promise((resolve, reject) => {
 
 			const query = databaseModel
@@ -65,8 +63,6 @@ class QueryHelper {
 	 * @param uniquenessConditions if existing documents match these conditions, the new document won't be saved and an error will be thrown
 	 */
 	public checkUniquenessAndSave<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, internalModel: I, emptyDocument: D, uniquenessConditions: Queryable<I>): Promise<I> {
-
-		logger.debug('Database check uniquenes and then save started');
 
 		return new Promise((resolve, reject) => {
 
@@ -119,8 +115,6 @@ class QueryHelper {
 	 */
 	public save<I extends PersistedEntityInternal, D extends Document & I>(internalModel: I, emptyDocument: D): Promise<I> {
 
-		logger.debug('Database save started');
-
 		return new Promise((resolve, reject) => {
 
 			// Copy all properties from the internal model to the empty document
@@ -169,8 +163,6 @@ class QueryHelper {
 	 */
 	public deleteById<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string): Promise<void> {
 
-		logger.debug('Database delete by ID started');
-
 		return new Promise((resolve, reject) => {
 
 			databaseModel.findByIdAndRemove(id)
@@ -201,8 +193,6 @@ class QueryHelper {
 	 * @returns a promise with the number of deleted elements
 	 */
 	public delete<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: Queryable<I>): Promise<number> {
-
-		logger.debug('Database delete with conditions started');
 
 		return new Promise((resolve, reject) => {
 
