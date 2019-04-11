@@ -24,12 +24,23 @@ class MediaItemMapper extends AbstractMapper {
 	 */
 	public toApiMediaItem(source: MediaItemInternal): IdentifiedMediaItem {
 		
-		return this.logMapping(source, {
+		const target: IdentifiedMediaItem = {
 			uid: source._id,
 			name: source.name,
 			author: source.author,
 			importance: source.importance
-		});
+		};
+
+		if(source.group && source.orderInGroup && typeof(source.group) !== 'string') {
+
+			target.group = {
+				groupId: String(source.group._id),
+				groupName: source.group.name,
+				orderInGroup: source.orderInGroup
+			};
+		}
+
+		return this.logMapping(source, target);
 	}
 
 	/**
@@ -57,6 +68,8 @@ class MediaItemMapper extends AbstractMapper {
 			author: source.author,
 			category: categoryId,
 			owner: userId,
+			group: (source.group ? source.group.groupId : undefined),
+			orderInGroup: (source.group ? source.group.orderInGroup : undefined),
 			importance: source.importance
 		});
 	}
@@ -67,7 +80,8 @@ class MediaItemMapper extends AbstractMapper {
 	public toApiFilter(source: MediaItemFilterInternal): MediaItemFilter {
 
 		return this.logMapping(source, {
-			importance: source.importance
+			importance: source.importance,
+			groupId: source.groupId
 		});
 	}
 
@@ -77,7 +91,8 @@ class MediaItemMapper extends AbstractMapper {
 	public toInternalFilter(source: MediaItemFilter): MediaItemFilterInternal {
 
 		return this.logMapping(source, {
-			importance: source.importance
+			importance: source.importance,
+			groupId: source.groupId
 		});
 	}
 
@@ -135,6 +150,7 @@ class MediaItemMapper extends AbstractMapper {
 			case MediaItemSortFieldInternal.AUTHOR: return MediaItemSortField.AUTHOR;
 			case MediaItemSortFieldInternal.IMPORTANCE: return MediaItemSortField.IMPORTANCE;
 			case MediaItemSortFieldInternal.NAME: return MediaItemSortField.NAME;
+			case MediaItemSortFieldInternal.GROUP: return MediaItemSortField.GROUP;
 			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
 		}
 	}
@@ -149,6 +165,7 @@ class MediaItemMapper extends AbstractMapper {
 			case MediaItemSortField.AUTHOR: return MediaItemSortFieldInternal.AUTHOR;
 			case MediaItemSortField.IMPORTANCE: return MediaItemSortFieldInternal.IMPORTANCE;
 			case MediaItemSortField.NAME: return MediaItemSortFieldInternal.NAME;
+			case MediaItemSortField.GROUP: return MediaItemSortFieldInternal.GROUP;
 			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
 		}
 	}

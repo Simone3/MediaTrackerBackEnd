@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
 import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortFieldInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from "../../models/internal/media-item";
 import { MediaItemSchema, MEDIA_ITEM_COLLECTION_NAME } from "../../schemas/media-item";
-import { Queryable, Sortable, queryHelper } from "../database/query-helper";
+import { Queryable, Sortable, queryHelper, SortDirection } from "../database/query-helper";
 import { miscUtilsController } from "../utilities/misc-utils";
 import { TheMovieDbSearchQueryParams, TheMovieDbSearchResponse, TheMovieDbDetailsQueryParams, TheMovieDbDetailsResponse } from "../../models/external_services/movies";
 import { config } from "../../config/config";
@@ -65,18 +65,25 @@ class MediaItemController {
 
 			for(const value of sortBy) {
 
+				let sortDirection: SortDirection = value.ascending ? 'asc' : 'desc';
+
 				switch(value.field) {
 
 					case MediaItemSortFieldInternal.IMPORTANCE:
-						sort.importance = value.ascending ? 'asc' : 'desc';
+						sort.importance = sortDirection;
 						break;
 
 					case MediaItemSortFieldInternal.AUTHOR:
-						sort.author = value.ascending ? 'asc' : 'desc';
+						sort.author = sortDirection;
 						break;
 
 					case MediaItemSortFieldInternal.NAME:
-						sort.name = value.ascending ? 'asc' : 'desc';
+						sort.name = sortDirection;
+						break;
+
+					case MediaItemSortFieldInternal.GROUP:
+						sort.group = sortDirection;
+						sort.orderInGroup = sortDirection;
 						break;
 
 					default:
@@ -86,7 +93,7 @@ class MediaItemController {
 			}
 		}
 
-		return queryHelper.find(MediaItemModel, conditions, sort);
+		return queryHelper.find(MediaItemModel, conditions, sort, {'group': true});
 	}
 
 	/**
@@ -187,6 +194,11 @@ class MediaItemController {
 			if(filterBy.importance) {
 
 				conditions.importance = filterBy.importance;
+			}
+
+			if(filterBy.groupId) {
+
+				conditions.group = filterBy.groupId;
 			}
 		}
 	}

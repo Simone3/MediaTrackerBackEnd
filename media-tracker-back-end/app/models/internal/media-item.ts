@@ -1,6 +1,7 @@
 import { CategoryInternal } from "./category";
 import { UserInternal } from "./user";
 import { PersistedEntityInternal } from "./common";
+import { GroupInternal } from "./group";
 
 /**
  * Model for a media item with base properties, internal type NOT to be exposed via API
@@ -17,6 +18,8 @@ export type CatalogMediaItemInternal = {
 export type MediaItemInternal = CatalogMediaItemInternal & PersistedEntityInternal & {
 
 	category: CategoryInternal | string;
+	group?: GroupInternal | string;
+	orderInGroup?: number;
 	owner: UserInternal | string;
 	importance: number;
 };
@@ -27,6 +30,7 @@ export type MediaItemInternal = CatalogMediaItemInternal & PersistedEntityIntern
 export type MediaItemFilterInternal = {
 	
 	importance?: number;
+	groupId?: string;
 };
 
 /**
@@ -36,7 +40,8 @@ export enum MediaItemSortFieldInternal {
 
 	IMPORTANCE,
 	AUTHOR,
-	NAME
+	NAME,
+	GROUP
 }
 
 /**

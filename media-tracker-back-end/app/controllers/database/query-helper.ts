@@ -22,16 +22,29 @@ class QueryHelper {
 	 * @param sortBy optional sort conditions
 	 * @return a promise that will eventually contain the list of all internal model representations of the persisted elements
 	 */
-	public find<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>): Promise<I[]> {
+	public find<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>, populate?: Populatable<I>): Promise<I[]> {
 
 		logger.debug('Database find started');
 
 		return new Promise((resolve, reject) => {
 
-			databaseModel
+			const query = databaseModel
 				.find(conditions)
 				.collation(COLLATION)
-				.sort(sortBy)
+				.sort(sortBy);
+
+			if(populate) {
+
+				for(let populateField in populate) {
+
+					if(populate[populateField]) {
+						
+						query.populate(populateField);
+					}
+				}
+			}
+
+			query
 				.then((documents: D[]) => {
 
 					resolve(documents);
@@ -216,8 +229,13 @@ export const queryHelper = new QueryHelper();
  * Helper type to make all properties in T be optionally asc or desc
  */
 export type Sortable<T> = {
-    [P in keyof T]?: 'asc' | 'desc';
+    [P in keyof T]?: SortDirection;
 };
+
+/**
+ * Helper type to describe the sort direction
+ */
+export type SortDirection = 'asc' | 'desc';
 
 /**
  * Helper type to make all properties in T optional, possibily regular expressions and possibly with nested OR conditions
@@ -225,3 +243,10 @@ export type Sortable<T> = {
 export type Queryable<T> = {
     [P in keyof T]?: T[P] | RegExp;
 } & {$or?: Queryable<T>[]};
+
+/**
+ * Helper type to make all properties in T be optionally true or false
+ */
+export type Populatable<T> = {
+    [P in keyof T]?: boolean;
+};

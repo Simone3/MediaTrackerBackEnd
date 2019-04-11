@@ -33,6 +33,14 @@ export class MediaItem extends CatalogMediaItem {
 	@IsNotEmpty()
 	@IsInt()
 	importance!: number;
+
+	/**
+	 * The media item group
+	 */
+	@IsOptional()
+	@Type(() => MediaItemGroup)
+	@ValidateNested()
+	group?: MediaItemGroup;
 };
 
 /**
@@ -47,6 +55,33 @@ export class IdentifiedMediaItem extends MediaItem {
 	@IsString()
 	uid!: string;
 };
+
+/**
+ * Model for a media item group info, publicly exposed via API
+ */
+export class MediaItemGroup {
+
+	/**
+	 * The group ID
+	 */
+	@IsNotEmpty()
+	@IsString()
+	groupId!: string;
+
+	/**
+	 * The group name
+	 */
+	@IsOptional()
+	@IsString()
+	groupName?: string;
+
+	/**
+	 * The media item order inside the group
+	 */
+	@IsNotEmpty()
+	@IsInt()
+	orderInGroup!: number;
+}
 
 /**
  * Request for the "add media item" API
@@ -199,6 +234,13 @@ export class MediaItemFilter {
 	@IsOptional()
 	@IsInt()
 	importance?: number;
+
+	/**
+	 * Group to filter
+	 */
+	@IsOptional()
+	@IsString()
+	groupId?: string;
 }
 
 /**
@@ -208,7 +250,8 @@ export enum MediaItemSortField {
 
 	IMPORTANCE,
 	AUTHOR,
-	NAME
+	NAME,
+	GROUP
 }
 
 /**
