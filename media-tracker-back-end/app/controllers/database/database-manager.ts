@@ -46,6 +46,14 @@ class DatabaseManager {
 			});
 		});
 	}
+
+	/**
+	 * Closes the database connection
+	 */
+	public closeConnection(): Promise<void> {
+
+		return mongoose.connection.close(false);
+	}
 }
 
 export const databaseManager = new DatabaseManager();

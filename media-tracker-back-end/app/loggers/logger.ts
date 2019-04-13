@@ -1,5 +1,5 @@
 
-import { configure, getLogger, Logger, PatternLayout } from 'log4js';
+import { configure, getLogger, Logger, PatternLayout, shutdown } from 'log4js';
 import { config } from '../config/config';
 import { requestScopeContext } from '../controllers/utilities/request-scope-context';
 import { logRedactor } from './log-redactor';
@@ -125,3 +125,11 @@ export const externalInvocationsInputOutputLogger = new MediaTrackerLogger('Exte
  * Logger for database queries
  */
 export const databaseLogger = new MediaTrackerLogger('Database');
+
+/**
+ * Callback to gracefully close all loggers
+ */
+export const finalizeAndCloseAllLoggers = () => {
+
+	shutdown();
+};
