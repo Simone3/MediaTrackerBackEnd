@@ -1,12 +1,12 @@
 import express from 'express';
-import { mediaItemRouter } from './routes/media-item';
-import { catchAllRouter } from './routes/catch-all';
-import { userRouter } from './routes/user';
-import { categoryRouter } from './routes/category';
-import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddleware } from './loggers/express-logger';
-import { config } from './config/config';
-import { requestScopeContextMiddleware } from './controllers/utilities/request-scope-context';
-import { groupRouter } from './routes/group';
+import { mediaItemRouter } from '../routes/media-item';
+import { catchAllRouter } from '../routes/catch-all';
+import { userRouter } from '../routes/user';
+import { categoryRouter } from '../routes/category';
+import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddleware } from '../loggers/express-logger';
+import { config } from '../config/config';
+import { requestScopeContextMiddleware } from '../controllers/utilities/request-scope-context';
+import { groupRouter } from '../routes/group';
 
 // Base setup
 var app = express();
