@@ -1,4 +1,5 @@
 import { AppError } from "../../models/error/error";
+import { PersistedEntityInternal } from "../../models/internal/common";
 
 /**
  * Helper controller for enities, with util methods
@@ -48,5 +49,56 @@ export abstract class AbstractEntityController {
 
 			throw AppError.DATABASE_DELETE.unlessAppError(error);
 		}
-	} 
+	}
+
+	/**
+	 * Helper to check that one or more persisted entitues exist
+	 * @param errorToThrow the error to throw if preconditions fail
+	 * @param checkCallback callback that returns a promise containing either undefined (= no entity found = precondition fail), a single entity (= entity found =
+	 *                      precondition pass) or an array of possibly undefined entities (if all defined, = precondition pass; if at least one undefined, = 
+	 *                      precondition fail)
+	 */
+	protected checkExistencePreconditionsHelper(errorToThrow: AppError, checkCallback: () => Promise<PersistedEntityInternal | undefined | (PersistedEntityInternal | undefined)[]>): Promise<void> {
+		
+		return new Promise((resolve, reject) => {
+
+			checkCallback()
+				.then((result) => {
+
+					if(result) {
+
+						if(result instanceof Array) {
+
+							for(let resultValue of result) {
+
+								if(!resultValue) {
+
+									// At least one of the elements in the result array is undefined, KO
+									reject(errorToThrow);
+									return;
+								}
+							}
+
+							// All elements of the result array are defined, OK
+							resolve();
+						}
+						else {
+
+							// The single result element is defined, OK
+							resolve();
+						}
+					}
+					else {
+
+						// The single result element is undefined, KO
+						reject(errorToThrow);
+					}
+				})
+				.catch((error) => {
+
+					// Generic error, KO
+					reject(errorToThrow.withDetails(error));
+				})
+		});
+	}
 }

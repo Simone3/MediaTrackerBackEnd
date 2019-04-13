@@ -10,6 +10,12 @@ import { theMovieDbMapper } from "../../mappers/the-movie-db";
 import { AppError } from "../../models/error/error";
 import { logger } from "../../loggers/logger";
 import { AbstractEntityController } from "./helper";
+import { UserInternal } from "app/models/internal/user";
+import { CategoryInternal } from "app/models/internal/category";
+import { GroupInternal } from "app/models/internal/group";
+import { categoryController } from "./category";
+import { groupController } from "./group";
+import { PersistedEntityInternal } from "../../models/internal/common";
 
 /**
  * Media item document for Mongoose
@@ -35,6 +41,23 @@ type OrderBy = Sortable<MediaItemInternal>
  * Controller for media item entities
  */
 class MediaItemController extends AbstractEntityController {
+
+	/**
+	 * Gets a single media item, or undefined if not found
+	 * @param userId user ID
+	 * @param categoryId category ID
+	 * @param mediaItemId media item ID
+	 */
+	public getMediaItem(userId: string, categoryId: string, mediaItemId: string): Promise<MediaItemInternal | undefined> {
+
+		const conditions: QueryConditions = {
+			_id: mediaItemId,
+			category: categoryId,
+			owner: userId
+		};
+
+		return queryHelper.findOne(MediaItemModel, conditions);
+	}
 
 	/**
 	 * Gets all saved media items for the given user and category, as a promise
@@ -157,7 +180,14 @@ class MediaItemController extends AbstractEntityController {
 	 * @param mediaItem the media item to insert or update
 	 * @param allowSameName whether to check or not if an existing category has the same name
 	 */
-	public saveMediaItem(mediaItem: MediaItemInternal, allowSameName?: boolean): Promise<MediaItemInternal> {
+	public async saveMediaItem(mediaItem: MediaItemInternal, allowSameName?: boolean): Promise<MediaItemInternal> {
+
+		await this.checkWritePreconditions(
+			AppError.DATABASE_SAVE.withDetails(mediaItem._id ? 'Media item or group does not exists for given user/category' : 'User or category or group does not exist'),
+			mediaItem.owner,
+			mediaItem.category,
+			mediaItem.group,
+			mediaItem._id);
 
 		if(allowSameName) {
 
@@ -178,11 +208,20 @@ class MediaItemController extends AbstractEntityController {
 
 	/**
 	 * Deletes a media item with the given ID, returning a void promise
-	 * @param id the media item ID
+	 * @param userId the user ID
+	 * @param categoryId the category ID
+	 * @param mediaItemId the media item ID
 	 */
-	public deleteMediaItem(id: string): Promise<number> {
+	public async deleteMediaItem(userId: string, categoryId: string, mediaItemId: string): Promise<number> {
 
-		return queryHelper.deleteById(MediaItemModel, id);
+		await this.checkWritePreconditions(
+			AppError.DATABASE_DELETE.withDetails('Media item does not exist for given user/category'),
+			userId,
+			categoryId,
+			undefined,
+			mediaItemId);
+
+		return queryHelper.deleteById(MediaItemModel, mediaItemId);
 	}
 
 	/**
@@ -229,7 +268,7 @@ class MediaItemController extends AbstractEntityController {
 	 */
 	private setConditionsFromFilter(conditions: Queryable<MediaItemDocument>, filterBy?: MediaItemFilterInternal): void {
 		
-		if (filterBy) {
+		if(filterBy) {
 			
 			if(filterBy.importance) {
 
@@ -241,6 +280,50 @@ class MediaItemController extends AbstractEntityController {
 				conditions.group = filterBy.groupId;
 			}
 		}
+	}
+
+	/**
+	 * Helper to check preconditions on a insert/update/delete method
+	 * @param errorToThow error to throw if the preconditions fail
+	 * @param user the user
+	 * @param category the category
+	 * @param group the group (optional)
+	 * @param mediaItemId the media item ID (optional to use this method for new inserts)
+	 */
+	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, group?: string | GroupInternal, mediaItemId?: string): Promise<void> {
+
+		return this.checkExistencePreconditionsHelper(errorToThow, () => {
+
+			const userId = typeof(user) === 'string' ? user : user._id;
+			const categoryId = typeof(category) === 'string' ? category : category._id;
+			const groupId = !group || typeof(group) === 'string' ? group : group._id;
+
+			let mediaItemCheckPromise: Promise<PersistedEntityInternal | undefined>;
+
+			if(mediaItemId) {
+
+				// Make sure the media item exists
+				mediaItemCheckPromise = this.getMediaItem(userId, categoryId, mediaItemId);
+			}
+			else {
+
+				// Make sure the category exists
+				mediaItemCheckPromise = categoryController.getCategory(userId, categoryId);
+			}
+
+			// If a group was set, also make sure the group exists
+			if(groupId) {
+
+				return Promise.all([
+					groupController.getGroup(userId, categoryId, groupId),
+					mediaItemCheckPromise
+				]);
+			}
+			else {
+
+				return mediaItemCheckPromise;
+			}
+		});
 	}
 
 	/**

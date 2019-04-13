@@ -28,6 +28,19 @@ type QueryConditions = Queryable<UserInternal>;
 class UserController extends AbstractEntityController {
 
 	/**
+	 * Gets a single user, or undefined if not found
+	 * @param userId user ID
+	 */
+	public getUser(userId: string): Promise<UserInternal | undefined> {
+
+		const conditions: QueryConditions = {
+			_id: userId
+		};
+
+		return queryHelper.findOne(UserModel, conditions);
+	}
+
+	/**
 	 * Saves a new or an existing user, returning it back as a promise
 	 * @param user the user to insert or update
 	 */

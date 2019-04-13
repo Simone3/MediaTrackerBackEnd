@@ -192,9 +192,13 @@ router.put('/users/:userId/categories/:categoryId/media-items/:id', (request, re
  */
 router.delete('/users/:userId/categories/:categoryId/media-items/:id', (request, response, __) => {
 
-	const {id} = request.params;
+	const {
+		userId,
+		categoryId,
+		id
+	} = request.params;
 
-	mediaItemController.deleteMediaItem(id)
+	mediaItemController.deleteMediaItem(userId, categoryId, id)
 		.then(() => {
 			
 			const body: DeleteMediaItemResponse = {

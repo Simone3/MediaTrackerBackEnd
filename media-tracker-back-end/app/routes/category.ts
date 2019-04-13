@@ -109,10 +109,14 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
  */
 router.delete('/users/:userId/categories/:id', (request, response, __) => {
 
-	const {id} = request.params;
+	const {
+		userId,
+		id
+	} = request.params;
+
 	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);
 
-	categoryController.deleteCategory(id, forceEvenIfNotEmpty)
+	categoryController.deleteCategory(userId, id, forceEvenIfNotEmpty)
 		.then(() => {
 			
 			const body: DeleteCategoryResponse = {

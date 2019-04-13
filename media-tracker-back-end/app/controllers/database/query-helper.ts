@@ -20,6 +20,7 @@ class QueryHelper {
 	 * @param databaseModel the database model
 	 * @param conditions optional query conditions
 	 * @param sortBy optional sort conditions
+	 * @param populate list of "joined" columns to populate
 	 * @return a promise that will eventually contain the list of all internal model representations of the persisted elements
 	 */
 	public find<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>, populate?: Populatable<I>): Promise<I[]> {
@@ -51,6 +52,40 @@ class QueryHelper {
 
 					logger.error('Database find error: %s', error);
 					reject(AppError.DATABASE_FIND.unlessAppError(error));
+				});
+		});
+	}
+
+	/**
+	 * Helper to get from the database a single element of a model. If more than one element matches the conditions, an error is thrown.
+	 * @param databaseModel the database model
+	 * @param conditions optional query conditions
+	 * @param populate list of "joined" columns to populate
+	 * @return a promise that will eventually contain the internal model representation of the persisted element, or undefined if not found
+	 */
+	public findOne<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: Queryable<I>, populate?: Populatable<I>): Promise<I | undefined> {
+
+		return new Promise((resolve, reject) => {
+
+			this.find(databaseModel, conditions, undefined, populate)
+				.then((results) => {
+
+					if(results.length > 1) {
+
+						reject(AppError.DATABASE_FIND.withDetails('findOne conditions matched more than one element'))
+					}
+					else if(results.length === 0) {
+
+						resolve(undefined);
+					}
+					else {
+
+						resolve(results[0]);
+					}
+				})
+				.catch((error) => {
+
+					reject(error);
 				});
 		});
 	}

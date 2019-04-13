@@ -5,6 +5,10 @@ import { Queryable, queryHelper } from "../database/query-helper";
 import { logger } from "../../loggers/logger";
 import { mediaItemController } from "./media-item";
 import { AbstractEntityController } from "./helper";
+import { AppError } from "../../models/error/error";
+import { CategoryInternal } from "../../models/internal/category";
+import { UserInternal } from "../../models/internal/user";
+import { categoryController } from "./category";
 
 /**
  * Mongoose document for groups
@@ -27,7 +31,24 @@ type QueryConditions = Queryable<GroupInternal>;
 class GroupController extends AbstractEntityController {
 
 	/**
-	 * Gets all saved groups for the given user, as a promise
+	 * Gets a single group, or undefined if not found
+	 * @param userId user ID
+	 * @param categoryId category ID
+	 * @param groupId gorup ID
+	 */
+	public getGroup(userId: string, categoryId: string, groupId: string): Promise<GroupInternal | undefined> {
+
+		const conditions: QueryConditions = {
+			_id: groupId,
+			owner: userId,
+			category: categoryId
+		};
+
+		return queryHelper.findOne(GroupModel, conditions);
+	}
+	
+	/**
+	 * Gets all saved groups for the given user and category, as a promise
 	 * @param userId user ID
 	 * @param categoryId category ID
 	 */
@@ -46,7 +67,13 @@ class GroupController extends AbstractEntityController {
 	 * @param group the group to insert or update
 	 * @param allowSameName whether to check or not if an existing group has the same name
 	 */
-	public saveGroup(group: GroupInternal, allowSameName?: boolean): Promise<GroupInternal> {
+	public async saveGroup(group: GroupInternal, allowSameName?: boolean): Promise<GroupInternal> {
+
+		await this.checkWritePreconditions(
+			AppError.DATABASE_SAVE.withDetails(group._id ? 'Group does not exists for given user/category' : 'User or category does not exist'),
+			group.owner,
+			group.category,
+			group._id);
 
 		if(allowSameName) {
 
@@ -67,18 +94,22 @@ class GroupController extends AbstractEntityController {
 
 	/**
 	 * Deletes a group with the given ID
-	 * @param id the group ID
+	 * @param userId the user ID
+	 * @param categoryId the category ID
+	 * @param groupId the group ID
 	 * @param forceEvenIfNotEmpty forces delete even if not empty (deletes all media items inside it)
 	 * @returns a promise with the number of deleted elements
 	 */
-	public async deleteGroup(id: string, forceEvenIfNotEmpty: boolean): Promise<number> {
+	public async deleteGroup(userId: string, categoryId: string, groupId: string, forceEvenIfNotEmpty: boolean): Promise<number> {
+		
+		await this.checkWritePreconditions(AppError.DATABASE_DELETE.withDetails('Group does not exist for given user/category'), userId, categoryId, groupId);
 
 		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
-			return mediaItemController.getAllMediaItemsInGroup(id);
+			return mediaItemController.getAllMediaItemsInGroup(groupId);
 		}, () => {
 			return Promise.all([
-				mediaItemController.deleteAllMediaItemsInGroup(id),
-				queryHelper.deleteById(GroupModel, id)
+				mediaItemController.deleteAllMediaItemsInGroup(groupId),
+				queryHelper.deleteById(GroupModel, groupId)
 			])
 		});
 	}
@@ -109,6 +140,33 @@ class GroupController extends AbstractEntityController {
 		};
 
 		return queryHelper.delete(GroupModel, conditions);
+	}
+
+	/**
+	 * Helper to check preconditions on a insert/update/delete method
+	 * @param errorToThow error to throw if the preconditions fail
+	 * @param user the user
+	 * @param category the category
+	 * @param groupId the group ID (optional to use this method for new inserts)
+	 */
+	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, groupId?: string): Promise<void> {
+
+		return this.checkExistencePreconditionsHelper(errorToThow, () => {
+
+			const userId = typeof(user) === 'string' ? user : user._id;
+			const categoryId = typeof(category) === 'string' ? category : category._id;
+
+			if(groupId) {
+
+				// Make sure the group exists
+				return this.getGroup(userId, categoryId, groupId);
+			}
+			else {
+
+				// Make sure the category exists
+				return categoryController.getCategory(userId, categoryId);
+			}
+		});
 	}
 }
 

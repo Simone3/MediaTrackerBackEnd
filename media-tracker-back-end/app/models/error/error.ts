@@ -19,9 +19,9 @@ export class AppError {
 
 	private _errorCode: string;
 	private _errorDescription: string;
-	private _errorDetails?: string;
+	private _errorDetails?: string | AppError;
 
-	constructor(errorCode: string, errorDescription: string, errorDetails?: string) {
+	constructor(errorCode: string, errorDescription: string, errorDetails?: string | AppError) {
 		
 		this._errorCode = errorCode;
 		this._errorDescription = errorDescription;
@@ -47,7 +47,7 @@ export class AppError {
 	/**
 	 * The optional error details
 	 */
-	public get errorDetails(): string | undefined {
+	public get errorDetails(): string | AppError | undefined {
 
 		return this._errorDetails;
 	}
@@ -57,7 +57,24 @@ export class AppError {
 	 */
 	public withDetails(errorDetails?: any): AppError {
 
-		return new AppError(this.errorCode, this.errorDescription, (errorDetails ? '' + errorDetails : ''));
+		let convertedErrorDetails: string | AppError;
+		if(errorDetails) {
+
+			if(errorDetails instanceof AppError) {
+
+				convertedErrorDetails = errorDetails;
+			}
+			else {
+
+				convertedErrorDetails = String(errorDetails);
+			}
+		}
+		else {
+
+			convertedErrorDetails = '';
+		}
+
+		return new AppError(this.errorCode, this.errorDescription, convertedErrorDetails);
 	}
 
 	/**

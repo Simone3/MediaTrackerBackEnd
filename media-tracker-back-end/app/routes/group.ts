@@ -116,10 +116,15 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
  */
 router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, response, __) => {
 
-	const {id} = request.params;
+	const {
+		userId,
+		categoryId,
+		id
+	} = request.params;
+	
 	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);
 
-	groupController.deleteGroup(id, forceEvenIfNotEmpty)
+	groupController.deleteGroup(userId, categoryId, id, forceEvenIfNotEmpty)
 		.then(() => {
 			
 			const body: DeleteGroupResponse = {
