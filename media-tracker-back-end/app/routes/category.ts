@@ -7,6 +7,7 @@ import { parserValidator } from '../controllers/utilities/parser-validator';
 import { ErrorResponse } from '../models/api/common';
 import { AppError } from '../models/error/error';
 import { logger } from '../loggers/logger';
+import { miscUtilsController } from '../controllers/utilities/misc-utils';
 
 var router: Router = express.Router();
 
@@ -109,8 +110,9 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
 router.delete('/users/:userId/categories/:id', (request, response, __) => {
 
 	const {id} = request.params;
+	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);
 
-	categoryController.deleteCategory(id)
+	categoryController.deleteCategory(id, forceEvenIfNotEmpty)
 		.then(() => {
 			
 			const body: DeleteCategoryResponse = {

@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString, ValidateNested, IsDefined, IsEnum, IsBoolean, IsInt } from 'class-validator';
 import { Type, Transform } from 'class-transformer';
-import { CommonRequest, CommonResponse } from './common';
+import { CommonRequest, CommonResponse, CommonSaveRequest } from './common';
 
 /**
  * Model for a media item with base properties, publicly exposed via API
@@ -86,7 +86,7 @@ export class MediaItemGroup {
 /**
  * Request for the "add media item" API
  */
-export class AddMediaItemRequest extends CommonRequest {
+export class AddMediaItemRequest extends CommonSaveRequest {
 
 	/**
 	 * The media item to add
@@ -95,13 +95,6 @@ export class AddMediaItemRequest extends CommonRequest {
 	@Type(() => MediaItem)
 	@ValidateNested()
 	newMediaItem!: MediaItem;
-
-	/**
-	 * If true, the media item is allowed to have the same name of another existing media item
-	 */
-	@IsOptional()
-	@IsBoolean()
-	allowSameName?: boolean;
 };
 
 /**
@@ -132,7 +125,7 @@ export class GetAllMediaItemsResponse extends CommonResponse {
 /**
  * Request for the "update media item" API
  */
-export class UpdateMediaItemRequest extends CommonRequest {
+export class UpdateMediaItemRequest extends CommonSaveRequest {
 
 	/**
 	 * The media item to update
@@ -141,13 +134,6 @@ export class UpdateMediaItemRequest extends CommonRequest {
 	@Type(() => MediaItem)
 	@ValidateNested()
 	mediaItem!: MediaItem;
-
-	/**
-	 * If true, the media item is allowed to have the same name of another existing media item
-	 */
-	@IsOptional()
-	@IsBoolean()
-	allowSameName?: boolean;
 };
 
 /**

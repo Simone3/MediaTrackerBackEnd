@@ -9,6 +9,7 @@ import { restJsonInvoker } from "../external_services/rest-json-invoker";
 import { theMovieDbMapper } from "../../mappers/the-movie-db";
 import { AppError } from "../../models/error/error";
 import { logger } from "../../loggers/logger";
+import { AbstractEntityController } from "./helper";
 
 /**
  * Media item document for Mongoose
@@ -33,7 +34,7 @@ type OrderBy = Sortable<MediaItemInternal>
 /**
  * Controller for media item entities
  */
-class MediaItemController {
+class MediaItemController extends AbstractEntityController {
 
 	/**
 	 * Gets all saved media items for the given user and category, as a promise
@@ -43,6 +44,32 @@ class MediaItemController {
 	public getAllMediaItems(userId: string, categoryId: string): Promise<MediaItemInternal[]> {
 
 		return this.filterAndOrderMediaItems(userId, categoryId);
+	}
+
+	/**
+	 * Gets all saved media items for the given group, as a promise
+	 * @param groupId the group ID
+	 */
+	public getAllMediaItemsInGroup(groupId: string): Promise<MediaItemInternal[]> {
+
+		const conditions: QueryConditions = {
+			group: groupId
+		};
+
+		return queryHelper.find(MediaItemModel, conditions);
+	}
+
+	/**
+	 * Gets all saved media items for the given category, as a promise
+	 * @param categoryId the category ID
+	 */
+	public getAllMediaItemsInCategory(categoryId: string): Promise<MediaItemInternal[]> {
+
+		const conditions: QueryConditions = {
+			category: categoryId
+		};
+
+		return queryHelper.find(MediaItemModel, conditions);
 	}
 
 	/**
@@ -153,9 +180,22 @@ class MediaItemController {
 	 * Deletes a media item with the given ID, returning a void promise
 	 * @param id the media item ID
 	 */
-	public deleteMediaItem(id: string): Promise<void> {
+	public deleteMediaItem(id: string): Promise<number> {
 
 		return queryHelper.deleteById(MediaItemModel, id);
+	}
+
+	/**
+	 * Delets all saved media items for the given group, returning the number of deleted elements as a promise
+	 * @param groupId the group ID
+	 */
+	public deleteAllMediaItemsInGroup(groupId: string): Promise<number> {
+
+		const conditions: QueryConditions = {
+			group: groupId
+		};
+
+		return queryHelper.delete(MediaItemModel, conditions);
 	}
 
 	/**

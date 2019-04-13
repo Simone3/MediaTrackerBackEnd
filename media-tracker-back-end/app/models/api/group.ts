@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsString, ValidateNested, IsDefined, IsBoolean, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, ValidateNested, IsDefined } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CommonRequest, CommonResponse } from './common';
+import { CommonResponse, CommonSaveRequest } from './common';
 
 /**
  * Model for a group, publicly exposed via API
@@ -31,7 +31,7 @@ export class IdentifiedGroup extends Group {
 /**
  * Request for the "add group" API
  */
-export class AddGroupRequest extends CommonRequest {
+export class AddGroupRequest extends CommonSaveRequest {
 
 	/**
 	 * The group to add
@@ -40,13 +40,6 @@ export class AddGroupRequest extends CommonRequest {
 	@Type(() => Group)
 	@ValidateNested()
 	newGroup!: Group;
-
-	/**
-	 * If true, the group is allowed to have the same name of another existing group
-	 */
-	@IsOptional()
-	@IsBoolean()
-	allowSameName?: boolean;
 };
 
 /**
@@ -74,7 +67,7 @@ export class GetAllGroupsResponse extends CommonResponse {
 /**
  * Request for the "update group" API
  */
-export class UpdateGroupRequest extends CommonRequest {
+export class UpdateGroupRequest extends CommonSaveRequest {
 
 	/**
 	 * The group to update
@@ -83,13 +76,6 @@ export class UpdateGroupRequest extends CommonRequest {
 	@Type(() => Group)
 	@ValidateNested()
 	group!: Group;
-
-	/**
-	 * If true, the group is allowed to have the same name of another existing group
-	 */
-	@IsOptional()
-	@IsBoolean()
-	allowSameName?: boolean;
 };
 
 /**

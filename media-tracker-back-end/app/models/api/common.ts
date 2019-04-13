@@ -1,4 +1,5 @@
 import { AppError } from "../error/error";
+import { IsOptional, IsBoolean } from "class-validator";
 
 /**
  * Type shared by all API requests
@@ -46,3 +47,19 @@ export class ErrorResponse extends CommonResponse {
 		this.errorDetails = error.errorDetails;
 	}
 }
+
+/**
+ * Type that can be extended by insert or update API requests for common fields
+ */
+export class CommonSaveRequest {
+
+	/**
+	 * If true, the element is allowed to have the same name of another existing element
+	 */
+	@IsOptional()
+	@IsBoolean()
+	allowSameName?: boolean;
+}
+
+
+

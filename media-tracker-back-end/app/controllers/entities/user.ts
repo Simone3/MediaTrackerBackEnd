@@ -3,7 +3,9 @@ import { UserInternal } from "../../models/internal/user";
 import { UserSchema, USER_COLLECTION_NAME } from "../../schemas/user";
 import { categoryController } from "./category";
 import { queryHelper, Queryable } from "../database/query-helper";
-import { logger } from "../../loggers/logger";
+import { AbstractEntityController } from "./helper";
+import { groupController } from "./group";
+import { mediaItemController } from "./media-item";
 
 /**
  * Mongoose document for users
@@ -23,7 +25,7 @@ type QueryConditions = Queryable<UserInternal>;
 /**
  * Controller for user entities
  */
-class UserController {
+class UserController extends AbstractEntityController {
 
 	/**
 	 * Saves a new or an existing user, returning it back as a promise
@@ -38,18 +40,22 @@ class UserController {
 	}
 
 	/**
-	 * Deletes a user with the given ID, returning a void promise
+	 * Deletes a user with the given ID, returning a promise with the number of deleted elements
 	 * @param id the user ID
+	 * @param forceEvenIfNotEmpty forces delete even if not empty (deletes all categories, groups and media items inside it)
 	 */
-	public deleteUser(id: string): Promise<void> {
+	public deleteUser(id: string, forceEvenIfNotEmpty: boolean): Promise<number> {
 		
-		logger.debug('First delete all user categories');
-		return categoryController.deleteAllCategories(id)
-			.then(() => {
-
-				logger.debug('Then delete user');
-				return queryHelper.deleteById(UserModel, id);
-			});
+		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
+			return categoryController.getAllCategories(id)
+		}, () => {
+			return Promise.all([
+				categoryController.deleteAllCategoriesForUser(id),
+				groupController.deleteAllGroupsForUser(id),
+				mediaItemController.deleteAllMediaItemsForUser(id),
+				queryHelper.deleteById(UserModel, id)
+			])
+		});
 	}
 }
 

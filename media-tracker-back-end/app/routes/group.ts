@@ -7,6 +7,7 @@ import { parserValidator } from '../controllers/utilities/parser-validator';
 import { ErrorResponse } from '../models/api/common';
 import { AppError } from '../models/error/error';
 import { logger } from '../loggers/logger';
+import { miscUtilsController } from '../controllers/utilities/misc-utils';
 
 var router: Router = express.Router();
 
@@ -116,8 +117,9 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
 router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, response, __) => {
 
 	const {id} = request.params;
+	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);
 
-	groupController.deleteGroup(id)
+	groupController.deleteGroup(id, forceEvenIfNotEmpty)
 		.then(() => {
 			
 			const body: DeleteGroupResponse = {

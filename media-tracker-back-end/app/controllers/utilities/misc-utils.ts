@@ -62,6 +62,31 @@ class MiscUtilsController {
 		
 		return fullUrl;
 	}
+
+	/**
+	 * Parses a boolean from a value of any type (e.g. the string "false" maps to the boolean false)
+	 */
+	public parseBoolean(value: any): boolean {
+
+		if(typeof(value) === 'string') {
+
+			value = value.trim().toLowerCase();
+		}
+
+		switch(value) {
+
+			case true:
+			case "true":
+			case 1:
+			case "1":
+			case "on":
+			case "yes":
+				return true;
+
+			default:
+				return false;
+		}
+	}
 }
 
 /**

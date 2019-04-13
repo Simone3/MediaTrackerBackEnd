@@ -159,9 +159,9 @@ class QueryHelper {
 	 * Helper to delete a database element by ID
 	 * @param databaseModel the database model
 	 * @param id the element ID
-	 * @returns a void promise
+	 * @returns a promise with the number of deleted elements
 	 */
-	public deleteById<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string): Promise<void> {
+	public deleteById<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string): Promise<number> {
 
 		return new Promise((resolve, reject) => {
 
@@ -170,7 +170,7 @@ class QueryHelper {
 
 					if(deletedDocument) {
 
-						resolve();
+						resolve(1);
 					}
 					else {
 

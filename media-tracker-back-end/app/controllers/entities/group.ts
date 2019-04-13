@@ -3,6 +3,8 @@ import { GroupInternal } from "../../models/internal/group";
 import { GroupSchema, GROUP_COLLECTION_NAME } from "../../schemas/group";
 import { Queryable, queryHelper } from "../database/query-helper";
 import { logger } from "../../loggers/logger";
+import { mediaItemController } from "./media-item";
+import { AbstractEntityController } from "./helper";
 
 /**
  * Mongoose document for groups
@@ -22,7 +24,7 @@ type QueryConditions = Queryable<GroupInternal>;
 /**
  * Controller for group entities
  */
-class GroupController {
+class GroupController extends AbstractEntityController {
 
 	/**
 	 * Gets all saved groups for the given user, as a promise
@@ -64,53 +66,50 @@ class GroupController {
 	}
 
 	/**
-	 * Deletes a group with the given ID, returning a void promise
+	 * Deletes a group with the given ID
 	 * @param id the group ID
+	 * @param forceEvenIfNotEmpty forces delete even if not empty (deletes all media items inside it)
+	 * @returns a promise with the number of deleted elements
 	 */
-	public deleteGroup(id: string): Promise<void> {
+	public async deleteGroup(id: string, forceEvenIfNotEmpty: boolean): Promise<number> {
 
-		// TODO uncomment this!
-		// logger.debug('First delete all media items in the group');
-		// return mediaItemController.deleteAllMediaItemsInGroup(id)
-		// 	.then(() => {
-
-				logger.debug('Then delete the group');
-				return queryHelper.deleteById(GroupModel, id)
-			// });
+		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
+			return mediaItemController.getAllMediaItemsInGroup(id);
+		}, () => {
+			return Promise.all([
+				mediaItemController.deleteAllMediaItemsInGroup(id),
+				queryHelper.deleteById(GroupModel, id)
+			])
+		});
 	}
 
-	// /**
-	//  * Deletes all groups for the given category, returning the number of deleted elements as a promise
-	//  * @param categoryId category ID
-	//  */
-	// public deleteAllGroupsInCategory(categoryId: string): Promise<number> {
+	/**
+	 * Deletes all groups for the given category, returning the number of deleted elements as a promise
+	 * This method does NOT cascade delete all media items in the groups
+	 * @param categoryId category ID
+	 */
+	public deleteAllGroupsInCategory(categoryId: string): Promise<number> {
 
-	// 	const conditions: QueryConditions = {
-	// 		category: categoryId
-	// 	};
+		const conditions: QueryConditions = {
+			category: categoryId
+		};
 
-	// 	return queryHelper.delete(GroupModel, conditions);
-	// }
+		return queryHelper.delete(GroupModel, conditions);
+	}
 
-	// /**
-	//  * Deletes all groups for the given user, returning the number of deleted elements as a promise
-	//  * @param userId user ID
-	//  */
-	// public deleteAllGroupsForUser(userId: string): Promise<number> {
+	/**
+	 * Deletes all groups for the given user, returning the number of deleted elements as a promise
+	 * This method does NOT cascade delete all media items in the groups
+	 * @param userId user ID
+	 */
+	public deleteAllGroupsForUser(userId: string): Promise<number> {
 
-	// 	THIS IS WRONG...
-	// 	logger.debug('First delete all user categories (and thus media items)');
-	// 	return categoryController.deleteAllCategories(userId)
-	// 		.then(() => {
+		const conditions: QueryConditions = {
+			owner: userId
+		};
 
-	// 			const conditions: QueryConditions = {
-	// 				owner: userId
-	// 			};
-
-	// 			logger.debug('Then delete all groups');
-	// 			return queryHelper.delete(GroupModel, conditions);
-	// 		})
-	// }
+		return queryHelper.delete(GroupModel, conditions);
+	}
 }
 
 /**
