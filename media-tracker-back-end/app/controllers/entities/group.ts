@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
 import { GroupInternal } from "../../models/internal/group";
 import { GroupSchema, GROUP_COLLECTION_NAME } from "../../schemas/group";
-import { Queryable, queryHelper } from "../database/query-helper";
+import { Queryable, queryHelper, Sortable } from "../database/query-helper";
 import { logger } from "../../loggers/logger";
 import { mediaItemController } from "./media-item";
 import { AbstractEntityController } from "./helper";
@@ -24,6 +24,11 @@ const GroupModel: Model<GroupDocument> = model<GroupDocument>(GROUP_COLLECTION_N
  * Helper type for group query conditions
  */
 type QueryConditions = Queryable<GroupInternal>;
+
+/**
+ * Helper type for group sorting conditions
+ */
+type OrderBy = Sortable<GroupInternal>;
 
 /**
  * Controller for group entities
@@ -59,7 +64,11 @@ class GroupController extends AbstractEntityController {
 			category: categoryId
 		};
 
-		return queryHelper.find(GroupModel, conditions);
+		const sortBy: OrderBy = {
+			name: "asc"
+		};
+
+		return queryHelper.find(GroupModel, conditions, sortBy);
 	}
 
 	/**

@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
 import { CategoryInternal } from "../../models/internal/category";
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../../schemas/category";
-import { Queryable, queryHelper } from "../database/query-helper";
+import { Queryable, queryHelper, Sortable } from "../database/query-helper";
 import { mediaItemController } from "./media-item";
 import { logger } from "../../loggers/logger";
 import { AbstractEntityController } from "./helper";
@@ -24,6 +24,11 @@ const CategoryModel: Model<CategoryDocument> = model<CategoryDocument>(CATEGORY_
  * Helper type for category query conditions
  */
 type QueryConditions = Queryable<CategoryInternal>;
+
+/**
+ * Helper type for category sorting conditions
+ */
+type OrderBy = Sortable<CategoryInternal>;
 
 /**
  * Controller for category entities
@@ -55,7 +60,11 @@ class CategoryController extends AbstractEntityController {
 			owner: userId
 		};
 
-		return queryHelper.find(CategoryModel, conditions);
+		const sortBy: OrderBy = {
+			name: "asc"
+		};
+
+		return queryHelper.find(CategoryModel, conditions, sortBy);
 	}
 
 	/**

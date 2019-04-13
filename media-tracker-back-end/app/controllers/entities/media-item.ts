@@ -33,9 +33,9 @@ const MediaItemModel: Model<MediaItemDocument> = model<MediaItemDocument>(MEDIA_
 type QueryConditions = Queryable<MediaItemInternal>;
 
 /**
- * Helper type for media item soring conditions
+ * Helper type for media item sorting conditions
  */
-type OrderBy = Sortable<MediaItemInternal>
+type OrderBy = Sortable<MediaItemInternal>;
 
 /**
  * Controller for media item entities
@@ -66,7 +66,12 @@ class MediaItemController extends AbstractEntityController {
 	 */
 	public getAllMediaItems(userId: string, categoryId: string): Promise<MediaItemInternal[]> {
 
-		return this.filterAndOrderMediaItems(userId, categoryId);
+		const sortBy: MediaItemSortByInternal[] = [{
+			field: MediaItemSortFieldInternal.NAME,
+			ascending: true
+		}];
+
+		return this.filterAndOrderMediaItems(userId, categoryId, undefined, sortBy);
 	}
 
 	/**
