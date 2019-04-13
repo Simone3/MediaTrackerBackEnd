@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newUser\": {\n    \t\"name\": \"Del1\"\n    }\n}"
+							"raw": "{\n    \"newUser\": {\n    \t\"name\": \"Del4\"\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users",
@@ -52,10 +52,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user\": {\n    \t\"name\": \"Prova4Mod\"\n    }\n}"
+							"raw": "{\n    \"user\": {\n    \t\"name\": \"Del2\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e29247fc1bd2e9c1fc5fb",
+							"raw": "http://localhost:3000/users/5ca8a325d583333354a84060",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -63,7 +63,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e29247fc1bd2e9c1fc5fb"
+								"5ca8a325d583333354a84060"
 							]
 						}
 					},
@@ -79,7 +79,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a",
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -87,7 +87,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e844d9c52163bf800f56a"
+								"5c8e2a0e7fc1bd2e9c1fc5fd"
 							]
 						}
 					},
@@ -108,7 +108,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a/categories",
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -116,7 +116,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e844d9c52163bf800f56a",
+								"5ca86fb869629a26e8fdcc25",
 								"categories"
 							]
 						}
@@ -137,10 +137,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newCategory\": {\n    \t\"name\": \"CatDel2\"\n    }\n}"
+							"raw": "{\n    \"newCategory\": {\n    \t\"name\": \"CMyCat2\"\n    },\n    \"allowSameName\": false\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a/categories",
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -148,7 +148,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e844d9c52163bf800f56a",
+								"5ca86fb869629a26e8fdcc25",
 								"categories"
 							]
 						}
@@ -169,10 +169,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"category\": {\n    \t\"name\": \"MyCoolMovies\"\n    }\n}"
+							"raw": "{\n    \"category\": {\n    \t\"name\": \"MyCat2MODz\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2afa99f2f502145dd625",
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -180,9 +180,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e2a0e7fc1bd2e9c1fc5fd",
+								"5ca86fb869629a26e8fdcc25",
 								"categories",
-								"5c8e2afa99f2f502145dd625"
+								"5cb1d4dda513dd2854833c73"
 							]
 						}
 					},
@@ -198,7 +198,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e844d9c52163bf800f56a/categories/5c8e846b9c52163bf800f56c",
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -206,9 +206,138 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e844d9c52163bf800f56a",
+								"5ca86fb869629a26e8fdcc25",
 								"categories",
-								"5c8e846b9c52163bf800f56c"
+								"5cb1d4dda513dd2854833c73"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Group",
+			"item": [
+				{
+					"name": "GetAllGroups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/groups",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5ca86fb869629a26e8fdcc25",
+								"categories",
+								"5cb1d4dda513dd2854833c73",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddGroup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newGroup\": {\n    \t\"name\": \"BGroup1\"\n    },\n    \"allowSameName\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/groups",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5ca86fb869629a26e8fdcc25",
+								"categories",
+								"5cb1d4dda513dd2854833c73",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateGroup",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"group\": {\n    \t\"name\": \"Group1EDITED\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/groups/5cb1d542a513dd2854833c77",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5ca86fb869629a26e8fdcc25",
+								"categories",
+								"5cb1d4dda513dd2854833c73",
+								"groups",
+								"5cb1d542a513dd2854833c77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteGroup",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/groups/5cb1d542a513dd2854833c77",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5ca86fb869629a26e8fdcc25",
+								"categories",
+								"5cb1d4dda513dd2854833c73",
+								"groups",
+								"5cb1d542a513dd2854833c77"
 							]
 						}
 					},
@@ -229,7 +358,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items",
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/media-items",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -237,9 +366,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e2a0e7fc1bd2e9c1fc5fd",
+								"5ca86fb869629a26e8fdcc25",
 								"categories",
-								"5c8e2d02357bab24ac2bdbf4",
+								"5cb1d4dda513dd2854833c73",
 								"media-items"
 							]
 						}
@@ -260,10 +389,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newMediaItem\": {\n    \t\"name\": \"zzzz\",\n    \t\"author\": \"test\",\n    \t\"importance\": 100\n    }\n}"
+							"raw": "{\n    \"newMediaItem\": {\n        \"name\": \"A\",\n        \"author\": \"test\",\n        \"importance\": 100,\n        \"group\": {\n            \"groupId\": \"5cb247379bb23437c8ea2049\",\n            \"orderInGroup\": 3\n        }\n    },\n    \"allowSameName\": false\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items",
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/media-items",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -271,9 +400,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e2a0e7fc1bd2e9c1fc5fd",
+								"5ca86fb869629a26e8fdcc25",
 								"categories",
-								"5c8e2d02357bab24ac2bdbf4",
+								"5cb1d4dda513dd2854833c73",
 								"media-items"
 							]
 						}
@@ -294,10 +423,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"mediaItem\": {\n    \t\"name\": \"Changed\",\n    \t\"author\": \"ChangedAuthor\"\n    }\n}"
+							"raw": "{\n    \"mediaItem\": {\n        \"name\": \"MediaItemInGroup3\",\n        \"author\": \"test\",\n        \"importance\": 100,\n    \t\"group\": {\n    \t\t\"groupId\": \"5caf8a9f33987f14c072d781\",\n    \t\t\"orderInGroup\": 1\n    \t}\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items/5c8e2d58357bab24ac2bdbf5",
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5ca8abd5febc9e01981f04ed/media-items/5caf8b8533987f14c072d784",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -307,9 +436,9 @@
 								"users",
 								"5c8e2a0e7fc1bd2e9c1fc5fd",
 								"categories",
-								"5c8e2d02357bab24ac2bdbf4",
+								"5ca8abd5febc9e01981f04ed",
 								"media-items",
-								"5c8e2d58357bab24ac2bdbf5"
+								"5caf8b8533987f14c072d784"
 							]
 						}
 					},
@@ -325,7 +454,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items/5c8e2d58357bab24ac2bdbf5",
+							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/media-items/5cb1d926316cbb1db045d783",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -333,11 +462,11 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e2a0e7fc1bd2e9c1fc5fd",
+								"5ca86fb869629a26e8fdcc25",
 								"categories",
-								"5c8e2d02357bab24ac2bdbf4",
+								"5cb1d4dda513dd2854833c73",
 								"media-items",
-								"5c8e2d58357bab24ac2bdbf5"
+								"5cb1d926316cbb1db045d783"
 							]
 						}
 					},
@@ -357,10 +486,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 20\n\t},\n    \"sortBy\": [\n        {\n            \"field\": \"IMPORTANCE\",\n            \"ascending\": false\n        },\n        {\n            \"field\": \"NAME\",\n            \"ascending\": true\n        }\n    ]\n}"
+							"raw": "{\n\t\"filter\": {\n\t\t\"groupId\": \"5cae471c81d4e21b542f4699\"\n\t},\n    \"sortBy\": [\n        {\n            \"field\": \"GROUP\",\n            \"ascending\": true\n        },\n        {\n            \"field\": \"NAME\",\n            \"ascending\": true\n        }\n    ]\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items/filter",
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5ca8abd5febc9e01981f04ed/media-items/filter",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -370,7 +499,7 @@
 								"users",
 								"5c8e2a0e7fc1bd2e9c1fc5fd",
 								"categories",
-								"5c8e2d02357bab24ac2bdbf4",
+								"5ca8abd5febc9e01981f04ed",
 								"media-items",
 								"filter"
 							]
@@ -392,10 +521,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 20\n\t},\n    \"searchTerm\": \"]\"\n}"
+							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 100\n\t},\n    \"searchTerm\": \"MediaItemInGroup\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5c8e2d02357bab24ac2bdbf4/media-items/search",
+							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5ca8abd5febc9e01981f04ed/media-items/search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -405,7 +534,7 @@
 								"users",
 								"5c8e2a0e7fc1bd2e9c1fc5fd",
 								"categories",
-								"5c8e2d02357bab24ac2bdbf4",
+								"5ca8abd5febc9e01981f04ed",
 								"media-items",
 								"search"
 							]
@@ -449,7 +578,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/catalog/media-items/search/The Lord of Rings",
+							"raw": "http://localhost:3000/catalog/media-items/120",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -458,8 +587,7 @@
 							"path": [
 								"catalog",
 								"media-items",
-								"search",
-								"The Lord of Rings"
+								"120"
 							]
 						}
 					},
