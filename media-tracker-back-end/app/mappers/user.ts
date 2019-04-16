@@ -1,54 +1,24 @@
 import { UserInternal } from '../models/internal/user';
-import { IdentifiedUser, User } from '../models/api/user';
+import { IdentifiedUser } from '../models/api/user';
+import { ModelMapper } from './common';
 
 /**
- * Helper class to translate between internal and public user models
+ * Mapper for users
  */
-class UserMapper {
+class UserMapper extends ModelMapper<UserInternal, IdentifiedUser, never> {
+	
+	protected convertToExternal(source: UserInternal): IdentifiedUser {
 
-	/**
-	 * List of internal models to list of public models
-	 */
-	public internalToApiList(sources: UserInternal[]): IdentifiedUser[] {
-
-		return sources.map((source) => {
-
-			return this.internalToApi(source);
-		});
-	}
-
-	/**
-	 * Internal model to public model
-	 */
-	public internalToApi(source: UserInternal): IdentifiedUser {
-		
 		return {
 			uid: source._id,
 			name: source.name
 		};
 	}
 
-	/**
-	 * List of public models to list of internal models
-	 */
-	public apiToInternalList<T extends (IdentifiedUser | User)>(sources: T[]): UserInternal[] {
-
-		return sources.map((source) => {
-
-			return this.apiToInternal(source);
-		});
-	}
-
-	/**
-	 * Public model to internal model
-	 */
-	public apiToInternal<T extends (IdentifiedUser | User)>(source: T): UserInternal {
-
-		const isNew = (source instanceof User);
-		const id = (isNew ? null : (<IdentifiedUser>source).uid);
-
+	protected convertToInternal(source: IdentifiedUser): UserInternal {
+		
 		return {
-			_id: id,
+			_id: (source.uid ? source.uid : null),
 			name: source.name
 		};
 	}

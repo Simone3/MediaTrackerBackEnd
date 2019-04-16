@@ -1,58 +1,38 @@
 import { CategoryInternal } from '../models/internal/category';
-import { IdentifiedCategory, Category } from '../models/api/category';
-import { AbstractMapper } from './common';
+import { IdentifiedCategory } from '../models/api/category';
+import { ModelMapper } from './common';
 
 /**
- * Helper class to translate between internal and public category models
+ * Helper type
  */
-class CategoryMapper extends AbstractMapper {
+type CategoryMapperParams = {
+	userId: string
+};
 
-	/**
-	 * List of internal models to list of public models
-	 */
-	public internalToApiList(sources: CategoryInternal[]): IdentifiedCategory[] {
-
-		return sources.map((source) => {
-
-			return this.internalToApi(source);
-		});
-	}
-
-	/**
-	 * Internal model to public model
-	 */
-	public internalToApi(source: CategoryInternal): IdentifiedCategory {
+/**
+ * Mapper for categories
+ */
+class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, CategoryMapperParams> {
+	
+	protected convertToExternal(source: CategoryInternal): IdentifiedCategory {
 		
-		return this.logMapping(source, {
+		return {
 			uid: source._id,
 			name: source.name
-		});
+		};
 	}
 
-	/**
-	 * List of public models to list of internal models
-	 */
-	public apiToInternalList<T extends (IdentifiedCategory | Category)>(sources: T[], userId: string): CategoryInternal[] {
+	protected convertToInternal(source: IdentifiedCategory, extraParams?: CategoryMapperParams): CategoryInternal {
+		
+		if(!extraParams) {
+			throw "convertToInternal.extraParams cannot be undefined"
+		}
 
-		return sources.map((source) => {
-
-			return this.apiToInternal(source, userId);
-		});
-	}
-
-	/**
-	 * Public model to internal model
-	 */
-	public apiToInternal<T extends (IdentifiedCategory | Category)>(source: T, userId: string): CategoryInternal {
-
-		const isNew = (source instanceof Category);
-		const id = (isNew ? null : (<IdentifiedCategory>source).uid);
-
-		return this.logMapping(source, {
-			_id: id,
+		return {
+			_id: (source.uid ? source.uid : null),
 			name: source.name,
-			owner: userId
-		});
+			owner: extraParams.userId
+		};
 	}
 }
 
