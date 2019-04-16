@@ -21,7 +21,7 @@ export class AppError {
 	private _errorDescription: string;
 	private _errorDetails?: string | AppError;
 
-	constructor(errorCode: string, errorDescription: string, errorDetails?: string | AppError) {
+	private constructor(errorCode: string, errorDescription: string, errorDetails?: string | AppError) {
 		
 		this._errorCode = errorCode;
 		this._errorDescription = errorDescription;

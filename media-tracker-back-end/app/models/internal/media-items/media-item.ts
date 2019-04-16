@@ -1,7 +1,7 @@
-import { CategoryInternal } from "./category";
-import { UserInternal } from "./user";
-import { PersistedEntityInternal } from "./common";
-import { GroupInternal } from "./group";
+import { CategoryInternal } from "../category";
+import { UserInternal } from "../user";
+import { PersistedEntityInternal } from "../common";
+import { GroupInternal } from "../group";
 
 /**
  * Model for a media item with base properties, internal type NOT to be exposed via API
@@ -9,14 +9,14 @@ import { GroupInternal } from "./group";
 export type CatalogMediaItemInternal = {
 
 	name: string;
-	author?: string;
 };
 
 /**
  * Model for a media item with all properties, internal type NOT to be exposed via API
  */
-export type MediaItemInternal = CatalogMediaItemInternal & PersistedEntityInternal & {
+export type MediaItemInternal = PersistedEntityInternal & {
 
+	name: string;
 	category: CategoryInternal | string;
 	group?: GroupInternal | string;
 	orderInGroup?: number;
@@ -36,20 +36,14 @@ export type MediaItemFilterInternal = {
 /**
  * Values for ordering options, internal type NOT to be exposed via API
  */
-export enum MediaItemSortFieldInternal {
-
-	IMPORTANCE,
-	AUTHOR,
-	NAME,
-	GROUP
-}
+export type MediaItemSortFieldInternal = 'IMPORTANCE' | 'NAME' | 'GROUP';
 
 /**
  * Media items sort by options, internal type NOT to be exposed via API
  */
-export type MediaItemSortByInternal = {
+export type MediaItemSortByInternal<F> = {
 
-	field: MediaItemSortFieldInternal;
+	field: F;
 	ascending: boolean;
 }
 
