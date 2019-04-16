@@ -31,8 +31,9 @@ export type MovieSortFieldInternal = MediaItemSortFieldInternal | 'DIRECTOR';
 /**
  * Media items sort by options, internal type NOT to be exposed via API
  */
-export type MovieSortByInternal = MediaItemSortByInternal<MovieSortFieldInternal> & {
+export type MovieSortByInternal = MediaItemSortByInternal & {
 
+	field: MovieSortFieldInternal;
 };
 
 /**

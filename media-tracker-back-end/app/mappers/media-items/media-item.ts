@@ -78,20 +78,19 @@ export abstract class MediaItemFilterMapper<I extends MediaItemFilterInternal, E
 /**
  * Abstract mapper for media item sort options
  */
-export abstract class MediaItemSortMapper<I extends MediaItemSortByInternal<F>, E extends MediaItemSortBy, F> extends ModelMapper<I, E, never> {
+export abstract class MediaItemSortMapper<I extends MediaItemSortByInternal, E extends MediaItemSortBy> extends ModelMapper<I, E, never> {
 
-	protected commonToExternal(source: MediaItemSortByInternal<F>): MediaItemSortBy {
+	protected commonToExternal(source: MediaItemSortByInternal): MediaItemSortBy {
 
 		return {
 			ascending: source.ascending
 		};
 	}
 
-	protected commonToInternal(source: MediaItemSortBy): MediaItemSortByInternal<F> {
+	protected commonToInternal(source: MediaItemSortBy): MediaItemSortByInternal {
 		
 		return {
-			ascending: source.ascending,
-			field: this.toInternalField(source)
+			ascending: source.ascending
 		};
 	}
 
@@ -116,8 +115,6 @@ export abstract class MediaItemSortMapper<I extends MediaItemSortByInternal<F>, 
 			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
 		}
 	}
-
-	protected abstract toInternalField(source: MediaItemSortBy): F;
 }
 
 /**

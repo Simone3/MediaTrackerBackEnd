@@ -45,7 +45,7 @@ class MovieFilterMapper extends MediaItemFilterMapper<MovieFilterInternal, Movie
 /**
  * Mapper for movie sort options
  */
-class MovieSortMapper extends MediaItemSortMapper<MovieSortByInternal, MovieSortBy, MovieSortFieldInternal> {
+class MovieSortMapper extends MediaItemSortMapper<MovieSortByInternal, MovieSortBy> {
 
 	protected convertToExternal(source: MovieSortByInternal): MovieSortBy {
 		
@@ -57,7 +57,10 @@ class MovieSortMapper extends MediaItemSortMapper<MovieSortByInternal, MovieSort
 	
 	protected convertToInternal(source: MovieSortBy): MovieSortByInternal {
 		
-		return this.commonToInternal(source);
+		return {
+			...this.commonToInternal(source),
+			field: this.toInternalField(source.field)
+		};
 	}
 
 	protected toExternalField(source: MovieSortFieldInternal): string {
@@ -69,12 +72,12 @@ class MovieSortMapper extends MediaItemSortMapper<MovieSortByInternal, MovieSort
 		}
 	}
 
-	protected toInternalField(source: MovieSortBy): MovieSortFieldInternal {
+	protected toInternalField(source: string): MovieSortFieldInternal {
 
-		switch(source.field) {
+		switch(source) {
 			
 			case MovieSortField.DIRECTOR: return 'DIRECTOR';
-			default: return this.commonToInternalField(source.field);
+			default: return this.commonToInternalField(source);
 		}
 	}
 }

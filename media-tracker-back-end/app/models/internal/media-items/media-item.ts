@@ -41,9 +41,8 @@ export type MediaItemSortFieldInternal = 'IMPORTANCE' | 'NAME' | 'GROUP';
 /**
  * Media items sort by options, internal type NOT to be exposed via API
  */
-export type MediaItemSortByInternal<F> = {
+export type MediaItemSortByInternal = {
 
-	field: F;
 	ascending: boolean;
 }
 
