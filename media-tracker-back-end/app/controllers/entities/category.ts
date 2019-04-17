@@ -2,7 +2,7 @@ import { Document, Model, model } from "mongoose";
 import { CategoryInternal } from "../../models/internal/category";
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../../schemas/category";
 import { Queryable, queryHelper, Sortable } from "../database/query-helper";
-import { mediaItemController } from "./media-item";
+import { mediaItemController } from "./media-items/media-item";
 import { logger } from "../../loggers/logger";
 import { AbstractEntityController } from "./helper";
 import { groupController } from "./group";

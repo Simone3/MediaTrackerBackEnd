@@ -3,7 +3,7 @@ import { GroupInternal } from "../../models/internal/group";
 import { GroupSchema, GROUP_COLLECTION_NAME } from "../../schemas/group";
 import { Queryable, queryHelper, Sortable } from "../database/query-helper";
 import { logger } from "../../loggers/logger";
-import { mediaItemController } from "./media-item";
+import { mediaItemController } from "./media-items/media-item";
 import { AbstractEntityController } from "./helper";
 import { AppError } from "../../models/error/error";
 import { CategoryInternal } from "../../models/internal/category";

@@ -4,7 +4,7 @@ import { commonMediaItemSchemaDefinition, commonMediaItemSchemaOptions } from ".
 /**
  * Database schema for movies
  */
-export const MediaItemSchema: Schema = new Schema({
+export const MovieSchema: Schema = new Schema({
 	...commonMediaItemSchemaDefinition,
 	director: {type: String, required: false}
 }, {
