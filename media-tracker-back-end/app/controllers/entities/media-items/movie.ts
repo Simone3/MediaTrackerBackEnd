@@ -1,17 +1,17 @@
 import { Document } from "mongoose";
 import { MediaItemController, MediaItemCatalogController } from "./media-item";
-import { MovieInternal, MovieSortByInternal, MovieFilterInternal, CatalogMovieInternal, SearchMovieCatalogResultInternal } from "app/models/internal/media-items/movie";
+import { MovieInternal, MovieSortByInternal, MovieFilterInternal, CatalogMovieInternal, SearchMovieCatalogResultInternal } from "../../../models/internal/media-items/movie";
 import { Model, model } from "mongoose";
-import { MOVIE_COLLECTION_NAME, MovieSchema } from "app/schemas/media-items/movie";
-import { Queryable, SortDirection, Sortable } from "app/controllers/database/query-helper";
-import { MediaItemInternal } from "app/models/internal/media-items/media-item";
-import { miscUtilsController } from "app/controllers/utilities/misc-utils";
-import { TheMovieDbSearchQueryParams, TheMovieDbSearchResponse, TheMovieDbDetailsQueryParams, TheMovieDbDetailsResponse } from "app/models/external-services/media-items/movie";
-import { restJsonInvoker } from "app/controllers/external-services/rest-json-invoker";
-import { logger } from "app/loggers/logger";
-import { AppError } from "app/models/error/error";
-import { config } from "app/config/config";
-import { movieExternalSearchServiceMapper, movieExternalDetailsServiceMapper } from "app/mappers/external-services/movie";
+import { MOVIE_COLLECTION_NAME, MovieSchema } from "../../../schemas/media-items/movie";
+import { Queryable, SortDirection, Sortable } from "../../../controllers/database/query-helper";
+import { MediaItemInternal } from "../../../models/internal/media-items/media-item";
+import { miscUtilsController } from "../../../controllers/utilities/misc-utils";
+import { TheMovieDbSearchQueryParams, TheMovieDbSearchResponse, TheMovieDbDetailsQueryParams, TheMovieDbDetailsResponse } from "../../../models/external-services/media-items/movie";
+import { restJsonInvoker } from "../../../controllers/external-services/rest-json-invoker";
+import { logger } from "../../../loggers/logger";
+import { AppError } from "../../../models/error/error";
+import { config } from "../../../config/config";
+import { movieExternalSearchServiceMapper, movieExternalDetailsServiceMapper } from "../../../mappers/external-services/movie";
 
 /**
  * Movie document for Mongoose
