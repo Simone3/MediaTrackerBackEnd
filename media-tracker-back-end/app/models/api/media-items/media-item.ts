@@ -136,16 +136,16 @@ export abstract class AddMediaItemRequest extends CommonSaveRequest {
 };
 
 /**
- * Abstract response for the "add media item" API
+ * Response for the "add media item" API
  */
-export abstract class AddMediaItemResponse extends CommonResponse {
+export class AddMediaItemResponse extends CommonResponse {
 
 }
 
 /**
- * Abstract response for the "delete media item" API
+ * Response for the "delete media item" API
  */
-export abstract class DeleteMediaItemResponse extends CommonResponse {
+export class DeleteMediaItemResponse extends CommonResponse {
 
 }
 
@@ -164,9 +164,9 @@ export abstract class UpdateMediaItemRequest extends CommonSaveRequest {
 };
 
 /**
- * Abstract response for the "update media item" API
+ * Response for the "update media item" API
  */
-export abstract class UpdateMediaItemResponse extends CommonResponse {
+export class UpdateMediaItemResponse extends CommonResponse {
 
 }
 

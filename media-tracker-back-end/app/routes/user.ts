@@ -19,7 +19,7 @@ router.post('/users', (request, response, __) => {
 	parserValidator.parseAndValidate(AddUserRequest, request.body)
 		.then((body) => {
 
-			const newUser = userMapper.apiToInternal(body.newUser);
+			const newUser = userMapper.toInternal({...body.newUser, uid: ""});
 			userController.saveUser(newUser)
 				.then((savedUser) => {
 				
@@ -53,8 +53,7 @@ router.put('/users/:id', (request, response, __) => {
 	parserValidator.parseAndValidate(UpdateUserRequest, request.body)
 		.then((body) => {
 
-			const user = userMapper.apiToInternal(body.user);
-			user._id = id;
+			const user = userMapper.toInternal({...body.user, uid: id});
 			userController.saveUser(user)
 				.then(() => {
 				

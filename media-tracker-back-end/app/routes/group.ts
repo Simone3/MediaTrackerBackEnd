@@ -25,7 +25,7 @@ router.get('/users/:userId/categories/:categoryId/groups', (request, response, _
 		.then((groups) => {
 
 			const body: GetAllGroupsResponse = {
-				groups: groupMapper.internalToApiList(groups)
+				groups: groupMapper.toExternalList(groups)
 			};
 			
 			response.json(body);
@@ -50,7 +50,7 @@ router.post('/users/:userId/categories/:categoryId/groups', (request, response, 
 	parserValidator.parseAndValidate(AddGroupRequest, request.body)
 		.then((body) => {
 
-			const newGroup = groupMapper.apiToInternal(body.newGroup, userId, categoryId);
+			const newGroup = groupMapper.toInternal({...body.newGroup, uid: ""}, {userId, categoryId});
 			groupController.saveGroup(newGroup, body.allowSameName)
 				.then(() => {
 			
@@ -87,8 +87,7 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
 	parserValidator.parseAndValidate(UpdateGroupRequest, request.body)
 		.then((body) => {
 
-			const group = groupMapper.apiToInternal(body.group, userId, categoryId);
-			group._id = id;
+			const group = groupMapper.toInternal({...body.group, uid: id}, {userId, categoryId});
 			groupController.saveGroup(group, body.allowSameName)
 			.then(() => {
 			

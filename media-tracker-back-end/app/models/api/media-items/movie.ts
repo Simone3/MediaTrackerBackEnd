@@ -97,20 +97,6 @@ export class AddMovieRequest extends AddMediaItemRequest {
 };
 
 /**
- * Response for the "add movie" API
- */
-export class AddMovieResponse extends AddMediaItemResponse {
-
-}
-
-/**
- * Response for the "delete movie" API
- */
-export class DeleteMovieResponse extends DeleteMediaItemResponse {
-
-}
-
-/**
  * Response for the "get all movies" API
  */
 export class GetAllMoviesResponse extends GetAllMediaItemsResponse {
@@ -134,13 +120,6 @@ export class UpdateMovieRequest extends UpdateMediaItemRequest {
 	@ValidateNested()
 	movie!: Movie;
 };
-
-/**
- * Response for the "update movie" API
- */
-export class UpdateMovieResponse extends UpdateMediaItemResponse {
-
-}
 
 /**
  * Request for the "filter movies" API

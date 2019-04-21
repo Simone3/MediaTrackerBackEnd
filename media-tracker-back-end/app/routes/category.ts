@@ -22,7 +22,7 @@ router.get('/users/:userId/categories', (request, response, __) => {
 		.then((categories) => {
 
 			const body: GetAllCategoriesResponse = {
-				categories: categoryMapper.internalToApiList(categories)
+				categories: categoryMapper.toExternalList(categories)
 			};
 			
 			response.json(body);
@@ -44,7 +44,7 @@ router.post('/users/:userId/categories', (request, response, __) => {
 	parserValidator.parseAndValidate(AddCategoryRequest, request.body)
 		.then((body) => {
 
-			const newCategory = categoryMapper.apiToInternal(body.newCategory, userId);
+			const newCategory = categoryMapper.toInternal({...body.newCategory, uid: ""}, userId);
 			categoryController.saveCategory(newCategory, body.allowSameName)
 				.then(() => {
 			
@@ -80,8 +80,7 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
 	parserValidator.parseAndValidate(UpdateCategoryRequest, request.body)
 		.then((body) => {
 
-			const category = categoryMapper.apiToInternal(body.category, userId);
-			category._id = id;
+			const category = categoryMapper.toInternal({...body.category, uid: id}, userId);
 			categoryController.saveCategory(category, body.allowSameName)
 			.then(() => {
 			
