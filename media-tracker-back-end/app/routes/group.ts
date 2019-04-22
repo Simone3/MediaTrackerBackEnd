@@ -17,7 +17,7 @@ var router: Router = express.Router();
 router.get('/users/:userId/categories/:categoryId/groups', (request, response, __) => {
 
 	const userId: string = request.params.userId;
-	const categoryId: string = request.params.userId;
+	const categoryId: string = request.params.categoryId;
 
 	groupController.getAllGroups(userId, categoryId)
 		.then((groups) => {
@@ -41,7 +41,7 @@ router.get('/users/:userId/categories/:categoryId/groups', (request, response, _
 router.post('/users/:userId/categories/:categoryId/groups', (request, response, __) => {
 
 	const userId: string = request.params.userId;
-	const categoryId: string = request.params.userId;
+	const categoryId: string = request.params.categoryId;
 
 	parserValidator.parseAndValidate(AddGroupRequest, request.body)
 		.then((body) => {
@@ -75,7 +75,7 @@ router.post('/users/:userId/categories/:categoryId/groups', (request, response, 
 router.put('/users/:userId/categories/:categoryId/groups/:id', (request, response, __) => {
 
 	const userId: string = request.params.userId;
-	const categoryId: string = request.params.userId;
+	const categoryId: string = request.params.categoryId;
 	const id: string = request.params.id;
 
 	parserValidator.parseAndValidate(UpdateGroupRequest, request.body)
@@ -110,7 +110,7 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
 router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, response, __) => {
 
 	const userId: string = request.params.userId;
-	const categoryId: string = request.params.userId;
+	const categoryId: string = request.params.categoryId;
 	const id: string = request.params.id;
 	
 	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);

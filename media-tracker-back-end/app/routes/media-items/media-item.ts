@@ -65,7 +65,7 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 		this.router.get('/users/:userId/categories/:categoryId/' + this.mediaItemPathName, (request, response, __) => {
 
 			const userId: string = request.params.userId;
-			const categoryId: string = request.params.userId;
+			const categoryId: string = request.params.categoryId;
 
 			this.mediaItemController.getAllMediaItems(userId, categoryId)
 				.then((mediaItems) => {
@@ -102,7 +102,7 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/filter', (request, response, __) => {
 
 			const userId: string = request.params.userId;
-			const categoryId: string = request.params.userId;
+			const categoryId: string = request.params.categoryId;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
 				.then((body) => {
@@ -149,7 +149,7 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/search', (request, response, __) => {
 
 			const userId: string = request.params.userId;
-			const categoryId: string = request.params.userId;
+			const categoryId: string = request.params.categoryId;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
 				.then((body) => {
@@ -193,7 +193,7 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName, (request, response, __) => {
 
 			const userId: string = request.params.userId;
-			const categoryId: string = request.params.userId;
+			const categoryId: string = request.params.categoryId;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
 				.then((body) => {
@@ -238,7 +238,7 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 		this.router.put('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/:id', (request, response, __) => {
 
 			const userId: string = request.params.userId;
-			const categoryId: string = request.params.userId;
+			const categoryId: string = request.params.categoryId;
 			const id: string = request.params.id;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
@@ -277,7 +277,7 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 		this.router.delete('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/:id', (request, response, __) => {
 
 			const userId: string = request.params.userId;
-			const categoryId: string = request.params.userId;
+			const categoryId: string = request.params.categoryId;
 			const id: string = request.params.id;
 
 			this.mediaItemController.deleteMediaItem(userId, categoryId, id)

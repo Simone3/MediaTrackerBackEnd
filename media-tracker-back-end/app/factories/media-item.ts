@@ -15,21 +15,9 @@ type CatalogController = MediaItemCatalogController<SearchMediaItemCatalogResult
  */
 class MediaItemFactory {
 
-	readonly ENTITY_CONTROLLERS: EntityController[];
-	readonly CATALOG_CONTROLLERS: CatalogController[];
-
-	constructor() {
-
-		this.ENTITY_CONTROLLERS = [];
-		this.CATALOG_CONTROLLERS = [];
-
-		for(let mediaType of INTERNAL_MEDIA_TYPES) {
-
-			let resolved = this.internalFromMediaType(mediaType);
-			this.ENTITY_CONTROLLERS.push(resolved.entityController);
-			this.CATALOG_CONTROLLERS.push(resolved.catalogController);
-		}
-	}
+	private listsInitialized = false;
+	private readonly ENTITY_CONTROLLERS: EntityController[] = [];
+	private readonly CATALOG_CONTROLLERS: CatalogController[] = [];
 
 	/**
 	 * Gets all media item entity controllers
@@ -37,6 +25,7 @@ class MediaItemFactory {
 	 */
 	public getAllEntityControllers(): EntityController[] {
 
+		this.lazyLoadControllersLists();
 		return Object.assign([], this.ENTITY_CONTROLLERS);
 	}
 
@@ -46,6 +35,7 @@ class MediaItemFactory {
 	 */
 	public getAllCatalogControllers(): CatalogController[] {
 
+		this.lazyLoadControllersLists();
 		return Object.assign([], this.CATALOG_CONTROLLERS);
 	}
 
@@ -57,7 +47,7 @@ class MediaItemFactory {
 	 */
 	public getEntityControllerFromCategoryId(userId: string, categoryId: string): Promise<EntityController> {
 
-		return this.internalFromCategoryId(userId, categoryId, this.getEntityControllerFromMediaType);
+		return this.internalFromCategoryId(userId, categoryId, this.getEntityControllerFromMediaType.bind(this));
 	}
 
 	/**
@@ -68,7 +58,7 @@ class MediaItemFactory {
 	 */
 	public getCatalogControllerFromCategoryId(userId: string, categoryId: string): Promise<CatalogController> {
 
-		return this.internalFromCategoryId(userId, categoryId, this.getCatalogControllerFromMediaType);
+		return this.internalFromCategoryId(userId, categoryId, this.getCatalogControllerFromMediaType.bind(this));
 	}
 
 	/**
@@ -157,6 +147,27 @@ class MediaItemFactory {
 
 			default:
 				throw AppError.GENERIC.withDetails('Cannot resolve controllers from media type ' + mediaType);
+		}
+	}
+
+	/**
+	 * Helper to lazy load the controllers lists
+	 */
+	private lazyLoadControllersLists() {
+
+		if(!this.listsInitialized) {
+
+			this.ENTITY_CONTROLLERS.length = 0;
+			this.CATALOG_CONTROLLERS.length = 0;
+	
+			for(let mediaType of INTERNAL_MEDIA_TYPES) {
+	
+				let resolved = this.internalFromMediaType(mediaType);
+				this.ENTITY_CONTROLLERS.push(resolved.entityController);
+				this.CATALOG_CONTROLLERS.push(resolved.catalogController);
+			}
+
+			this.listsInitialized = true;
 		}
 	}
 }
