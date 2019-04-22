@@ -64,10 +64,8 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 
 		this.router.get('/users/:userId/categories/:categoryId/' + this.mediaItemPathName, (request, response, __) => {
 
-			const {
-				userId,
-				categoryId
-			} = request.params;
+			const userId: string = request.params.userId;
+			const categoryId: string = request.params.userId;
 
 			this.mediaItemController.getAllMediaItems(userId, categoryId)
 				.then((mediaItems) => {
@@ -103,10 +101,8 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 
 		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/filter', (request, response, __) => {
 
-			const {
-				userId,
-				categoryId
-			} = request.params;
+			const userId: string = request.params.userId;
+			const categoryId: string = request.params.userId;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
 				.then((body) => {
@@ -152,10 +148,8 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 
 		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/search', (request, response, __) => {
 
-			const {
-				userId,
-				categoryId
-			} = request.params;
+			const userId: string = request.params.userId;
+			const categoryId: string = request.params.userId;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
 				.then((body) => {
@@ -198,10 +192,8 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 
 		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName, (request, response, __) => {
 
-			const {
-				userId,
-				categoryId
-			} = request.params;
+			const userId: string = request.params.userId;
+			const categoryId: string = request.params.userId;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
 				.then((body) => {
@@ -245,11 +237,9 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 
 		this.router.put('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/:id', (request, response, __) => {
 
-			const {
-				id,
-				userId,
-				categoryId
-			} = request.params;
+			const userId: string = request.params.userId;
+			const categoryId: string = request.params.userId;
+			const id: string = request.params.id;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
 				.then((body) => {
@@ -286,11 +276,9 @@ export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends
 
 		this.router.delete('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/:id', (request, response, __) => {
 
-			const {
-				userId,
-				categoryId,
-				id
-			} = request.params;
+			const userId: string = request.params.userId;
+			const categoryId: string = request.params.userId;
+			const id: string = request.params.id;
 
 			this.mediaItemController.deleteMediaItem(userId, categoryId, id)
 				.then(() => {
@@ -339,9 +327,7 @@ export class MediaItemCatalogRouterBuilder<S extends SearchMediaItemCatalogResul
 
 		this.router.get('/catalog/' + this.mediaItemPathName + '/search/:searchTerm', (request, response, __) => {
 
-			const {
-				searchTerm
-			} = request.params;
+			const searchTerm: string = request.params.searchTerm;
 
 			this.mediaItemCatalogController.searchMediaItemCatalogByTerm(searchTerm)
 				.then((searchResults) => {
@@ -370,9 +356,7 @@ export class MediaItemCatalogRouterBuilder<S extends SearchMediaItemCatalogResul
 
 		this.router.get('/catalog/' + this.mediaItemPathName + '/:catalogId', (request, response, __) => {
 
-			const {
-				catalogId
-			} = request.params;
+			const catalogId: string = request.params.catalogId;
 
 			this.mediaItemCatalogController.getMediaItemFromCatalog(catalogId)
 				.then((catalogMediaItem) => {

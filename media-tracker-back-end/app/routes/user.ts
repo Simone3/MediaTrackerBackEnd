@@ -48,7 +48,7 @@ router.post('/users', (request, response, __) => {
  */
 router.put('/users/:id', (request, response, __) => {
 
-	const {id} = request.params;
+	const id: string = request.params.id;
 
 	parserValidator.parseAndValidate(UpdateUserRequest, request.body)
 		.then((body) => {
@@ -81,7 +81,7 @@ router.put('/users/:id', (request, response, __) => {
  */
 router.delete('/users/:id', (request, response, __) => {
 
-	const {id} = request.params;
+	const id: string = request.params.id;
 	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);
 
 	userController.deleteUser(id, forceEvenIfNotEmpty)
