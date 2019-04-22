@@ -16,6 +16,9 @@ export type MediaItemMapperParams = {
  */
 export abstract class MediaItemMapper<I extends MediaItemInternal, E extends MediaItem> extends ModelMapper<I, E, MediaItemMapperParams> {
 	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToExternal(source: MediaItemInternal): MediaItem {
 		
 		const target: MediaItem = {
@@ -34,7 +37,10 @@ export abstract class MediaItemMapper<I extends MediaItemInternal, E extends Med
 
 		return target;
 	}
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToInternal(source: MediaItem, extraParams?: MediaItemMapperParams): MediaItemInternal {
 
 		if(!extraParams) {
@@ -57,7 +63,10 @@ export abstract class MediaItemMapper<I extends MediaItemInternal, E extends Med
  * Abstract mapper for media item filters
  */
 export abstract class MediaItemFilterMapper<I extends MediaItemFilterInternal, E extends MediaItemFilter> extends ModelMapper<I, E, never> {
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToExternal(source: MediaItemFilterInternal): MediaItemFilter {
 
 		return {
@@ -65,7 +74,10 @@ export abstract class MediaItemFilterMapper<I extends MediaItemFilterInternal, E
 			groupId: source.groupId
 		};
 	}
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToInternal(source: MediaItemFilter): MediaItemFilterInternal {
 
 		return {
@@ -79,21 +91,30 @@ export abstract class MediaItemFilterMapper<I extends MediaItemFilterInternal, E
  * Abstract mapper for media item sort options
  */
 export abstract class MediaItemSortMapper<I extends MediaItemSortByInternal, E extends MediaItemSortBy> extends ModelMapper<I, E, never> {
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToExternal(source: MediaItemSortByInternal): MediaItemSortBy {
 
 		return {
 			ascending: source.ascending
 		};
 	}
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToInternal(source: MediaItemSortBy): MediaItemSortByInternal {
 		
 		return {
 			ascending: source.ascending
 		};
 	}
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToExternalField(source: MediaItemSortFieldInternal): string {
 
 		switch(source) {
@@ -104,7 +125,10 @@ export abstract class MediaItemSortMapper<I extends MediaItemSortByInternal, E e
 			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
 		}
 	}
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToInternalField(source: MediaItemSortField): MediaItemSortFieldInternal {
 
 		switch(source) {
@@ -121,7 +145,10 @@ export abstract class MediaItemSortMapper<I extends MediaItemSortByInternal, E e
  * Abstract mapper for media item catalog search results
  */
 export abstract class MediaItemCatalogSearchMapper<I extends SearchMediaItemCatalogResultInternal, E extends SearchMediaItemCatalogResult> extends ModelMapper<I, E, never> {
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToExternal(source: SearchMediaItemCatalogResultInternal): SearchMediaItemCatalogResult {
 
 		return {
@@ -130,7 +157,10 @@ export abstract class MediaItemCatalogSearchMapper<I extends SearchMediaItemCata
 			releaseDate: source.releaseDate
 		};
 	}
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToInternal(source: SearchMediaItemCatalogResult): SearchMediaItemCatalogResultInternal {
 		
 		return {
@@ -145,14 +175,20 @@ export abstract class MediaItemCatalogSearchMapper<I extends SearchMediaItemCata
  * Abstract mapper for media item catalog details
  */
 export abstract class MediaItemCatalogDetailsMapper<I extends CatalogMediaItemInternal, E extends CatalogMediaItem> extends ModelMapper<I, E, never> {
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToExternal(source: CatalogMediaItemInternal): CatalogMediaItem {
 
 		return {
 			name: source.name
 		};
 	}
-
+	
+	/**
+	 * Common mapping helper for implementations
+	 */
 	protected commonToInternal(source: CatalogMediaItem): CatalogMediaItemInternal {
 		
 		return {

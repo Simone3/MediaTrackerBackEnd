@@ -1,6 +1,7 @@
-import { CategoryInternal } from '../models/internal/category';
-import { IdentifiedCategory } from '../models/api/category';
+import { CategoryInternal, MediaTypeInternal } from '../models/internal/category';
+import { IdentifiedCategory, MediaType } from '../models/api/category';
 import { ModelMapper } from './common';
+import { AppError } from 'app/models/error/error';
 
 /**
  * Helper type
@@ -13,7 +14,10 @@ type CategoryMapperParams = {
  * Mapper for categories
  */
 class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, CategoryMapperParams> {
-	
+		
+	/**
+	 * @override
+	 */
 	protected convertToExternal(source: CategoryInternal): IdentifiedCategory {
 		
 		return {
@@ -21,7 +25,10 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 			name: source.name
 		};
 	}
-
+	
+	/**
+	 * @override
+	 */
 	protected convertToInternal(source: IdentifiedCategory, extraParams?: CategoryMapperParams): CategoryInternal {
 		
 		if(!extraParams) {

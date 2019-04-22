@@ -6,7 +6,10 @@ import { ModelMapper } from './common';
  * Mapper for users
  */
 class UserMapper extends ModelMapper<UserInternal, IdentifiedUser, never> {
-	
+		
+	/**
+	 * @override
+	 */
 	protected convertToExternal(source: UserInternal): IdentifiedUser {
 
 		return {
@@ -14,7 +17,10 @@ class UserMapper extends ModelMapper<UserInternal, IdentifiedUser, never> {
 			name: source.name
 		};
 	}
-
+	
+	/**
+	 * @override
+	 */
 	protected convertToInternal(source: IdentifiedUser): UserInternal {
 		
 		return {

@@ -14,7 +14,10 @@ type GroupMapperParams = {
  * Mapper for groups
  */
 class GroupMapper extends ModelMapper<GroupInternal, IdentifiedGroup, GroupMapperParams> {
-
+	
+	/**
+	 * @override
+	 */
 	protected convertToExternal(source: GroupInternal): IdentifiedGroup {
 		
 		return {
@@ -22,7 +25,10 @@ class GroupMapper extends ModelMapper<GroupInternal, IdentifiedGroup, GroupMappe
 			name: source.name
 		};
 	}
-	
+		
+	/**
+	 * @override
+	 */
 	protected convertToInternal(source: IdentifiedGroup, extraParams?: GroupMapperParams): GroupInternal {
 		
 		if(!extraParams) {

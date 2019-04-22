@@ -8,11 +8,17 @@ import { ModelMapper } from "../common";
  */
 class MovieExternalSearchServiceMapper extends ModelMapper<SearchMovieCatalogResultInternal, TheMovieDbSearchResult, never> {
 	
+	/**
+	 * @override
+	 */
 	protected convertToExternal(): TheMovieDbSearchResult {
 
 		throw "convertToExternal unimplemented"
 	}
-
+	
+	/**
+	 * @override
+	 */
 	protected convertToInternal(source: TheMovieDbSearchResult): SearchMovieCatalogResultInternal {
 		
 		return {
@@ -27,12 +33,18 @@ class MovieExternalSearchServiceMapper extends ModelMapper<SearchMovieCatalogRes
  * Mapper for the movies details external service
  */
 class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal, TheMovieDbDetailsResponse, never> {
-
+	
+	/**
+	 * @override
+	 */
 	protected convertToExternal(): TheMovieDbSearchResult {
 
 		throw "convertToExternal unimplemented"
 	}
-
+	
+	/**
+	 * @override
+	 */
 	protected convertToInternal(source: TheMovieDbDetailsResponse): CatalogMovieInternal {
 		
 		return {
@@ -41,6 +53,9 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 		};
 	}
 
+	/**
+	 * Helper to get the director's name
+	 */
 	private getDirectorName(credits: TheMovieDbCredits | undefined): string | undefined {
 
 		if(credits) {
