@@ -1,12 +1,12 @@
-import { MediaItemCatalogController } from "app/controllers/entities/media-items/media-item";
-import { SearchMovieCatalogResultInternal, CatalogMovieInternal } from "app/models/internal/media-items/movie";
-import { miscUtilsController } from "app/controllers/utilities/misc-utils";
-import { TheMovieDbSearchQueryParams, TheMovieDbSearchResponse, TheMovieDbDetailsQueryParams, TheMovieDbDetailsResponse } from "app/models/external-services/media-items/movie";
-import { restJsonInvoker } from "app/controllers/external-services/rest-json-invoker";
-import { movieExternalSearchServiceMapper, movieExternalDetailsServiceMapper } from "app/mappers/external-services/movie";
-import { logger } from "app/loggers/logger";
-import { AppError } from "app/models/error/error";
-import { config } from "app/config/config";
+import { MediaItemCatalogController } from "../../../controllers/catalogs/media-items/media-item";
+import { SearchMovieCatalogResultInternal, CatalogMovieInternal } from "../../../models/internal/media-items/movie";
+import { miscUtilsController } from "../../../controllers/utilities/misc-utils";
+import { TheMovieDbSearchQueryParams, TheMovieDbSearchResponse, TheMovieDbDetailsQueryParams, TheMovieDbDetailsResponse } from "../../../models/external-services/media-items/movie";
+import { restJsonInvoker } from "../../../controllers/external-services/rest-json-invoker";
+import { movieExternalSearchServiceMapper, movieExternalDetailsServiceMapper } from "../../../mappers/external-services/movie";
+import { logger } from "../../../loggers/logger";
+import { AppError } from "../../../models/error/error";
+import { config } from "../../../config/config";
 
 /**
  * Controller for movie catalog

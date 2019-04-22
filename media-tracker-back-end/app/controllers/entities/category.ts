@@ -8,7 +8,7 @@ import { groupController } from "./group";
 import { userController } from "./user";
 import { UserInternal } from "../../models/internal/user";
 import { AppError } from "../../models/error/error";
-import { mediaItemFactory } from "app/factories/media-item";
+import { mediaItemFactory } from "../../factories/media-item";
 
 /**
  * Mongoose document for categories

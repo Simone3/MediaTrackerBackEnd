@@ -5,7 +5,7 @@ import { categoryController } from "./category";
 import { queryHelper, Queryable } from "../database/query-helper";
 import { AbstractEntityController } from "./helper";
 import { groupController } from "./group";
-import { mediaItemFactory } from "app/factories/media-item";
+import { mediaItemFactory } from "../../factories/media-item";
 
 /**
  * Mongoose document for users

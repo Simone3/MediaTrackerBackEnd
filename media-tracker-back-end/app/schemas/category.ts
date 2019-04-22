@@ -1,7 +1,7 @@
 import { Schema } from "mongoose";
 import { USER_COLLECTION_NAME } from "./user";
-import { MediaTypeInternal } from "app/models/internal/category";
-import { enumUtils } from "app/controllers/utilities/misc-utils";
+import { MediaTypeInternal } from "../models/internal/category";
+import { enumUtils } from "../controllers/utilities/misc-utils";
 
 /**
  * Database schema for categories

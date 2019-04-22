@@ -1,6 +1,6 @@
 import { MediaItemMapper, MediaItemMapperParams, MediaItemFilterMapper, MediaItemSortMapper, MediaItemCatalogSearchMapper, MediaItemCatalogDetailsMapper } from "./media-item";
-import { MovieInternal, MovieFilterInternal, MovieSortByInternal, MovieSortFieldInternal, SearchMovieCatalogResultInternal, CatalogMovieInternal } from "app/models/internal/media-items/movie";
-import { IdentifiedMovie, MovieFilter, MovieSortBy, MovieSortField, SearchMovieCatalogResult, CatalogMovie } from "app/models/api/media-items/movie";
+import { MovieInternal, MovieFilterInternal, MovieSortByInternal, MovieSortFieldInternal, SearchMovieCatalogResultInternal, CatalogMovieInternal } from "../../models/internal/media-items/movie";
+import { IdentifiedMovie, MovieFilter, MovieSortBy, MovieSortField, SearchMovieCatalogResult, CatalogMovie } from "../../models/api/media-items/movie";
 
 /**
  * Mapper for movies

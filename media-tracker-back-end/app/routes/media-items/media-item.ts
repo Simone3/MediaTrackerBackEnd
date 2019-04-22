@@ -2,15 +2,16 @@
 import express, { Router } from 'express';
 import {
 	GetAllMediaItemsResponse, AddMediaItemResponse, UpdateMediaItemResponse, DeleteMediaItemResponse, AddMediaItemRequest,
-	UpdateMediaItemRequest,	FilterMediaItemsResponse, FilterMediaItemsRequest, SearchMediaItemsRequest, SearchMediaItemsResponse, SearchMediaItemCatalogResponse, GetMediaItemFromCatalogResponse, MediaItem
+	UpdateMediaItemRequest,	FilterMediaItemsResponse, FilterMediaItemsRequest, SearchMediaItemsRequest, SearchMediaItemsResponse, SearchMediaItemCatalogResponse, GetMediaItemFromCatalogResponse
 } from '../../models/api/media-items/media-item';
 import { parserValidator } from '../../controllers/utilities/parser-validator';
 import { ErrorResponse } from '../../models/api/common';
 import { AppError } from '../../models/error/error';
 import { logger } from '../../loggers/logger';
-import { MediaItemEntityController, MediaItemCatalogController } from 'app/controllers/entities/media-items/media-item';
-import { MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from 'app/models/internal/media-items/media-item';
+import { MediaItemEntityController } from '../../controllers/entities/media-items/media-item';
+import { MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from '../../models/internal/media-items/media-item';
 import { ClassType } from 'class-transformer/ClassTransformer';
+import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 
 /**
  * Helper class for common router builder

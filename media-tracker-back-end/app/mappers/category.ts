@@ -1,7 +1,7 @@
 import { CategoryInternal, MediaTypeInternal } from '../models/internal/category';
 import { IdentifiedCategory, MediaType } from '../models/api/category';
 import { ModelMapper } from './common';
-import { AppError } from 'app/models/error/error';
+import { AppError } from '../models/error/error';
 
 /**
  * Helper type

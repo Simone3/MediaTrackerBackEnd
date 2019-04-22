@@ -1,12 +1,12 @@
-import { movieEntityController } from "app/controllers/entities/media-items/movie";
-import { movieCatalogController } from "app/controllers/catalogs/media-items/movie";
-import { MediaItemEntityController } from "app/controllers/entities/media-items/media-item";
-import { MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from "app/models/internal/media-items/media-item";
-import { MediaItemCatalogController } from "app/controllers/catalogs/media-items/media-item";
-import { categoryController } from "app/controllers/entities/category";
-import { MediaTypeInternal, CategoryInternal } from "app/models/internal/category";
-import { AppError } from "app/models/error/error";
-import { enumUtils } from "app/controllers/utilities/misc-utils";
+import { movieEntityController } from "../controllers/entities/media-items/movie";
+import { movieCatalogController } from "../controllers/catalogs/media-items/movie";
+import { MediaItemEntityController } from "../controllers/entities/media-items/media-item";
+import { MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from "../models/internal/media-items/media-item";
+import { MediaItemCatalogController } from "../controllers/catalogs/media-items/media-item";
+import { categoryController } from "../controllers/entities/category";
+import { MediaTypeInternal, CategoryInternal } from "../models/internal/category";
+import { AppError } from "../models/error/error";
+import { enumUtils } from "../controllers/utilities/misc-utils";
 
 type EntityController = MediaItemEntityController<MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal>;
 type CatalogController = MediaItemCatalogController<SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal>

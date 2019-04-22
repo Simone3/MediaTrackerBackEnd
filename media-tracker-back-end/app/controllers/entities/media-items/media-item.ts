@@ -1,13 +1,13 @@
 import { Document, Model } from "mongoose";
-import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal, MediaItemSortFieldInternal } from "../../../models/internal/media-items/media-item";
+import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, MediaItemSortFieldInternal } from "../../../models/internal/media-items/media-item";
 import { Queryable, Sortable, queryHelper, SortDirection, Populatable } from "../../database/query-helper";
 import { miscUtilsController } from "../../utilities/misc-utils";
 import { AppError } from "../../../models/error/error";
 import { logger } from "../../../loggers/logger";
 import { AbstractEntityController } from "../helper";
-import { UserInternal } from "app/models/internal/user";
-import { CategoryInternal } from "app/models/internal/category";
-import { GroupInternal } from "app/models/internal/group";
+import { UserInternal } from "../../../models/internal/user";
+import { CategoryInternal } from "../../../models/internal/category";
+import { GroupInternal } from "../../../models/internal/group";
 import { categoryController } from "../category";
 import { groupController } from "../group";
 import { PersistedEntityInternal } from "../../../models/internal/common";

@@ -6,7 +6,7 @@ import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddle
 import { config } from '../config/config';
 import { requestScopeContextMiddleware } from '../controllers/utilities/request-scope-context';
 import { groupRouter } from '../routes/group';
-import { movieEntityRouter, movieCatalogRouter } from 'app/routes/media-items/movie';
+import { movieEntityRouter, movieCatalogRouter } from '../routes/media-items/movie';
 
 // Base setup
 var app = express();
