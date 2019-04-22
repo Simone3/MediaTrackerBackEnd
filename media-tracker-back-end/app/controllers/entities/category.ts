@@ -2,13 +2,13 @@ import { Document, Model, model } from "mongoose";
 import { CategoryInternal } from "../../models/internal/category";
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../../schemas/category";
 import { Queryable, queryHelper, Sortable } from "../database/query-helper";
-import { mediaItemController } from "./media-items/media-item";
 import { logger } from "../../loggers/logger";
 import { AbstractEntityController } from "./helper";
 import { groupController } from "./group";
 import { userController } from "./user";
 import { UserInternal } from "../../models/internal/user";
 import { AppError } from "../../models/error/error";
+import { mediaItemFactory } from "app/factories/media-item";
 
 /**
  * Mongoose document for categories
@@ -103,6 +103,8 @@ class CategoryController extends AbstractEntityController {
 	public async deleteCategory(userId: string, categoryId: string, forceEvenIfNotEmpty: boolean): Promise<number> {
 
 		await this.checkWritePreconditions(AppError.DATABASE_DELETE.withDetails('Category does not exist for given user'), userId, categoryId);
+
+		const mediaItemController = await mediaItemFactory.getEntityControllerFromCategoryId(userId, categoryId);
 
 		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
 			return mediaItemController.getAllMediaItemsInCategory(categoryId)

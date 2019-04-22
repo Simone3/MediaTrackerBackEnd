@@ -3,12 +3,12 @@ import { GroupInternal } from "../../models/internal/group";
 import { GroupSchema, GROUP_COLLECTION_NAME } from "../../schemas/group";
 import { Queryable, queryHelper, Sortable } from "../database/query-helper";
 import { logger } from "../../loggers/logger";
-import { mediaItemController } from "./media-items/media-item";
 import { AbstractEntityController } from "./helper";
 import { AppError } from "../../models/error/error";
 import { CategoryInternal } from "../../models/internal/category";
 import { UserInternal } from "../../models/internal/user";
 import { categoryController } from "./category";
+import { mediaItemFactory } from "app/factories/media-item";
 
 /**
  * Mongoose document for groups
@@ -113,6 +113,8 @@ class GroupController extends AbstractEntityController {
 		
 		await this.checkWritePreconditions(AppError.DATABASE_DELETE.withDetails('Group does not exist for given user/category'), userId, categoryId, groupId);
 
+		const mediaItemController = await mediaItemFactory.getEntityControllerFromCategoryId(userId, categoryId);
+		
 		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
 			return mediaItemController.getAllMediaItemsInGroup(groupId);
 		}, () => {

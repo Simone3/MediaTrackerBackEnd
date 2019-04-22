@@ -1,6 +1,17 @@
-import { IsNotEmpty, IsString, ValidateNested, IsDefined } from 'class-validator';
+import { IsNotEmpty, IsString, ValidateNested, IsDefined, IsEnum } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CommonResponse, CommonSaveRequest } from './common';
+
+/**
+ * A category media type, publicly exposed via API
+ */
+export enum MediaType {
+
+	BOOK,
+	MOVIE,
+	TV_SHOW,
+	VIDEOGAME
+}
 
 /**
  * Model for a category, publicly exposed via API
@@ -13,6 +24,13 @@ export class Category {
 	@IsNotEmpty()
 	@IsString()
 	name!: string;
+
+	/**
+	 * The category media type
+	 */
+	@IsDefined()
+	@IsEnum(MediaType)
+	mediaType!: MediaType
 };
 
 /**

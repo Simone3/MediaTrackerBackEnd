@@ -52,7 +52,7 @@ export abstract class AbstractEntityController {
 	}
 
 	/**
-	 * Helper to check that one or more persisted entitues exist
+	 * Helper to check that one or more persisted entities exist
 	 * @param errorToThrow the error to throw if preconditions fail
 	 * @param checkCallback callback that returns a promise containing either undefined (= no entity found = precondition fail), a single entity (= entity found =
 	 *                      precondition pass) or an array of possibly undefined entities (if all defined, = precondition pass; if at least one undefined, = 

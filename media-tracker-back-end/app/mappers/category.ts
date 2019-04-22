@@ -22,7 +22,8 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 		
 		return {
 			uid: source._id,
-			name: source.name
+			name: source.name,
+			mediaType: this.toExternalMediaType(source.mediaType)
 		};
 	}
 	
@@ -38,8 +39,39 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 		return {
 			_id: (source.uid ? source.uid : null),
 			name: source.name,
-			owner: extraParams.userId
+			owner: extraParams.userId,
+			mediaType: this.toInternalMediaType(source.mediaType)
 		};
+	}
+
+	/**
+	 * Helper to translate the media type enumeration
+	 */
+	private toExternalMediaType(source: MediaTypeInternal): MediaType {
+
+		switch(source) {
+
+			case MediaTypeInternal.BOOK: return MediaType.BOOK;
+			case MediaTypeInternal.MOVIE: return MediaType.MOVIE;
+			case MediaTypeInternal.TV_SHOW: return MediaType.TV_SHOW;
+			case MediaTypeInternal.VIDEOGAME: return MediaType.VIDEOGAME;
+			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
+		}
+	}
+
+	/**
+	 * Helper to translate the media type enumeration
+	 */
+	private toInternalMediaType(source: MediaType): MediaTypeInternal {
+
+		switch(source) {
+
+			case MediaType.BOOK: return MediaTypeInternal.BOOK;
+			case MediaType.MOVIE: return MediaTypeInternal.MOVIE;
+			case MediaType.TV_SHOW: return MediaTypeInternal.TV_SHOW;
+			case MediaType.VIDEOGAME: return MediaTypeInternal.VIDEOGAME;
+			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
+		}
 	}
 }
 

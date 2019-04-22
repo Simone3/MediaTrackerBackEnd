@@ -5,7 +5,7 @@ import { categoryController } from "./category";
 import { queryHelper, Queryable } from "../database/query-helper";
 import { AbstractEntityController } from "./helper";
 import { groupController } from "./group";
-import { mediaItemController } from "./media-items/media-item";
+import { mediaItemFactory } from "app/factories/media-item";
 
 /**
  * Mongoose document for users
@@ -62,12 +62,22 @@ class UserController extends AbstractEntityController {
 		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
 			return categoryController.getAllCategories(id)
 		}, () => {
-			return Promise.all([
+
+			// Delete all media item entities (with each controller)
+			let mediaItemControllers = mediaItemFactory.getAllEntityControllers();
+			const mediaItemPromises: Promise<number>[] = [];
+			for(let mediaItemController of mediaItemControllers) {
+
+				mediaItemPromises.push(mediaItemController.deleteAllMediaItemsForUser(id));
+			}
+
+			// Delete categories, groups and the user; and then wait for every delete promise
+			return Promise.all(
+				mediaItemPromises.concat([
 				categoryController.deleteAllCategoriesForUser(id),
 				groupController.deleteAllGroupsForUser(id),
-				mediaItemController.deleteAllMediaItemsForUser(id),
 				queryHelper.deleteById(UserModel, id)
-			])
+			]));
 		});
 	}
 }
