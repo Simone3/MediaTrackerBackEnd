@@ -8,7 +8,7 @@ import { parserValidator } from '../../controllers/utilities/parser-validator';
 import { ErrorResponse } from '../../models/api/common';
 import { AppError } from '../../models/error/error';
 import { logger } from '../../loggers/logger';
-import { MediaItemController, MediaItemCatalogController } from 'app/controllers/entities/media-items/media-item';
+import { MediaItemEntityController, MediaItemCatalogController } from 'app/controllers/entities/media-items/media-item';
 import { MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from 'app/models/internal/media-items/media-item';
 import { ClassType } from 'class-transformer/ClassTransformer';
 
@@ -39,14 +39,14 @@ abstract class AbstractRouterBuilder {
  * @template S the media item sort conditions 
  * @template F the media item filter conditions
  */
-export class MediaItemRouterBuilder<E extends MediaItemInternal, S extends MediaItemSortByInternal, F extends MediaItemFilterInternal> extends AbstractRouterBuilder {
+export class MediaItemEntityRouterBuilder<E extends MediaItemInternal, S extends MediaItemSortByInternal, F extends MediaItemFilterInternal> extends AbstractRouterBuilder {
 
 	/**
 	 * Constructor
 	 * @param mediaItemPathName the media item name to use in the API paths
 	 * @param mediaItemController the controller implementation
 	 */
-	constructor(private mediaItemPathName: string, private mediaItemController: MediaItemController<E, S, F>) {
+	constructor(private mediaItemPathName: string, private mediaItemController: MediaItemEntityController<E, S, F>) {
 		
 		super();
 	}

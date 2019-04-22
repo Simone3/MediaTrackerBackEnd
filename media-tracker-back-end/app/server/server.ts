@@ -1,5 +1,4 @@
 import express from 'express';
-import { mediaItemRouter } from '../routes/media-items/media-item';
 import { catchAllRouter } from '../routes/catch-all';
 import { userRouter } from '../routes/user';
 import { categoryRouter } from '../routes/category';
@@ -7,6 +6,7 @@ import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddle
 import { config } from '../config/config';
 import { requestScopeContextMiddleware } from '../controllers/utilities/request-scope-context';
 import { groupRouter } from '../routes/group';
+import { movieEntityRouter, movieCatalogRouter } from 'app/routes/media-items/movie';
 
 // Base setup
 var app = express();
@@ -21,11 +21,16 @@ if(config.log.logApisInputOutput) {
 	app.use(responseLoggerMiddleware);
 }
 
-// Routes
+// User, category and group routes
 app.use('/', userRouter);
 app.use('/', categoryRouter);
 app.use('/', groupRouter);
-app.use('/', mediaItemRouter);
+
+// Media item routes
+app.use('/', movieEntityRouter);
+app.use('/', movieCatalogRouter);
+
+// Final catch-all route
 app.use(catchAllRouter);
 
 /**

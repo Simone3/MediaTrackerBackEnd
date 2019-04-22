@@ -18,7 +18,7 @@ import { PersistedEntityInternal } from "../../../models/internal/common";
  * @template S the media item sort conditions 
  * @template F the media item filter conditions
  */
-export abstract class MediaItemController<E extends MediaItemInternal, S extends MediaItemSortByInternal, F extends MediaItemFilterInternal> extends AbstractEntityController {
+export abstract class MediaItemEntityController<E extends MediaItemInternal, S extends MediaItemSortByInternal, F extends MediaItemFilterInternal> extends AbstractEntityController {
 
 	/**
 	 * Gets a single media item, or undefined if not found
