@@ -51,10 +51,10 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 
 		switch(source) {
 
-			case MediaTypeInternal.BOOK: return MediaType.BOOK;
-			case MediaTypeInternal.MOVIE: return MediaType.MOVIE;
-			case MediaTypeInternal.TV_SHOW: return MediaType.TV_SHOW;
-			case MediaTypeInternal.VIDEOGAME: return MediaType.VIDEOGAME;
+			case 'BOOK': return 'BOOK';
+			case 'MOVIE': return 'MOVIE';
+			case 'TV_SHOW': return 'TV_SHOW';
+			case 'VIDEOGAME': return 'VIDEOGAME';
 			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
 		}
 	}
@@ -66,10 +66,10 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 
 		switch(source) {
 
-			case MediaType.BOOK: return MediaTypeInternal.BOOK;
-			case MediaType.MOVIE: return MediaTypeInternal.MOVIE;
-			case MediaType.TV_SHOW: return MediaTypeInternal.TV_SHOW;
-			case MediaType.VIDEOGAME: return MediaTypeInternal.VIDEOGAME;
+			case 'BOOK': return 'BOOK';
+			case 'MOVIE': return 'MOVIE';
+			case 'TV_SHOW': return 'TV_SHOW';
+			case 'VIDEOGAME': return 'VIDEOGAME';
 			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
 		}
 	}

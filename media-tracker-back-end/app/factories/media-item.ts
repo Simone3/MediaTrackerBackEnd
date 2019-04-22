@@ -4,9 +4,8 @@ import { MediaItemEntityController } from "../controllers/entities/media-items/m
 import { MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from "../models/internal/media-items/media-item";
 import { MediaItemCatalogController } from "../controllers/catalogs/media-items/media-item";
 import { categoryController } from "../controllers/entities/category";
-import { MediaTypeInternal, CategoryInternal } from "../models/internal/category";
+import { MediaTypeInternal, CategoryInternal, INTERNAL_MEDIA_TYPES } from "../models/internal/category";
 import { AppError } from "../models/error/error";
-import { enumUtils } from "../controllers/utilities/misc-utils";
 
 type EntityController = MediaItemEntityController<MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal>;
 type CatalogController = MediaItemCatalogController<SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal>
@@ -24,7 +23,7 @@ class MediaItemFactory {
 		this.ENTITY_CONTROLLERS = [];
 		this.CATALOG_CONTROLLERS = [];
 
-		for(let mediaType of enumUtils.getEnumValues(MediaTypeInternal)) {
+		for(let mediaType of INTERNAL_MEDIA_TYPES) {
 
 			let resolved = this.internalFromMediaType(mediaType);
 			this.ENTITY_CONTROLLERS.push(resolved.entityController);
@@ -144,16 +143,16 @@ class MediaItemFactory {
 
 		switch(mediaType) {
 
-			case MediaTypeInternal.BOOK:
+			case 'BOOK':
 				// TODO
 
-			case MediaTypeInternal.TV_SHOW:
+			case 'TV_SHOW':
 				// TODO
 
-			case MediaTypeInternal.VIDEOGAME:
+			case 'VIDEOGAME':
 				// TODO
 
-			case MediaTypeInternal.MOVIE:
+			case 'MOVIE':
 				return new ResolverHelper(movieEntityController, movieCatalogController);
 
 			default:

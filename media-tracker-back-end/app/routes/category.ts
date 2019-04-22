@@ -16,7 +16,7 @@ var router: Router = express.Router();
  */
 router.get('/users/:userId/categories', (request, response, __) => {
 
-	const {userId} = request.params;
+	const userId: string = request.params.userId;
 
 	categoryController.getAllCategories(userId)
 		.then((categories) => {
@@ -34,17 +34,18 @@ router.get('/users/:userId/categories', (request, response, __) => {
 		});
 });
 
+
 /**
  * Route to add a new category
  */
 router.post('/users/:userId/categories', (request, response, __) => {
 
-	const {userId} = request.params;
+	const userId: string = request.params.userId;
 
 	parserValidator.parseAndValidate(AddCategoryRequest, request.body)
 		.then((body) => {
 
-			const newCategory = categoryMapper.toInternal({...body.newCategory, uid: ""}, userId);
+			const newCategory = categoryMapper.toInternal({...body.newCategory, uid: ""}, {userId});
 			categoryController.saveCategory(newCategory, body.allowSameName)
 				.then(() => {
 			
@@ -72,15 +73,13 @@ router.post('/users/:userId/categories', (request, response, __) => {
  */
 router.put('/users/:userId/categories/:id', (request, response, __) => {
 
-	const {
-		userId,
-		id
-	} = request.params;
+	const userId: string = request.params.userId;
+	const id: string = request.params.id;
 
 	parserValidator.parseAndValidate(UpdateCategoryRequest, request.body)
 		.then((body) => {
 
-			const category = categoryMapper.toInternal({...body.category, uid: id}, userId);
+			const category = categoryMapper.toInternal({...body.category, uid: id}, {userId});
 			categoryController.saveCategory(category, body.allowSameName)
 			.then(() => {
 			
@@ -108,10 +107,8 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
  */
 router.delete('/users/:userId/categories/:id', (request, response, __) => {
 
-	const {
-		userId,
-		id
-	} = request.params;
+	const userId: string = request.params.userId;
+	const id: string = request.params.id;
 
 	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);
 

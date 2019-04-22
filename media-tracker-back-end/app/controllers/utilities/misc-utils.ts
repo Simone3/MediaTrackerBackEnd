@@ -152,3 +152,9 @@ export const enumUtils = new EnumUtils();
 export type PathParams = {
 	[key: string]: string
 };
+
+/**
+ * Helper type to define a type starting from an array of options
+ */
+export type ValuesOf<T extends any[]>= T[number];
+

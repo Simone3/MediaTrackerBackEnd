@@ -1,4 +1,4 @@
-import { CatalogMediaItem, MediaItem, MediaItemSortField, MediaItemSortBy, AddMediaItemRequest, AddMediaItemResponse, DeleteMediaItemResponse, GetAllMediaItemsResponse, UpdateMediaItemRequest, UpdateMediaItemResponse, FilterMediaItemsRequest, MediaItemFilter, FilterMediaItemsResponse, SearchMediaItemsRequest, SearchMediaItemsResponse, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, GetMediaItemFromCatalogResponse } from "./media-item";
+import { CatalogMediaItem, MediaItem, MediaItemSortField, MediaItemSortBy, AddMediaItemRequest, GetAllMediaItemsResponse, UpdateMediaItemRequest, FilterMediaItemsRequest, MediaItemFilter, FilterMediaItemsResponse, SearchMediaItemsRequest, SearchMediaItemsResponse, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, GetMediaItemFromCatalogResponse } from "./media-item";
 import { IsString, IsOptional, IsNotEmpty, IsIn, IsDefined, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 
