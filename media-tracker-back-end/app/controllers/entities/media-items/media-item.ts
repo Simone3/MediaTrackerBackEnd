@@ -247,7 +247,7 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * @param sortDirection the pre-computed sort direction to be assigned to the sort field
 	 * @param sortConditions the sort conditions where the sortDirection should be set according to the sortBy value
 	 */
-	protected abstract setSortConditions(sortBy: S, sortDirection: SortDirection, sortConditions: Sortable<MediaItemInternal>): void;
+	protected abstract setSortConditions(sortBy: S, sortDirection: SortDirection, sortConditions: Sortable<E>): void;
 
 	/**
 	 * Must be implemented by subclasses to (possibly) add more search conditions for the "search media item" API
@@ -263,7 +263,7 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * @param sortDirection the pre-computed sort direction to be assigned to the sort field
 	 * @param sortConditions the sort conditions where the sortDirection should be set according to the sortBy value
 	 */
-	protected setCommonSortConditions(sortByField: MediaItemSortFieldInternal, sortDirection: SortDirection, sortConditions: Sortable<MediaItemInternal>): void {
+	protected setCommonSortConditions(sortByField: MediaItemSortFieldInternal, sortDirection: SortDirection, sortConditions: Sortable<E>): void {
 
 		switch(sortByField) {
 

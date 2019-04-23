@@ -1,4 +1,4 @@
-import { TheMovieDbSearchResult, TheMovieDbDetailsResponse, TheMovieDbCredits } from "../../models/external-services/media-items/movie";
+import { TmdbMovieSearchResult, TmdbMovieDetailsResponse, TmdbMovieCredits } from "../../models/external-services/media-items/movie";
 import { SearchMovieCatalogResultInternal, CatalogMovieInternal } from "../../models/internal/media-items/movie";
 import { config } from "../../config/config";
 import { ModelMapper } from "../common";
@@ -6,12 +6,12 @@ import { ModelMapper } from "../common";
 /**
  * Mapper for the movies search external service
  */
-class MovieExternalSearchServiceMapper extends ModelMapper<SearchMovieCatalogResultInternal, TheMovieDbSearchResult, never> {
+class MovieExternalSearchServiceMapper extends ModelMapper<SearchMovieCatalogResultInternal, TmdbMovieSearchResult, never> {
 	
 	/**
 	 * @override
 	 */
-	protected convertToExternal(): TheMovieDbSearchResult {
+	protected convertToExternal(): TmdbMovieSearchResult {
 
 		throw "convertToExternal unimplemented"
 	}
@@ -19,7 +19,7 @@ class MovieExternalSearchServiceMapper extends ModelMapper<SearchMovieCatalogRes
 	/**
 	 * @override
 	 */
-	protected convertToInternal(source: TheMovieDbSearchResult): SearchMovieCatalogResultInternal {
+	protected convertToInternal(source: TmdbMovieSearchResult): SearchMovieCatalogResultInternal {
 		
 		return {
 			catalogId: source.id,
@@ -32,12 +32,12 @@ class MovieExternalSearchServiceMapper extends ModelMapper<SearchMovieCatalogRes
 /**
  * Mapper for the movies details external service
  */
-class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal, TheMovieDbDetailsResponse, never> {
+class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal, TmdbMovieDetailsResponse, never> {
 	
 	/**
 	 * @override
 	 */
-	protected convertToExternal(): TheMovieDbSearchResult {
+	protected convertToExternal(): TmdbMovieDetailsResponse {
 
 		throw "convertToExternal unimplemented"
 	}
@@ -45,7 +45,7 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 	/**
 	 * @override
 	 */
-	protected convertToInternal(source: TheMovieDbDetailsResponse): CatalogMovieInternal {
+	protected convertToInternal(source: TmdbMovieDetailsResponse): CatalogMovieInternal {
 		
 		return {
 			director: this.getDirectorName(source.credits),
@@ -56,7 +56,7 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 	/**
 	 * Helper to get the director's name
 	 */
-	private getDirectorName(credits: TheMovieDbCredits | undefined): string | undefined {
+	private getDirectorName(credits: TmdbMovieCredits | undefined): string | undefined {
 
 		if(credits) {
 
@@ -66,7 +66,7 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 
                 for(let person of crew) {
 
-                    if(person && config.externalApis.theMovieDb.directorJobName === person.job) {
+                    if(person && config.externalApis.theMovieDb.movies.directorJobName === person.job) {
 
                         return person.name;
                     }

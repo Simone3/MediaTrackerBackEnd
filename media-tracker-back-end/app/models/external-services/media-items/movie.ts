@@ -4,19 +4,19 @@ import { Type } from "class-transformer";
 /**
  * Response of the external movie search service
  */
-export class TheMovieDbSearchResponse {
+export class TmdbMovieSearchResponse {
 
 	@IsOptional()
 	@IsDefined({each: true})
-	@Type(() => TheMovieDbSearchResult)
+	@Type(() => TmdbMovieSearchResult)
 	@ValidateNested()
-	results?: TheMovieDbSearchResult[];
+	results?: TmdbMovieSearchResult[];
 }
 
 /**
  * Result of the external movie search service
  */
-export class TheMovieDbSearchResult {
+export class TmdbMovieSearchResult {
 
 	@IsNotEmpty()
 	@IsInt()
@@ -34,7 +34,7 @@ export class TheMovieDbSearchResult {
 /**
  * Query params of the external movie search service
  */
-export type TheMovieDbSearchQueryParams = {
+export type TmdbMovieSearchQueryParams = {
 
 	query: string,
 	api_key: string,
@@ -43,7 +43,7 @@ export type TheMovieDbSearchQueryParams = {
 /**
  * Response of the external movie details service
  */
-export class TheMovieDbDetailsResponse {
+export class TmdbMovieDetailsResponse {
 
 	@IsNotEmpty()
 	@IsInt()
@@ -55,9 +55,9 @@ export class TheMovieDbDetailsResponse {
 	
 	@IsOptional()
 	@IsDefined({each: true})
-	@Type(() => TheMovieDbGenre)
+	@Type(() => TmdbMovieGenre)
 	@ValidateNested()
-	genres?: TheMovieDbGenre[];
+	genres?: TmdbMovieGenre[];
 	
 	@IsNotEmpty()
 	@IsString()
@@ -72,9 +72,9 @@ export class TheMovieDbDetailsResponse {
 	runtime?: number;
 	
 	@IsOptional()
-	@Type(() => TheMovieDbCredits)
+	@Type(() => TmdbMovieCredits)
 	@ValidateNested()
-	credits?: TheMovieDbCredits;
+	credits?: TmdbMovieCredits;
 	
 	@IsOptional()
 	@IsString()
@@ -84,19 +84,19 @@ export class TheMovieDbDetailsResponse {
 /**
  * Credits model for the external movie details service
  */
-export class TheMovieDbCredits {
+export class TmdbMovieCredits {
 
 	@IsOptional()
 	@IsDefined({each: true})
-	@Type(() => TheMovieDbCrewPerson)
+	@Type(() => TmdbMovieCrewPerson)
 	@ValidateNested()
-	crew?: TheMovieDbCrewPerson[];
+	crew?: TmdbMovieCrewPerson[];
 }
 
 /**
  * Crew model for the external movie details service
  */
-export class TheMovieDbCrewPerson {
+export class TmdbMovieCrewPerson {
 
 	@IsNotEmpty()
 	@IsString()
@@ -110,7 +110,7 @@ export class TheMovieDbCrewPerson {
 /**
  * Genre model for the external movie details service
  */
-export class TheMovieDbGenre {
+export class TmdbMovieGenre {
 
 	@IsNotEmpty()
 	@IsString()
@@ -120,7 +120,7 @@ export class TheMovieDbGenre {
 /**
  * Query params of the external movie details service
  */
-export type TheMovieDbDetailsQueryParams = {
+export type TmdbMovieDetailsQueryParams = {
 
 	append_to_response: string,
 	api_key: string,

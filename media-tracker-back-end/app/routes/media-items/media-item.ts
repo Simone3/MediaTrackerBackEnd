@@ -11,7 +11,7 @@ import { logger } from '../../loggers/logger';
 import { MediaItemEntityController } from '../../controllers/entities/media-items/media-item';
 import { MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from '../../models/internal/media-items/media-item';
 import { ClassType } from 'class-transformer/ClassTransformer';
-import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
+import { MediaItemCatalogController } from '../../controllers/catalogs/media-items/media-item';
 
 /**
  * Helper class for common router builder

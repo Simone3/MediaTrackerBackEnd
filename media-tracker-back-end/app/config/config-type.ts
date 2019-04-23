@@ -22,9 +22,22 @@ type ExternalApisConfig = {
 type TheMovieDbConfig = {
 	apiKey: string,
 	basePath: string,
+	movies: TheMovieDbMoviesConfig,
+	tvShows: TheMovieDbTvShowsConfig
+}
+
+type TheMovieDbMoviesConfig = {
+
 	searchRelativePath: string,
 	getDetailsRelativePath: string,
-	directorJobName: string,
+	directorJobName: string
+}
+
+type TheMovieDbTvShowsConfig = {
+
+	searchRelativePath: string,
+	getDetailsRelativePath: string,
+	getSeasonRelativePath: string,
 }
 
 type LogConfig = {

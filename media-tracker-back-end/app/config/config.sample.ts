@@ -12,9 +12,16 @@ export const config: Config = {
 		theMovieDb: {
 			apiKey: '<api_key>',
 			basePath: 'http://api.themoviedb.org/3',
-			searchRelativePath: '/search/movie/?',
-			getDetailsRelativePath: '/movie/:movieId',
-			directorJobName: 'Director'
+			movies: {
+				searchRelativePath: '/search/movie/',
+				getDetailsRelativePath: '/movie/:movieId',
+				directorJobName: 'Director'
+			},
+			tvShows: {
+				searchRelativePath: '/search/tv/',
+				getDetailsRelativePath: '/tv/:tvShowId',
+				getSeasonRelativePath: '/tv/:tvShowId/season/:seasonNumber'
+			}
 		}
 	},
 	log: {
