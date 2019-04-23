@@ -1,7 +1,7 @@
 import { MediaItemCatalogController } from "../../../controllers/catalogs/media-items/media-item";
 import { SearchTvShowCatalogResultInternal, CatalogTvShowInternal } from "../../../models/internal/media-items/tv-show";
 import { miscUtilsController } from "../../../controllers/utilities/misc-utils";
-import { TmdbTvShowSearchQueryParams, TmdbTvShowSearchResponse, TmdbTvShowDetailsQueryParams, TmdbTvShowDetailsResponse, TmdbTvShowSeasonDataQueryParams, TmdbTvShowSeasonDataResponse } from "../../../models/external-services/media-items/tv-show";
+import { TmdbTvShowSearchResponse, TmdbTvShowDetailsResponse, TmdbTvShowSeasonDataResponse } from "../../../models/external-services/media-items/tv-show";
 import { restJsonInvoker } from "../../../controllers/external-services/rest-json-invoker";
 import { tvShowExternalSearchServiceMapper, tvShowExternalDetailsServiceMapper } from "../../../mappers/external-services/tv-show";
 import { logger } from "../../../loggers/logger";
@@ -22,13 +22,11 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 		
 			const url = miscUtilsController.buildUrl([
 				config.externalApis.theMovieDb.basePath,
-				config.externalApis.theMovieDb.tvShows.searchRelativePath
+				config.externalApis.theMovieDb.tvShows.search.relativePath
 			]);
 
-			const queryParams: TmdbTvShowSearchQueryParams = {
-				query: searchTerm,
-				api_key: config.externalApis.theMovieDb.apiKey
-			};
+			const queryParams = Object.assign({}, config.externalApis.theMovieDb.tvShows.search.queryParams);
+			queryParams.query = searchTerm;
 
 			restJsonInvoker.invokeGet({
 				url: url,
@@ -68,12 +66,10 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 
 			const url = miscUtilsController.buildUrl([
 				config.externalApis.theMovieDb.basePath,
-				config.externalApis.theMovieDb.tvShows.getDetailsRelativePath
+				config.externalApis.theMovieDb.tvShows.details.relativePath
 			], pathParams);
 
-			const queryParams: TmdbTvShowDetailsQueryParams = {
-				api_key: config.externalApis.theMovieDb.apiKey
-			};
+			const queryParams = Object.assign({}, config.externalApis.theMovieDb.tvShows.details.queryParams);
 
 			// First call the general details service
 			restJsonInvoker.invokeGet({
@@ -125,12 +121,10 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 
 		const url = miscUtilsController.buildUrl([
 			config.externalApis.theMovieDb.basePath,
-			config.externalApis.theMovieDb.tvShows.getSeasonRelativePath
+			config.externalApis.theMovieDb.tvShows.season.relativePath
 		], pathParams);
 
-		const queryParams: TmdbTvShowSeasonDataQueryParams = {
-			api_key: config.externalApis.theMovieDb.apiKey
-		};
+		const queryParams = Object.assign({}, config.externalApis.theMovieDb.tvShows.season.queryParams);
 
 		return restJsonInvoker.invokeGet({
 			url: url,

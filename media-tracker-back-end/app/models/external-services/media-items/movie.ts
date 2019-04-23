@@ -32,15 +32,6 @@ export class TmdbMovieSearchResult {
 }
 
 /**
- * Query params of the external movie search service
- */
-export type TmdbMovieSearchQueryParams = {
-
-	query: string,
-	api_key: string,
-};
-
-/**
  * Response of the external movie details service
  */
 export class TmdbMovieDetailsResponse {
@@ -116,12 +107,3 @@ export class TmdbMovieGenre {
 	@IsString()
 	name!: string;
 }
-
-/**
- * Query params of the external movie details service
- */
-export type TmdbMovieDetailsQueryParams = {
-
-	append_to_response: string,
-	api_key: string,
-};

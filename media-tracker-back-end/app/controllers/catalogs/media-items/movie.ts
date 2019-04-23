@@ -1,7 +1,7 @@
 import { MediaItemCatalogController } from "../../../controllers/catalogs/media-items/media-item";
 import { SearchMovieCatalogResultInternal, CatalogMovieInternal } from "../../../models/internal/media-items/movie";
 import { miscUtilsController } from "../../../controllers/utilities/misc-utils";
-import { TmdbMovieSearchQueryParams, TmdbMovieSearchResponse, TmdbMovieDetailsQueryParams, TmdbMovieDetailsResponse } from "../../../models/external-services/media-items/movie";
+import { TmdbMovieSearchResponse, TmdbMovieDetailsResponse } from "../../../models/external-services/media-items/movie";
 import { restJsonInvoker } from "../../../controllers/external-services/rest-json-invoker";
 import { movieExternalSearchServiceMapper, movieExternalDetailsServiceMapper } from "../../../mappers/external-services/movie";
 import { logger } from "../../../loggers/logger";
@@ -22,14 +22,12 @@ class MovieCatalogController extends MediaItemCatalogController<SearchMovieCatal
 		
 			const url = miscUtilsController.buildUrl([
 				config.externalApis.theMovieDb.basePath,
-				config.externalApis.theMovieDb.movies.searchRelativePath
+				config.externalApis.theMovieDb.movies.search.relativePath
 			]);
 
-			const queryParams: TmdbMovieSearchQueryParams = {
-				query: searchTerm,
-				api_key: config.externalApis.theMovieDb.apiKey
-			};
-
+			const queryParams = Object.assign({}, config.externalApis.theMovieDb.movies.search.queryParams);
+			queryParams.query = searchTerm;
+			
 			restJsonInvoker.invokeGet({
 				url: url,
 				responseBodyClass: TmdbMovieSearchResponse,
@@ -68,13 +66,10 @@ class MovieCatalogController extends MediaItemCatalogController<SearchMovieCatal
 
 			const url = miscUtilsController.buildUrl([
 				config.externalApis.theMovieDb.basePath,
-				config.externalApis.theMovieDb.movies.getDetailsRelativePath
+				config.externalApis.theMovieDb.movies.details.relativePath
 			], pathParams);
 
-			const queryParams: TmdbMovieDetailsQueryParams = {
-				append_to_response: "credits",
-				api_key: config.externalApis.theMovieDb.apiKey
-			};
+			const queryParams = Object.assign({}, config.externalApis.theMovieDb.movies.details.queryParams);
 
 			restJsonInvoker.invokeGet({
 				url: url,

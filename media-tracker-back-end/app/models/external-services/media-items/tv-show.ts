@@ -32,15 +32,6 @@ export class TmdbTvShowSearchResult {
 }
 
 /**
- * Query params of the external TV show search service
- */
-export type TmdbTvShowSearchQueryParams = {
-
-	query: string,
-	api_key: string,
-};
-
-/**
  * Response of the external TV show details service
  */
 export class TmdbTvShowDetailsResponse {
@@ -115,14 +106,6 @@ export class TmdbTvShowGenre {
 }
 
 /**
- * Query params of the external TV show details service
- */
-export type TmdbTvShowDetailsQueryParams = {
-
-	api_key: string
-};
-
-/**
  * Response of the external TV show season data service
  */
 export class TmdbTvShowSeasonDataResponse {
@@ -143,11 +126,3 @@ export class TmdbTvShowEpisode {
 	@IsString()
     air_date?: string;
 }
-
-/**
- * Query params of the external TV show details service
- */
-export type TmdbTvShowSeasonDataQueryParams = {
-
-	api_key: string
-};

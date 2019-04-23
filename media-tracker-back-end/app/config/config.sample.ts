@@ -5,28 +5,76 @@ export const config: Config = {
 		port: 3000
 	},
 	db: {
-		url: 'mongodb://<host>/<name>'
+		url: 'mongodb://<your_db_host_here>/<your_db_name_here>'
 	},
 	externalApis: {
 		timeoutMilliseconds: 5000,
 		theMovieDb: {
-			apiKey: '<api_key>',
 			basePath: 'http://api.themoviedb.org/3',
 			movies: {
-				searchRelativePath: '/search/movie/',
-				getDetailsRelativePath: '/movie/:movieId',
+				search: {
+					relativePath: '/search/movie/',
+					queryParams: {
+						api_key: '<your_api_key_here>',
+						query: ''
+					}
+				},
+				details: {
+					relativePath: '/movie/:movieId',
+					queryParams: {
+						api_key: '<your_api_key_here>',
+						append_to_response: 'credits'
+					}
+				},
 				directorJobName: 'Director'
 			},
 			tvShows: {
-				searchRelativePath: '/search/tv/',
-				getDetailsRelativePath: '/tv/:tvShowId',
-				getSeasonRelativePath: '/tv/:tvShowId/season/:seasonNumber'
+				search: {
+					relativePath: '/search/tv/',
+					queryParams: {
+						api_key: '<your_api_key_here>',
+						query: ''
+					}
+				},
+				details: {
+					relativePath: '/tv/:tvShowId',
+					queryParams: {
+						api_key: '<your_api_key_here>'
+					}
+				},
+				season: {
+					relativePath: '/tv/:tvShowId/season/:seasonNumber',
+					queryParams: {
+						api_key: '<your_api_key_here>',
+					}
+				}
+			}
+		},
+		googleBooks: {
+			basePath: 'https://www.googleapis.com/books/v1',
+			search: {
+				relativePath: '/volumes',
+				queryParams: {
+					key: '<your_api_key_here>',
+					langRestrict: 'en',
+					country: 'US',
+					orderBy: 'relevance',
+					projection: 'lite',
+					q: '',
+					maxResults: '10'
+				}
+			},
+			details: {
+				relativePath: '/volumes/:bookId',
+				queryParams: {
+					key: '<your_api_key_here>',
+				}
 			}
 		}
 	},
 	log: {
 		level: 'debug',
-		file: '<path>/media-tracker.log',
+		file: '<your_path_here>/media-tracker.log',
 		logApisInputOutput: true,
 		logExternalApisInputOutput: true,
 		logDatabaseQueries: true
