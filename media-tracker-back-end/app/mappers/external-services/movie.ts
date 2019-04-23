@@ -22,7 +22,7 @@ class MovieExternalSearchServiceMapper extends ModelMapper<SearchMovieCatalogRes
 	protected convertToInternal(source: TmdbMovieSearchResult): SearchMovieCatalogResultInternal {
 		
 		return {
-			catalogId: source.id,
+			catalogId: String(source.id),
 			title: source.title,
 			releaseDate: source.release_date
 		};

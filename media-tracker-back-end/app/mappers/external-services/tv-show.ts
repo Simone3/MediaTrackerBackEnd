@@ -21,7 +21,7 @@ class TvShowExternalSearchServiceMapper extends ModelMapper<SearchTvShowCatalogR
 	protected convertToInternal(source: TmdbTvShowSearchResult): SearchTvShowCatalogResultInternal {
 		
 		return {
-			catalogId: source.id,
+			catalogId: String(source.id),
 			title: source.name,
 			releaseDate: source.first_air_date
 		};
@@ -64,7 +64,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 	 * Helper to build the creators list
 	 * @param creators the optional creators array
 	 */
-	private getCreator(creators?: TmdbTvShowCreator[]): string {
+	private getCreator(creators?: TmdbTvShowCreator[]): string | undefined {
 
 		const SEP = ', ';
 
@@ -78,11 +78,11 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 					result += creator.name + SEP;
 				}
 			}
-			return result.length > 0 ? result.slice(0, -SEP.length) : result;
+			return result.length > 0 ? result.slice(0, -SEP.length) : undefined;
 		}
 		else {
 
-			return '';
+			return undefined;
 		}
 	}
 
@@ -90,7 +90,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 	 * Helper to get the next episode air date
 	 * @param currentSeasonData the current season data
 	 */
-	private getNextEpisodeAirDate(currentSeasonData?: TmdbTvShowSeasonDataResponse): string {
+	private getNextEpisodeAirDate(currentSeasonData?: TmdbTvShowSeasonDataResponse): string | undefined {
 
 		if(currentSeasonData && currentSeasonData.episodes) {
 
@@ -113,11 +113,11 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 					}
 				}
 			}
-			return nextEpisodeAirDate;
+			return nextEpisodeAirDate ? nextEpisodeAirDate : undefined;
 		}
 		else {
 
-			return '';
+			return undefined;
 		}
 	}
 }

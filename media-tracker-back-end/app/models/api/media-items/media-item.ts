@@ -123,8 +123,8 @@ export abstract class MediaItemSortBy {
  */
 export abstract class SearchMediaItemCatalogResult {
 
-	catalogId: number = 0;
-    title: string = "";
+	catalogId: string = '';
+    title: string = '';
 	releaseDate?: string;
 }
 

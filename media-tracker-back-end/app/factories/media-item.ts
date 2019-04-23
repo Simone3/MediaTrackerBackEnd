@@ -8,6 +8,8 @@ import { MediaTypeInternal, CategoryInternal, INTERNAL_MEDIA_TYPES } from "../mo
 import { AppError } from "../models/error/error";
 import { tvShowEntityController } from "../controllers/entities/media-items/tv-show";
 import { tvShowCatalogController } from "../controllers/catalogs/media-items/tv-show";
+import { bookEntityController } from "../controllers/entities/media-items/book";
+import { bookCatalogController } from "../controllers/catalogs/media-items/book";
 
 type EntityController = MediaItemEntityController<MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal>;
 type CatalogController = MediaItemCatalogController<SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal>
@@ -136,7 +138,7 @@ class MediaItemFactory {
 		switch(mediaType) {
 
 			case 'BOOK':
-				// TODO
+				return new ResolverHelper(bookEntityController, bookCatalogController);
 
 			case 'TV_SHOW':
 				return new ResolverHelper(tvShowEntityController, tvShowCatalogController);

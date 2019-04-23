@@ -96,7 +96,7 @@ class MediaTrackerLogger {
 
 			return args.map((arg) => {
 
-				return logRedactor.processAndStringify(arg);
+				return logRedactor.processAndStringify(arg).replace(/\r?\n|\r|\t/g, ' ');
 			});
 		}
 		else {

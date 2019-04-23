@@ -51,7 +51,7 @@ export type MediaItemSortByInternal = {
  */
 export type SearchMediaItemCatalogResultInternal = {
 
-	catalogId: number,
+	catalogId: string,
     title: string,
 	releaseDate?: string
 }

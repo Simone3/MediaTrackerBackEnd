@@ -8,6 +8,7 @@ import { requestScopeContextMiddleware } from '../controllers/utilities/request-
 import { groupRouter } from '../routes/group';
 import { movieEntityRouter, movieCatalogRouter } from '../routes/media-items/movie';
 import { tvShowEntityRouter, tvShowCatalogRouter } from '../routes/media-items/tv-show';
+import { bookEntityRouter, bookCatalogRouter } from '../routes/media-items/book';
 
 // Base setup
 var app = express();
@@ -32,6 +33,8 @@ app.use('/', movieEntityRouter);
 app.use('/', movieCatalogRouter);
 app.use('/', tvShowEntityRouter);
 app.use('/', tvShowCatalogRouter);
+app.use('/', bookEntityRouter);
+app.use('/', bookCatalogRouter);
 
 // Final catch-all route
 app.use(catchAllRouter);

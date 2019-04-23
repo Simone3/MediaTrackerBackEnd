@@ -14,7 +14,8 @@ class LogRedactor {
 	 * Internal map of object keys to redact
 	 */
 	private readonly REDACTED_OBJECT_KEYS: RedactedMap = {
-		'api_key': true
+		'api_key': true,
+		'key': true
 	};
 
 	/**

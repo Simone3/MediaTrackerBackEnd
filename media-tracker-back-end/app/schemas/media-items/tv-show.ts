@@ -14,4 +14,4 @@ export const TvShowSchema: Schema = new Schema({
 /**
  * TvShows collection name
  */
-export const MOVIE_COLLECTION_NAME = 'TvShow';
+export const TV_SHOW_COLLECTION_NAME = 'TvShow';

@@ -2,7 +2,7 @@ import { Document } from "mongoose";
 import { MediaItemEntityController } from "./media-item";
 import { TvShowInternal, TvShowSortByInternal, TvShowFilterInternal } from "../../../models/internal/media-items/tv-show";
 import { Model, model } from "mongoose";
-import { MOVIE_COLLECTION_NAME, TvShowSchema } from "../../../schemas/media-items/tv-show";
+import { TV_SHOW_COLLECTION_NAME, TvShowSchema } from "../../../schemas/media-items/tv-show";
 import { Queryable, SortDirection, Sortable } from "../../../controllers/database/query-helper";
 
 /**
@@ -13,7 +13,7 @@ interface TvShowDocument extends TvShowInternal, Document {}
 /**
  * Mongoose model for TV shows
  */
-const TvShowModel: Model<TvShowDocument> = model<TvShowDocument>(MOVIE_COLLECTION_NAME, TvShowSchema);
+const TvShowModel: Model<TvShowDocument> = model<TvShowDocument>(TV_SHOW_COLLECTION_NAME, TvShowSchema);
 
 /**
  * Controller for TV show entities
