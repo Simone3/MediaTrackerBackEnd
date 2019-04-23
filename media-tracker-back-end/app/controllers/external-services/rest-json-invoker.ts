@@ -20,7 +20,7 @@ export class RestJsonInvoker {
 	 * @param queryParams optional query parameters
 	 * @returns a promise that will eventually contain the parsed response body
 	 */
-	public invokeGet <O extends object> (parameters: InvocationParamsWithoutBody<O>): Promise<O> {
+	public invokeGet<O extends object>(parameters: InvocationParamsWithoutBody<O>): Promise<O> {
 
 		return this.invokeHelper({
 			...parameters,
@@ -36,7 +36,7 @@ export class RestJsonInvoker {
 	 * @param queryParams optional query parameters
 	 * @returns a promise that will eventually contain the parsed response body
 	 */
-	public invokePost <I extends object, O extends object> (parameters: InvocationParamsWithBody<I, O>): Promise<O> {
+	public invokePost<I extends object, O extends object>(parameters: InvocationParamsWithBody<I, O>): Promise<O> {
 
 		return this.invokeHelper({
 			...parameters,
@@ -47,7 +47,7 @@ export class RestJsonInvoker {
 	/**
 	 * Internal helper
 	 */
-	private invokeHelper <I, O extends object> (parameters: InternalInvocationParams<I, O>): Promise<O> {
+	private invokeHelper<I, O extends object>(parameters: InternalInvocationParams<I, O>): Promise<O> {
 
 		return new Promise((resolve, reject) => {
 
@@ -60,7 +60,8 @@ export class RestJsonInvoker {
 				headers: {
 					'Content-Type': 'application/json',
 					'Accept': 'application/json',
-					'Accept-Charset': 'utf-8'
+					'Accept-Charset': 'utf-8',
+					'User-Agent': config.externalApis.userAgent
 				}
 			};
 
@@ -148,7 +149,7 @@ export type InvocationParamsWithoutBody<O> = {
 	url: string,
 	responseBodyClass: ClassType<O>,
 	timeoutMilliseconds?: number,
-	queryParams?: QueryParams;
+	queryParams?: QueryParams
 };
 
 /**
@@ -173,6 +174,5 @@ type InternalInvocationParams<I, O> = InvocationParamsWithoutBody<O> & Partial<I
 export type QueryParams = {
 	[key: string]: string
 };
-
 
 

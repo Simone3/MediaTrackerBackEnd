@@ -1,6 +1,7 @@
 import { GoogleBooksSearchResult, GoogleBooksDetailsResponse, GoogleBooksVolumeLight} from "../../models/external-services/media-items/book";
 import { SearchBookCatalogResultInternal, CatalogBookInternal } from "../../models/internal/media-items/book";
 import { ModelMapper } from "../common";
+import { stringUtils } from "../../controllers/utilities/misc-utils";
 
 /**
  * Mapper for the books search external service
@@ -57,24 +58,7 @@ class BookExternalDetailsServiceMapper extends ModelMapper<CatalogBookInternal, 
 	 */
 	private getAuthor(volume: GoogleBooksVolumeLight): string | undefined {
 
-		const SEP = ', ';
-
-		if(volume.authors) {
-
-			let result = '';
-			for(let author of volume.authors) {
-
-				if(author) {
-
-					result += author + SEP;
-				}
-			}
-			return result.length > 0 ? result.slice(0, -SEP.length) : undefined;
-		}
-		else {
-
-			return undefined;
-		}
+		return stringUtils.join(volume.authors, ', ', undefined);
 	}
 }
 

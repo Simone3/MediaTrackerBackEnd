@@ -9,6 +9,7 @@ import { groupRouter } from '../routes/group';
 import { movieEntityRouter, movieCatalogRouter } from '../routes/media-items/movie';
 import { tvShowEntityRouter, tvShowCatalogRouter } from '../routes/media-items/tv-show';
 import { bookEntityRouter, bookCatalogRouter } from '../routes/media-items/book';
+import { videogameEntityRouter, videogameCatalogRouter } from '../routes/media-items/videogame';
 
 // Base setup
 var app = express();
@@ -35,6 +36,8 @@ app.use('/', tvShowEntityRouter);
 app.use('/', tvShowCatalogRouter);
 app.use('/', bookEntityRouter);
 app.use('/', bookCatalogRouter);
+app.use('/', videogameEntityRouter);
+app.use('/', videogameCatalogRouter);
 
 // Final catch-all route
 app.use(catchAllRouter);

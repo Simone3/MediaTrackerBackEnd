@@ -7,6 +7,7 @@ export type Config = {
 	},
 	externalApis: {
 		timeoutMilliseconds: number,
+		userAgent: string,
 		theMovieDb: {
 			basePath: string,
 			movies: {
@@ -66,6 +67,27 @@ export type Config = {
 				relativePath: string,
 				queryParams: {
 					key: string,
+				}
+			}
+		},
+		giantBomb: {
+			basePath: string,
+			search: {
+				relativePath: string,
+				queryParams: {
+					api_key: string,
+					format: string,
+					resources: string,
+					limit: string,
+					query: string
+				}
+			},
+			details: {
+				relativePath: string,
+				queryParams: {
+					api_key: string,
+					format: string,
+					field_list: string
 				}
 			}
 		}

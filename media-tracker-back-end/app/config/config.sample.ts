@@ -9,6 +9,7 @@ export const config: Config = {
 	},
 	externalApis: {
 		timeoutMilliseconds: 5000,
+		userAgent: '<your_user_agent>',
 		theMovieDb: {
 			basePath: 'http://api.themoviedb.org/3',
 			movies: {
@@ -68,6 +69,27 @@ export const config: Config = {
 				relativePath: '/volumes/:bookId',
 				queryParams: {
 					key: '<your_api_key_here>',
+				}
+			}
+		},
+		giantBomb: {
+			basePath: 'http://www.giantbomb.com/api',
+			search: {
+				relativePath: '/search',
+				queryParams: {
+					api_key: '<your_api_key_here>',
+					format: 'json',
+					resources: 'game',
+					limit: '10',
+					query: ''
+				}
+			},
+			details: {
+				relativePath: '/game/:videogameId',
+				queryParams: {
+					api_key: '<your_api_key_here>',
+					format: 'json',
+					field_list: 'id,original_release_date,expected_release_day,expected_release_month,expected_release_year,genres,name,deck,developers,publishers,platforms,image'
 				}
 			}
 		}

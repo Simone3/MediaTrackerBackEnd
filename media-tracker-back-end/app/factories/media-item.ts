@@ -10,6 +10,8 @@ import { tvShowEntityController } from "../controllers/entities/media-items/tv-s
 import { tvShowCatalogController } from "../controllers/catalogs/media-items/tv-show";
 import { bookEntityController } from "../controllers/entities/media-items/book";
 import { bookCatalogController } from "../controllers/catalogs/media-items/book";
+import { videogameEntityController } from "../controllers/entities/media-items/videogame";
+import { videogameCatalogController } from "../controllers/catalogs/media-items/videogame";
 
 type EntityController = MediaItemEntityController<MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal>;
 type CatalogController = MediaItemCatalogController<SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal>
@@ -144,7 +146,7 @@ class MediaItemFactory {
 				return new ResolverHelper(tvShowEntityController, tvShowCatalogController);
 
 			case 'VIDEOGAME':
-				// TODO
+				return new ResolverHelper(videogameEntityController, videogameCatalogController);
 
 			case 'MOVIE':
 				return new ResolverHelper(movieEntityController, movieCatalogController);

@@ -1,6 +1,7 @@
 import { TmdbTvShowSearchResult, TmdbTvShowDetailsResponse, TmdbTvShowSeasonDataResponse, TmdbTvShowCreator } from "../../models/external-services/media-items/tv-show";
 import { SearchTvShowCatalogResultInternal, CatalogTvShowInternal } from "../../models/internal/media-items/tv-show";
 import { ModelMapper } from "../common";
+import { stringUtils } from "../../controllers/utilities/misc-utils";
 
 /**
  * Mapper for the TV shows search external service
@@ -66,24 +67,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 	 */
 	private getCreator(creators?: TmdbTvShowCreator[]): string | undefined {
 
-		const SEP = ', ';
-
-		if(creators) {
-
-			let result = '';
-			for(let creator of creators) {
-
-				if(creator && creator.name) {
-
-					result += creator.name + SEP;
-				}
-			}
-			return result.length > 0 ? result.slice(0, -SEP.length) : undefined;
-		}
-		else {
-
-			return undefined;
-		}
+		return stringUtils.join(creators, ', ', undefined, ['name']);
 	}
 
 	/**
