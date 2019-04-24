@@ -1,4 +1,4 @@
-import { SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from "../../../models/internal/media-items/media-item";
+import { CatalogMediaItemInternal, SearchMediaItemCatalogResultInternal } from "app/models/internal/media-items/media-item";
 
 /**
  * Abstract controller for a generic media item catalog

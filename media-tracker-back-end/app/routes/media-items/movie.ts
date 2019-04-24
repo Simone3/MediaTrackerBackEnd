@@ -1,9 +1,9 @@
-import { MediaItemEntityRouterBuilder, MediaItemCatalogRouterBuilder } from "./media-item";
-import { GetAllMoviesResponse, FilterMoviesResponse, FilterMoviesRequest, SearchMoviesRequest, SearchMoviesResponse, AddMovieRequest, UpdateMovieRequest, SearchMovieCatalogResponse, GetMovieFromCatalogResponse } from "../../models/api/media-items/movie";
-import { MovieInternal, MovieSortByInternal, MovieFilterInternal, CatalogMovieInternal, SearchMovieCatalogResultInternal } from "../../models/internal/media-items/movie";
-import { movieEntityController } from "../../controllers/entities/media-items/movie";
-import { movieMapper, movieFilterMapper, movieSortMapper, movieCatalogSearchMapper, movieCatalogDetailsMapper } from "../../mappers/media-items/movie";
-import { movieCatalogController } from "../../controllers/catalogs/media-items/movie";
+import { movieCatalogController } from "app/controllers/catalogs/media-items/movie";
+import { movieEntityController } from "app/controllers/entities/media-items/movie";
+import { movieCatalogDetailsMapper, movieCatalogSearchMapper, movieFilterMapper, movieMapper, movieSortMapper } from "app/mappers/media-items/movie";
+import { AddMovieRequest, FilterMoviesRequest, FilterMoviesResponse, GetAllMoviesResponse, GetMovieFromCatalogResponse, SearchMovieCatalogResponse, SearchMoviesRequest, SearchMoviesResponse, UpdateMovieRequest } from "app/models/api/media-items/movie";
+import { CatalogMovieInternal, MovieFilterInternal, MovieInternal, MovieSortByInternal, SearchMovieCatalogResultInternal } from "app/models/internal/media-items/movie";
+import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from "app/routes/media-items/media-item";
 
 const PATH_NAME = 'movies';
 

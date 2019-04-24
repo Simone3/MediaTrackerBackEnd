@@ -1,12 +1,12 @@
-import request, { RequestPromiseOptions } from 'request-promise-native';
-import { StatusCodeError, RequestError } from 'request-promise-native/errors';
-import { UrlOptions } from 'request';
-import { parserValidator } from '../utilities/parser-validator';
+import { config } from 'app/config/config';
+import { HttpMethod } from 'app/controllers/utilities/misc-utils';
+import { parserValidator } from 'app/controllers/utilities/parser-validator';
+import { externalInvocationsInputOutputLogger, logger } from 'app/loggers/logger';
+import { AppError } from 'app/models/error/error';
 import { ClassType } from 'class-transformer-validator';
-import { HttpMethod } from '../utilities/misc-utils';
-import { AppError } from '../../models/error/error';
-import { logger, externalInvocationsInputOutputLogger } from '../../loggers/logger';
-import { config } from '../../config/config';
+import { UrlOptions } from 'request';
+import request, { RequestPromiseOptions } from 'request-promise-native';
+import { RequestError, StatusCodeError } from 'request-promise-native/errors';
 
 /**
  * Helper controller to invoke external JSON-based REST services

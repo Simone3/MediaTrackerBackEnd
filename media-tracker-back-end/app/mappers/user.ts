@@ -1,6 +1,6 @@
-import { UserInternal } from '../models/internal/user';
-import { IdentifiedUser } from '../models/api/user';
-import { ModelMapper } from './common';
+import { ModelMapper } from 'app/mappers/common';
+import { IdentifiedUser } from 'app/models/api/user';
+import { UserInternal } from 'app/models/internal/user';
 
 /**
  * Mapper for users

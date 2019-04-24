@@ -1,9 +1,9 @@
-import { MediaItemEntityRouterBuilder, MediaItemCatalogRouterBuilder } from "./media-item";
-import { GetAllTvShowsResponse, FilterTvShowsResponse, FilterTvShowsRequest, SearchTvShowsRequest, SearchTvShowsResponse, AddTvShowRequest, UpdateTvShowRequest, SearchTvShowCatalogResponse, GetTvShowFromCatalogResponse } from "../../models/api/media-items/tv-show";
-import { TvShowInternal, TvShowSortByInternal, TvShowFilterInternal, CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from "../../models/internal/media-items/tv-show";
-import { tvShowEntityController } from "../../controllers/entities/media-items/tv-show";
-import { tvShowMapper, tvShowFilterMapper, tvShowSortMapper, tvShowCatalogSearchMapper, tvShowCatalogDetailsMapper } from "../../mappers/media-items/tv-show";
-import { tvShowCatalogController } from "../../controllers/catalogs/media-items/tv-show";
+import { tvShowCatalogController } from "app/controllers/catalogs/media-items/tv-show";
+import { tvShowEntityController } from "app/controllers/entities/media-items/tv-show";
+import { tvShowCatalogDetailsMapper, tvShowCatalogSearchMapper, tvShowFilterMapper, tvShowMapper, tvShowSortMapper } from "app/mappers/media-items/tv-show";
+import { AddTvShowRequest, FilterTvShowsRequest, FilterTvShowsResponse, GetAllTvShowsResponse, GetTvShowFromCatalogResponse, SearchTvShowCatalogResponse, SearchTvShowsRequest, SearchTvShowsResponse, UpdateTvShowRequest } from "app/models/api/media-items/tv-show";
+import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal, TvShowFilterInternal, TvShowInternal, TvShowSortByInternal } from "app/models/internal/media-items/tv-show";
+import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from "app/routes/media-items/media-item";
 
 const PATH_NAME = 'tv-shows';
 

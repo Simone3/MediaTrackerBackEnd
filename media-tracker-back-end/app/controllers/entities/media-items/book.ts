@@ -1,10 +1,9 @@
-import { Document } from "mongoose";
-import { MediaItemEntityController } from "./media-item";
-import { BookInternal, BookSortByInternal, BookFilterInternal } from "../../../models/internal/media-items/book";
-import { Model, model } from "mongoose";
-import { BOOK_COLLECTION_NAME, BookSchema } from "../../../schemas/media-items/book";
-import { Queryable, SortDirection, Sortable } from "../../../controllers/database/query-helper";
-import { MediaTypeInternal } from "../../../models/internal/category";
+import { Queryable, Sortable, SortDirection } from "app/controllers/database/query-helper";
+import { MediaItemEntityController } from "app/controllers/entities/media-items/media-item";
+import { MediaTypeInternal } from "app/models/internal/category";
+import { BookFilterInternal, BookInternal, BookSortByInternal } from "app/models/internal/media-items/book";
+import { BookSchema, BOOK_COLLECTION_NAME } from "app/schemas/media-items/book";
+import { Document, Model, model } from "mongoose";
 
 /**
  * Book document for Mongoose

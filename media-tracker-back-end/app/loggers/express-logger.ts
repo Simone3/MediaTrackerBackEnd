@@ -1,8 +1,8 @@
+import { requestScopeContext } from 'app/controllers/utilities/request-scope-context';
+import { inputOutputLogger } from 'app/loggers/logger';
 import mung from 'express-mung';
-import { inputOutputLogger } from './logger';
 import { RequestHandler } from 'express-serve-static-core';
 import uuid from 'uuid';
-import { requestScopeContext } from '../controllers/utilities/request-scope-context';
 
 /**
  * Express middleware to set request-scoped context information 

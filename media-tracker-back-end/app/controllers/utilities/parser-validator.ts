@@ -1,4 +1,4 @@
-import { transformAndValidate, TransformValidationOptions, ClassType } from 'class-transformer-validator';
+import { ClassType, transformAndValidate, TransformValidationOptions } from 'class-transformer-validator';
 
 /**
  * Common parser/validator that contains some util methods for extending classes

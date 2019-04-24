@@ -1,12 +1,12 @@
-import { MediaItemCatalogController } from "../../../controllers/catalogs/media-items/media-item";
-import { SearchTvShowCatalogResultInternal, CatalogTvShowInternal } from "../../../models/internal/media-items/tv-show";
-import { miscUtilsController } from "../../../controllers/utilities/misc-utils";
-import { TmdbTvShowSearchResponse, TmdbTvShowDetailsResponse, TmdbTvShowSeasonDataResponse } from "../../../models/external-services/media-items/tv-show";
-import { restJsonInvoker } from "../../../controllers/external-services/rest-json-invoker";
-import { tvShowExternalSearchServiceMapper, tvShowExternalDetailsServiceMapper } from "../../../mappers/external-services/tv-show";
-import { logger } from "../../../loggers/logger";
-import { AppError } from "../../../models/error/error";
-import { config } from "../../../config/config";
+import { config } from "app/config/config";
+import { MediaItemCatalogController } from "app/controllers/catalogs/media-items/media-item";
+import { restJsonInvoker } from "app/controllers/external-services/rest-json-invoker";
+import { miscUtilsController } from "app/controllers/utilities/misc-utils";
+import { logger } from "app/loggers/logger";
+import { tvShowExternalDetailsServiceMapper, tvShowExternalSearchServiceMapper } from "app/mappers/external-services/tv-show";
+import { AppError } from "app/models/error/error";
+import { TmdbTvShowDetailsResponse, TmdbTvShowSearchResponse, TmdbTvShowSeasonDataResponse } from "app/models/external-services/media-items/tv-show";
+import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from "app/models/internal/media-items/tv-show";
 
 /**
  * Controller for TV show catalog

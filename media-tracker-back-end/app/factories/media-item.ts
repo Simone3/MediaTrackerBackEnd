@@ -1,17 +1,17 @@
-import { movieEntityController } from "../controllers/entities/media-items/movie";
-import { movieCatalogController } from "../controllers/catalogs/media-items/movie";
-import { MediaItemEntityController } from "../controllers/entities/media-items/media-item";
-import { MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from "../models/internal/media-items/media-item";
-import { MediaItemCatalogController } from "../controllers/catalogs/media-items/media-item";
-import { categoryController } from "../controllers/entities/category";
-import { MediaTypeInternal, CategoryInternal, INTERNAL_MEDIA_TYPES } from "../models/internal/category";
-import { AppError } from "../models/error/error";
-import { tvShowEntityController } from "../controllers/entities/media-items/tv-show";
-import { tvShowCatalogController } from "../controllers/catalogs/media-items/tv-show";
-import { bookEntityController } from "../controllers/entities/media-items/book";
-import { bookCatalogController } from "../controllers/catalogs/media-items/book";
-import { videogameEntityController } from "../controllers/entities/media-items/videogame";
-import { videogameCatalogController } from "../controllers/catalogs/media-items/videogame";
+import { bookCatalogController } from "app/controllers/catalogs/media-items/book";
+import { MediaItemCatalogController } from "app/controllers/catalogs/media-items/media-item";
+import { movieCatalogController } from "app/controllers/catalogs/media-items/movie";
+import { tvShowCatalogController } from "app/controllers/catalogs/media-items/tv-show";
+import { videogameCatalogController } from "app/controllers/catalogs/media-items/videogame";
+import { categoryController } from "app/controllers/entities/category";
+import { bookEntityController } from "app/controllers/entities/media-items/book";
+import { MediaItemEntityController } from "app/controllers/entities/media-items/media-item";
+import { movieEntityController } from "app/controllers/entities/media-items/movie";
+import { tvShowEntityController } from "app/controllers/entities/media-items/tv-show";
+import { videogameEntityController } from "app/controllers/entities/media-items/videogame";
+import { AppError } from "app/models/error/error";
+import { CategoryInternal, INTERNAL_MEDIA_TYPES, MediaTypeInternal } from "app/models/internal/category";
+import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal } from "app/models/internal/media-items/media-item";
 
 /**
  * Factory to get the correct media item controllers, e.g. starting from a category

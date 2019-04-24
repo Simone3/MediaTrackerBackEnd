@@ -1,7 +1,7 @@
-import { TmdbTvShowSearchResult, TmdbTvShowDetailsResponse, TmdbTvShowSeasonDataResponse, TmdbTvShowCreator } from "../../models/external-services/media-items/tv-show";
-import { SearchTvShowCatalogResultInternal, CatalogTvShowInternal } from "../../models/internal/media-items/tv-show";
-import { ModelMapper } from "../common";
-import { stringUtils } from "../../controllers/utilities/misc-utils";
+import { stringUtils } from "app/controllers/utilities/misc-utils";
+import { ModelMapper } from "app/mappers/common";
+import { TmdbTvShowCreator, TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeasonDataResponse } from "app/models/external-services/media-items/tv-show";
+import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from "app/models/internal/media-items/tv-show";
 
 /**
  * Mapper for the TV shows search external service

@@ -11,7 +11,10 @@
 		"target": "es6",
 		"strict": true,
 		"typeRoots": ["node_modules/@types", "app/custom-types"], 
-		"baseUrl": ".",
+		"baseUrl": "./",
+		"paths" : {
+		  "app/*": ["./app/*"]
+		},
 		"moduleResolution": "node",
 		"esModuleInterop": true
 	},

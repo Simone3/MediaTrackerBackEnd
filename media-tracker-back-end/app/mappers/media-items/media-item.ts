@@ -1,7 +1,7 @@
-import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from '../../models/internal/media-items/media-item';
-import { MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResult, CatalogMediaItem } from '../../models/api/media-items/media-item';
-import { AppError } from '../../models/error/error';
-import { ModelMapper } from '../common';
+import { ModelMapper } from 'app/mappers/common';
+import { CatalogMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResult } from 'app/models/api/media-items/media-item';
+import { AppError } from 'app/models/error/error';
+import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
 
 /**
  * Helper type

@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsString, IsOptional, IsInt, ValidateNested, IsDefined, IsBoolean } from "class-validator";
+import { CommonRequest, CommonResponse, CommonSaveRequest } from "app/models/api/common";
 import { Type } from "class-transformer";
-import { CommonSaveRequest, CommonResponse, CommonRequest } from "../common";
+import { IsBoolean, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
 
 /**
  * Abstract model for a media item from the catalog, publicly exposed via API

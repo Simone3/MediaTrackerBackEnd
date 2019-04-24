@@ -1,13 +1,13 @@
 
+import { userController } from 'app/controllers/entities/user';
+import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { parserValidator } from 'app/controllers/utilities/parser-validator';
+import { logger } from 'app/loggers/logger';
+import { userMapper } from 'app/mappers/user';
+import { ErrorResponse } from 'app/models/api/common';
+import { AddUserRequest, AddUserResponse, DeleteUserResponse, UpdateUserRequest, UpdateUserResponse } from 'app/models/api/user';
+import { AppError } from 'app/models/error/error';
 import express, { Router } from 'express';
-import { userController } from '../controllers/entities/user';
-import { AddUserResponse, UpdateUserResponse, DeleteUserResponse, AddUserRequest, UpdateUserRequest } from '../models/api/user';
-import { userMapper } from '../mappers/user';
-import { parserValidator } from '../controllers/utilities/parser-validator';
-import { ErrorResponse } from '../models/api/common';
-import { AppError } from '../models/error/error';
-import { logger } from '../loggers/logger';
-import { miscUtilsController } from '../controllers/utilities/misc-utils';
 
 var router: Router = express.Router();
 

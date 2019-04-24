@@ -1,6 +1,6 @@
-import { GroupInternal } from '../models/internal/group';
-import { IdentifiedGroup } from '../models/api/group';
-import { ModelMapper } from './common';
+import { ModelMapper } from 'app/mappers/common';
+import { IdentifiedGroup } from 'app/models/api/group';
+import { GroupInternal } from 'app/models/internal/group';
 
 /**
  * Helper type

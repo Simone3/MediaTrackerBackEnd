@@ -1,13 +1,13 @@
 
+import { categoryController } from 'app/controllers/entities/category';
+import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { parserValidator } from 'app/controllers/utilities/parser-validator';
+import { logger } from 'app/loggers/logger';
+import { categoryMapper } from 'app/mappers/category';
+import { AddCategoryRequest, AddCategoryResponse, DeleteCategoryResponse, GetAllCategoriesResponse, UpdateCategoryRequest, UpdateCategoryResponse } from 'app/models/api/category';
+import { ErrorResponse } from 'app/models/api/common';
+import { AppError } from 'app/models/error/error';
 import express, { Router } from 'express';
-import { categoryController } from '../controllers/entities/category';
-import { GetAllCategoriesResponse, AddCategoryResponse, UpdateCategoryResponse, DeleteCategoryResponse, AddCategoryRequest, UpdateCategoryRequest } from '../models/api/category';
-import { categoryMapper } from '../mappers/category';
-import { parserValidator } from '../controllers/utilities/parser-validator';
-import { ErrorResponse } from '../models/api/common';
-import { AppError } from '../models/error/error';
-import { logger } from '../loggers/logger';
-import { miscUtilsController } from '../controllers/utilities/misc-utils';
 
 var router: Router = express.Router();
 

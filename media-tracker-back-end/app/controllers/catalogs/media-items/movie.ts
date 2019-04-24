@@ -1,12 +1,12 @@
-import { MediaItemCatalogController } from "../../../controllers/catalogs/media-items/media-item";
-import { SearchMovieCatalogResultInternal, CatalogMovieInternal } from "../../../models/internal/media-items/movie";
-import { miscUtilsController } from "../../../controllers/utilities/misc-utils";
-import { TmdbMovieSearchResponse, TmdbMovieDetailsResponse } from "../../../models/external-services/media-items/movie";
-import { restJsonInvoker } from "../../../controllers/external-services/rest-json-invoker";
-import { movieExternalSearchServiceMapper, movieExternalDetailsServiceMapper } from "../../../mappers/external-services/movie";
-import { logger } from "../../../loggers/logger";
-import { AppError } from "../../../models/error/error";
-import { config } from "../../../config/config";
+import { config } from "app/config/config";
+import { MediaItemCatalogController } from "app/controllers/catalogs/media-items/media-item";
+import { restJsonInvoker } from "app/controllers/external-services/rest-json-invoker";
+import { miscUtilsController } from "app/controllers/utilities/misc-utils";
+import { logger } from "app/loggers/logger";
+import { movieExternalDetailsServiceMapper, movieExternalSearchServiceMapper } from "app/mappers/external-services/movie";
+import { AppError } from "app/models/error/error";
+import { TmdbMovieDetailsResponse, TmdbMovieSearchResponse } from "app/models/external-services/media-items/movie";
+import { CatalogMovieInternal, SearchMovieCatalogResultInternal } from "app/models/internal/media-items/movie";
 
 /**
  * Controller for movie catalog

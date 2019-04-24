@@ -1,7 +1,7 @@
-import mongoose, { ConnectionOptions} from 'mongoose';
-import { AppError } from '../../models/error/error';
-import { logger, databaseLogger } from '../../loggers/logger';
-import { config } from '../../config/config';
+import { config } from 'app/config/config';
+import { databaseLogger, logger } from 'app/loggers/logger';
+import { AppError } from 'app/models/error/error';
+import mongoose, { ConnectionOptions } from 'mongoose';
 
 /**
  * Database controller that handles generic DB setup, like its connection

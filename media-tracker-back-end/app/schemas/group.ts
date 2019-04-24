@@ -1,6 +1,6 @@
+import { CATEGORY_COLLECTION_NAME } from "app/schemas/category";
+import { USER_COLLECTION_NAME } from "app/schemas/user";
 import { Schema } from "mongoose";
-import { USER_COLLECTION_NAME } from "./user";
-import { CATEGORY_COLLECTION_NAME } from "./category";
 
 /**
  * Database schema for groups

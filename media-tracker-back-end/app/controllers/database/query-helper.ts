@@ -1,7 +1,7 @@
-import { Document, Model, CollationOptions } from "mongoose";
-import { AppError } from "../../models/error/error";
-import { PersistedEntityInternal } from "../../models/internal/common";
-import { logger } from "../../loggers/logger";
+import { logger } from "app/loggers/logger";
+import { AppError } from "app/models/error/error";
+import { PersistedEntityInternal } from "app/models/internal/common";
+import { CollationOptions, Document, Model } from "mongoose";
 
 /**
  * Collation search options (for case insensitive ordering)

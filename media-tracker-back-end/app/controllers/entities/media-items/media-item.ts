@@ -1,16 +1,16 @@
+import { Populatable, Queryable, QueryHelper, Sortable, SortDirection } from "app/controllers/database/query-helper";
+import { categoryController } from "app/controllers/entities/category";
+import { groupController } from "app/controllers/entities/group";
+import { AbstractEntityController } from "app/controllers/entities/helper";
+import { miscUtilsController } from "app/controllers/utilities/misc-utils";
+import { logger } from "app/loggers/logger";
+import { AppError } from "app/models/error/error";
+import { CategoryInternal, MediaTypeInternal } from "app/models/internal/category";
+import { PersistedEntityInternal } from "app/models/internal/common";
+import { GroupInternal } from "app/models/internal/group";
+import { MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal } from "app/models/internal/media-items/media-item";
+import { UserInternal } from "app/models/internal/user";
 import { Document, Model } from "mongoose";
-import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, MediaItemSortFieldInternal } from "../../../models/internal/media-items/media-item";
-import { Queryable, Sortable, QueryHelper, SortDirection, Populatable } from "../../database/query-helper";
-import { miscUtilsController } from "../../utilities/misc-utils";
-import { AppError } from "../../../models/error/error";
-import { logger } from "../../../loggers/logger";
-import { AbstractEntityController } from "../helper";
-import { UserInternal } from "../../../models/internal/user";
-import { CategoryInternal, MediaTypeInternal } from "../../../models/internal/category";
-import { GroupInternal } from "../../../models/internal/group";
-import { categoryController } from "../category";
-import { groupController } from "../group";
-import { PersistedEntityInternal } from "../../../models/internal/common";
 
 /**
  * Abstract controller for media item entities

@@ -1,10 +1,9 @@
-import { Document } from "mongoose";
-import { MediaItemEntityController } from "./media-item";
-import { MovieInternal, MovieSortByInternal, MovieFilterInternal } from "../../../models/internal/media-items/movie";
-import { Model, model } from "mongoose";
-import { MOVIE_COLLECTION_NAME, MovieSchema } from "../../../schemas/media-items/movie";
-import { Queryable, SortDirection, Sortable } from "../../../controllers/database/query-helper";
-import { MediaTypeInternal } from "../../../models/internal/category";
+import { Queryable, Sortable, SortDirection } from "app/controllers/database/query-helper";
+import { MediaItemEntityController } from "app/controllers/entities/media-items/media-item";
+import { MediaTypeInternal } from "app/models/internal/category";
+import { MovieFilterInternal, MovieInternal, MovieSortByInternal } from "app/models/internal/media-items/movie";
+import { MovieSchema, MOVIE_COLLECTION_NAME } from "app/schemas/media-items/movie";
+import { Document, Model, model } from "mongoose";
 
 /**
  * Movie document for Mongoose

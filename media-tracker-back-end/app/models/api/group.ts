@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsString, ValidateNested, IsDefined } from 'class-validator';
+import { CommonResponse, CommonSaveRequest } from 'app/models/api/common';
 import { Type } from 'class-transformer';
-import { CommonResponse, CommonSaveRequest } from './common';
+import { IsDefined, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Model for a group, publicly exposed via API

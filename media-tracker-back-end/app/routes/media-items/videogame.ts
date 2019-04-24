@@ -1,9 +1,9 @@
-import { MediaItemEntityRouterBuilder, MediaItemCatalogRouterBuilder } from "./media-item";
-import { GetAllVideogamesResponse, FilterVideogamesResponse, FilterVideogamesRequest, SearchVideogamesRequest, SearchVideogamesResponse, AddVideogameRequest, UpdateVideogameRequest, SearchVideogameCatalogResponse, GetVideogameFromCatalogResponse } from "../../models/api/media-items/videogame";
-import { VideogameInternal, VideogameSortByInternal, VideogameFilterInternal, CatalogVideogameInternal, SearchVideogameCatalogResultInternal } from "../../models/internal/media-items/videogame";
-import { videogameEntityController } from "../../controllers/entities/media-items/videogame";
-import { videogameMapper, videogameFilterMapper, videogameSortMapper, videogameCatalogSearchMapper, videogameCatalogDetailsMapper } from "../../mappers/media-items/videogame";
-import { videogameCatalogController } from "../../controllers/catalogs/media-items/videogame";
+import { videogameCatalogController } from "app/controllers/catalogs/media-items/videogame";
+import { videogameEntityController } from "app/controllers/entities/media-items/videogame";
+import { videogameCatalogDetailsMapper, videogameCatalogSearchMapper, videogameFilterMapper, videogameMapper, videogameSortMapper } from "app/mappers/media-items/videogame";
+import { AddVideogameRequest, FilterVideogamesRequest, FilterVideogamesResponse, GetAllVideogamesResponse, GetVideogameFromCatalogResponse, SearchVideogameCatalogResponse, SearchVideogamesRequest, SearchVideogamesResponse, UpdateVideogameRequest } from "app/models/api/media-items/videogame";
+import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal, VideogameFilterInternal, VideogameInternal, VideogameSortByInternal } from "app/models/internal/media-items/videogame";
+import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from "app/routes/media-items/media-item";
 
 const PATH_NAME = 'videogames';
 

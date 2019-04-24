@@ -1,9 +1,9 @@
-import { MediaItemEntityRouterBuilder, MediaItemCatalogRouterBuilder } from "./media-item";
-import { GetAllBooksResponse, FilterBooksResponse, FilterBooksRequest, SearchBooksRequest, SearchBooksResponse, AddBookRequest, UpdateBookRequest, SearchBookCatalogResponse, GetBookFromCatalogResponse } from "../../models/api/media-items/book";
-import { BookInternal, BookSortByInternal, BookFilterInternal, CatalogBookInternal, SearchBookCatalogResultInternal } from "../../models/internal/media-items/book";
-import { bookEntityController } from "../../controllers/entities/media-items/book";
-import { bookMapper, bookFilterMapper, bookSortMapper, bookCatalogSearchMapper, bookCatalogDetailsMapper } from "../../mappers/media-items/book";
-import { bookCatalogController } from "../../controllers/catalogs/media-items/book";
+import { bookCatalogController } from "app/controllers/catalogs/media-items/book";
+import { bookEntityController } from "app/controllers/entities/media-items/book";
+import { bookCatalogDetailsMapper, bookCatalogSearchMapper, bookFilterMapper, bookMapper, bookSortMapper } from "app/mappers/media-items/book";
+import { AddBookRequest, FilterBooksRequest, FilterBooksResponse, GetAllBooksResponse, GetBookFromCatalogResponse, SearchBookCatalogResponse, SearchBooksRequest, SearchBooksResponse, UpdateBookRequest } from "app/models/api/media-items/book";
+import { BookFilterInternal, BookInternal, BookSortByInternal, CatalogBookInternal, SearchBookCatalogResultInternal } from "app/models/internal/media-items/book";
+import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from "app/routes/media-items/media-item";
 
 const PATH_NAME = 'books';
 

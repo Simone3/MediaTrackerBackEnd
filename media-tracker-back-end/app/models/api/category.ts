@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsString, ValidateNested, IsDefined, IsIn } from 'class-validator';
+import { ValuesOf } from 'app/controllers/utilities/misc-utils';
+import { CommonResponse, CommonSaveRequest } from 'app/models/api/common';
 import { Type } from 'class-transformer';
-import { CommonResponse, CommonSaveRequest } from './common';
-import { ValuesOf } from '../../controllers/utilities/misc-utils';
+import { IsDefined, IsIn, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Array of all media types, publicly exposed via API

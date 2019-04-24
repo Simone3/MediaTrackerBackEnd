@@ -1,12 +1,12 @@
-import { MediaItemCatalogController } from "../../../controllers/catalogs/media-items/media-item";
-import { SearchBookCatalogResultInternal, CatalogBookInternal } from "../../../models/internal/media-items/book";
-import { miscUtilsController } from "../../../controllers/utilities/misc-utils";
-import { GoogleBooksSearchResponse, GoogleBooksDetailsResponse } from "../../../models/external-services/media-items/book";
-import { restJsonInvoker } from "../../../controllers/external-services/rest-json-invoker";
-import { bookExternalSearchServiceMapper, bookExternalDetailsServiceMapper } from "../../../mappers/external-services/book";
-import { logger } from "../../../loggers/logger";
-import { AppError } from "../../../models/error/error";
-import { config } from "../../../config/config";
+import { config } from "app/config/config";
+import { MediaItemCatalogController } from "app/controllers/catalogs/media-items/media-item";
+import { restJsonInvoker } from "app/controllers/external-services/rest-json-invoker";
+import { miscUtilsController } from "app/controllers/utilities/misc-utils";
+import { logger } from "app/loggers/logger";
+import { bookExternalDetailsServiceMapper, bookExternalSearchServiceMapper } from "app/mappers/external-services/book";
+import { AppError } from "app/models/error/error";
+import { GoogleBooksDetailsResponse, GoogleBooksSearchResponse } from "app/models/external-services/media-items/book";
+import { CatalogBookInternal, SearchBookCatalogResultInternal } from "app/models/internal/media-items/book";
 
 /**
  * Controller for book catalog

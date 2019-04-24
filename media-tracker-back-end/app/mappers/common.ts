@@ -1,4 +1,4 @@
-import { logger } from "../loggers/logger";
+import { logger } from "app/loggers/logger";
 
 /**
  * Generic model mapper between some internal model and some external model,

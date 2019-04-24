@@ -1,15 +1,15 @@
+import { config } from 'app/config/config';
+import { requestScopeContextMiddleware } from 'app/controllers/utilities/request-scope-context';
+import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddleware } from 'app/loggers/express-logger';
+import { catchAllRouter } from 'app/routes/catch-all';
+import { categoryRouter } from 'app/routes/category';
+import { groupRouter } from 'app/routes/group';
+import { bookCatalogRouter, bookEntityRouter } from 'app/routes/media-items/book';
+import { movieCatalogRouter, movieEntityRouter } from 'app/routes/media-items/movie';
+import { tvShowCatalogRouter, tvShowEntityRouter } from 'app/routes/media-items/tv-show';
+import { videogameCatalogRouter, videogameEntityRouter } from 'app/routes/media-items/videogame';
+import { userRouter } from 'app/routes/user';
 import express from 'express';
-import { catchAllRouter } from '../routes/catch-all';
-import { userRouter } from '../routes/user';
-import { categoryRouter } from '../routes/category';
-import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddleware } from '../loggers/express-logger';
-import { config } from '../config/config';
-import { requestScopeContextMiddleware } from '../controllers/utilities/request-scope-context';
-import { groupRouter } from '../routes/group';
-import { movieEntityRouter, movieCatalogRouter } from '../routes/media-items/movie';
-import { tvShowEntityRouter, tvShowCatalogRouter } from '../routes/media-items/tv-show';
-import { bookEntityRouter, bookCatalogRouter } from '../routes/media-items/book';
-import { videogameEntityRouter, videogameCatalogRouter } from '../routes/media-items/videogame';
 
 // Base setup
 var app = express();

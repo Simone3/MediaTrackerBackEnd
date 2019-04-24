@@ -1,15 +1,15 @@
+import { Queryable, QueryHelper, Sortable } from "app/controllers/database/query-helper";
+import { groupController } from "app/controllers/entities/group";
+import { AbstractEntityController } from "app/controllers/entities/helper";
+import { userController } from "app/controllers/entities/user";
+import { mediaItemFactory } from "app/factories/media-item";
+import { logger } from "app/loggers/logger";
+import { AppError } from "app/models/error/error";
+import { CategoryInternal } from "app/models/internal/category";
+import { MediaItemInternal } from "app/models/internal/media-items/media-item";
+import { UserInternal } from "app/models/internal/user";
+import { CategorySchema, CATEGORY_COLLECTION_NAME } from "app/schemas/category";
 import { Document, Model, model } from "mongoose";
-import { CategoryInternal } from "../../models/internal/category";
-import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../../schemas/category";
-import { Queryable, QueryHelper, Sortable } from "../database/query-helper";
-import { logger } from "../../loggers/logger";
-import { AbstractEntityController } from "./helper";
-import { groupController } from "./group";
-import { userController } from "./user";
-import { UserInternal } from "../../models/internal/user";
-import { AppError } from "../../models/error/error";
-import { mediaItemFactory } from "../../factories/media-item";
-import { MediaItemInternal } from "../../models/internal/media-items/media-item";
 
 /**
  * Mongoose document for categories

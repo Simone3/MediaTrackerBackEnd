@@ -1,5 +1,5 @@
-import { IsOptional, IsDefined, ValidateNested, IsNotEmpty, IsString, IsInt, IsBoolean } from "class-validator";
 import { Type } from "class-transformer";
+import { IsBoolean, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
 
 /**
  * Response of the external TV show search service

@@ -1,5 +1,5 @@
-import { AppError } from "../../models/error/error";
-import { PersistedEntityInternal } from "../../models/internal/common";
+import { AppError } from "app/models/error/error";
+import { PersistedEntityInternal } from "app/models/internal/common";
 
 /**
  * Helper controller for enities, with util methods

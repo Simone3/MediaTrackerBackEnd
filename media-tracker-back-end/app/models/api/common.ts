@@ -1,5 +1,5 @@
-import { AppError } from "../error/error";
-import { IsOptional, IsBoolean } from "class-validator";
+import { AppError } from "app/models/error/error";
+import { IsBoolean, IsOptional } from "class-validator";
 
 /**
  * Type shared by all API requests

@@ -1,12 +1,12 @@
-import { MediaItemCatalogController } from "../../../controllers/catalogs/media-items/media-item";
-import { SearchVideogameCatalogResultInternal, CatalogVideogameInternal } from "../../../models/internal/media-items/videogame";
-import { miscUtilsController } from "../../../controllers/utilities/misc-utils";
-import { GiantBombSearchResponse, GiantBombDetailsResponse } from "../../../models/external-services/media-items/videogame";
-import { restJsonInvoker } from "../../../controllers/external-services/rest-json-invoker";
-import { videogameExternalSearchServiceMapper, videogameExternalDetailsServiceMapper } from "../../../mappers/external-services/videogame";
-import { logger } from "../../../loggers/logger";
-import { AppError } from "../../../models/error/error";
-import { config } from "../../../config/config";
+import { config } from "app/config/config";
+import { MediaItemCatalogController } from "app/controllers/catalogs/media-items/media-item";
+import { restJsonInvoker } from "app/controllers/external-services/rest-json-invoker";
+import { miscUtilsController } from "app/controllers/utilities/misc-utils";
+import { logger } from "app/loggers/logger";
+import { videogameExternalDetailsServiceMapper, videogameExternalSearchServiceMapper } from "app/mappers/external-services/videogame";
+import { AppError } from "app/models/error/error";
+import { GiantBombDetailsResponse, GiantBombSearchResponse } from "app/models/external-services/media-items/videogame";
+import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal } from "app/models/internal/media-items/videogame";
 
 /**
  * Controller for videogame catalog

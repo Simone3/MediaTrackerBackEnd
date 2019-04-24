@@ -1,7 +1,7 @@
-import { GoogleBooksSearchResult, GoogleBooksDetailsResponse, GoogleBooksVolumeLight} from "../../models/external-services/media-items/book";
-import { SearchBookCatalogResultInternal, CatalogBookInternal } from "../../models/internal/media-items/book";
-import { ModelMapper } from "../common";
-import { stringUtils } from "../../controllers/utilities/misc-utils";
+import { stringUtils } from "app/controllers/utilities/misc-utils";
+import { ModelMapper } from "app/mappers/common";
+import { GoogleBooksDetailsResponse, GoogleBooksSearchResult, GoogleBooksVolumeLight } from "app/models/external-services/media-items/book";
+import { CatalogBookInternal, SearchBookCatalogResultInternal } from "app/models/internal/media-items/book";
 
 /**
  * Mapper for the books search external service

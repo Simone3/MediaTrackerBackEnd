@@ -1,10 +1,9 @@
-import { Document } from "mongoose";
-import { MediaItemEntityController } from "./media-item";
-import { VideogameInternal, VideogameSortByInternal, VideogameFilterInternal } from "../../../models/internal/media-items/videogame";
-import { Model, model } from "mongoose";
-import { VIDEOGAME_COLLECTION_NAME, VideogameSchema } from "../../../schemas/media-items/videogame";
-import { Queryable, SortDirection, Sortable } from "../../../controllers/database/query-helper";
-import { MediaTypeInternal } from "../../../models/internal/category";
+import { Queryable, Sortable, SortDirection } from "app/controllers/database/query-helper";
+import { MediaItemEntityController } from "app/controllers/entities/media-items/media-item";
+import { MediaTypeInternal } from "app/models/internal/category";
+import { VideogameFilterInternal, VideogameInternal, VideogameSortByInternal } from "app/models/internal/media-items/videogame";
+import { VideogameSchema, VIDEOGAME_COLLECTION_NAME } from "app/schemas/media-items/videogame";
+import { Document, Model, model } from "mongoose";
 
 /**
  * Videogame document for Mongoose

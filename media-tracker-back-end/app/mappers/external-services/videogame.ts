@@ -1,7 +1,7 @@
-import { GiantBombSearchResult, GiantBombDetailsResponse } from "../../models/external-services/media-items/videogame";
-import { SearchVideogameCatalogResultInternal, CatalogVideogameInternal } from "../../models/internal/media-items/videogame";
-import { ModelMapper } from "../common";
-import { dateUtils, stringUtils } from "../../controllers/utilities/misc-utils";
+import { dateUtils, stringUtils } from "app/controllers/utilities/misc-utils";
+import { ModelMapper } from "app/mappers/common";
+import { GiantBombDetailsResponse, GiantBombSearchResult } from "app/models/external-services/media-items/videogame";
+import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal } from "app/models/internal/media-items/videogame";
 
 /**
  * Mapper for the videogames search external service

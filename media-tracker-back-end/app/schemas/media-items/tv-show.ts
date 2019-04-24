@@ -1,5 +1,5 @@
+import { commonMediaItemSchemaDefinition, commonMediaItemSchemaOptions } from "app/schemas/media-items/media-item";
 import { Schema } from "mongoose";
-import { commonMediaItemSchemaDefinition, commonMediaItemSchemaOptions } from "./media-item";
 
 /**
  * Database schema for TV shows

@@ -1,10 +1,9 @@
-import { Document } from "mongoose";
-import { MediaItemEntityController } from "./media-item";
-import { TvShowInternal, TvShowSortByInternal, TvShowFilterInternal } from "../../../models/internal/media-items/tv-show";
-import { Model, model } from "mongoose";
-import { TV_SHOW_COLLECTION_NAME, TvShowSchema } from "../../../schemas/media-items/tv-show";
-import { Queryable, SortDirection, Sortable } from "../../../controllers/database/query-helper";
-import { MediaTypeInternal } from "../../../models/internal/category";
+import { Queryable, Sortable, SortDirection } from "app/controllers/database/query-helper";
+import { MediaItemEntityController } from "app/controllers/entities/media-items/media-item";
+import { MediaTypeInternal } from "app/models/internal/category";
+import { TvShowFilterInternal, TvShowInternal, TvShowSortByInternal } from "app/models/internal/media-items/tv-show";
+import { TvShowSchema, TV_SHOW_COLLECTION_NAME } from "app/schemas/media-items/tv-show";
+import { Document, Model, model } from "mongoose";
 
 /**
  * TvShow document for Mongoose

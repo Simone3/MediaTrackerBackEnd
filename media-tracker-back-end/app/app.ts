@@ -1,8 +1,8 @@
 
-import { server } from './server/server';
-import { config } from './config/config';
-import { databaseManager } from './controllers/database/database-manager';
-import { logger, finalizeAndCloseAllLoggers } from './loggers/logger';
+import { config } from 'app/config/config';
+import { databaseManager } from 'app/controllers/database/database-manager';
+import { finalizeAndCloseAllLoggers, logger } from 'app/loggers/logger';
+import { server } from 'app/server/server';
 import exitHook from 'exit-hook';
 
 /**

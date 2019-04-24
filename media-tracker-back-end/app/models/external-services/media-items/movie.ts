@@ -1,5 +1,5 @@
-import { IsOptional, IsDefined, ValidateNested, IsNotEmpty, IsString, IsInt } from "class-validator";
 import { Type } from "class-transformer";
+import { IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
 
 /**
  * Response of the external movie search service

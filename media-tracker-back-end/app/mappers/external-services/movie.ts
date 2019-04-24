@@ -1,7 +1,7 @@
-import { TmdbMovieSearchResult, TmdbMovieDetailsResponse, TmdbMovieCredits } from "../../models/external-services/media-items/movie";
-import { SearchMovieCatalogResultInternal, CatalogMovieInternal } from "../../models/internal/media-items/movie";
-import { config } from "../../config/config";
-import { ModelMapper } from "../common";
+import { config } from "app/config/config";
+import { ModelMapper } from "app/mappers/common";
+import { TmdbMovieCredits, TmdbMovieDetailsResponse, TmdbMovieSearchResult } from "app/models/external-services/media-items/movie";
+import { CatalogMovieInternal, SearchMovieCatalogResultInternal } from "app/models/internal/media-items/movie";
 
 /**
  * Mapper for the movies search external service

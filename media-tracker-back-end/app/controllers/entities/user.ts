@@ -1,11 +1,11 @@
+import { Queryable, QueryHelper } from "app/controllers/database/query-helper";
+import { categoryController } from "app/controllers/entities/category";
+import { groupController } from "app/controllers/entities/group";
+import { AbstractEntityController } from "app/controllers/entities/helper";
+import { mediaItemFactory } from "app/factories/media-item";
+import { UserInternal } from "app/models/internal/user";
+import { UserSchema, USER_COLLECTION_NAME } from "app/schemas/user";
 import { Document, Model, model } from "mongoose";
-import { UserInternal } from "../../models/internal/user";
-import { UserSchema, USER_COLLECTION_NAME } from "../../schemas/user";
-import { categoryController } from "./category";
-import { QueryHelper, Queryable } from "../database/query-helper";
-import { AbstractEntityController } from "./helper";
-import { groupController } from "./group";
-import { mediaItemFactory } from "../../factories/media-item";
 
 /**
  * Mongoose document for users

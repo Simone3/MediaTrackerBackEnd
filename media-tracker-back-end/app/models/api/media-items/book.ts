@@ -1,6 +1,6 @@
-import { CatalogMediaItem, MediaItem, MediaItemSortField, MediaItemSortBy, AddMediaItemRequest, GetAllMediaItemsResponse, UpdateMediaItemRequest, FilterMediaItemsRequest, MediaItemFilter, FilterMediaItemsResponse, SearchMediaItemsRequest, SearchMediaItemsResponse, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, GetMediaItemFromCatalogResponse } from "./media-item";
-import { IsString, IsOptional, IsNotEmpty, IsIn, IsDefined, ValidateNested } from "class-validator";
+import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from "app/models/api/media-items/media-item";
 import { Type } from "class-transformer";
+import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
 
 /**
  * Model for a book from the catalog, publicly exposed via API
