@@ -2,7 +2,7 @@
  * Util type for the keys map
  */
 type RedactedMap = {
-	[key: string]: boolean
+	[key: string]: boolean;
 };
 
 /**
@@ -21,7 +21,7 @@ class LogRedactor {
 	/**
 	 * Takes a value and transforms it into a string, removing defined redacted values
 	 */
-	public processAndStringify(value: any): string {
+	public processAndStringify(value: unknown): string {
 		
 		if(value !== null && value !== undefined) {
 

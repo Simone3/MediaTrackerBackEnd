@@ -14,12 +14,12 @@ var router: Router = express.Router();
 /**
  * Route to add a new user
  */
-router.post('/users', (request, response, __) => {
+router.post('/users', (request, response) => {
 
 	parserValidator.parseAndValidate(AddUserRequest, request.body)
 		.then((body) => {
 
-			const newUser = userMapper.toInternal({...body.newUser, uid: ""});
+			const newUser = userMapper.toInternal({...body.newUser, uid: ''});
 			userController.saveUser(newUser)
 				.then((savedUser) => {
 				
@@ -46,7 +46,7 @@ router.post('/users', (request, response, __) => {
 /**
  * Route to update an existing user
  */
-router.put('/users/:id', (request, response, __) => {
+router.put('/users/:id', (request, response) => {
 
 	const id: string = request.params.id;
 
@@ -79,7 +79,7 @@ router.put('/users/:id', (request, response, __) => {
 /**
  * Route to delete a user
  */
-router.delete('/users/:id', (request, response, __) => {
+router.delete('/users/:id', (request, response) => {
 
 	const id: string = request.params.id;
 	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);

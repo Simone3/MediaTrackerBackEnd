@@ -1,7 +1,7 @@
-import { dateUtils, stringUtils } from "app/controllers/utilities/misc-utils";
-import { ModelMapper } from "app/mappers/common";
-import { GiantBombDetailsResponse, GiantBombSearchResult } from "app/models/external-services/media-items/videogame";
-import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal } from "app/models/internal/media-items/videogame";
+import { dateUtils, stringUtils } from 'app/controllers/utilities/misc-utils';
+import { ModelMapper } from 'app/mappers/common';
+import { GiantBombDetailsResponse, GiantBombSearchResult } from 'app/models/external-services/media-items/videogame';
+import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal } from 'app/models/internal/media-items/videogame';
 
 /**
  * Mapper for the videogames search external service
@@ -13,7 +13,7 @@ class VideogameExternalSearchServiceMapper extends ModelMapper<SearchVideogameCa
 	 */
 	protected convertToExternal(): GiantBombSearchResult {
 
-		throw "convertToExternal unimplemented"
+		throw 'convertToExternal unimplemented'
 	}
 	
 	/**
@@ -60,7 +60,7 @@ class VideogameExternalDetailsServiceMapper extends ModelMapper<CatalogVideogame
 	 */
 	protected convertToExternal(): GiantBombDetailsResponse {
 
-		throw "convertToExternal unimplemented"
+		throw 'convertToExternal unimplemented'
 	}
 	
 	/**

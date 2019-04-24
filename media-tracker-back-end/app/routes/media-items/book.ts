@@ -1,9 +1,9 @@
-import { bookCatalogController } from "app/controllers/catalogs/media-items/book";
-import { bookEntityController } from "app/controllers/entities/media-items/book";
-import { bookCatalogDetailsMapper, bookCatalogSearchMapper, bookFilterMapper, bookMapper, bookSortMapper } from "app/mappers/media-items/book";
-import { AddBookRequest, FilterBooksRequest, FilterBooksResponse, GetAllBooksResponse, GetBookFromCatalogResponse, SearchBookCatalogResponse, SearchBooksRequest, SearchBooksResponse, UpdateBookRequest } from "app/models/api/media-items/book";
-import { BookFilterInternal, BookInternal, BookSortByInternal, CatalogBookInternal, SearchBookCatalogResultInternal } from "app/models/internal/media-items/book";
-import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from "app/routes/media-items/media-item";
+import { bookCatalogController } from 'app/controllers/catalogs/media-items/book';
+import { bookEntityController } from 'app/controllers/entities/media-items/book';
+import { bookCatalogDetailsMapper, bookCatalogSearchMapper, bookFilterMapper, bookMapper, bookSortMapper } from 'app/mappers/media-items/book';
+import { AddBookRequest, FilterBooksRequest, FilterBooksResponse, GetAllBooksResponse, GetBookFromCatalogResponse, SearchBookCatalogResponse, SearchBooksRequest, SearchBooksResponse, UpdateBookRequest } from 'app/models/api/media-items/book';
+import { BookFilterInternal, BookInternal, BookSortByInternal, CatalogBookInternal, SearchBookCatalogResultInternal } from 'app/models/internal/media-items/book';
+import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from 'app/routes/media-items/media-item';
 
 const PATH_NAME = 'books';
 
@@ -19,7 +19,7 @@ const catalogRouterBuilder = new MediaItemCatalogRouterBuilder<SearchBookCatalog
 	bookCatalogController
 );
 
-// Setup "get all" API
+// Setup 'get all' API
 entityRouterBuilder.getAll({
 
 	responseBuilder: (commonResponse, books) => {
@@ -31,7 +31,7 @@ entityRouterBuilder.getAll({
 	}
 });
 
-// Setup "filter and order" API
+// Setup 'filter and order' API
 entityRouterBuilder.filter({
 
 	requestClass: FilterBooksRequest,
@@ -53,7 +53,7 @@ entityRouterBuilder.filter({
 	}
 });
 
-// Setup "search" API
+// Setup 'search' API
 entityRouterBuilder.search({
 
 	requestClass: SearchBooksRequest,
@@ -71,7 +71,7 @@ entityRouterBuilder.search({
 	}
 });
 
-// Setup "add new" API
+// Setup 'add new' API
 entityRouterBuilder.addNew({
 
 	requestClass: AddBookRequest,
@@ -81,7 +81,7 @@ entityRouterBuilder.addNew({
 	}
 });
 
-// Setup "update" API
+// Setup 'update' API
 entityRouterBuilder.updateExisting({
 
 	requestClass: UpdateBookRequest,
@@ -91,10 +91,10 @@ entityRouterBuilder.updateExisting({
 	}
 });
 
-// Setup "delete" API
+// Setup 'delete' API
 entityRouterBuilder.delete();
 
-// Setup "catalog search" API
+// Setup 'catalog search' API
 catalogRouterBuilder.search({
 
 	responseBuilder: (commonResponse, books) => {
@@ -106,7 +106,7 @@ catalogRouterBuilder.search({
 	}
 });
 
-// Setup "catalog details" API
+// Setup 'catalog details' API
 catalogRouterBuilder.details({
 
 	responseBuilder: (commonResponse, book) => {

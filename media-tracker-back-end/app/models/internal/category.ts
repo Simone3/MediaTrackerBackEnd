@@ -1,6 +1,6 @@
-import { ValuesOf } from "app/controllers/utilities/misc-utils";
-import { PersistedEntityInternal } from "app/models/internal/common";
-import { UserInternal } from "app/models/internal/user";
+import { ValuesOf } from 'app/controllers/utilities/misc-utils';
+import { PersistedEntityInternal } from 'app/models/internal/common';
+import { UserInternal } from 'app/models/internal/user';
 
 /**
  * Array of all media types, internal type NOT to be exposed via API

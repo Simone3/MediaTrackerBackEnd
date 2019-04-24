@@ -1,5 +1,5 @@
-import { AppError } from "app/models/error/error";
-import { PersistedEntityInternal } from "app/models/internal/common";
+import { AppError } from 'app/models/error/error';
+import { PersistedEntityInternal } from 'app/models/internal/common';
 
 /**
  * Helper controller for enities, with util methods
@@ -60,7 +60,7 @@ export abstract class AbstractEntityController {
 	 */
 	protected checkExistencePreconditionsHelper(errorToThrow: AppError, checkCallback: () => Promise<PersistedEntityInternal | undefined | (PersistedEntityInternal | undefined)[]>): Promise<void> {
 		
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 
 			checkCallback()
 				.then((result) => {

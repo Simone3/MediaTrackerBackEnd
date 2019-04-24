@@ -1,6 +1,6 @@
-import { CommonRequest, CommonResponse, CommonSaveRequest } from "app/models/api/common";
-import { Type } from "class-transformer";
-import { IsBoolean, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
+import { CommonRequest, CommonResponse, CommonSaveRequest } from 'app/models/api/common';
+import { Type } from 'class-transformer';
+import { IsBoolean, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Abstract model for a media item from the catalog, publicly exposed via API
@@ -12,7 +12,34 @@ export abstract class CatalogMediaItem {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	name!: string;
+	public name!: string;
+}
+
+/**
+ * Model for a media item group data, publicly exposed via API
+ */
+export class MediaItemGroup {
+
+	/**
+	 * The group ID
+	 */
+	@IsNotEmpty()
+	@IsString()
+	public groupId!: string;
+
+	/**
+	 * The group name
+	 */
+	@IsOptional()
+	@IsString()
+	public groupName?: string;
+
+	/**
+	 * The media item order inside the group
+	 */
+	@IsNotEmpty()
+	@IsInt()
+	public orderInGroup!: number;
 }
 
 /**
@@ -25,14 +52,14 @@ export abstract class MediaItem {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	name!: string;
+	public name!: string;
 
 	/**
 	 * The media item importance level
 	 */
 	@IsNotEmpty()
 	@IsInt()
-	importance!: number;
+	public importance!: number;
 
 	/**
 	 * The media item group
@@ -40,35 +67,8 @@ export abstract class MediaItem {
 	@IsOptional()
 	@Type(() => MediaItemGroup)
 	@ValidateNested()
-	group?: MediaItemGroup;
+	public group?: MediaItemGroup;
 };
-
-/**
- * Model for a media item group data, publicly exposed via API
- */
-export class MediaItemGroup {
-
-	/**
-	 * The group ID
-	 */
-	@IsNotEmpty()
-	@IsString()
-	groupId!: string;
-
-	/**
-	 * The group name
-	 */
-	@IsOptional()
-	@IsString()
-	groupName?: string;
-
-	/**
-	 * The media item order inside the group
-	 */
-	@IsNotEmpty()
-	@IsInt()
-	orderInGroup!: number;
-}
 
 /**
  * Abstract media items filtering options, publicly exposed via API
@@ -80,14 +80,14 @@ export abstract class MediaItemFilter {
 	 */
 	@IsOptional()
 	@IsInt()
-	importance?: number;
+	public importance?: number;
 
 	/**
 	 * Group to filter
 	 */
 	@IsOptional()
 	@IsString()
-	groupId?: string;
+	public groupId?: string;
 }
 
 /**
@@ -95,9 +95,9 @@ export abstract class MediaItemFilter {
  */
 export abstract class MediaItemSortField {
 
-	static readonly IMPORTANCE: string = 'IMPORTANCE';
-	static readonly NAME: string = 'NAME';
-	static readonly GROUP: string = 'GROUP';
+	public static readonly IMPORTANCE: string = 'IMPORTANCE';
+	public static readonly NAME: string = 'NAME';
+	public static readonly GROUP: string = 'GROUP';
 	
 	public static commonValues(): string[] {
 
@@ -115,7 +115,7 @@ export abstract class MediaItemSortBy {
 	 */
 	@IsDefined()
 	@IsBoolean()
-	ascending!: boolean;
+	public ascending!: boolean;
 }
 
 /**
@@ -123,69 +123,69 @@ export abstract class MediaItemSortBy {
  */
 export abstract class SearchMediaItemCatalogResult {
 
-	catalogId: string = '';
-    title: string = '';
-	releaseDate?: string;
+	public catalogId: string = '';
+	public  title: string = '';
+	public releaseDate?: string;
 }
 
 /**
- * Abstract request for the "add media item" API
+ * Abstract request for the 'add media item' API
  */
 export abstract class AddMediaItemRequest extends CommonSaveRequest {
 
 };
 
 /**
- * Response for the "add media item" API
+ * Response for the 'add media item' API
  */
 export class AddMediaItemResponse extends CommonResponse {
 
 }
 
 /**
- * Response for the "delete media item" API
+ * Response for the 'delete media item' API
  */
 export class DeleteMediaItemResponse extends CommonResponse {
 
 }
 
 /**
- * Abstract response for the "get all media items" API
+ * Abstract response for the 'get all media items' API
  */
 export abstract class GetAllMediaItemsResponse extends CommonResponse {
 
 };
 
 /**
- * Abstract request for the "update media item" API
+ * Abstract request for the 'update media item' API
  */
 export abstract class UpdateMediaItemRequest extends CommonSaveRequest {
 
 };
 
 /**
- * Response for the "update media item" API
+ * Response for the 'update media item' API
  */
 export class UpdateMediaItemResponse extends CommonResponse {
 
 }
 
 /**
- * Abstract request for the "filter media items" API
+ * Abstract request for the 'filter media items' API
  */
 export abstract class FilterMediaItemsRequest extends CommonRequest {
 
 };
 
 /**
- * Abstract response for the "filter media items" API
+ * Abstract response for the 'filter media items' API
  */
 export abstract class FilterMediaItemsResponse extends CommonResponse {
 
 }
 
 /**
- * Abstract request for the "search media items" API
+ * Abstract request for the 'search media items' API
  */
 export abstract class SearchMediaItemsRequest extends CommonRequest {
 
@@ -194,29 +194,29 @@ export abstract class SearchMediaItemsRequest extends CommonRequest {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	searchTerm!: string;
+	public searchTerm!: string;
 };
 
 /**
- * Abstract response for the "search media items" API
+ * Abstract response for the 'search media items' API
  */
 export abstract class SearchMediaItemsResponse extends CommonResponse {
 
 };
 
 /**
- * Abstract response for the "search catalog" API
+ * Abstract response for the 'search catalog' API
  */
 export abstract class SearchMediaItemCatalogResponse extends CommonResponse {
 
 	/**
 	 * The search results
 	 */
-	searchResults: SearchMediaItemCatalogResult[] = [];
+	public searchResults: SearchMediaItemCatalogResult[] = [];
 };
 
 /**
- * Abstract response for the "get from catalog" API
+ * Abstract response for the 'get from catalog' API
  */
 export abstract class GetMediaItemFromCatalogResponse extends CommonResponse {
 

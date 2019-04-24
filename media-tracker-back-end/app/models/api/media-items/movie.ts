@@ -1,6 +1,6 @@
-import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from "app/models/api/media-items/media-item";
-import { Type } from "class-transformer";
-import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
+import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from 'app/models/api/media-items/media-item';
+import { Type } from 'class-transformer';
+import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Model for a movie from the catalog, publicly exposed via API
@@ -12,7 +12,7 @@ export class CatalogMovie extends CatalogMediaItem {
 	 */
 	@IsOptional()
 	@IsString()
-	director?: string;
+	public director?: string;
 }
 
 /**
@@ -25,7 +25,7 @@ export class Movie extends MediaItem {
 	 */
 	@IsOptional()
 	@IsString()
-	director?: string;
+	public director?: string;
 };
 
 /**
@@ -38,7 +38,7 @@ export class IdentifiedMovie extends Movie {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	uid!: string;
+	public uid!: string;
 };
 
 /**
@@ -53,7 +53,7 @@ export class MovieFilter extends MediaItemFilter{
  */
 export class MovieSortField extends MediaItemSortField {
 
-	static readonly DIRECTOR: string = 'DIRECTOR';
+	public static readonly DIRECTOR: string = 'DIRECTOR';
 	
 	public static values(): string[] {
 
@@ -72,7 +72,7 @@ export class MovieSortBy extends MediaItemSortBy {
 	@IsNotEmpty()
 	@IsString()
 	@IsIn(MovieSortField.values())
-	field!: string;
+	public field!: string;
 }
 
 /**
@@ -83,7 +83,7 @@ export class SearchMovieCatalogResult extends SearchMediaItemCatalogResult {
 }
 
 /**
- * Request for the "add movie" API
+ * Request for the 'add movie' API
  */
 export class AddMovieRequest extends AddMediaItemRequest {
 
@@ -93,22 +93,22 @@ export class AddMovieRequest extends AddMediaItemRequest {
 	@IsDefined()
 	@Type(() => Movie)
 	@ValidateNested()
-	newMovie!: Movie;
+	public newMovie!: Movie;
 };
 
 /**
- * Response for the "get all movies" API
+ * Response for the 'get all movies' API
  */
 export class GetAllMoviesResponse extends GetAllMediaItemsResponse {
 
 	/**
 	 * The retrieved movies
 	 */
-	movies: IdentifiedMovie[] = [];
+	public movies: IdentifiedMovie[] = [];
 };
 
 /**
- * Request for the "update movie" API
+ * Request for the 'update movie' API
  */
 export class UpdateMovieRequest extends UpdateMediaItemRequest {
 
@@ -118,11 +118,11 @@ export class UpdateMovieRequest extends UpdateMediaItemRequest {
 	@IsDefined()
 	@Type(() => Movie)
 	@ValidateNested()
-	movie!: Movie;
+	public movie!: Movie;
 };
 
 /**
- * Request for the "filter movies" API
+ * Request for the 'filter movies' API
  */
 export class FilterMoviesRequest extends FilterMediaItemsRequest {
 
@@ -132,7 +132,7 @@ export class FilterMoviesRequest extends FilterMediaItemsRequest {
 	@IsOptional()
 	@Type(() => MovieFilter)
 	@ValidateNested()
-	filter?: MovieFilter;
+	public filter?: MovieFilter;
 
 	/**
 	 * Ordering options
@@ -141,22 +141,22 @@ export class FilterMoviesRequest extends FilterMediaItemsRequest {
 	@IsDefined({each: true})
 	@Type(() => MovieSortBy)
 	@ValidateNested()
-	sortBy?: MovieSortBy[];
+	public sortBy?: MovieSortBy[];
 };
 
 /**
- * Response for the "filter movies" API
+ * Response for the 'filter movies' API
  */
 export class FilterMoviesResponse extends FilterMediaItemsResponse {
 
 	/**
 	 * The retrieved movies
 	 */
-	movies: IdentifiedMovie[] = [];
+	public movies: IdentifiedMovie[] = [];
 }
 
 /**
- * Request for the "search movies" API
+ * Request for the 'search movies' API
  */
 export class SearchMoviesRequest extends SearchMediaItemsRequest {
 
@@ -166,34 +166,34 @@ export class SearchMoviesRequest extends SearchMediaItemsRequest {
 	@IsOptional()
 	@Type(() => MovieFilter)
 	@ValidateNested()
-	filter?: MovieFilter;
+	public filter?: MovieFilter;
 };
 
 /**
- * Response for the "search movies" API
+ * Response for the 'search movies' API
  */
 export class SearchMoviesResponse extends SearchMediaItemsResponse {
 
 	/**
 	 * The retrieved movies
 	 */
-	movies: IdentifiedMovie[] = [];
+	public movies: IdentifiedMovie[] = [];
 };
 
 /**
- * Response for the "search catalog" API
+ * Response for the 'search catalog' API
  */
 export class SearchMovieCatalogResponse extends SearchMediaItemCatalogResponse {
 
 };
 
 /**
- * Response for the "get from catalog" API
+ * Response for the 'get from catalog' API
  */
 export class GetMovieFromCatalogResponse extends GetMediaItemFromCatalogResponse {
 
 	/**
 	 * The movie details
 	 */
-	catalogMovie: CatalogMovie = new CatalogMovie();
+	public catalogMovie: CatalogMovie = new CatalogMovie();
 };

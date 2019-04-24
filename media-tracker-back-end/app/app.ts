@@ -8,7 +8,7 @@ import exitHook from 'exit-hook';
 /**
  * Initializes the application
  */
-export const init = () => {
+export const init = (): void => {
 
 	logger.info('Starting application...');
 

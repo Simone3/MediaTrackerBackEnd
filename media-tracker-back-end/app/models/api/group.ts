@@ -12,7 +12,7 @@ export class Group {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	name!: string;
+	public name!: string;
 };
 
 /**
@@ -25,11 +25,11 @@ export class IdentifiedGroup extends Group {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	uid!: string;
+	public uid!: string;
 };
 
 /**
- * Request for the "add group" API
+ * Request for the 'add group' API
  */
 export class AddGroupRequest extends CommonSaveRequest {
 
@@ -39,33 +39,33 @@ export class AddGroupRequest extends CommonSaveRequest {
 	@IsDefined()
 	@Type(() => Group)
 	@ValidateNested()
-	newGroup!: Group;
+	public newGroup!: Group;
 };
 
 /**
- * Response for the "add group" API
+ * Response for the 'add group' API
  */
 export class AddGroupResponse extends CommonResponse {
 
 }
 
 /**
- * Response for the "delete group" API
+ * Response for the 'delete group' API
  */
 export class DeleteGroupResponse extends CommonResponse {
 
 }
 
 /**
- * Response for the "get all groups" API
+ * Response for the 'get all groups' API
  */
 export class GetAllGroupsResponse extends CommonResponse {
 
-	groups: IdentifiedGroup[] = [];
+	public groups: IdentifiedGroup[] = [];
 };
 
 /**
- * Request for the "update group" API
+ * Request for the 'update group' API
  */
 export class UpdateGroupRequest extends CommonSaveRequest {
 
@@ -75,11 +75,11 @@ export class UpdateGroupRequest extends CommonSaveRequest {
 	@IsDefined()
 	@Type(() => Group)
 	@ValidateNested()
-	group!: Group;
+	public group!: Group;
 };
 
 /**
- * Response for the "update group" API
+ * Response for the 'update group' API
  */
 export class UpdateGroupResponse extends CommonResponse {
 

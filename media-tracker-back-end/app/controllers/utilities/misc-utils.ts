@@ -19,9 +19,9 @@ class MiscUtilsController {
 	/**
 	 * Helper to build a URL
 	 * @param urlParts list of URL parts to be appended in order
-	 * @param pathParams optional path params to replace in the full URL (the URL string must contain them in the ":" notation, e.g. http://mywebsite.com/:myPathParam/mypage)
+	 * @param pathParams optional path params to replace in the full URL (the URL string must contain them in the ':' notation, e.g. http://mywebsite.com/:myPathParam/mypage)
 	 */
-	public buildUrl(urlParts: string[], pathParams?: PathParams) {
+	public buildUrl(urlParts: string[], pathParams?: PathParams): string {
 
 		// Empty case
 		if(!urlParts || urlParts.length === 0) {
@@ -64,9 +64,9 @@ class MiscUtilsController {
 	}
 
 	/**
-	 * Parses a boolean from a value of any type (e.g. the string "false" maps to the boolean false)
+	 * Parses a boolean from a value of any type (e.g. the string 'false' maps to the boolean false)
 	 */
-	public parseBoolean(value: any): boolean {
+	public parseBoolean(value: unknown): boolean {
 
 		if(typeof(value) === 'string') {
 
@@ -76,11 +76,11 @@ class MiscUtilsController {
 		switch(value) {
 
 			case true:
-			case "true":
+			case 'true':
 			case 1:
-			case "1":
-			case "on":
-			case "yes":
+			case '1':
+			case 'on':
+			case 'yes':
 				return true;
 
 			default:
@@ -132,7 +132,7 @@ class EnumUtils {
 
 			if(isNaN(Number(enumStringKey))) {
 		
-				let enumKeyOf = <keyof typeof theEnum>enumStringKey;
+				let enumKeyOf = enumStringKey as keyof typeof theEnum;
 				result.push(theEnum[enumKeyOf]);
 			}
 		}
@@ -150,13 +150,13 @@ export const enumUtils = new EnumUtils();
  * Helper type for URL path params
  */
 export type PathParams = {
-	[key: string]: string
+	[key: string]: string;
 };
 
 /**
  * Helper type to define a type starting from an array of options
  */
-export type ValuesOf<T extends any[]>= T[number];
+export type ValuesOf<T extends unknown[]>= T[number];
 
 /**
  * Some utilities for dates

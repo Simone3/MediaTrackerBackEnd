@@ -1,102 +1,102 @@
 export type Config = {
 	server: {
-		port: number,
-	},
+		port: number;
+	};
 	db: {
-		url: string,
-	},
+		url: string;
+	};
 	externalApis: {
-		timeoutMilliseconds: number,
-		userAgent: string,
+		timeoutMilliseconds: number;
+		userAgent: string;
 		theMovieDb: {
-			basePath: string,
+			basePath: string;
 			movies: {
 				search: {
-					relativePath: string,
+					relativePath: string;
 					queryParams: {
-						api_key: string,
-						query: string
-					}
-				},
+						api_key: string;
+						query: string;
+					};
+				};
 				details: {
-					relativePath: string,
+					relativePath: string;
 					queryParams: {
-						api_key: string,
-						append_to_response: string
-					}
-				}
-				directorJobName: string
-			},
+						api_key: string;
+						append_to_response: string;
+					};
+				};
+				directorJobName: string;
+			};
 			tvShows: {
 				search: {
-					relativePath: string,
+					relativePath: string;
 					queryParams: {
-						api_key: string,
-						query: string
-					}
-				},
+						api_key: string;
+						query: string;
+					};
+				};
 				details: {
-					relativePath: string,
+					relativePath: string;
 					queryParams: {
-						api_key: string
-					}
-				},
+						api_key: string;
+					};
+				};
 				season: {
-					relativePath: string,
+					relativePath: string;
 					queryParams: {
-						api_key: string
-					}
-				}
-			}
-		},
+						api_key: string;
+					};
+				};
+			};
+		};
 		googleBooks: {
-			basePath: string,
+			basePath: string;
 			search: {
-				relativePath: string,
+				relativePath: string;
 				queryParams: {
-					key: string,
-					langRestrict: string
-					country: string
-					orderBy: string
-					projection: string
-					q: string
-					maxResults: string
-				}
-			},
+					key: string;
+					langRestrict: string;
+					country: string;
+					orderBy: string;
+					projection: string;
+					q: string;
+					maxResults: string;
+				};
+			};
 			details: {
-				relativePath: string,
+				relativePath: string;
 				queryParams: {
-					key: string,
-				}
-			}
-		},
+					key: string;
+				};
+			};
+		};
 		giantBomb: {
-			basePath: string,
+			basePath: string;
 			search: {
-				relativePath: string,
+				relativePath: string;
 				queryParams: {
-					api_key: string,
-					format: string,
-					resources: string,
-					limit: string,
-					query: string
-				}
-			},
+					api_key: string;
+					format: string;
+					resources: string;
+					limit: string;
+					query: string;
+				};
+			};
 			details: {
-				relativePath: string,
+				relativePath: string;
 				queryParams: {
-					api_key: string,
-					format: string,
-					field_list: string
-				}
-			}
-		}
-	},
+					api_key: string;
+					format: string;
+					field_list: string;
+				};
+			};
+		};
+	};
 	log: {
-		level: 'debug' | 'info' | 'error',
-		file: string,
-		logApisInputOutput: boolean,
-		logExternalApisInputOutput: boolean,
-		logDatabaseQueries: boolean
-	}
+		level: 'debug' | 'info' | 'error';
+		file: string;
+		logApisInputOutput: boolean;
+		logExternalApisInputOutput: boolean;
+		logDatabaseQueries: boolean;
+	};
 }

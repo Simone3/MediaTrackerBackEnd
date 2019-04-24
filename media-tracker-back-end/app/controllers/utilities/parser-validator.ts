@@ -23,7 +23,7 @@ class ParserValidator {
 
 		return {
 			transformer: {
-				strategy: "exposeAll"
+				strategy: 'exposeAll'
 			},
 			validator: {
 				skipMissingProperties: false,

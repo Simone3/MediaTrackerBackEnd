@@ -1,11 +1,11 @@
-import { Queryable, QueryHelper } from "app/controllers/database/query-helper";
-import { categoryController } from "app/controllers/entities/category";
-import { groupController } from "app/controllers/entities/group";
-import { AbstractEntityController } from "app/controllers/entities/helper";
-import { mediaItemFactory } from "app/factories/media-item";
-import { UserInternal } from "app/models/internal/user";
-import { UserSchema, USER_COLLECTION_NAME } from "app/schemas/user";
-import { Document, Model, model } from "mongoose";
+import { Queryable, QueryHelper } from 'app/controllers/database/query-helper';
+import { categoryController } from 'app/controllers/entities/category';
+import { groupController } from 'app/controllers/entities/group';
+import { AbstractEntityController } from 'app/controllers/entities/helper';
+import { mediaItemFactory } from 'app/factories/media-item';
+import { UserInternal } from 'app/models/internal/user';
+import { UserSchema, USER_COLLECTION_NAME } from 'app/schemas/user';
+import { Document, Model, model } from 'mongoose';
 
 /**
  * Mongoose document for users
@@ -32,7 +32,7 @@ class UserController extends AbstractEntityController {
 	/**
 	 * Constructor
 	 */
-	constructor() {
+	public constructor() {
 
 		super();
 		this.queryHelper = new QueryHelper(UserModel);
@@ -85,10 +85,10 @@ class UserController extends AbstractEntityController {
 			// Delete categories, groups and the user; and then wait for every delete promise
 			return Promise.all(
 				mediaItemPromises.concat([
-				categoryController.deleteAllCategoriesForUser(id),
-				groupController.deleteAllGroupsForUser(id),
-				this.queryHelper.deleteById(id)
-			]));
+					categoryController.deleteAllCategoriesForUser(id),
+					groupController.deleteAllGroupsForUser(id),
+					this.queryHelper.deleteById(id)
+				]));
 		});
 	}
 }

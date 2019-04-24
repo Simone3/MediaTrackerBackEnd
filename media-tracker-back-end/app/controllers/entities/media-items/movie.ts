@@ -1,9 +1,9 @@
-import { Queryable, Sortable, SortDirection } from "app/controllers/database/query-helper";
-import { MediaItemEntityController } from "app/controllers/entities/media-items/media-item";
-import { MediaTypeInternal } from "app/models/internal/category";
-import { MovieFilterInternal, MovieInternal, MovieSortByInternal } from "app/models/internal/media-items/movie";
-import { MovieSchema, MOVIE_COLLECTION_NAME } from "app/schemas/media-items/movie";
-import { Document, Model, model } from "mongoose";
+import { Queryable, Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
+import { MediaTypeInternal } from 'app/models/internal/category';
+import { MovieFilterInternal, MovieInternal, MovieSortByInternal } from 'app/models/internal/media-items/movie';
+import { MovieSchema, MOVIE_COLLECTION_NAME } from 'app/schemas/media-items/movie';
+import { Document, Model, model } from 'mongoose';
 
 /**
  * Movie document for Mongoose
@@ -23,7 +23,7 @@ class MovieEntityController extends MediaItemEntityController<MovieInternal, Mov
 	/**
 	 * Constructor
 	 */
-	constructor() {
+	public constructor() {
 
 		super(MovieModel);
 	}

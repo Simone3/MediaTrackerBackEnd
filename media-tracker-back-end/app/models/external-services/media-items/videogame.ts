@@ -1,5 +1,35 @@
-import { Type } from "class-transformer";
-import { IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
+import { Type } from 'class-transformer';
+import { IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+
+/**
+ * Result of the external videogame search service
+ */
+export class GiantBombSearchResult {
+
+	@IsNotEmpty()
+	@IsInt()
+	public id!: number;
+	
+	@IsNotEmpty()
+	@IsString()
+	public name!: string;
+
+	@IsOptional()
+	@IsString()
+	public original_release_date?: string;
+
+	@IsOptional()
+	@IsInt()
+	public expected_release_day?: number;
+
+	@IsOptional()
+	@IsInt()
+	public expected_release_month?: number;
+
+	@IsOptional()
+	@IsInt()
+	public expected_release_year?: number;
+}
 
 /**
  * Response of the external videogame search service
@@ -10,48 +40,65 @@ export class GiantBombSearchResponse {
 	@IsDefined({each: true})
 	@Type(() => GiantBombSearchResult)
 	@ValidateNested()
-	results?: GiantBombSearchResult[];
+	public results?: GiantBombSearchResult[];
 }
 
 /**
- * Result of the external videogame search service
+ * Genre model for the external videogame details service
  */
-export class GiantBombSearchResult {
+export class GiantBombGenre {
 
 	@IsNotEmpty()
-	@IsInt()
-	id!: number;
+	@IsString()
+	public name!: string;
+}
+
+/**
+ * Publisher model for the external videogame details service
+ */
+export class GiantBombPublisher {
+
+	@IsNotEmpty()
+	@IsString()
+	public name!: string;
+}
+
+/**
+ * Developer model for the external videogame details service
+ */
+export class GiantBombDeveloper {
+
+	@IsNotEmpty()
+	@IsString()
+	public name!: string;
+}
+
+/**
+ * Platform model for the external videogame details service
+ */
+export class GiantBombPlatform {
+
+	@IsNotEmpty()
+	@IsString()
+	public name!: string;
 	
-	@IsNotEmpty()
-	@IsString()
-	name!: string;
-
 	@IsOptional()
 	@IsString()
-	original_release_date?: string;
-
-	@IsOptional()
-	@IsInt()
-	expected_release_day?: number;
-
-	@IsOptional()
-	@IsInt()
-	expected_release_month?: number;
-
-	@IsOptional()
-	@IsInt()
-	expected_release_year?: number;
+	public abbreviation?: string;
 }
 
 /**
- * Response of the external videogame details service
+ * Image model for the external videogame details service
  */
-export class GiantBombDetailsResponse {
+export class GiantBombImage {
 
-	@IsDefined()
-	@Type(() => GiantBombDetailsResult)
-	@ValidateNested()
-    results!: GiantBombDetailsResult;
+	@IsOptional()
+	@IsString()
+	public screen_url?: string;
+
+	@IsOptional()
+	@IsString()
+	public medium_url?: string;
 }
 
 /**
@@ -63,90 +110,44 @@ export class GiantBombDetailsResult extends GiantBombSearchResult {
 	@IsDefined({each: true})
 	@Type(() => GiantBombGenre)
 	@ValidateNested()
-	genres?: GiantBombGenre[];
+	public genres?: GiantBombGenre[];
 
 	@IsOptional()
 	@IsString()
-	deck?: string;
+	public deck?: string;
 
 	@IsOptional()
 	@IsDefined({each: true})
 	@Type(() => GiantBombDeveloper)
 	@ValidateNested()
-	developers?: GiantBombDeveloper[];
+	public developers?: GiantBombDeveloper[];
 
 	@IsOptional()
 	@IsDefined({each: true})
 	@Type(() => GiantBombPublisher)
 	@ValidateNested()
-	publishers?: GiantBombPublisher[];
+	public publishers?: GiantBombPublisher[];
 
 	@IsOptional()
 	@IsDefined({each: true})
 	@Type(() => GiantBombPlatform)
 	@ValidateNested()
-	platforms?: GiantBombPlatform[];
+	public platforms?: GiantBombPlatform[];
 
 	@IsOptional()
 	@Type(() => GiantBombImage)
 	@ValidateNested()
-	image?: GiantBombImage;
+	public image?: GiantBombImage;
 }
 
 /**
- * Image model for the external videogame details service
+ * Response of the external videogame details service
  */
-export class GiantBombImage {
+export class GiantBombDetailsResponse {
 
-	@IsOptional()
-	@IsString()
-	screen_url?: string;
-
-	@IsOptional()
-	@IsString()
-	medium_url?: string;
+	@IsDefined()
+	@Type(() => GiantBombDetailsResult)
+	@ValidateNested()
+	public results!: GiantBombDetailsResult;
 }
 
-/**
- * Genre model for the external videogame details service
- */
-export class GiantBombGenre {
-
-	@IsNotEmpty()
-	@IsString()
-	name!: string;
-}
-
-/**
- * Publisher model for the external videogame details service
- */
-export class GiantBombPublisher {
-
-	@IsNotEmpty()
-	@IsString()
-	name!: string;
-}
-
-/**
- * Developer model for the external videogame details service
- */
-export class GiantBombDeveloper {
-
-	@IsNotEmpty()
-	@IsString()
-	name!: string;
-}
-
-/**
- * Platform model for the external videogame details service
- */
-export class GiantBombPlatform {
-
-	@IsNotEmpty()
-	@IsString()
-	name!: string;
-	
-	@IsOptional()
-	@IsString()
-	abbreviation?: string;
-}

@@ -1,16 +1,16 @@
-import { Populatable, Queryable, QueryHelper, Sortable, SortDirection } from "app/controllers/database/query-helper";
-import { categoryController } from "app/controllers/entities/category";
-import { groupController } from "app/controllers/entities/group";
-import { AbstractEntityController } from "app/controllers/entities/helper";
-import { miscUtilsController } from "app/controllers/utilities/misc-utils";
-import { logger } from "app/loggers/logger";
-import { AppError } from "app/models/error/error";
-import { CategoryInternal, MediaTypeInternal } from "app/models/internal/category";
-import { PersistedEntityInternal } from "app/models/internal/common";
-import { GroupInternal } from "app/models/internal/group";
-import { MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal } from "app/models/internal/media-items/media-item";
-import { UserInternal } from "app/models/internal/user";
-import { Document, Model } from "mongoose";
+import { Populatable, Queryable, QueryHelper, Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { categoryController } from 'app/controllers/entities/category';
+import { groupController } from 'app/controllers/entities/group';
+import { AbstractEntityController } from 'app/controllers/entities/helper';
+import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { logger } from 'app/loggers/logger';
+import { AppError } from 'app/models/error/error';
+import { CategoryInternal, MediaTypeInternal } from 'app/models/internal/category';
+import { PersistedEntityInternal } from 'app/models/internal/common';
+import { GroupInternal } from 'app/models/internal/group';
+import { MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal } from 'app/models/internal/media-items/media-item';
+import { UserInternal } from 'app/models/internal/user';
+import { Document, Model } from 'mongoose';
 
 /**
  * Abstract controller for media item entities
@@ -25,7 +25,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	/**
 	 * Constructor
 	 */
-	constructor(model: Model<TMediaItemInternal & Document>) {
+	protected constructor(model: Model<TMediaItemInternal & Document>) {
 
 		super();
 		this.queryHelper = new QueryHelper(model);
@@ -234,7 +234,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Must be implemented by subclasses to define the default (e.g. for the "get all media items" API) sort conditions
+	 * Must be implemented by subclasses to define the default (e.g. for the 'get all media items' API) sort conditions
 	 * @returns at least one sort condition
 	 */
 	protected abstract getDefaultSortBy(): TMediaItemSortByInternal[];
@@ -255,7 +255,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	protected abstract setSortConditions(sortBy: TMediaItemSortByInternal, sortDirection: SortDirection, sortConditions: Sortable<TMediaItemInternal>): void;
 
 	/**
-	 * Must be implemented by subclasses to (possibly) add more search conditions for the "search media item" API
+	 * Must be implemented by subclasses to (possibly) add more search conditions for the 'search media item' API
 	 * @param term the search term
 	 * @param termRegExp the pre-computed RegExp of the search term
 	 * @param searchConditions the common search conditions where the implementation can push other fields
@@ -326,7 +326,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, group?: string | GroupInternal, mediaItemId?: string): Promise<void> {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 
 			this.checkExistencePreconditionsHelper(errorToThow, () => {
 
@@ -373,14 +373,14 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 					return mediaItemCheckPromise;
 				}
 			})
-			.then(() => {
+				.then(() => {
 
-				resolve();
-			})
-			.catch((error) => {
+					resolve();
+				})
+				.catch((error) => {
 
-				reject(error);
-			});
+					reject(error);
+				});
 		});
 	}
 }

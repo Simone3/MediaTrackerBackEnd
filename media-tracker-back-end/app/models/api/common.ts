@@ -1,5 +1,5 @@
-import { AppError } from "app/models/error/error";
-import { IsBoolean, IsOptional } from "class-validator";
+import { AppError } from 'app/models/error/error';
+import { IsBoolean, IsOptional } from 'class-validator';
 
 /**
  * Type shared by all API requests
@@ -16,7 +16,7 @@ export class CommonResponse {
 	/**
 	 * A generic message for easy response reading, should never be displayed to the user
 	 */
-	message?: string;
+	public message?: string;
 };
 
 /**
@@ -27,19 +27,23 @@ export class ErrorResponse extends CommonResponse {
 	/**
 	 * A unique error code, should never be displayed to the user
 	 */
-	errorCode: string;
+	public errorCode: string;
 
 	/**
 	 * An error description, should never be displayed to the user
 	 */
-	errorDescription: string;
+	public errorDescription: string;
 
 	/**
 	 * Optional details for the error, should never be displayed to the user
 	 */
-	errorDetails?: any;
-
-	constructor(error: AppError) {
+	public errorDetails?: string | AppError;
+	
+	/**
+	 * Constructor
+	 * @param error the source error object
+	 */
+	public constructor(error: AppError) {
 
 		super();
 		this.errorCode = error.errorCode;
@@ -58,7 +62,7 @@ export class CommonSaveRequest {
 	 */
 	@IsOptional()
 	@IsBoolean()
-	allowSameName?: boolean;
+	public allowSameName?: boolean;
 }
 
 

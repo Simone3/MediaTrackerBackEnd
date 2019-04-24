@@ -1,7 +1,7 @@
-import { stringUtils } from "app/controllers/utilities/misc-utils";
-import { ModelMapper } from "app/mappers/common";
-import { TmdbTvShowCreator, TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeasonDataResponse } from "app/models/external-services/media-items/tv-show";
-import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from "app/models/internal/media-items/tv-show";
+import { stringUtils } from 'app/controllers/utilities/misc-utils';
+import { ModelMapper } from 'app/mappers/common';
+import { TmdbTvShowCreator, TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeasonDataResponse } from 'app/models/external-services/media-items/tv-show';
+import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from 'app/models/internal/media-items/tv-show';
 
 /**
  * Mapper for the TV shows search external service
@@ -13,7 +13,7 @@ class TvShowExternalSearchServiceMapper extends ModelMapper<SearchTvShowCatalogR
 	 */
 	protected convertToExternal(): TmdbTvShowSearchResult {
 
-		throw "convertToExternal unimplemented"
+		throw 'convertToExternal unimplemented'
 	}
 	
 	/**
@@ -33,7 +33,7 @@ class TvShowExternalSearchServiceMapper extends ModelMapper<SearchTvShowCatalogR
  * Helper type
  */
 type TvShowExternalDetailsServiceMapperParams = {
-	currentSeasonData: TmdbTvShowSeasonDataResponse
+	currentSeasonData: TmdbTvShowSeasonDataResponse;
 };
 
 /**
@@ -46,7 +46,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 	 */
 	protected convertToExternal(): TmdbTvShowDetailsResponse {
 
-		throw "convertToExternal unimplemented"
+		throw 'convertToExternal unimplemented'
 	}
 	
 	/**
@@ -78,10 +78,10 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 
 		if(currentSeasonData && currentSeasonData.episodes) {
 
-            const now: Date = new Date();
+			const now: Date = new Date();
 
-            let nextEpisodeAirDate = '';
-            for(let i = currentSeasonData.episodes.length - 1; i >= 0; i--) {
+			let nextEpisodeAirDate = '';
+			for(let i = currentSeasonData.episodes.length - 1; i >= 0; i--) {
 
 				const stringAirDate = currentSeasonData.episodes[i].air_date;
 				if(stringAirDate) {

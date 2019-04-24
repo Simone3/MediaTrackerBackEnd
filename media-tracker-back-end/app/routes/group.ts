@@ -14,7 +14,7 @@ var router: Router = express.Router();
 /**
  * Route to get all saved groups
  */
-router.get('/users/:userId/categories/:categoryId/groups', (request, response, __) => {
+router.get('/users/:userId/categories/:categoryId/groups', (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -38,7 +38,7 @@ router.get('/users/:userId/categories/:categoryId/groups', (request, response, _
 /**
  * Route to add a new group
  */
-router.post('/users/:userId/categories/:categoryId/groups', (request, response, __) => {
+router.post('/users/:userId/categories/:categoryId/groups', (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -46,7 +46,7 @@ router.post('/users/:userId/categories/:categoryId/groups', (request, response, 
 	parserValidator.parseAndValidate(AddGroupRequest, request.body)
 		.then((body) => {
 
-			const newGroup = groupMapper.toInternal({...body.newGroup, uid: ""}, {userId, categoryId});
+			const newGroup = groupMapper.toInternal({...body.newGroup, uid: ''}, {userId, categoryId});
 			groupController.saveGroup(newGroup, body.allowSameName)
 				.then(() => {
 			
@@ -72,7 +72,7 @@ router.post('/users/:userId/categories/:categoryId/groups', (request, response, 
 /**
  * Route to update an existing group
  */
-router.put('/users/:userId/categories/:categoryId/groups/:id', (request, response, __) => {
+router.put('/users/:userId/categories/:categoryId/groups/:id', (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -83,19 +83,19 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
 
 			const group = groupMapper.toInternal({...body.group, uid: id}, {userId, categoryId});
 			groupController.saveGroup(group, body.allowSameName)
-			.then(() => {
-			
-				const body: UpdateGroupResponse = {
-					message: 'Group successfully updated'
-				};
+				.then(() => {
+				
+					const body: UpdateGroupResponse = {
+						message: 'Group successfully updated'
+					};
 
-				response.json(body);
-			})
-			.catch((error) => {
+					response.json(body);
+				})
+				.catch((error) => {
 
-				logger.error('Update group generic error: %s', error);
-				response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
-			});
+					logger.error('Update group generic error: %s', error);
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+				});
 		})
 		.catch((error) => {
 
@@ -107,7 +107,7 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
 /**
  * Route to delete a group
  */
-router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, response, __) => {
+router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;

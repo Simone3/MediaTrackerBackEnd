@@ -7,8 +7,8 @@ import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, M
  * Helper type
  */
 export type MediaItemMapperParams = {
-	userId: string,
-	categoryId: string
+	userId: string;
+	categoryId: string;
 };
 
 /**
@@ -44,7 +44,7 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 	protected commonToInternal(source: MediaItem, extraParams?: MediaItemMapperParams): MediaItemInternal {
 
 		if(!extraParams) {
-			throw "convertToInternal.extraParams cannot be undefined"
+			throw 'convertToInternal.extraParams cannot be undefined'
 		}
 
 		return {

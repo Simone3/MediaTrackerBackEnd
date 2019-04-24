@@ -1,4 +1,3 @@
-
 import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
 import { parserValidator } from 'app/controllers/utilities/parser-validator';
@@ -20,7 +19,10 @@ abstract class AbstractRouterBuilder {
 	 */
 	private _router: Router;
 
-	constructor() {
+	/**
+	 * Constructor
+	 */
+	protected constructor() {
 
 		this._router = express.Router();
 	}
@@ -44,7 +46,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 	 * @param mediaItemPathName the media item name to use in the API paths
 	 * @param mediaItemController the controller implementation
 	 */
-	constructor(private mediaItemPathName: string, private mediaItemController: MediaItemEntityController<TMediaItemInternal, TMediaItemSortByInternal, TMediaItemFilterInternal>) {
+	public constructor(private mediaItemPathName: string, private mediaItemController: MediaItemEntityController<TMediaItemInternal, TMediaItemSortByInternal, TMediaItemFilterInternal>) {
 		
 		super();
 	}
@@ -56,10 +58,10 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 	 * @template TResponse the API output
 	 */
 	public getAll<TResponse extends GetAllMediaItemsResponse>(routeConfig: {
-		responseBuilder: TWriteResponse<GetAllMediaItemsResponse, TMediaItemInternal[], TResponse>
+		responseBuilder: TWriteResponse<GetAllMediaItemsResponse, TMediaItemInternal[], TResponse>;
 	}): void {
 
-		this.router.get('/users/:userId/categories/:categoryId/' + this.mediaItemPathName, (request, response, __) => {
+		this.router.get('/users/:userId/categories/:categoryId/' + this.mediaItemPathName, (request, response): void => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -90,13 +92,13 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 	 * @template TResponse the API output
 	 */
 	public filter<TRequest extends FilterMediaItemsRequest, TResponse extends FilterMediaItemsResponse>(routeConfig: {
-		requestClass: ClassType<TRequest>,
-		filterRequestReader: TReadRequestOptional<TRequest, TMediaItemFilterInternal>,
-		sortRequestReader: TReadRequestOptional<TRequest, TMediaItemSortByInternal[]>,
-		responseBuilder: TWriteResponse<FilterMediaItemsResponse, TMediaItemInternal[], TResponse>
+		requestClass: ClassType<TRequest>;
+		filterRequestReader: TReadRequestOptional<TRequest, TMediaItemFilterInternal>;
+		sortRequestReader: TReadRequestOptional<TRequest, TMediaItemSortByInternal[]>;
+		responseBuilder: TWriteResponse<FilterMediaItemsResponse, TMediaItemInternal[], TResponse>;
 	}): void {
 
-		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/filter', (request, response, __) => {
+		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/filter', (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -138,12 +140,12 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 	 * @template TResponse the API output
 	 */
 	public search<TRequest extends SearchMediaItemsRequest, TResponse extends SearchMediaItemsResponse>(routeConfig: {
-		requestClass: ClassType<TRequest>,
-		filterRequestReader: TReadRequestOptional<TRequest, TMediaItemFilterInternal>,
-		responseBuilder: TWriteResponse<SearchMediaItemsResponse, TMediaItemInternal[], TResponse>
+		requestClass: ClassType<TRequest>;
+		filterRequestReader: TReadRequestOptional<TRequest, TMediaItemFilterInternal>;
+		responseBuilder: TWriteResponse<SearchMediaItemsResponse, TMediaItemInternal[], TResponse>;
 	}): void {
 
-		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/search', (request, response, __) => {
+		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/search', (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -183,11 +185,11 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 	 * @template TRequest the API input
 	 */
 	public addNew<TRequest extends AddMediaItemRequest>(routeConfig: {
-		requestClass: ClassType<TRequest>,
-		mediaItemRequestReader: TReadRequestWithExtraData<TRequest, TMediaItemInternal>
+		requestClass: ClassType<TRequest>;
+		mediaItemRequestReader: TReadRequestWithExtraData<TRequest, TMediaItemInternal>;
 	}): void {
 
-		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName, (request, response, __) => {
+		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -195,7 +197,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
 				.then((body) => {
 
-					const newMediaItem = routeConfig.mediaItemRequestReader(body, "", userId, categoryId);
+					const newMediaItem = routeConfig.mediaItemRequestReader(body, '', userId, categoryId);
 
 					this.mediaItemController.saveMediaItem(newMediaItem, body.allowSameName)
 						.then(() => {
@@ -228,11 +230,11 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 	 * @template TRequest the API input
 	 */
 	public updateExisting<TRequest extends UpdateMediaItemRequest>(routeConfig: {
-		requestClass: ClassType<TRequest>,
-		mediaItemRequestReader: TReadRequestWithExtraData<TRequest, TMediaItemInternal>
+		requestClass: ClassType<TRequest>;
+		mediaItemRequestReader: TReadRequestWithExtraData<TRequest, TMediaItemInternal>;
 	}): void {
 
-		this.router.put('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/:id', (request, response, __) => {
+		this.router.put('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/:id', (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -271,7 +273,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 	 */
 	public delete(): void {
 
-		this.router.delete('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/:id', (request, response, __) => {
+		this.router.delete('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/:id', (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -307,7 +309,7 @@ export class MediaItemCatalogRouterBuilder<TSearchMediaItemCatalogResultInternal
 	 * @param mediaItemPathName the media item name to use in the API paths
 	 * @param mediaItemCatalogController the controller implementation
 	 */
-	constructor(private mediaItemPathName: string, private mediaItemCatalogController: MediaItemCatalogController<TSearchMediaItemCatalogResultInternal, TCatalogMediaItemInternal>) {
+	public constructor(private mediaItemPathName: string, private mediaItemCatalogController: MediaItemCatalogController<TSearchMediaItemCatalogResultInternal, TCatalogMediaItemInternal>) {
 		
 		super();
 	}
@@ -319,10 +321,10 @@ export class MediaItemCatalogRouterBuilder<TSearchMediaItemCatalogResultInternal
 	 * @template TResponse the API output
 	 */
 	public search<TResponse extends SearchMediaItemCatalogResponse>(routeConfig: {
-		responseBuilder: TWriteResponse<SearchMediaItemCatalogResponse, TSearchMediaItemCatalogResultInternal[], TResponse>
+		responseBuilder: TWriteResponse<SearchMediaItemCatalogResponse, TSearchMediaItemCatalogResultInternal[], TResponse>;
 	}): void {
 
-		this.router.get('/catalog/' + this.mediaItemPathName + '/search/:searchTerm', (request, response, __) => {
+		this.router.get('/catalog/' + this.mediaItemPathName + '/search/:searchTerm', (request, response) => {
 
 			const searchTerm: string = request.params.searchTerm;
 
@@ -348,10 +350,10 @@ export class MediaItemCatalogRouterBuilder<TSearchMediaItemCatalogResultInternal
 	 * @template TResponse the API output
 	 */
 	public details<TResponse extends GetMediaItemFromCatalogResponse>(routeConfig: {
-		responseBuilder: TWriteResponse<GetMediaItemFromCatalogResponse, TCatalogMediaItemInternal, TResponse>
+		responseBuilder: TWriteResponse<GetMediaItemFromCatalogResponse, TCatalogMediaItemInternal, TResponse>;
 	}): void {
 
-		this.router.get('/catalog/' + this.mediaItemPathName + '/:catalogId', (request, response, __) => {
+		this.router.get('/catalog/' + this.mediaItemPathName + '/:catalogId', (request, response) => {
 
 			const catalogId: string = request.params.catalogId;
 

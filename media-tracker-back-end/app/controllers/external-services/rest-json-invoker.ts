@@ -49,7 +49,7 @@ export class RestJsonInvoker {
 	 */
 	private invokeHelper<TRequest extends object, TResponse extends object>(parameters: InternalInvocationParams<TRequest, TResponse>): Promise<TResponse> {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 
 			const options: UrlOptions & RequestPromiseOptions = {
 				url: parameters.url,
@@ -94,7 +94,7 @@ export class RestJsonInvoker {
 	/**
 	 * Helper to transform a request() error into an AppError
 	 */
-	private invocationErrorToAppError(requestOptions: UrlOptions & RequestPromiseOptions, error: any): AppError {
+	private invocationErrorToAppError(requestOptions: UrlOptions & RequestPromiseOptions, error: unknown): AppError {
 
 		if(error instanceof StatusCodeError) {
 
@@ -127,7 +127,7 @@ export class RestJsonInvoker {
 	/**
 	 * Helper to log the invocation response
 	 */
-	private logResponse(requestOptions: UrlOptions & RequestPromiseOptions, response: any): void {
+	private logResponse(requestOptions: UrlOptions & RequestPromiseOptions, response: unknown): void {
 
 		if(config.log.logExternalApisInputOutput) {
 
@@ -145,34 +145,31 @@ export const restJsonInvoker = new RestJsonInvoker();
  * Helper type for invocation parameters
  */
 export type InvocationParamsWithoutBody<TResponse> = {
-
-	url: string,
-	responseBodyClass: ClassType<TResponse>,
-	timeoutMilliseconds?: number,
-	queryParams?: QueryParams
+	url: string;
+	responseBodyClass: ClassType<TResponse>;
+	timeoutMilliseconds?: number;
+	queryParams?: QueryParams;
 };
 
 /**
  * Helper type for invocation parameters
  */
 export type InvocationParamsWithBody<TRequest, TResponse> = InvocationParamsWithoutBody<TResponse> & {
-
-	requestBody: TRequest
+	requestBody: TRequest;
 };
 
 /**
  * Internal helper type for invocation parameters
  */
 type InternalInvocationParams<TRequest, TResponse> = InvocationParamsWithoutBody<TResponse> & Partial<InvocationParamsWithBody<TRequest, TResponse>> & {
-
-	method: HttpMethod
+	method: HttpMethod;
 }
 
 /**
  * Helper type for URL query params
  */
 export type QueryParams = {
-	[key: string]: string
+	[key: string]: string;
 };
 
 

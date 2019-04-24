@@ -1,12 +1,12 @@
-import { config } from "app/config/config";
-import { MediaItemCatalogController } from "app/controllers/catalogs/media-items/media-item";
-import { restJsonInvoker } from "app/controllers/external-services/rest-json-invoker";
-import { miscUtilsController } from "app/controllers/utilities/misc-utils";
-import { logger } from "app/loggers/logger";
-import { tvShowExternalDetailsServiceMapper, tvShowExternalSearchServiceMapper } from "app/mappers/external-services/tv-show";
-import { AppError } from "app/models/error/error";
-import { TmdbTvShowDetailsResponse, TmdbTvShowSearchResponse, TmdbTvShowSeasonDataResponse } from "app/models/external-services/media-items/tv-show";
-import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from "app/models/internal/media-items/tv-show";
+import { config } from 'app/config/config';
+import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
+import { restJsonInvoker } from 'app/controllers/external-services/rest-json-invoker';
+import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { logger } from 'app/loggers/logger';
+import { tvShowExternalDetailsServiceMapper, tvShowExternalSearchServiceMapper } from 'app/mappers/external-services/tv-show';
+import { AppError } from 'app/models/error/error';
+import { TmdbTvShowDetailsResponse, TmdbTvShowSearchResponse, TmdbTvShowSeasonDataResponse } from 'app/models/external-services/media-items/tv-show';
+import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from 'app/models/internal/media-items/tv-show';
 
 /**
  * Controller for TV show catalog
@@ -18,7 +18,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 	 */
 	public searchMediaItemCatalogByTerm(searchTerm: string): Promise<SearchTvShowCatalogResultInternal[]> {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 		
 			const url = miscUtilsController.buildUrl([
 				config.externalApis.theMovieDb.basePath,
@@ -28,28 +28,30 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 			const queryParams = Object.assign({}, config.externalApis.theMovieDb.tvShows.search.queryParams);
 			queryParams.query = searchTerm;
 
-			restJsonInvoker.invokeGet({
+			const invocationParams = {
 				url: url,
 				responseBodyClass: TmdbTvShowSearchResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
-			})
-			.then((response) => {
+			};
 
-				if(response.results) {
+			restJsonInvoker.invokeGet(invocationParams)
+				.then((response) => {
 
-					resolve(tvShowExternalSearchServiceMapper.toInternalList(response.results));
-				}
-				else {
+					if(response.results) {
 
-					resolve([]);
-				}
-			})
-			.catch((error) => {
-				
-				logger.error('TV show catalog invocation error: %s', error);
-				reject(AppError.GENERIC.unlessAppError(error));
-			});
+						resolve(tvShowExternalSearchServiceMapper.toInternalList(response.results));
+					}
+					else {
+
+						resolve([]);
+					}
+				})
+				.catch((error) => {
+					
+					logger.error('TV show catalog invocation error: %s', error);
+					reject(AppError.GENERIC.unlessAppError(error));
+				});
 		});
 	}
 	
@@ -58,7 +60,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 	 */
 	public getMediaItemFromCatalog(catalogItemId: string): Promise<CatalogTvShowInternal> {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 		
 			const pathParams = {
 				tvShowId: catalogItemId
@@ -71,39 +73,41 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 
 			const queryParams = Object.assign({}, config.externalApis.theMovieDb.tvShows.details.queryParams);
 
-			// First call the general details service
-			restJsonInvoker.invokeGet({
+			const invocationParams = {
 				url: url,
 				responseBodyClass: TmdbTvShowDetailsResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
-			})
-			.then((detailsResponse) => {
+			};
 
-				if(detailsResponse.in_production && detailsResponse.number_of_seasons && detailsResponse.number_of_seasons > 0) {
+			// First call the general details service
+			restJsonInvoker.invokeGet(invocationParams)
+				.then((detailsResponse) => {
 
-					// Then, if the show is in production, get current season data for next episode air date
-					this.getSeasonData(catalogItemId, detailsResponse.number_of_seasons)
-						.then((seasonResponse) => {
+					if(detailsResponse.in_production && detailsResponse.number_of_seasons && detailsResponse.number_of_seasons > 0) {
 
-							resolve(tvShowExternalDetailsServiceMapper.toInternal(detailsResponse, {currentSeasonData: seasonResponse}));
-						})
-						.catch((error) => {
+						// Then, if the show is in production, get current season data for next episode air date
+						this.getSeasonData(catalogItemId, detailsResponse.number_of_seasons)
+							.then((seasonResponse) => {
 
-							logger.error('TV show catalog (season) invocation error: %s', error);
-							reject(AppError.GENERIC.unlessAppError(error));
-						})
-				}
-				else {
+								resolve(tvShowExternalDetailsServiceMapper.toInternal(detailsResponse, {currentSeasonData: seasonResponse}));
+							})
+							.catch((error) => {
 
-					resolve(tvShowExternalDetailsServiceMapper.toInternal(detailsResponse));
-				}
-			})
-			.catch((error) => {
-				
-				logger.error('TV show catalog (details) invocation error: %s', error);
-				reject(AppError.GENERIC.unlessAppError(error));
-			});
+								logger.error('TV show catalog (season) invocation error: %s', error);
+								reject(AppError.GENERIC.unlessAppError(error));
+							})
+					}
+					else {
+
+						resolve(tvShowExternalDetailsServiceMapper.toInternal(detailsResponse));
+					}
+				})
+				.catch((error) => {
+					
+					logger.error('TV show catalog (details) invocation error: %s', error);
+					reject(AppError.GENERIC.unlessAppError(error));
+				});
 		});
 	}
 
@@ -126,12 +130,14 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 
 		const queryParams = Object.assign({}, config.externalApis.theMovieDb.tvShows.season.queryParams);
 
-		return restJsonInvoker.invokeGet({
+		const invocationParams = {
 			url: url,
 			responseBodyClass: TmdbTvShowSeasonDataResponse,
 			queryParams: queryParams,
 			timeoutMilliseconds: config.externalApis.timeoutMilliseconds
-		});
+		};
+
+		return restJsonInvoker.invokeGet(invocationParams);
 	} 
 }
 

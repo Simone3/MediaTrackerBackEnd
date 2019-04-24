@@ -1,12 +1,12 @@
-import { config } from "app/config/config";
-import { MediaItemCatalogController } from "app/controllers/catalogs/media-items/media-item";
-import { restJsonInvoker } from "app/controllers/external-services/rest-json-invoker";
-import { miscUtilsController } from "app/controllers/utilities/misc-utils";
-import { logger } from "app/loggers/logger";
-import { movieExternalDetailsServiceMapper, movieExternalSearchServiceMapper } from "app/mappers/external-services/movie";
-import { AppError } from "app/models/error/error";
-import { TmdbMovieDetailsResponse, TmdbMovieSearchResponse } from "app/models/external-services/media-items/movie";
-import { CatalogMovieInternal, SearchMovieCatalogResultInternal } from "app/models/internal/media-items/movie";
+import { config } from 'app/config/config';
+import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
+import { restJsonInvoker } from 'app/controllers/external-services/rest-json-invoker';
+import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { logger } from 'app/loggers/logger';
+import { movieExternalDetailsServiceMapper, movieExternalSearchServiceMapper } from 'app/mappers/external-services/movie';
+import { AppError } from 'app/models/error/error';
+import { TmdbMovieDetailsResponse, TmdbMovieSearchResponse } from 'app/models/external-services/media-items/movie';
+import { CatalogMovieInternal, SearchMovieCatalogResultInternal } from 'app/models/internal/media-items/movie';
 
 /**
  * Controller for movie catalog
@@ -18,7 +18,7 @@ class MovieCatalogController extends MediaItemCatalogController<SearchMovieCatal
 	 */
 	public searchMediaItemCatalogByTerm(searchTerm: string): Promise<SearchMovieCatalogResultInternal[]> {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 		
 			const url = miscUtilsController.buildUrl([
 				config.externalApis.theMovieDb.basePath,
@@ -28,28 +28,30 @@ class MovieCatalogController extends MediaItemCatalogController<SearchMovieCatal
 			const queryParams = Object.assign({}, config.externalApis.theMovieDb.movies.search.queryParams);
 			queryParams.query = searchTerm;
 			
-			restJsonInvoker.invokeGet({
+			const invocationParams = {
 				url: url,
 				responseBodyClass: TmdbMovieSearchResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
-			})
-			.then((response) => {
+			};
 
-				if(response.results) {
+			restJsonInvoker.invokeGet(invocationParams)
+				.then((response) => {
 
-					resolve(movieExternalSearchServiceMapper.toInternalList(response.results));
-				}
-				else {
+					if(response.results) {
 
-					resolve([]);
-				}
-			})
-			.catch((error) => {
-				
-				logger.error('Movie catalog invocation error: %s', error);
-				reject(AppError.GENERIC.unlessAppError(error));
-			});
+						resolve(movieExternalSearchServiceMapper.toInternalList(response.results));
+					}
+					else {
+
+						resolve([]);
+					}
+				})
+				.catch((error) => {
+					
+					logger.error('Movie catalog invocation error: %s', error);
+					reject(AppError.GENERIC.unlessAppError(error));
+				});
 		});
 	}
 	
@@ -58,7 +60,7 @@ class MovieCatalogController extends MediaItemCatalogController<SearchMovieCatal
 	 */
 	public getMediaItemFromCatalog(catalogItemId: string): Promise<CatalogMovieInternal> {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 		
 			const pathParams = {
 				movieId: catalogItemId
@@ -71,21 +73,23 @@ class MovieCatalogController extends MediaItemCatalogController<SearchMovieCatal
 
 			const queryParams = Object.assign({}, config.externalApis.theMovieDb.movies.details.queryParams);
 
-			restJsonInvoker.invokeGet({
+			const invocationParams = {
 				url: url,
 				responseBodyClass: TmdbMovieDetailsResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
-			})
-			.then((response) => {
+			};
 
-				resolve(movieExternalDetailsServiceMapper.toInternal(response));
-			})
-			.catch((error) => {
-				
-				logger.error('Movie catalog invocation error: %s', error);
-				reject(AppError.GENERIC.unlessAppError(error));
-			});
+			restJsonInvoker.invokeGet(invocationParams)
+				.then((response) => {
+
+					resolve(movieExternalDetailsServiceMapper.toInternal(response));
+				})
+				.catch((error) => {
+					
+					logger.error('Movie catalog invocation error: %s', error);
+					reject(AppError.GENERIC.unlessAppError(error));
+				});
 		});
 	}
 }

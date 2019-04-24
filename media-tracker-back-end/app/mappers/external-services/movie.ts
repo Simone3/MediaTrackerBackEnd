@@ -1,7 +1,7 @@
-import { config } from "app/config/config";
-import { ModelMapper } from "app/mappers/common";
-import { TmdbMovieCredits, TmdbMovieDetailsResponse, TmdbMovieSearchResult } from "app/models/external-services/media-items/movie";
-import { CatalogMovieInternal, SearchMovieCatalogResultInternal } from "app/models/internal/media-items/movie";
+import { config } from 'app/config/config';
+import { ModelMapper } from 'app/mappers/common';
+import { TmdbMovieCredits, TmdbMovieDetailsResponse, TmdbMovieSearchResult } from 'app/models/external-services/media-items/movie';
+import { CatalogMovieInternal, SearchMovieCatalogResultInternal } from 'app/models/internal/media-items/movie';
 
 /**
  * Mapper for the movies search external service
@@ -13,7 +13,7 @@ class MovieExternalSearchServiceMapper extends ModelMapper<SearchMovieCatalogRes
 	 */
 	protected convertToExternal(): TmdbMovieSearchResult {
 
-		throw "convertToExternal unimplemented"
+		throw 'convertToExternal unimplemented'
 	}
 	
 	/**
@@ -39,7 +39,7 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 	 */
 	protected convertToExternal(): TmdbMovieDetailsResponse {
 
-		throw "convertToExternal unimplemented"
+		throw 'convertToExternal unimplemented'
 	}
 	
 	/**
@@ -62,16 +62,16 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 
 			let {crew} = credits;
 			
-            if(crew) {
+			if(crew) {
 
-                for(let person of crew) {
+				for(let person of crew) {
 
-                    if(person && config.externalApis.theMovieDb.movies.directorJobName === person.job) {
+					if(person && config.externalApis.theMovieDb.movies.directorJobName === person.job) {
 
-                        return person.name;
-                    }
-                }
-            }
+						return person.name;
+					}
+				}
+			}
 		}
 		return undefined;
 	}

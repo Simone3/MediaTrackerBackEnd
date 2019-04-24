@@ -55,7 +55,7 @@ export class AppError {
 	/**
 	 * Adds details to an error constant
 	 */
-	public withDetails(errorDetails?: any): AppError {
+	public withDetails(errorDetails?: unknown): AppError {
 
 		let convertedErrorDetails: string | AppError;
 		if(errorDetails) {
@@ -78,9 +78,9 @@ export class AppError {
 	}
 
 	/**
-	 * If "error" is an AppError, returns it: otherwise returns this element with "error" as details
+	 * If 'error' is an AppError, returns it: otherwise returns this element with 'error' as details
 	 */
-	public unlessAppError(error: any): AppError {
+	public unlessAppError(error: unknown): AppError {
 
 		if(error && error instanceof AppError) {
 

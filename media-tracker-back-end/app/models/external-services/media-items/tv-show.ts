@@ -1,5 +1,23 @@
-import { Type } from "class-transformer";
-import { IsBoolean, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
+import { Type } from 'class-transformer';
+import { IsBoolean, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+
+/**
+ * Result of the external TV show search service
+ */
+export class TmdbTvShowSearchResult {
+
+	@IsNotEmpty()
+	@IsInt()
+	public id!: number;
+
+	@IsNotEmpty()
+	@IsString()
+	public name!: string;
+
+	@IsOptional()
+	@IsString()
+	public first_air_date?: string;
+}
 
 /**
  * Response of the external TV show search service
@@ -10,79 +28,7 @@ export class TmdbTvShowSearchResponse {
 	@IsDefined({each: true})
 	@Type(() => TmdbTvShowSearchResult)
 	@ValidateNested()
-	results?: TmdbTvShowSearchResult[];
-}
-
-/**
- * Result of the external TV show search service
- */
-export class TmdbTvShowSearchResult {
-
-	@IsNotEmpty()
-	@IsInt()
-	id!: number;
-
-	@IsNotEmpty()
-	@IsString()
-	name!: string;
-
-	@IsOptional()
-	@IsString()
-	first_air_date?: string;
-}
-
-/**
- * Response of the external TV show details service
- */
-export class TmdbTvShowDetailsResponse {
-	
-	@IsNotEmpty()
-	@IsInt()
-    id!: number;
-
-	@IsOptional()
-	@IsString()
-    first_air_date?: string;
-
-	@IsOptional()
-	@IsBoolean()
-    in_production?: boolean;
-
-	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TmdbTvShowGenre)
-	@ValidateNested()
-    genres?: TmdbTvShowGenre[];
-
-	@IsNotEmpty()
-	@IsString()
-    name!: string;
-
-	@IsOptional()
-	@IsString()
-    overview?: string;
-
-	@IsOptional()
-	@IsInt({each: true})
-    episode_run_time?: number[];
-
-	@IsOptional()
-	@IsInt()
-    number_of_episodes?: number;
-
-	@IsOptional()
-	@IsInt()
-    number_of_seasons?: number;
-
-	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TmdbTvShowCreator)
-	@ValidateNested()
-    created_by?: TmdbTvShowCreator[];
- 
-	@IsOptional()
-	@IsString()
-    backdrop_path?: string;
+	public results?: TmdbTvShowSearchResult[];
 }
 
 /**
@@ -92,7 +38,7 @@ export class TmdbTvShowCreator {
 
 	@IsNotEmpty()
 	@IsString()
-	name!: string;
+	public name!: string;
 }
 
 /**
@@ -102,7 +48,71 @@ export class TmdbTvShowGenre {
 
 	@IsNotEmpty()
 	@IsString()
-	name!: string;
+	public name!: string;
+}
+
+/**
+ * Response of the external TV show details service
+ */
+export class TmdbTvShowDetailsResponse {
+	
+	@IsNotEmpty()
+	@IsInt()
+	public id!: number;
+
+	@IsOptional()
+	@IsString()
+	public first_air_date?: string;
+
+	@IsOptional()
+	@IsBoolean()
+	public in_production?: boolean;
+
+	@IsOptional()
+	@IsDefined({each: true})
+	@Type(() => TmdbTvShowGenre)
+	@ValidateNested()
+	public genres?: TmdbTvShowGenre[];
+
+	@IsNotEmpty()
+	@IsString()
+	public name!: string;
+
+	@IsOptional()
+	@IsString()
+	public overview?: string;
+
+	@IsOptional()
+	@IsInt({each: true})
+	public episode_run_time?: number[];
+
+	@IsOptional()
+	@IsInt()
+	public number_of_episodes?: number;
+
+	@IsOptional()
+	@IsInt()
+	public number_of_seasons?: number;
+
+	@IsOptional()
+	@IsDefined({each: true})
+	@Type(() => TmdbTvShowCreator)
+	@ValidateNested()
+	public created_by?: TmdbTvShowCreator[];
+ 
+	@IsOptional()
+	@IsString()
+	public backdrop_path?: string;
+}
+
+/**
+ * Episode model for the external TV show season data service
+ */
+export class TmdbTvShowEpisode {
+
+	@IsOptional()
+	@IsString()
+	public air_date?: string;
 }
 
 /**
@@ -114,15 +124,5 @@ export class TmdbTvShowSeasonDataResponse {
 	@IsDefined({each: true})
 	@Type(() => TmdbTvShowEpisode)
 	@ValidateNested()
-    episodes?: TmdbTvShowEpisode[];
-}
-
-/**
- * Episode model for the external TV show season data service
- */
-export class TmdbTvShowEpisode {
-
-	@IsOptional()
-	@IsString()
-    air_date?: string;
+	public episodes?: TmdbTvShowEpisode[];
 }

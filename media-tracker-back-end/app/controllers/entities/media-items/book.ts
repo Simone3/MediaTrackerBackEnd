@@ -1,9 +1,9 @@
-import { Queryable, Sortable, SortDirection } from "app/controllers/database/query-helper";
-import { MediaItemEntityController } from "app/controllers/entities/media-items/media-item";
-import { MediaTypeInternal } from "app/models/internal/category";
-import { BookFilterInternal, BookInternal, BookSortByInternal } from "app/models/internal/media-items/book";
-import { BookSchema, BOOK_COLLECTION_NAME } from "app/schemas/media-items/book";
-import { Document, Model, model } from "mongoose";
+import { Queryable, Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
+import { MediaTypeInternal } from 'app/models/internal/category';
+import { BookFilterInternal, BookInternal, BookSortByInternal } from 'app/models/internal/media-items/book';
+import { BookSchema, BOOK_COLLECTION_NAME } from 'app/schemas/media-items/book';
+import { Document, Model, model } from 'mongoose';
 
 /**
  * Book document for Mongoose
@@ -23,7 +23,7 @@ class BookEntityController extends MediaItemEntityController<BookInternal, BookS
 	/**
 	 * Constructor
 	 */
-	constructor() {
+	public constructor() {
 
 		super(BookModel);
 	}

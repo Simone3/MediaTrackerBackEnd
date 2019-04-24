@@ -1,9 +1,9 @@
-import { videogameCatalogController } from "app/controllers/catalogs/media-items/videogame";
-import { videogameEntityController } from "app/controllers/entities/media-items/videogame";
-import { videogameCatalogDetailsMapper, videogameCatalogSearchMapper, videogameFilterMapper, videogameMapper, videogameSortMapper } from "app/mappers/media-items/videogame";
-import { AddVideogameRequest, FilterVideogamesRequest, FilterVideogamesResponse, GetAllVideogamesResponse, GetVideogameFromCatalogResponse, SearchVideogameCatalogResponse, SearchVideogamesRequest, SearchVideogamesResponse, UpdateVideogameRequest } from "app/models/api/media-items/videogame";
-import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal, VideogameFilterInternal, VideogameInternal, VideogameSortByInternal } from "app/models/internal/media-items/videogame";
-import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from "app/routes/media-items/media-item";
+import { videogameCatalogController } from 'app/controllers/catalogs/media-items/videogame';
+import { videogameEntityController } from 'app/controllers/entities/media-items/videogame';
+import { videogameCatalogDetailsMapper, videogameCatalogSearchMapper, videogameFilterMapper, videogameMapper, videogameSortMapper } from 'app/mappers/media-items/videogame';
+import { AddVideogameRequest, FilterVideogamesRequest, FilterVideogamesResponse, GetAllVideogamesResponse, GetVideogameFromCatalogResponse, SearchVideogameCatalogResponse, SearchVideogamesRequest, SearchVideogamesResponse, UpdateVideogameRequest } from 'app/models/api/media-items/videogame';
+import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal, VideogameFilterInternal, VideogameInternal, VideogameSortByInternal } from 'app/models/internal/media-items/videogame';
+import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from 'app/routes/media-items/media-item';
 
 const PATH_NAME = 'videogames';
 
@@ -19,7 +19,7 @@ const catalogRouterBuilder = new MediaItemCatalogRouterBuilder<SearchVideogameCa
 	videogameCatalogController
 );
 
-// Setup "get all" API
+// Setup 'get all' API
 entityRouterBuilder.getAll({
 
 	responseBuilder: (commonResponse, videogames) => {
@@ -31,7 +31,7 @@ entityRouterBuilder.getAll({
 	}
 });
 
-// Setup "filter and order" API
+// Setup 'filter and order' API
 entityRouterBuilder.filter({
 
 	requestClass: FilterVideogamesRequest,
@@ -53,7 +53,7 @@ entityRouterBuilder.filter({
 	}
 });
 
-// Setup "search" API
+// Setup 'search' API
 entityRouterBuilder.search({
 
 	requestClass: SearchVideogamesRequest,
@@ -71,7 +71,7 @@ entityRouterBuilder.search({
 	}
 });
 
-// Setup "add new" API
+// Setup 'add new' API
 entityRouterBuilder.addNew({
 
 	requestClass: AddVideogameRequest,
@@ -81,7 +81,7 @@ entityRouterBuilder.addNew({
 	}
 });
 
-// Setup "update" API
+// Setup 'update' API
 entityRouterBuilder.updateExisting({
 
 	requestClass: UpdateVideogameRequest,
@@ -91,10 +91,10 @@ entityRouterBuilder.updateExisting({
 	}
 });
 
-// Setup "delete" API
+// Setup 'delete' API
 entityRouterBuilder.delete();
 
-// Setup "catalog search" API
+// Setup 'catalog search' API
 catalogRouterBuilder.search({
 
 	responseBuilder: (commonResponse, videogames) => {
@@ -106,7 +106,7 @@ catalogRouterBuilder.search({
 	}
 });
 
-// Setup "catalog details" API
+// Setup 'catalog details' API
 catalogRouterBuilder.details({
 
 	responseBuilder: (commonResponse, videogame) => {

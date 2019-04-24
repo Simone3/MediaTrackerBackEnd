@@ -1,17 +1,25 @@
-import { bookCatalogController } from "app/controllers/catalogs/media-items/book";
-import { MediaItemCatalogController } from "app/controllers/catalogs/media-items/media-item";
-import { movieCatalogController } from "app/controllers/catalogs/media-items/movie";
-import { tvShowCatalogController } from "app/controllers/catalogs/media-items/tv-show";
-import { videogameCatalogController } from "app/controllers/catalogs/media-items/videogame";
-import { categoryController } from "app/controllers/entities/category";
-import { bookEntityController } from "app/controllers/entities/media-items/book";
-import { MediaItemEntityController } from "app/controllers/entities/media-items/media-item";
-import { movieEntityController } from "app/controllers/entities/media-items/movie";
-import { tvShowEntityController } from "app/controllers/entities/media-items/tv-show";
-import { videogameEntityController } from "app/controllers/entities/media-items/videogame";
-import { AppError } from "app/models/error/error";
-import { CategoryInternal, INTERNAL_MEDIA_TYPES, MediaTypeInternal } from "app/models/internal/category";
-import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal } from "app/models/internal/media-items/media-item";
+import { bookCatalogController } from 'app/controllers/catalogs/media-items/book';
+import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
+import { movieCatalogController } from 'app/controllers/catalogs/media-items/movie';
+import { tvShowCatalogController } from 'app/controllers/catalogs/media-items/tv-show';
+import { videogameCatalogController } from 'app/controllers/catalogs/media-items/videogame';
+import { categoryController } from 'app/controllers/entities/category';
+import { bookEntityController } from 'app/controllers/entities/media-items/book';
+import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
+import { movieEntityController } from 'app/controllers/entities/media-items/movie';
+import { tvShowEntityController } from 'app/controllers/entities/media-items/tv-show';
+import { videogameEntityController } from 'app/controllers/entities/media-items/videogame';
+import { AppError } from 'app/models/error/error';
+import { CategoryInternal, INTERNAL_MEDIA_TYPES, MediaTypeInternal } from 'app/models/internal/category';
+import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
+
+/**
+ * Helper class to avoid multiple switch statements
+ */
+class ResolverHelper {
+
+	public constructor(public entityController: EntityController, public catalogController: CatalogController) {}
+}
 
 /**
  * Factory to get the correct media item controllers, e.g. starting from a category
@@ -109,14 +117,14 @@ class MediaItemFactory {
 	 */
 	private internalFromCategoryId<T>(userId: string, categoryId: string, resolver: (mediaType: MediaTypeInternal) => T): Promise<T> {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 
 			categoryController.getCategory(userId, categoryId)
 				.then((category) => {
 
 					if(!category) {
 
-						reject(AppError.DATABASE_FIND.withDetails("Cannot get media item controller for a non-existing category media type"));
+						reject(AppError.DATABASE_FIND.withDetails('Cannot get media item controller for a non-existing category media type'));
 						return;
 					}
 
@@ -126,7 +134,7 @@ class MediaItemFactory {
 
 					reject(error);
 				});
-			});
+		});
 	}
 
 	/**
@@ -156,7 +164,7 @@ class MediaItemFactory {
 	/**
 	 * Helper to lazy load the controllers lists
 	 */
-	private lazyLoadControllersLists() {
+	private lazyLoadControllersLists(): void {
 
 		if(!this.listsInitialized) {
 
@@ -173,14 +181,6 @@ class MediaItemFactory {
 			this.listsInitialized = true;
 		}
 	}
-}
-
-/**
- * Helper class to avoid multiple switch statements
- */
-class ResolverHelper {
-
-	constructor(public entityController: EntityController, public catalogController: CatalogController) {}
 }
 
 /**

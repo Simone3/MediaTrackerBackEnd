@@ -1,4 +1,4 @@
-import { Config } from "app/config/config-type";
+import { Config } from 'app/config/config-type';
 
 export const config: Config = {
 	server: {

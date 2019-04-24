@@ -1,9 +1,9 @@
-import { tvShowCatalogController } from "app/controllers/catalogs/media-items/tv-show";
-import { tvShowEntityController } from "app/controllers/entities/media-items/tv-show";
-import { tvShowCatalogDetailsMapper, tvShowCatalogSearchMapper, tvShowFilterMapper, tvShowMapper, tvShowSortMapper } from "app/mappers/media-items/tv-show";
-import { AddTvShowRequest, FilterTvShowsRequest, FilterTvShowsResponse, GetAllTvShowsResponse, GetTvShowFromCatalogResponse, SearchTvShowCatalogResponse, SearchTvShowsRequest, SearchTvShowsResponse, UpdateTvShowRequest } from "app/models/api/media-items/tv-show";
-import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal, TvShowFilterInternal, TvShowInternal, TvShowSortByInternal } from "app/models/internal/media-items/tv-show";
-import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from "app/routes/media-items/media-item";
+import { tvShowCatalogController } from 'app/controllers/catalogs/media-items/tv-show';
+import { tvShowEntityController } from 'app/controllers/entities/media-items/tv-show';
+import { tvShowCatalogDetailsMapper, tvShowCatalogSearchMapper, tvShowFilterMapper, tvShowMapper, tvShowSortMapper } from 'app/mappers/media-items/tv-show';
+import { AddTvShowRequest, FilterTvShowsRequest, FilterTvShowsResponse, GetAllTvShowsResponse, GetTvShowFromCatalogResponse, SearchTvShowCatalogResponse, SearchTvShowsRequest, SearchTvShowsResponse, UpdateTvShowRequest } from 'app/models/api/media-items/tv-show';
+import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal, TvShowFilterInternal, TvShowInternal, TvShowSortByInternal } from 'app/models/internal/media-items/tv-show';
+import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from 'app/routes/media-items/media-item';
 
 const PATH_NAME = 'tv-shows';
 
@@ -19,7 +19,7 @@ const catalogRouterBuilder = new MediaItemCatalogRouterBuilder<SearchTvShowCatal
 	tvShowCatalogController
 );
 
-// Setup "get all" API
+// Setup 'get all' API
 entityRouterBuilder.getAll({
 
 	responseBuilder: (commonResponse, tvShows) => {
@@ -31,7 +31,7 @@ entityRouterBuilder.getAll({
 	}
 });
 
-// Setup "filter and order" API
+// Setup 'filter and order' API
 entityRouterBuilder.filter({
 
 	requestClass: FilterTvShowsRequest,
@@ -53,7 +53,7 @@ entityRouterBuilder.filter({
 	}
 });
 
-// Setup "search" API
+// Setup 'search' API
 entityRouterBuilder.search({
 
 	requestClass: SearchTvShowsRequest,
@@ -71,7 +71,7 @@ entityRouterBuilder.search({
 	}
 });
 
-// Setup "add new" API
+// Setup 'add new' API
 entityRouterBuilder.addNew({
 
 	requestClass: AddTvShowRequest,
@@ -81,7 +81,7 @@ entityRouterBuilder.addNew({
 	}
 });
 
-// Setup "update" API
+// Setup 'update' API
 entityRouterBuilder.updateExisting({
 
 	requestClass: UpdateTvShowRequest,
@@ -91,10 +91,10 @@ entityRouterBuilder.updateExisting({
 	}
 });
 
-// Setup "delete" API
+// Setup 'delete' API
 entityRouterBuilder.delete();
 
-// Setup "catalog search" API
+// Setup 'catalog search' API
 catalogRouterBuilder.search({
 
 	responseBuilder: (commonResponse, tvShows) => {
@@ -106,7 +106,7 @@ catalogRouterBuilder.search({
 	}
 });
 
-// Setup "catalog details" API
+// Setup 'catalog details' API
 catalogRouterBuilder.details({
 
 	responseBuilder: (commonResponse, tvShow) => {

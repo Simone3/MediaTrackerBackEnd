@@ -1,5 +1,39 @@
-import { Type } from "class-transformer";
-import { IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
+import { Type } from 'class-transformer';
+import { IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+
+/**
+ * Volume model (light) for the external book details service
+ */
+export class GoogleBooksVolumeLight {
+
+	@IsNotEmpty()
+	@IsString()
+	public title!: string;
+
+	@IsOptional()
+	@IsString()
+	public publishedDate?: string;
+
+	@IsOptional()
+	@IsNotEmpty({each: true})
+	@IsString({each: true})
+	public authors?: string[];
+}
+
+/**
+ * Result of the external book search service
+ */
+export class GoogleBooksSearchResult {
+
+	@IsNotEmpty()
+	@IsString()
+	public id!: string;
+
+	@IsDefined()
+	@Type(() => GoogleBooksVolumeLight)
+	@ValidateNested()
+	public volumeInfo!: GoogleBooksVolumeLight;
+}
 
 /**
  * Response of the external book search service
@@ -10,57 +44,21 @@ export class GoogleBooksSearchResponse {
 	@IsDefined({each: true})
 	@Type(() => GoogleBooksSearchResult)
 	@ValidateNested()
-	items?: GoogleBooksSearchResult[];
-}
-
-
-/**
- * Result of the external book search service
- */
-export class GoogleBooksSearchResult {
-
-	@IsNotEmpty()
-	@IsString()
-	id!: string;
-
-	@IsDefined()
-	@Type(() => GoogleBooksVolumeLight)
-	@ValidateNested()
-	volumeInfo!: GoogleBooksVolumeLight;
+	public items?: GoogleBooksSearchResult[];
 }
 
 /**
- * Volume model (light) for the external book details service
+ * Image model for the external book details service
  */
-export class GoogleBooksVolumeLight {
-
-	@IsNotEmpty()
-	@IsString()
-	title!: string;
+export class GoogleBooksImageLinks {
 
 	@IsOptional()
 	@IsString()
-	publishedDate?: string;
+	public medium?: string;
 
 	@IsOptional()
-	@IsNotEmpty({each: true})
-	@IsString({each: true})
-	authors?: string[];
-}
-
-/**
- * Response of the external book details service
- */
-export class GoogleBooksDetailsResponse {
-
-	@IsNotEmpty()
 	@IsString()
-    id!: string;
-
-	@IsDefined()
-	@Type(() => GoogleBooksVolumeFull)
-	@ValidateNested()
-    volumeInfo!: GoogleBooksVolumeFull;
+	public thumbnail?: string;
 }
 
 /**
@@ -71,32 +69,33 @@ export class GoogleBooksVolumeFull extends GoogleBooksVolumeLight {
 	@IsOptional()
 	@IsNotEmpty({each: true})
 	@IsString({each: true})
-	categories?: string[];
+	public categories?: string[];
 
 	@IsOptional()
 	@IsString()
-	description?: string;
+	public description?: string;
 
 	@IsOptional()
 	@IsInt()
-	pageCount?: number;
+	public pageCount?: number;
 
 	@IsOptional()
 	@Type(() => GoogleBooksImageLinks)
 	@ValidateNested()
-	imageLinks?: GoogleBooksImageLinks;
+	public imageLinks?: GoogleBooksImageLinks;
 }
 
 /**
- * Image model for the external book details service
+ * Response of the external book details service
  */
-export class GoogleBooksImageLinks {
+export class GoogleBooksDetailsResponse {
 
-	@IsOptional()
+	@IsNotEmpty()
 	@IsString()
-	medium?: string;
+	public id!: string;
 
-	@IsOptional()
-	@IsString()
-	thumbnail?: string;
+	@IsDefined()
+	@Type(() => GoogleBooksVolumeFull)
+	@ValidateNested()
+	public volumeInfo!: GoogleBooksVolumeFull;
 }

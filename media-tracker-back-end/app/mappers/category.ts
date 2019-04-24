@@ -7,7 +7,7 @@ import { CategoryInternal, MediaTypeInternal } from 'app/models/internal/categor
  * Helper type
  */
 type CategoryMapperParams = {
-	userId: string
+	userId: string;
 };
 
 /**
@@ -33,7 +33,7 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 	protected convertToInternal(source: IdentifiedCategory, extraParams?: CategoryMapperParams): CategoryInternal {
 		
 		if(!extraParams) {
-			throw "convertToInternal.extraParams cannot be undefined"
+			throw 'convertToInternal.extraParams cannot be undefined'
 		}
 
 		return {

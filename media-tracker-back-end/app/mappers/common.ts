@@ -1,4 +1,4 @@
-import { logger } from "app/loggers/logger";
+import { logger } from 'app/loggers/logger';
 
 /**
  * Generic model mapper between some internal model and some external model,
@@ -64,10 +64,9 @@ export abstract class ModelMapper<TInternal, TExternal, TParams> {
 	/**
 	 * Helper to log source and target of a mapping
 	 */
-	private logMapping(source: any, target: any) {
+	private logMapping(source: unknown, target: unknown): void {
 
 		logger.debug('Mapping: %s --------> %s', source, target);
-		return target;
 	}
 }
 

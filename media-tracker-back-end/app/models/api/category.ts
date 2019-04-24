@@ -23,7 +23,7 @@ export class Category {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	name!: string;
+	public name!: string;
 
 	/**
 	 * The category media type
@@ -31,7 +31,7 @@ export class Category {
 	@IsNotEmpty()
 	@IsString()
 	@IsIn(MEDIA_TYPES)
-	mediaType!: MediaType
+	public mediaType!: MediaType
 };
 
 /**
@@ -44,11 +44,11 @@ export class IdentifiedCategory extends Category {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	uid!: string;
+	public uid!: string;
 };
 
 /**
- * Request for the "add category" API
+ * Request for the 'add category' API
  */
 export class AddCategoryRequest extends CommonSaveRequest {
 
@@ -58,33 +58,33 @@ export class AddCategoryRequest extends CommonSaveRequest {
 	@IsDefined()
 	@Type(() => Category)
 	@ValidateNested()
-	newCategory!: Category;
+	public newCategory!: Category;
 };
 
 /**
- * Response for the "add category" API
+ * Response for the 'add category' API
  */
 export class AddCategoryResponse extends CommonResponse {
 
 }
 
 /**
- * Response for the "delete category" API
+ * Response for the 'delete category' API
  */
 export class DeleteCategoryResponse extends CommonResponse {
 
 }
 
 /**
- * Response for the "get all categories" API
+ * Response for the 'get all categories' API
  */
 export class GetAllCategoriesResponse extends CommonResponse {
 
-	categories: IdentifiedCategory[] = [];
+	public categories: IdentifiedCategory[] = [];
 };
 
 /**
- * Request for the "update category" API
+ * Request for the 'update category' API
  */
 export class UpdateCategoryRequest extends CommonSaveRequest {
 
@@ -94,11 +94,11 @@ export class UpdateCategoryRequest extends CommonSaveRequest {
 	@IsDefined()
 	@Type(() => Category)
 	@ValidateNested()
-	category!: Category;
+	public category!: Category;
 };
 
 /**
- * Response for the "update category" API
+ * Response for the 'update category' API
  */
 export class UpdateCategoryResponse extends CommonResponse {
 

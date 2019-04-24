@@ -1,5 +1,23 @@
-import { Type } from "class-transformer";
-import { IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
+import { Type } from 'class-transformer';
+import { IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+
+/**
+ * Result of the external movie search service
+ */
+export class TmdbMovieSearchResult {
+
+	@IsNotEmpty()
+	@IsInt()
+	public id!: number;
+
+	@IsNotEmpty()
+	@IsString()
+	public title!: string;
+
+	@IsOptional()
+	@IsString()
+	public release_date?: string;
+}
 
 /**
  * Response of the external movie search service
@@ -10,66 +28,21 @@ export class TmdbMovieSearchResponse {
 	@IsDefined({each: true})
 	@Type(() => TmdbMovieSearchResult)
 	@ValidateNested()
-	results?: TmdbMovieSearchResult[];
+	public results?: TmdbMovieSearchResult[];
 }
 
 /**
- * Result of the external movie search service
+ * Crew model for the external movie details service
  */
-export class TmdbMovieSearchResult {
-
-	@IsNotEmpty()
-	@IsInt()
-	id!: number;
+export class TmdbMovieCrewPerson {
 
 	@IsNotEmpty()
 	@IsString()
-	title!: string;
+	public name!: string;
 
 	@IsOptional()
 	@IsString()
-	release_date?: string;
-}
-
-/**
- * Response of the external movie details service
- */
-export class TmdbMovieDetailsResponse {
-
-	@IsNotEmpty()
-	@IsInt()
-	id!: number;
-	
-	@IsOptional()
-	@IsString()
-	release_date?: string;
-	
-	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TmdbMovieGenre)
-	@ValidateNested()
-	genres?: TmdbMovieGenre[];
-	
-	@IsNotEmpty()
-	@IsString()
-	title!: string;
-	
-	@IsOptional()
-	@IsString()
-	overview?: string;
-	
-	@IsOptional()
-	@IsInt()
-	runtime?: number;
-	
-	@IsOptional()
-	@Type(() => TmdbMovieCredits)
-	@ValidateNested()
-	credits?: TmdbMovieCredits;
-	
-	@IsOptional()
-	@IsString()
-	backdropPath?: string;
+	public job?: string;
 }
 
 /**
@@ -81,21 +54,7 @@ export class TmdbMovieCredits {
 	@IsDefined({each: true})
 	@Type(() => TmdbMovieCrewPerson)
 	@ValidateNested()
-	crew?: TmdbMovieCrewPerson[];
-}
-
-/**
- * Crew model for the external movie details service
- */
-export class TmdbMovieCrewPerson {
-
-	@IsNotEmpty()
-	@IsString()
-	name!: string;
-
-	@IsOptional()
-	@IsString()
-	job?: string;
+	public crew?: TmdbMovieCrewPerson[];
 }
 
 /**
@@ -105,5 +64,46 @@ export class TmdbMovieGenre {
 
 	@IsNotEmpty()
 	@IsString()
-	name!: string;
+	public name!: string;
+}
+
+/**
+ * Response of the external movie details service
+ */
+export class TmdbMovieDetailsResponse {
+
+	@IsNotEmpty()
+	@IsInt()
+	public id!: number;
+	
+	@IsOptional()
+	@IsString()
+	public release_date?: string;
+	
+	@IsOptional()
+	@IsDefined({each: true})
+	@Type(() => TmdbMovieGenre)
+	@ValidateNested()
+	public genres?: TmdbMovieGenre[];
+	
+	@IsNotEmpty()
+	@IsString()
+	public title!: string;
+	
+	@IsOptional()
+	@IsString()
+	public overview?: string;
+	
+	@IsOptional()
+	@IsInt()
+	public runtime?: number;
+	
+	@IsOptional()
+	@Type(() => TmdbMovieCredits)
+	@ValidateNested()
+	public credits?: TmdbMovieCredits;
+	
+	@IsOptional()
+	@IsString()
+	public backdropPath?: string;
 }

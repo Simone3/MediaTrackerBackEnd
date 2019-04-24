@@ -1,7 +1,7 @@
-import { CategoryInternal } from "app/models/internal/category";
-import { PersistedEntityInternal } from "app/models/internal/common";
-import { GroupInternal } from "app/models/internal/group";
-import { UserInternal } from "app/models/internal/user";
+import { CategoryInternal } from 'app/models/internal/category';
+import { PersistedEntityInternal } from 'app/models/internal/common';
+import { GroupInternal } from 'app/models/internal/group';
+import { UserInternal } from 'app/models/internal/user';
 
 /**
  * Model for a media item with base properties, internal type NOT to be exposed via API
@@ -51,8 +51,8 @@ export type MediaItemSortByInternal = {
  */
 export type SearchMediaItemCatalogResultInternal = {
 
-	catalogId: string,
-    title: string,
-	releaseDate?: string
+	catalogId: string;
+	title: string;
+	releaseDate?: string;
 }
 

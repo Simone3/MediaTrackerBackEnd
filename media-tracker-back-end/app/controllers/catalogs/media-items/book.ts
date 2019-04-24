@@ -1,12 +1,12 @@
-import { config } from "app/config/config";
-import { MediaItemCatalogController } from "app/controllers/catalogs/media-items/media-item";
-import { restJsonInvoker } from "app/controllers/external-services/rest-json-invoker";
-import { miscUtilsController } from "app/controllers/utilities/misc-utils";
-import { logger } from "app/loggers/logger";
-import { bookExternalDetailsServiceMapper, bookExternalSearchServiceMapper } from "app/mappers/external-services/book";
-import { AppError } from "app/models/error/error";
-import { GoogleBooksDetailsResponse, GoogleBooksSearchResponse } from "app/models/external-services/media-items/book";
-import { CatalogBookInternal, SearchBookCatalogResultInternal } from "app/models/internal/media-items/book";
+import { config } from 'app/config/config';
+import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
+import { restJsonInvoker } from 'app/controllers/external-services/rest-json-invoker';
+import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { logger } from 'app/loggers/logger';
+import { bookExternalDetailsServiceMapper, bookExternalSearchServiceMapper } from 'app/mappers/external-services/book';
+import { AppError } from 'app/models/error/error';
+import { GoogleBooksDetailsResponse, GoogleBooksSearchResponse } from 'app/models/external-services/media-items/book';
+import { CatalogBookInternal, SearchBookCatalogResultInternal } from 'app/models/internal/media-items/book';
 
 /**
  * Controller for book catalog
@@ -18,7 +18,7 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 	 */
 	public searchMediaItemCatalogByTerm(searchTerm: string): Promise<SearchBookCatalogResultInternal[]> {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 		
 			const url = miscUtilsController.buildUrl([
 				config.externalApis.googleBooks.basePath,
@@ -28,28 +28,30 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 			const queryParams = Object.assign({}, config.externalApis.googleBooks.search.queryParams);
 			queryParams.q = searchTerm;
 			
-			restJsonInvoker.invokeGet({
+			const invocationParams = {
 				url: url,
 				responseBodyClass: GoogleBooksSearchResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
-			})
-			.then((response) => {
+			};
+			
+			restJsonInvoker.invokeGet(invocationParams)
+				.then((response) => {
 
-				if(response.items) {
+					if(response.items) {
 
-					resolve(bookExternalSearchServiceMapper.toInternalList(response.items));
-				}
-				else {
+						resolve(bookExternalSearchServiceMapper.toInternalList(response.items));
+					}
+					else {
 
-					resolve([]);
-				}
-			})
-			.catch((error) => {
-				
-				logger.error('Book catalog invocation error: %s', error);
-				reject(AppError.GENERIC.unlessAppError(error));
-			});
+						resolve([]);
+					}
+				})
+				.catch((error) => {
+					
+					logger.error('Book catalog invocation error: %s', error);
+					reject(AppError.GENERIC.unlessAppError(error));
+				});
 		});
 	}
 	
@@ -58,7 +60,7 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 	 */
 	public getMediaItemFromCatalog(catalogItemId: string): Promise<CatalogBookInternal> {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 		
 			const pathParams = {
 				bookId: catalogItemId
@@ -71,21 +73,23 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 
 			const queryParams = Object.assign({}, config.externalApis.googleBooks.details.queryParams);
 
-			restJsonInvoker.invokeGet({
+			const invocationParams = {
 				url: url,
 				responseBodyClass: GoogleBooksDetailsResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
-			})
-			.then((response) => {
+			};
 
-				resolve(bookExternalDetailsServiceMapper.toInternal(response));
-			})
-			.catch((error) => {
-				
-				logger.error('Book catalog invocation error: %s', error);
-				reject(AppError.GENERIC.unlessAppError(error));
-			});
+			restJsonInvoker.invokeGet(invocationParams)
+				.then((response) => {
+
+					resolve(bookExternalDetailsServiceMapper.toInternal(response));
+				})
+				.catch((error) => {
+					
+					logger.error('Book catalog invocation error: %s', error);
+					reject(AppError.GENERIC.unlessAppError(error));
+				});
 		});
 	}
 }

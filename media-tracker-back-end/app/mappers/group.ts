@@ -6,8 +6,8 @@ import { GroupInternal } from 'app/models/internal/group';
  * Helper type
  */
 type GroupMapperParams = {
-	userId: string,
-	categoryId: string
+	userId: string;
+	categoryId: string;
 };
 
 /**
@@ -32,7 +32,7 @@ class GroupMapper extends ModelMapper<GroupInternal, IdentifiedGroup, GroupMappe
 	protected convertToInternal(source: IdentifiedGroup, extraParams?: GroupMapperParams): GroupInternal {
 		
 		if(!extraParams) {
-			throw "convertToInternal.extraParams cannot be undefined"
+			throw 'convertToInternal.extraParams cannot be undefined'
 		}
 
 		return {

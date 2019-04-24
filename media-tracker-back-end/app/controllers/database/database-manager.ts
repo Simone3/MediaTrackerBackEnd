@@ -13,7 +13,7 @@ class DatabaseManager {
 	 */
 	public initConnection(databaseUrl: string): Promise<void> {
 		
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject): void => {
 			
 			logger.info('Starting database connection...');
 
@@ -23,7 +23,7 @@ class DatabaseManager {
 
 			if(config.log.logDatabaseQueries) {
 
-				mongoose.set('debug', (collection: any, method: any, query: any, document: any) => {
+				mongoose.set('debug', (collection: string, method: string, query: object, document: object): void => {
 					
 					databaseLogger.info('Accessing collection %s with %s query %s and document %s', collection, method, query, document);
 				});
@@ -33,13 +33,13 @@ class DatabaseManager {
 	
 			var db = mongoose.connection;
 	
-			db.on('error', (error: any) => {
+			db.on('error', (error): void => {
 				
 				logger.error('Database connection error: %s', error);
 				reject(AppError.DATABASE_INIT.unlessAppError(error));
 			});
 	
-			db.once('open', () => {
+			db.once('open', (): void => {
 	
 				logger.info('Database connection opened');
 				resolve();

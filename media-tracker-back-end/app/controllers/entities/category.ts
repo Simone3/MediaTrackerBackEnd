@@ -1,15 +1,15 @@
-import { Queryable, QueryHelper, Sortable } from "app/controllers/database/query-helper";
-import { groupController } from "app/controllers/entities/group";
-import { AbstractEntityController } from "app/controllers/entities/helper";
-import { userController } from "app/controllers/entities/user";
-import { mediaItemFactory } from "app/factories/media-item";
-import { logger } from "app/loggers/logger";
-import { AppError } from "app/models/error/error";
-import { CategoryInternal } from "app/models/internal/category";
-import { MediaItemInternal } from "app/models/internal/media-items/media-item";
-import { UserInternal } from "app/models/internal/user";
-import { CategorySchema, CATEGORY_COLLECTION_NAME } from "app/schemas/category";
-import { Document, Model, model } from "mongoose";
+import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query-helper';
+import { groupController } from 'app/controllers/entities/group';
+import { AbstractEntityController } from 'app/controllers/entities/helper';
+import { userController } from 'app/controllers/entities/user';
+import { mediaItemFactory } from 'app/factories/media-item';
+import { logger } from 'app/loggers/logger';
+import { AppError } from 'app/models/error/error';
+import { CategoryInternal } from 'app/models/internal/category';
+import { MediaItemInternal } from 'app/models/internal/media-items/media-item';
+import { UserInternal } from 'app/models/internal/user';
+import { CategorySchema, CATEGORY_COLLECTION_NAME } from 'app/schemas/category';
+import { Document, Model, model } from 'mongoose';
 
 /**
  * Mongoose document for categories
@@ -41,7 +41,7 @@ class CategoryController extends AbstractEntityController {
 	/**
 	 * Constructor
 	 */
-	constructor() {
+	public constructor() {
 
 		super();
 		this.queryHelper = new QueryHelper(CategoryModel);
@@ -73,7 +73,7 @@ class CategoryController extends AbstractEntityController {
 		};
 
 		const sortBy: OrderBy = {
-			name: "asc"
+			name: 'asc'
 		};
 
 		return this.queryHelper.find(conditions, sortBy);

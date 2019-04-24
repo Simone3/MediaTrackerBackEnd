@@ -1,6 +1,6 @@
-import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from "app/models/api/media-items/media-item";
-import { Type } from "class-transformer";
-import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
+import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from 'app/models/api/media-items/media-item';
+import { Type } from 'class-transformer';
+import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Model for a TV show from the catalog, publicly exposed via API
@@ -12,14 +12,14 @@ export class CatalogTvShow extends CatalogMediaItem {
 	 */
 	@IsOptional()
 	@IsString()
-	creator?: string;
+	public creator?: string;
 
 	/**
 	 * The TV next episode air date
 	 */
 	@IsOptional()
 	@IsString()
-	nextEpisodeAirDate?: string;
+	public nextEpisodeAirDate?: string;
 }
 
 /**
@@ -32,7 +32,7 @@ export class TvShow extends MediaItem {
 	 */
 	@IsOptional()
 	@IsString()
-	creator?: string;
+	public creator?: string;
 };
 
 /**
@@ -45,7 +45,7 @@ export class IdentifiedTvShow extends TvShow {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	uid!: string;
+	public uid!: string;
 };
 
 /**
@@ -60,7 +60,7 @@ export class TvShowFilter extends MediaItemFilter{
  */
 export class TvShowSortField extends MediaItemSortField {
 
-	static readonly CREATOR: string = 'CREATOR';
+	public static readonly CREATOR: string = 'CREATOR';
 	
 	public static values(): string[] {
 
@@ -79,7 +79,7 @@ export class TvShowSortBy extends MediaItemSortBy {
 	@IsNotEmpty()
 	@IsString()
 	@IsIn(TvShowSortField.values())
-	field!: string;
+	public field!: string;
 }
 
 /**
@@ -90,7 +90,7 @@ export class SearchTvShowCatalogResult extends SearchMediaItemCatalogResult {
 }
 
 /**
- * Request for the "add TV show" API
+ * Request for the 'add TV show' API
  */
 export class AddTvShowRequest extends AddMediaItemRequest {
 
@@ -100,22 +100,22 @@ export class AddTvShowRequest extends AddMediaItemRequest {
 	@IsDefined()
 	@Type(() => TvShow)
 	@ValidateNested()
-	newTvShow!: TvShow;
+	public newTvShow!: TvShow;
 };
 
 /**
- * Response for the "get all TV shows" API
+ * Response for the 'get all TV shows' API
  */
 export class GetAllTvShowsResponse extends GetAllMediaItemsResponse {
 
 	/**
 	 * The retrieved TV shows
 	 */
-	tvShows: IdentifiedTvShow[] = [];
+	public tvShows: IdentifiedTvShow[] = [];
 };
 
 /**
- * Request for the "update TV show" API
+ * Request for the 'update TV show' API
  */
 export class UpdateTvShowRequest extends UpdateMediaItemRequest {
 
@@ -125,11 +125,11 @@ export class UpdateTvShowRequest extends UpdateMediaItemRequest {
 	@IsDefined()
 	@Type(() => TvShow)
 	@ValidateNested()
-	tvShow!: TvShow;
+	public tvShow!: TvShow;
 };
 
 /**
- * Request for the "filter TV shows" API
+ * Request for the 'filter TV shows' API
  */
 export class FilterTvShowsRequest extends FilterMediaItemsRequest {
 
@@ -139,7 +139,7 @@ export class FilterTvShowsRequest extends FilterMediaItemsRequest {
 	@IsOptional()
 	@Type(() => TvShowFilter)
 	@ValidateNested()
-	filter?: TvShowFilter;
+	public filter?: TvShowFilter;
 
 	/**
 	 * Ordering options
@@ -148,22 +148,22 @@ export class FilterTvShowsRequest extends FilterMediaItemsRequest {
 	@IsDefined({each: true})
 	@Type(() => TvShowSortBy)
 	@ValidateNested()
-	sortBy?: TvShowSortBy[];
+	public sortBy?: TvShowSortBy[];
 };
 
 /**
- * Response for the "filter TV shows" API
+ * Response for the 'filter TV shows' API
  */
 export class FilterTvShowsResponse extends FilterMediaItemsResponse {
 
 	/**
 	 * The retrieved TV shows
 	 */
-	tvShows: IdentifiedTvShow[] = [];
+	public tvShows: IdentifiedTvShow[] = [];
 }
 
 /**
- * Request for the "search TV shows" API
+ * Request for the 'search TV shows' API
  */
 export class SearchTvShowsRequest extends SearchMediaItemsRequest {
 
@@ -173,34 +173,34 @@ export class SearchTvShowsRequest extends SearchMediaItemsRequest {
 	@IsOptional()
 	@Type(() => TvShowFilter)
 	@ValidateNested()
-	filter?: TvShowFilter;
+	public filter?: TvShowFilter;
 };
 
 /**
- * Response for the "search TV shows" API
+ * Response for the 'search TV shows' API
  */
 export class SearchTvShowsResponse extends SearchMediaItemsResponse {
 
 	/**
 	 * The retrieved TV shows
 	 */
-	tvShows: IdentifiedTvShow[] = [];
+	public tvShows: IdentifiedTvShow[] = [];
 };
 
 /**
- * Response for the "search catalog" API
+ * Response for the 'search catalog' API
  */
 export class SearchTvShowCatalogResponse extends SearchMediaItemCatalogResponse {
 
 };
 
 /**
- * Response for the "get from catalog" API
+ * Response for the 'get from catalog' API
  */
 export class GetTvShowFromCatalogResponse extends GetMediaItemFromCatalogResponse {
 
 	/**
 	 * The TV show details
 	 */
-	catalogTvShow: CatalogTvShow = new CatalogTvShow();
+	public catalogTvShow: CatalogTvShow = new CatalogTvShow();
 };

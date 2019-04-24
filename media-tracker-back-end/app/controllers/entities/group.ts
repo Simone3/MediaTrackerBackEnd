@@ -1,14 +1,14 @@
-import { Queryable, QueryHelper, Sortable } from "app/controllers/database/query-helper";
-import { categoryController } from "app/controllers/entities/category";
-import { AbstractEntityController } from "app/controllers/entities/helper";
-import { mediaItemFactory } from "app/factories/media-item";
-import { logger } from "app/loggers/logger";
-import { AppError } from "app/models/error/error";
-import { CategoryInternal } from "app/models/internal/category";
-import { GroupInternal } from "app/models/internal/group";
-import { UserInternal } from "app/models/internal/user";
-import { GroupSchema, GROUP_COLLECTION_NAME } from "app/schemas/group";
-import { Document, Model, model } from "mongoose";
+import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query-helper';
+import { categoryController } from 'app/controllers/entities/category';
+import { AbstractEntityController } from 'app/controllers/entities/helper';
+import { mediaItemFactory } from 'app/factories/media-item';
+import { logger } from 'app/loggers/logger';
+import { AppError } from 'app/models/error/error';
+import { CategoryInternal } from 'app/models/internal/category';
+import { GroupInternal } from 'app/models/internal/group';
+import { UserInternal } from 'app/models/internal/user';
+import { GroupSchema, GROUP_COLLECTION_NAME } from 'app/schemas/group';
+import { Document, Model, model } from 'mongoose';
 
 /**
  * Mongoose document for groups
@@ -40,7 +40,7 @@ class GroupController extends AbstractEntityController {
 	/**
 	 * Constructor
 	 */
-	constructor() {
+	public constructor() {
 
 		super();
 		this.queryHelper = new QueryHelper(GroupModel);
@@ -76,7 +76,7 @@ class GroupController extends AbstractEntityController {
 		};
 
 		const sortBy: OrderBy = {
-			name: "asc"
+			name: 'asc'
 		};
 
 		return this.queryHelper.find(conditions, sortBy);

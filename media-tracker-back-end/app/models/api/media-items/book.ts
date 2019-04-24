@@ -1,6 +1,6 @@
-import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from "app/models/api/media-items/media-item";
-import { Type } from "class-transformer";
-import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
+import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from 'app/models/api/media-items/media-item';
+import { Type } from 'class-transformer';
+import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Model for a book from the catalog, publicly exposed via API
@@ -12,7 +12,7 @@ export class CatalogBook extends CatalogMediaItem {
 	 */
 	@IsOptional()
 	@IsString()
-	author?: string;
+	public author?: string;
 }
 
 /**
@@ -25,7 +25,7 @@ export class Book extends MediaItem {
 	 */
 	@IsOptional()
 	@IsString()
-	author?: string;
+	public author?: string;
 };
 
 /**
@@ -38,7 +38,7 @@ export class IdentifiedBook extends Book {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	uid!: string;
+	public uid!: string;
 };
 
 /**
@@ -53,7 +53,7 @@ export class BookFilter extends MediaItemFilter{
  */
 export class BookSortField extends MediaItemSortField {
 
-	static readonly AUTHOR: string = 'AUTHOR';
+	public static readonly AUTHOR: string = 'AUTHOR';
 	
 	public static values(): string[] {
 
@@ -72,7 +72,7 @@ export class BookSortBy extends MediaItemSortBy {
 	@IsNotEmpty()
 	@IsString()
 	@IsIn(BookSortField.values())
-	field!: string;
+	public field!: string;
 }
 
 /**
@@ -83,7 +83,7 @@ export class SearchBookCatalogResult extends SearchMediaItemCatalogResult {
 }
 
 /**
- * Request for the "add book" API
+ * Request for the 'add book' API
  */
 export class AddBookRequest extends AddMediaItemRequest {
 
@@ -93,22 +93,22 @@ export class AddBookRequest extends AddMediaItemRequest {
 	@IsDefined()
 	@Type(() => Book)
 	@ValidateNested()
-	newBook!: Book;
+	public newBook!: Book;
 };
 
 /**
- * Response for the "get all books" API
+ * Response for the 'get all books' API
  */
 export class GetAllBooksResponse extends GetAllMediaItemsResponse {
 
 	/**
 	 * The retrieved books
 	 */
-	books: IdentifiedBook[] = [];
+	public books: IdentifiedBook[] = [];
 };
 
 /**
- * Request for the "update book" API
+ * Request for the 'update book' API
  */
 export class UpdateBookRequest extends UpdateMediaItemRequest {
 
@@ -118,11 +118,11 @@ export class UpdateBookRequest extends UpdateMediaItemRequest {
 	@IsDefined()
 	@Type(() => Book)
 	@ValidateNested()
-	book!: Book;
+	public book!: Book;
 };
 
 /**
- * Request for the "filter books" API
+ * Request for the 'filter books' API
  */
 export class FilterBooksRequest extends FilterMediaItemsRequest {
 
@@ -132,7 +132,7 @@ export class FilterBooksRequest extends FilterMediaItemsRequest {
 	@IsOptional()
 	@Type(() => BookFilter)
 	@ValidateNested()
-	filter?: BookFilter;
+	public filter?: BookFilter;
 
 	/**
 	 * Ordering options
@@ -141,22 +141,22 @@ export class FilterBooksRequest extends FilterMediaItemsRequest {
 	@IsDefined({each: true})
 	@Type(() => BookSortBy)
 	@ValidateNested()
-	sortBy?: BookSortBy[];
+	public sortBy?: BookSortBy[];
 };
 
 /**
- * Response for the "filter books" API
+ * Response for the 'filter books' API
  */
 export class FilterBooksResponse extends FilterMediaItemsResponse {
 
 	/**
 	 * The retrieved books
 	 */
-	books: IdentifiedBook[] = [];
+	public books: IdentifiedBook[] = [];
 }
 
 /**
- * Request for the "search books" API
+ * Request for the 'search books' API
  */
 export class SearchBooksRequest extends SearchMediaItemsRequest {
 
@@ -166,34 +166,34 @@ export class SearchBooksRequest extends SearchMediaItemsRequest {
 	@IsOptional()
 	@Type(() => BookFilter)
 	@ValidateNested()
-	filter?: BookFilter;
+	public filter?: BookFilter;
 };
 
 /**
- * Response for the "search books" API
+ * Response for the 'search books' API
  */
 export class SearchBooksResponse extends SearchMediaItemsResponse {
 
 	/**
 	 * The retrieved books
 	 */
-	books: IdentifiedBook[] = [];
+	public books: IdentifiedBook[] = [];
 };
 
 /**
- * Response for the "search catalog" API
+ * Response for the 'search catalog' API
  */
 export class SearchBookCatalogResponse extends SearchMediaItemCatalogResponse {
 
 };
 
 /**
- * Response for the "get from catalog" API
+ * Response for the 'get from catalog' API
  */
 export class GetBookFromCatalogResponse extends GetMediaItemFromCatalogResponse {
 
 	/**
 	 * The book details
 	 */
-	catalogBook: CatalogBook = new CatalogBook();
+	public catalogBook: CatalogBook = new CatalogBook();
 };

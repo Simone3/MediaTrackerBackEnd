@@ -12,7 +12,7 @@ export class User {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	name!: string;
+	public name!: string;
 };
 
 /**
@@ -25,22 +25,22 @@ export class IdentifiedUser extends User {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	uid!: string;
+	public uid!: string;
 };
 
 /**
- * Request for the "add user" API
+ * Request for the 'add user' API
  */
 export class AddUserRequest extends CommonRequest {
 
 	@IsDefined()
 	@Type(() => User)
 	@ValidateNested()
-	newUser!: User;
+	public newUser!: User;
 };
 
 /**
- * Response for the "add user" API
+ * Response for the 'add user' API
  */
 export class AddUserResponse extends CommonResponse {
 
@@ -49,29 +49,29 @@ export class AddUserResponse extends CommonResponse {
 	 */
 	@IsNotEmpty()
 	@IsString()
-	userId!: string;
+	public userId!: string;
 }
 
 /**
- * Response for the "delete user" API
+ * Response for the 'delete user' API
  */
 export class DeleteUserResponse extends CommonResponse {
 
 }
 
 /**
- * Request for the "update user" API
+ * Request for the 'update user' API
  */
 export class UpdateUserRequest extends CommonRequest {
 
 	@IsDefined()
 	@Type(() => User)
 	@ValidateNested()
-	user!: User;
+	public user!: User;
 };
 
 /**
- * Response for the "update user" API
+ * Response for the 'update user' API
  */
 export class UpdateUserResponse extends CommonResponse {
 

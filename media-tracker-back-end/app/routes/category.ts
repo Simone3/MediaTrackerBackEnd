@@ -14,7 +14,7 @@ var router: Router = express.Router();
 /**
  * Route to get all saved categories
  */
-router.get('/users/:userId/categories', (request, response, __) => {
+router.get('/users/:userId/categories', (request, response) => {
 
 	const userId: string = request.params.userId;
 
@@ -38,14 +38,14 @@ router.get('/users/:userId/categories', (request, response, __) => {
 /**
  * Route to add a new category
  */
-router.post('/users/:userId/categories', (request, response, __) => {
+router.post('/users/:userId/categories', (request, response) => {
 
 	const userId: string = request.params.userId;
 
 	parserValidator.parseAndValidate(AddCategoryRequest, request.body)
 		.then((body) => {
 
-			const newCategory = categoryMapper.toInternal({...body.newCategory, uid: ""}, {userId});
+			const newCategory = categoryMapper.toInternal({...body.newCategory, uid: ''}, {userId});
 			categoryController.saveCategory(newCategory, body.allowSameName)
 				.then(() => {
 			
@@ -71,7 +71,7 @@ router.post('/users/:userId/categories', (request, response, __) => {
 /**
  * Route to update an existing category
  */
-router.put('/users/:userId/categories/:id', (request, response, __) => {
+router.put('/users/:userId/categories/:id', (request, response) => {
 
 	const userId: string = request.params.userId;
 	const id: string = request.params.id;
@@ -81,19 +81,19 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
 
 			const category = categoryMapper.toInternal({...body.category, uid: id}, {userId});
 			categoryController.saveCategory(category, body.allowSameName)
-			.then(() => {
-			
-				const body: UpdateCategoryResponse = {
-					message: 'Category successfully updated'
-				};
+				.then(() => {
+				
+					const body: UpdateCategoryResponse = {
+						message: 'Category successfully updated'
+					};
 
-				response.json(body);
-			})
-			.catch((error) => {
+					response.json(body);
+				})
+				.catch((error) => {
 
-				logger.error('Update category generic error: %s', error);
-				response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
-			});
+					logger.error('Update category generic error: %s', error);
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+				});
 		})
 		.catch((error) => {
 
@@ -105,7 +105,7 @@ router.put('/users/:userId/categories/:id', (request, response, __) => {
 /**
  * Route to delete a category
  */
-router.delete('/users/:userId/categories/:id', (request, response, __) => {
+router.delete('/users/:userId/categories/:id', (request, response) => {
 
 	const userId: string = request.params.userId;
 	const id: string = request.params.id;

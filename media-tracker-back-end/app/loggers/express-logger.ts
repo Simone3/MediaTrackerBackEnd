@@ -7,21 +7,19 @@ import uuid from 'uuid';
 /**
  * Express middleware to set request-scoped context information 
  */
-export const logCorrelationMiddleware: RequestHandler = (_, __, next) => {
+export const logCorrelationMiddleware: RequestHandler = (_, __, next): void => {
 	
 	requestScopeContext.correlationId = uuid();
-
-    next();
+	next();
 };
 
 /**
  * Express middleware to log API requests
  */
-export const requestLoggerMiddleware: RequestHandler = (req, _, next) => {
+export const requestLoggerMiddleware: RequestHandler = (req, _, next): void => {
 	
 	inputOutputLogger.info('API %s %s - Received Request: %s', req.method, req.originalUrl, req.body);
-
-    next();
+	next();
 };
 
 /**

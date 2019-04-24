@@ -48,7 +48,7 @@ class MediaTrackerLogger {
 
 	private log4js: Logger;
 
-	constructor(logCategory: string) {
+	public constructor(logCategory: string) {
 
 		this.log4js = getLogger(logCategory);
 		this.log4js.level = config.log.level;
@@ -57,7 +57,7 @@ class MediaTrackerLogger {
 	/**
 	 * Writes a debug message if debug is enabled, with optional %s arguments
 	 */
-	public debug(message: any, ...args: any[]): void {
+	public debug(message: string, ...args: unknown[]): void {
 		
 		if(this.log4js.isDebugEnabled()) {
 
@@ -68,7 +68,7 @@ class MediaTrackerLogger {
 	/**
 	 * Writes an info message if info is enabled, with optional %s arguments
 	 */
-	public info(message: any, ...args: any[]): void {
+	public info(message: string, ...args: unknown[]): void {
 
 		if(this.log4js.isInfoEnabled()) {
 
@@ -79,7 +79,7 @@ class MediaTrackerLogger {
 	/**
 	 * Writes an error message if error is enabled, with optional %s arguments
 	 */
-	public error(message: any, ...args: any[]): void{
+	public error(message: string, ...args: unknown[]): void{
 		
 		if(this.log4js.isErrorEnabled()) {
 
@@ -90,7 +90,7 @@ class MediaTrackerLogger {
 	/**
 	 * Internal helper to write objects as JSON strings
 	 */
-	private stringify(args: any[]): string[] {
+	private stringify(args: unknown[]): string[] {
 
 		if(args && args.length > 0) {
 
@@ -107,7 +107,7 @@ class MediaTrackerLogger {
 }
 
 /**
- * Generic logger, used for "manual" application logging
+ * Generic logger, used for 'manual' application logging
  */
 export const logger = new MediaTrackerLogger('Application');
 
@@ -129,7 +129,7 @@ export const databaseLogger = new MediaTrackerLogger('Database');
 /**
  * Callback to gracefully close all loggers
  */
-export const finalizeAndCloseAllLoggers = () => {
+export const finalizeAndCloseAllLoggers = (): void => {
 
 	shutdown();
 };

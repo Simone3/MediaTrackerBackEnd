@@ -1,9 +1,9 @@
-import { movieCatalogController } from "app/controllers/catalogs/media-items/movie";
-import { movieEntityController } from "app/controllers/entities/media-items/movie";
-import { movieCatalogDetailsMapper, movieCatalogSearchMapper, movieFilterMapper, movieMapper, movieSortMapper } from "app/mappers/media-items/movie";
-import { AddMovieRequest, FilterMoviesRequest, FilterMoviesResponse, GetAllMoviesResponse, GetMovieFromCatalogResponse, SearchMovieCatalogResponse, SearchMoviesRequest, SearchMoviesResponse, UpdateMovieRequest } from "app/models/api/media-items/movie";
-import { CatalogMovieInternal, MovieFilterInternal, MovieInternal, MovieSortByInternal, SearchMovieCatalogResultInternal } from "app/models/internal/media-items/movie";
-import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from "app/routes/media-items/media-item";
+import { movieCatalogController } from 'app/controllers/catalogs/media-items/movie';
+import { movieEntityController } from 'app/controllers/entities/media-items/movie';
+import { movieCatalogDetailsMapper, movieCatalogSearchMapper, movieFilterMapper, movieMapper, movieSortMapper } from 'app/mappers/media-items/movie';
+import { AddMovieRequest, FilterMoviesRequest, FilterMoviesResponse, GetAllMoviesResponse, GetMovieFromCatalogResponse, SearchMovieCatalogResponse, SearchMoviesRequest, SearchMoviesResponse, UpdateMovieRequest } from 'app/models/api/media-items/movie';
+import { CatalogMovieInternal, MovieFilterInternal, MovieInternal, MovieSortByInternal, SearchMovieCatalogResultInternal } from 'app/models/internal/media-items/movie';
+import { MediaItemCatalogRouterBuilder, MediaItemEntityRouterBuilder } from 'app/routes/media-items/media-item';
 
 const PATH_NAME = 'movies';
 
@@ -19,7 +19,7 @@ const catalogRouterBuilder = new MediaItemCatalogRouterBuilder<SearchMovieCatalo
 	movieCatalogController
 );
 
-// Setup "get all" API
+// Setup 'get all' API
 entityRouterBuilder.getAll({
 
 	responseBuilder: (commonResponse, movies) => {
@@ -31,7 +31,7 @@ entityRouterBuilder.getAll({
 	}
 });
 
-// Setup "filter and order" API
+// Setup 'filter and order' API
 entityRouterBuilder.filter({
 
 	requestClass: FilterMoviesRequest,
@@ -53,7 +53,7 @@ entityRouterBuilder.filter({
 	}
 });
 
-// Setup "search" API
+// Setup 'search' API
 entityRouterBuilder.search({
 
 	requestClass: SearchMoviesRequest,
@@ -71,7 +71,7 @@ entityRouterBuilder.search({
 	}
 });
 
-// Setup "add new" API
+// Setup 'add new' API
 entityRouterBuilder.addNew({
 
 	requestClass: AddMovieRequest,
@@ -81,7 +81,7 @@ entityRouterBuilder.addNew({
 	}
 });
 
-// Setup "update" API
+// Setup 'update' API
 entityRouterBuilder.updateExisting({
 
 	requestClass: UpdateMovieRequest,
@@ -91,10 +91,10 @@ entityRouterBuilder.updateExisting({
 	}
 });
 
-// Setup "delete" API
+// Setup 'delete' API
 entityRouterBuilder.delete();
 
-// Setup "catalog search" API
+// Setup 'catalog search' API
 catalogRouterBuilder.search({
 
 	responseBuilder: (commonResponse, movies) => {
@@ -106,7 +106,7 @@ catalogRouterBuilder.search({
 	}
 });
 
-// Setup "catalog details" API
+// Setup 'catalog details' API
 catalogRouterBuilder.details({
 
 	responseBuilder: (commonResponse, movie) => {
