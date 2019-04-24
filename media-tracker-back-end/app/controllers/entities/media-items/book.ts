@@ -4,6 +4,7 @@ import { BookInternal, BookSortByInternal, BookFilterInternal } from "../../../m
 import { Model, model } from "mongoose";
 import { BOOK_COLLECTION_NAME, BookSchema } from "../../../schemas/media-items/book";
 import { Queryable, SortDirection, Sortable } from "../../../controllers/database/query-helper";
+import { MediaTypeInternal } from "../../../models/internal/category";
 
 /**
  * Book document for Mongoose
@@ -71,6 +72,14 @@ class BookEntityController extends MediaItemEntityController<BookInternal, BookS
 		searchConditions.push({
 			author: termRegExp
 		});
+	}
+
+	/**
+	 * @override
+	 */
+	protected getLinkedMediaType(): MediaTypeInternal {
+		
+		return 'BOOK';
 	}
 }
 

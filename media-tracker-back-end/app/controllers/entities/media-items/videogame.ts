@@ -4,6 +4,7 @@ import { VideogameInternal, VideogameSortByInternal, VideogameFilterInternal } f
 import { Model, model } from "mongoose";
 import { VIDEOGAME_COLLECTION_NAME, VideogameSchema } from "../../../schemas/media-items/videogame";
 import { Queryable, SortDirection, Sortable } from "../../../controllers/database/query-helper";
+import { MediaTypeInternal } from "../../../models/internal/category";
 
 /**
  * Videogame document for Mongoose
@@ -71,6 +72,14 @@ class VideogameEntityController extends MediaItemEntityController<VideogameInter
 		searchConditions.push({
 			developer: termRegExp
 		});
+	}
+
+	/**
+	 * @override
+	 */
+	protected getLinkedMediaType(): MediaTypeInternal {
+		
+		return 'VIDEOGAME';
 	}
 }
 

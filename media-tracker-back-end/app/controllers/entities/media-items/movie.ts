@@ -4,6 +4,7 @@ import { MovieInternal, MovieSortByInternal, MovieFilterInternal } from "../../.
 import { Model, model } from "mongoose";
 import { MOVIE_COLLECTION_NAME, MovieSchema } from "../../../schemas/media-items/movie";
 import { Queryable, SortDirection, Sortable } from "../../../controllers/database/query-helper";
+import { MediaTypeInternal } from "../../../models/internal/category";
 
 /**
  * Movie document for Mongoose
@@ -71,6 +72,14 @@ class MovieEntityController extends MediaItemEntityController<MovieInternal, Mov
 		searchConditions.push({
 			director: termRegExp
 		});
+	}
+
+	/**
+	 * @override
+	 */
+	protected getLinkedMediaType(): MediaTypeInternal {
+		
+		return 'MOVIE';
 	}
 }
 

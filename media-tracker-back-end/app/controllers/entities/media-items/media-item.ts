@@ -6,7 +6,7 @@ import { AppError } from "../../../models/error/error";
 import { logger } from "../../../loggers/logger";
 import { AbstractEntityController } from "../helper";
 import { UserInternal } from "../../../models/internal/user";
-import { CategoryInternal } from "../../../models/internal/category";
+import { CategoryInternal, MediaTypeInternal } from "../../../models/internal/category";
 import { GroupInternal } from "../../../models/internal/group";
 import { categoryController } from "../category";
 import { groupController } from "../group";
@@ -257,6 +257,9 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 */
 	protected abstract setSearchByTermConditions(term: string, termRegExp: RegExp, searchConditions: Queryable<E>[]): void;
 
+
+	protected abstract getLinkedMediaType(): MediaTypeInternal;
+
 	/**
 	 * Helper for subclasses that can be called during setSortConditions() to handle the sortBy values common to all media items.
 	 * @param sortByField the source sort field
@@ -315,37 +318,60 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 */
 	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, group?: string | GroupInternal, mediaItemId?: string): Promise<void> {
 
-		return this.checkExistencePreconditionsHelper(errorToThow, () => {
+		return new Promise((resolve, reject) => {
 
-			const userId = typeof(user) === 'string' ? user : user._id;
-			const categoryId = typeof(category) === 'string' ? category : category._id;
-			const groupId = !group || typeof(group) === 'string' ? group : group._id;
+			this.checkExistencePreconditionsHelper(errorToThow, () => {
 
-			let mediaItemCheckPromise: Promise<PersistedEntityInternal | undefined>;
+				const userId = typeof(user) === 'string' ? user : user._id;
+				const categoryId = typeof(category) === 'string' ? category : category._id;
+				const groupId = !group || typeof(group) === 'string' ? group : group._id;
 
-			if(mediaItemId) {
+				let mediaItemCheckPromise: Promise<PersistedEntityInternal | undefined>;
 
-				// Make sure the media item exists
-				mediaItemCheckPromise = this.getMediaItem(userId, categoryId, mediaItemId);
-			}
-			else {
+				if(mediaItemId) {
 
-				// Make sure the category exists
-				mediaItemCheckPromise = categoryController.getCategory(userId, categoryId);
-			}
+					// Make sure the media item exists
+					mediaItemCheckPromise = this.getMediaItem(userId, categoryId, mediaItemId);
+				}
+				else {
 
-			// If a group was set, also make sure the group exists
-			if(groupId) {
+					// Get the category
+					const categoryCheckPromise = categoryController.getCategory(userId, categoryId);
 
-				return Promise.all([
-					groupController.getGroup(userId, categoryId, groupId),
-					mediaItemCheckPromise
-				]);
-			}
-			else {
+					// Check that media item and category media types are compatible (first then())
+					categoryCheckPromise.then((category) => {
 
-				return mediaItemCheckPromise;
-			}
+						if(category && category.mediaType !== this.getLinkedMediaType()) {
+
+							reject(AppError.DATABASE_SAVE.withDetails('Media item and category have incompatible media types'));
+						}
+					});
+
+					// Check that the category actually exists (second then(), handled by checkExistencePreconditionsHelper())
+					mediaItemCheckPromise = categoryCheckPromise;
+				}
+
+				// If a group was set, also make sure the group exists
+				if(groupId) {
+
+					return Promise.all([
+						groupController.getGroup(userId, categoryId, groupId),
+						mediaItemCheckPromise
+					]);
+				}
+				else {
+
+					return mediaItemCheckPromise;
+				}
+			})
+			.then(() => {
+
+				resolve();
+			})
+			.catch((error) => {
+
+				reject(error);
+			});
 		});
 	}
 }

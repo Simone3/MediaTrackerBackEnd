@@ -4,6 +4,7 @@ import { TvShowInternal, TvShowSortByInternal, TvShowFilterInternal } from "../.
 import { Model, model } from "mongoose";
 import { TV_SHOW_COLLECTION_NAME, TvShowSchema } from "../../../schemas/media-items/tv-show";
 import { Queryable, SortDirection, Sortable } from "../../../controllers/database/query-helper";
+import { MediaTypeInternal } from "../../../models/internal/category";
 
 /**
  * TvShow document for Mongoose
@@ -71,6 +72,14 @@ class TvShowEntityController extends MediaItemEntityController<TvShowInternal, T
 		searchConditions.push({
 			creator: termRegExp
 		});
+	}
+
+	/**
+	 * @override
+	 */
+	protected getLinkedMediaType(): MediaTypeInternal {
+		
+		return 'TV_SHOW';
 	}
 }
 
