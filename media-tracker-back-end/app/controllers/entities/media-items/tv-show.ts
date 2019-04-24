@@ -22,11 +22,11 @@ const TvShowModel: Model<TvShowDocument> = model<TvShowDocument>(TV_SHOW_COLLECT
 class TvShowEntityController extends MediaItemEntityController<TvShowInternal, TvShowSortByInternal, TvShowFilterInternal> {
 	
 	/**
-	 * @override
+	 * Constructor
 	 */
-	protected getModelType(): Model<TvShowInternal & Document> {
-		
-		return TvShowModel;
+	constructor() {
+
+		super(TvShowModel);
 	}
 	
 	/**

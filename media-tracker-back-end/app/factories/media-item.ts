@@ -13,9 +13,6 @@ import { bookCatalogController } from "../controllers/catalogs/media-items/book"
 import { videogameEntityController } from "../controllers/entities/media-items/videogame";
 import { videogameCatalogController } from "../controllers/catalogs/media-items/videogame";
 
-type EntityController = MediaItemEntityController<MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal>;
-type CatalogController = MediaItemCatalogController<SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal>
-
 /**
  * Factory to get the correct media item controllers, e.g. starting from a category
  */
@@ -185,6 +182,17 @@ class ResolverHelper {
 
 	constructor(public entityController: EntityController, public catalogController: CatalogController) {}
 }
+
+/**
+ * Helper type alias
+ */
+type EntityController = MediaItemEntityController<MediaItemInternal, MediaItemSortByInternal, MediaItemFilterInternal>;
+
+/**
+ * Helper type alias
+ */
+type CatalogController = MediaItemCatalogController<SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal>
+
 
 /**
  * The singleton instance of the media item factory

@@ -2,7 +2,7 @@ import { Document, Model, model } from "mongoose";
 import { UserInternal } from "../../models/internal/user";
 import { UserSchema, USER_COLLECTION_NAME } from "../../schemas/user";
 import { categoryController } from "./category";
-import { queryHelper, Queryable } from "../database/query-helper";
+import { QueryHelper, Queryable } from "../database/query-helper";
 import { AbstractEntityController } from "./helper";
 import { groupController } from "./group";
 import { mediaItemFactory } from "../../factories/media-item";
@@ -27,6 +27,17 @@ type QueryConditions = Queryable<UserInternal>;
  */
 class UserController extends AbstractEntityController {
 
+	private readonly queryHelper: QueryHelper<UserInternal, UserDocument, Model<UserDocument>>;
+
+	/**
+	 * Constructor
+	 */
+	constructor() {
+
+		super();
+		this.queryHelper = new QueryHelper(UserModel);
+	}
+
 	/**
 	 * Gets a single user, or undefined if not found
 	 * @param userId user ID
@@ -37,7 +48,7 @@ class UserController extends AbstractEntityController {
 			_id: userId
 		};
 
-		return queryHelper.findOne(UserModel, conditions);
+		return this.queryHelper.findOne(conditions);
 	}
 
 	/**
@@ -49,7 +60,7 @@ class UserController extends AbstractEntityController {
 		const conditions: QueryConditions = {
 			name: user.name
 		};
-		return queryHelper.checkUniquenessAndSave(UserModel, user, new UserModel(), conditions);
+		return this.queryHelper.checkUniquenessAndSave(user, new UserModel(), conditions);
 	}
 
 	/**
@@ -76,7 +87,7 @@ class UserController extends AbstractEntityController {
 				mediaItemPromises.concat([
 				categoryController.deleteAllCategoriesForUser(id),
 				groupController.deleteAllGroupsForUser(id),
-				queryHelper.deleteById(UserModel, id)
+				this.queryHelper.deleteById(id)
 			]));
 		});
 	}

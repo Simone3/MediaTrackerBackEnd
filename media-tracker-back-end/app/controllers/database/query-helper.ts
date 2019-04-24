@@ -13,21 +13,28 @@ const COLLATION: CollationOptions = {
 /**
  * Helper controller that contains util methods for database manipulation
  */
-class QueryHelper {
+export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocument extends Document & TPersistedEntity, TModel extends Model<TDocument>> {
+
+	/**
+	 * Constructor
+	 * @param databaseModel the database model
+	 */
+	constructor(private databaseModel: TModel) {
+
+	}
 
 	/**
 	 * Helper to get from the database all elements of a model
-	 * @param databaseModel the database model
 	 * @param conditions optional query conditions
 	 * @param sortBy optional sort conditions
 	 * @param populate list of "joined" columns to populate
 	 * @return a promise that will eventually contain the list of all internal model representations of the persisted elements
 	 */
-	public find<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions?: Queryable<I>, sortBy?: Sortable<I>, populate?: Populatable<I>): Promise<I[]> {
+	public find(conditions?: Queryable<TPersistedEntity>, sortBy?: Sortable<TPersistedEntity>, populate?: Populatable<TPersistedEntity>): Promise<TPersistedEntity[]> {
 
 		return new Promise((resolve, reject) => {
 
-			const query = databaseModel
+			const query = this.databaseModel
 				.find(conditions)
 				.collation(COLLATION)
 				.sort(sortBy);
@@ -44,7 +51,7 @@ class QueryHelper {
 			}
 
 			query
-				.then((documents: D[]) => {
+				.then((documents: TDocument[]) => {
 
 					resolve(documents);
 				})
@@ -58,16 +65,15 @@ class QueryHelper {
 
 	/**
 	 * Helper to get from the database a single element of a model. If more than one element matches the conditions, an error is thrown.
-	 * @param databaseModel the database model
 	 * @param conditions optional query conditions
 	 * @param populate list of "joined" columns to populate
 	 * @return a promise that will eventually contain the internal model representation of the persisted element, or undefined if not found
 	 */
-	public findOne<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: Queryable<I>, populate?: Populatable<I>): Promise<I | undefined> {
+	public findOne(conditions: Queryable<TPersistedEntity>, populate?: Populatable<TPersistedEntity>): Promise<TPersistedEntity | undefined> {
 
 		return new Promise((resolve, reject) => {
 
-			this.find(databaseModel, conditions, undefined, populate)
+			this.find(conditions, undefined, populate)
 				.then((results) => {
 
 					if(results.length > 1) {
@@ -92,16 +98,15 @@ class QueryHelper {
 
 	/**
 	 * Helper to first check uniqueness conditions and then, if no duplicates are found, save a document
-	 * @param databaseModel the database model
 	 * @param internalModel the internal model that works as the data source
 	 * @param emptyDocument the empty document that will get all "internalModel" data and will then be saved to the DB
 	 * @param uniquenessConditions if existing documents match these conditions, the new document won't be saved and an error will be thrown
 	 */
-	public checkUniquenessAndSave<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, internalModel: I, emptyDocument: D, uniquenessConditions: Queryable<I>): Promise<I> {
+	public checkUniquenessAndSave(internalModel: TPersistedEntity, emptyDocument: TDocument, uniquenessConditions: Queryable<TPersistedEntity>): Promise<TPersistedEntity> {
 
 		return new Promise((resolve, reject) => {
 
-			this.find(databaseModel, uniquenessConditions)
+			this.find(uniquenessConditions)
 				.then((results) => {
 
 					// Check results with same values (excluding the new model itself, this could be an update!)
@@ -148,7 +153,7 @@ class QueryHelper {
 	 * @param emptyDocument the empty document that will get all "internalModel" data and will then be saved to the DB
 	 * @returns the promise that will eventually return the newly saved element
 	 */
-	public save<I extends PersistedEntityInternal, D extends Document & I>(internalModel: I, emptyDocument: D): Promise<I> {
+	public save(internalModel: TPersistedEntity, emptyDocument: TDocument): Promise<TPersistedEntity> {
 
 		return new Promise((resolve, reject) => {
 
@@ -167,7 +172,7 @@ class QueryHelper {
 				document.isNew = true;
 			}
 
-			document.save((error: any, savedDocument: D) => {
+			document.save((error: any, savedDocument: TDocument) => {
 			   
 				if(error) {
 					
@@ -192,15 +197,14 @@ class QueryHelper {
 
 	/**
 	 * Helper to delete a database element by ID
-	 * @param databaseModel the database model
 	 * @param id the element ID
 	 * @returns a promise with the number of deleted elements
 	 */
-	public deleteById<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, id: string): Promise<number> {
+	public deleteById(id: string): Promise<number> {
 
 		return new Promise((resolve, reject) => {
 
-			databaseModel.findByIdAndRemove(id)
+			this.databaseModel.findByIdAndRemove(id)
 				.then((deletedDocument) => {
 
 					if(deletedDocument) {
@@ -223,15 +227,14 @@ class QueryHelper {
 
 	/**
 	 * Helper to delete a database elements with a query condition
-	 * @param databaseModel the database model
 	 * @param conditions query conditions
 	 * @returns a promise with the number of deleted elements
 	 */
-	public delete<I extends PersistedEntityInternal, D extends Document & I, M extends Model<D>>(databaseModel: M, conditions: Queryable<I>): Promise<number> {
+	public delete(conditions: Queryable<TPersistedEntity>): Promise<number> {
 
 		return new Promise((resolve, reject) => {
 
-			databaseModel.deleteMany(conditions)
+			this.databaseModel.deleteMany(conditions)
 				.then((deletedDocumentsCount) => {
 
 					resolve(deletedDocumentsCount && deletedDocumentsCount.n ? deletedDocumentsCount.n : 0);
@@ -244,11 +247,6 @@ class QueryHelper {
 		});
 	}
 }
-
-/**
- * Singleton implementation of the query helper
- */
-export const queryHelper = new QueryHelper();
 
 /**
  * Helper type to make all properties in T be optionally asc or desc

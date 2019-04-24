@@ -22,11 +22,11 @@ const MovieModel: Model<MovieDocument> = model<MovieDocument>(MOVIE_COLLECTION_N
 class MovieEntityController extends MediaItemEntityController<MovieInternal, MovieSortByInternal, MovieFilterInternal> {
 	
 	/**
-	 * @override
+	 * Constructor
 	 */
-	protected getModelType(): Model<MovieInternal & Document> {
-		
-		return MovieModel;
+	constructor() {
+
+		super(MovieModel);
 	}
 	
 	/**

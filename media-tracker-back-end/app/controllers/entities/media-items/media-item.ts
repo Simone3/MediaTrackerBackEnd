@@ -1,6 +1,6 @@
 import { Document, Model } from "mongoose";
 import { MediaItemInternal, MediaItemFilterInternal, MediaItemSortByInternal, MediaItemSortFieldInternal } from "../../../models/internal/media-items/media-item";
-import { Queryable, Sortable, queryHelper, SortDirection, Populatable } from "../../database/query-helper";
+import { Queryable, Sortable, QueryHelper, SortDirection, Populatable } from "../../database/query-helper";
 import { miscUtilsController } from "../../utilities/misc-utils";
 import { AppError } from "../../../models/error/error";
 import { logger } from "../../../loggers/logger";
@@ -14,11 +14,22 @@ import { PersistedEntityInternal } from "../../../models/internal/common";
 
 /**
  * Abstract controller for media item entities
- * @template E the media item entity
- * @template S the media item sort conditions 
- * @template F the media item filter conditions
+ * @template TMediaItemInternal the media item entity
+ * @template TMediaItemSortByInternal the media item sort conditions 
+ * @template TMediaItemFilterInternal the media item filter conditions
  */
-export abstract class MediaItemEntityController<E extends MediaItemInternal, S extends MediaItemSortByInternal, F extends MediaItemFilterInternal> extends AbstractEntityController {
+export abstract class MediaItemEntityController<TMediaItemInternal extends MediaItemInternal, TMediaItemSortByInternal extends MediaItemSortByInternal, TMediaItemFilterInternal extends MediaItemFilterInternal> extends AbstractEntityController {
+
+	private readonly queryHelper: QueryHelper<TMediaItemInternal, TMediaItemInternal & Document, Model<TMediaItemInternal & Document>>;
+
+	/**
+	 * Constructor
+	 */
+	constructor(model: Model<TMediaItemInternal & Document>) {
+
+		super();
+		this.queryHelper = new QueryHelper(model);
+	}
 
 	/**
 	 * Gets a single media item, or undefined if not found
@@ -26,14 +37,14 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * @param categoryId category ID
 	 * @param mediaItemId media item ID
 	 */
-	public getMediaItem(userId: string, categoryId: string, mediaItemId: string): Promise<E | undefined> {
+	public getMediaItem(userId: string, categoryId: string, mediaItemId: string): Promise<TMediaItemInternal | undefined> {
 
-		const conditions: Queryable<E> = {};
+		const conditions: Queryable<TMediaItemInternal> = {};
 		conditions._id = mediaItemId;
 		conditions.category = categoryId;
 		conditions.owner = userId;
 		
-		return queryHelper.findOne(this.getModelType(), conditions);
+		return this.queryHelper.findOne(conditions);
 	}
 
 	/**
@@ -41,9 +52,9 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * @param userId user ID
 	 * @param categoryId category ID
 	 */
-	public getAllMediaItems(userId: string, categoryId: string): Promise<E[]> {
+	public getAllMediaItems(userId: string, categoryId: string): Promise<TMediaItemInternal[]> {
 
-		const sortBy: S[] = this.getDefaultSortBy();
+		const sortBy: TMediaItemSortByInternal[] = this.getDefaultSortBy();
 
 		return this.filterAndOrderMediaItems(userId, categoryId, undefined, sortBy);
 	}
@@ -52,24 +63,24 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * Gets all saved media items for the given group, as a promise
 	 * @param groupId the group ID
 	 */
-	public getAllMediaItemsInGroup(groupId: string): Promise<E[]> {
+	public getAllMediaItemsInGroup(groupId: string): Promise<TMediaItemInternal[]> {
 
-		const conditions: Queryable<E> = {};
+		const conditions: Queryable<TMediaItemInternal> = {};
 		conditions.group = groupId;
 
-		return queryHelper.find(this.getModelType(), conditions);
+		return this.queryHelper.find(conditions);
 	}
 
 	/**
 	 * Gets all saved media items for the given category, as a promise
 	 * @param categoryId the category ID
 	 */
-	public getAllMediaItemsInCategory(categoryId: string): Promise<E[]> {
+	public getAllMediaItemsInCategory(categoryId: string): Promise<TMediaItemInternal[]> {
 
-		const conditions: Queryable<E> = {};
+		const conditions: Queryable<TMediaItemInternal> = {};
 		conditions.category = categoryId;
 		
-		return queryHelper.find(this.getModelType(), conditions);
+		return this.queryHelper.find(conditions);
 	}
 
 	/**
@@ -79,14 +90,14 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * @param filterBy filter options
 	 * @param orderBy sort otions
 	 */
-	public filterAndOrderMediaItems(userId: string, categoryId: string, filterBy?: F, sortBy?: S[]): Promise<E[]> {
+	public filterAndOrderMediaItems(userId: string, categoryId: string, filterBy?: TMediaItemFilterInternal, sortBy?: TMediaItemSortByInternal[]): Promise<TMediaItemInternal[]> {
 
-		const conditions: Queryable<E> = {};
+		const conditions: Queryable<TMediaItemInternal> = {};
 		conditions.owner = userId;
 		conditions.category = categoryId;
 		this.setConditionsFromFilter(conditions, filterBy);
 
-		const sortConditions: Sortable<E> = {};
+		const sortConditions: Sortable<TMediaItemInternal> = {};
 		if(sortBy) {
 
 			for(const value of sortBy) {
@@ -96,10 +107,10 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 			}
 		}
 
-		const populate: Populatable<E> = {};
+		const populate: Populatable<TMediaItemInternal> = {};
 		populate.group = true;
 
-		return queryHelper.find(this.getModelType(), conditions, sortConditions, populate);
+		return this.queryHelper.find(conditions, sortConditions, populate);
 	}
 
 	/**
@@ -109,13 +120,13 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * @param term the search term
 	 * @param filterBy the optional filters
 	 */
-	public searchMediaItems(userId: string, categoryId: string, term: string, filterBy?: F): Promise<E[]> {
+	public searchMediaItems(userId: string, categoryId: string, term: string, filterBy?: TMediaItemFilterInternal): Promise<TMediaItemInternal[]> {
 
 		const termRegExp = new RegExp(miscUtilsController.escapeRegExp(term), 'i');
 		
 		// Common search conditions
-		const searchConditions: Queryable<E>[] = [];
-		const nameCondition: Queryable<E> = {};
+		const searchConditions: Queryable<TMediaItemInternal>[] = [];
+		const nameCondition: Queryable<TMediaItemInternal> = {};
 		nameCondition.name = termRegExp;
 		searchConditions.push(nameCondition);
 
@@ -123,17 +134,17 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 		this.setSearchByTermConditions(term, termRegExp, searchConditions);
 
 		// Complete query conditions
-		const conditions: Queryable<E> = {};
+		const conditions: Queryable<TMediaItemInternal> = {};
 		conditions.owner = userId,
 		conditions.category = categoryId,
 		conditions.$or = searchConditions;
 		this.setConditionsFromFilter(conditions, filterBy);
 
 		// Sort
-		const sortBy: Sortable<E> = {};
+		const sortBy: Sortable<TMediaItemInternal> = {};
 		sortBy.name = 'asc';
 
-		return queryHelper.find(this.getModelType(), conditions, sortBy);
+		return this.queryHelper.find(conditions, sortBy);
 	}
 
 	/**
@@ -141,7 +152,7 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * @param mediaItem the media item to insert or update
 	 * @param allowSameName whether to check or not if an existing category has the same name
 	 */
-	public async saveMediaItem(mediaItem: E, allowSameName?: boolean): Promise<E> {
+	public async saveMediaItem(mediaItem: TMediaItemInternal, allowSameName?: boolean): Promise<TMediaItemInternal> {
 
 		await this.checkWritePreconditions(
 			AppError.DATABASE_SAVE.withDetails(mediaItem._id ? 'Media item or group does not exists for given user/category' : 'User or category or group does not exist'),
@@ -153,18 +164,18 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 		if(allowSameName) {
 
 			logger.debug('Same name is allowed');
-			return queryHelper.save(mediaItem, this.getNewEmptyDocument());
+			return this.queryHelper.save(mediaItem, this.getNewEmptyDocument());
 		}
 		else {
 
 			logger.debug('Same name is NOT allowed');
 
-			const conditions: Queryable<E> = {};
+			const conditions: Queryable<TMediaItemInternal> = {};
 			conditions.owner = mediaItem.owner;
 			conditions.category = mediaItem.category;
 			conditions.name = mediaItem.name;
 			
-			return queryHelper.checkUniquenessAndSave(this.getModelType(), mediaItem, this.getNewEmptyDocument(), conditions);
+			return this.queryHelper.checkUniquenessAndSave(mediaItem, this.getNewEmptyDocument(), conditions);
 		}
 	}
 
@@ -183,7 +194,7 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 			undefined,
 			mediaItemId);
 
-		return queryHelper.deleteById(this.getModelType(), mediaItemId);
+		return this.queryHelper.deleteById(mediaItemId);
 	}
 
 	/**
@@ -192,10 +203,10 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 */
 	public deleteAllMediaItemsInGroup(groupId: string): Promise<number> {
 
-		const conditions: Queryable<E> = {};
+		const conditions: Queryable<TMediaItemInternal> = {};
 		conditions.group = groupId;
 
-		return queryHelper.delete(this.getModelType(), conditions);
+		return this.queryHelper.delete(conditions);
 	}
 
 	/**
@@ -204,10 +215,10 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 */
 	public deleteAllMediaItemsInCategory(categoryId: string): Promise<number> {
 
-		const conditions: Queryable<E> = {};
+		const conditions: Queryable<TMediaItemInternal> = {};
 		conditions.category = categoryId;
 
-		return queryHelper.delete(this.getModelType(), conditions);
+		return this.queryHelper.delete(conditions);
 	}
 
 	/**
@@ -216,29 +227,23 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 */
 	public deleteAllMediaItemsForUser(userId: string): Promise<number> {
 
-		const conditions: Queryable<E> = {};
+		const conditions: Queryable<TMediaItemInternal> = {};
 		conditions.owner = userId;
 
-		return queryHelper.delete(this.getModelType(), conditions);
+		return this.queryHelper.delete(conditions);
 	}
 
 	/**
 	 * Must be implemented by subclasses to define the default (e.g. for the "get all media items" API) sort conditions
 	 * @returns at least one sort condition
 	 */
-	protected abstract getDefaultSortBy(): S[];
-
-	/**
-	 * Must be implemented by subclasses to define the Mongoose model linked with the media item
-	 * @returns the Mongoose model
-	 */
-	protected abstract getModelType(): Model<E & Document>;
+	protected abstract getDefaultSortBy(): TMediaItemSortByInternal[];
 
 	/**
 	 * Must be implemented by subclasses to provide an empty Mongoose document of the linked model
 	 * @returns an empty Mongoose document
 	 */
-	protected abstract getNewEmptyDocument(): E & Document;
+	protected abstract getNewEmptyDocument(): TMediaItemInternal & Document;
 
 	/**
 	 * Must be implemented by subclasses to set the correct sort condition from a sortBy object. Implementations can call setCommonSortConditions()
@@ -247,7 +252,7 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * @param sortDirection the pre-computed sort direction to be assigned to the sort field
 	 * @param sortConditions the sort conditions where the sortDirection should be set according to the sortBy value
 	 */
-	protected abstract setSortConditions(sortBy: S, sortDirection: SortDirection, sortConditions: Sortable<E>): void;
+	protected abstract setSortConditions(sortBy: TMediaItemSortByInternal, sortDirection: SortDirection, sortConditions: Sortable<TMediaItemInternal>): void;
 
 	/**
 	 * Must be implemented by subclasses to (possibly) add more search conditions for the "search media item" API
@@ -255,9 +260,12 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * @param termRegExp the pre-computed RegExp of the search term
 	 * @param searchConditions the common search conditions where the implementation can push other fields
 	 */
-	protected abstract setSearchByTermConditions(term: string, termRegExp: RegExp, searchConditions: Queryable<E>[]): void;
+	protected abstract setSearchByTermConditions(term: string, termRegExp: RegExp, searchConditions: Queryable<TMediaItemInternal>[]): void;
 
-
+	/**
+	 * Must be implemented by subclasses to define the linked media type
+	 * @returns the linked media type
+	 */
 	protected abstract getLinkedMediaType(): MediaTypeInternal;
 
 	/**
@@ -266,7 +274,7 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	 * @param sortDirection the pre-computed sort direction to be assigned to the sort field
 	 * @param sortConditions the sort conditions where the sortDirection should be set according to the sortBy value
 	 */
-	protected setCommonSortConditions(sortByField: MediaItemSortFieldInternal, sortDirection: SortDirection, sortConditions: Sortable<E>): void {
+	protected setCommonSortConditions(sortByField: MediaItemSortFieldInternal, sortDirection: SortDirection, sortConditions: Sortable<TMediaItemInternal>): void {
 
 		switch(sortByField) {
 
@@ -292,7 +300,7 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 	/**
 	 * Helper to set the query conditions based on the given filters
 	 */
-	private setConditionsFromFilter(conditions: Queryable<E>, filterBy?: F): void {
+	private setConditionsFromFilter(conditions: Queryable<TMediaItemInternal>, filterBy?: TMediaItemFilterInternal): void {
 		
 		if(filterBy) {
 			

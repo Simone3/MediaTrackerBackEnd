@@ -22,11 +22,11 @@ const BookModel: Model<BookDocument> = model<BookDocument>(BOOK_COLLECTION_NAME,
 class BookEntityController extends MediaItemEntityController<BookInternal, BookSortByInternal, BookFilterInternal> {
 	
 	/**
-	 * @override
+	 * Constructor
 	 */
-	protected getModelType(): Model<BookInternal & Document> {
-		
-		return BookModel;
+	constructor() {
+
+		super(BookModel);
 	}
 	
 	/**

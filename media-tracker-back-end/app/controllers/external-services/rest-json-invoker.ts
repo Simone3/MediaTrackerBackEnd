@@ -20,7 +20,7 @@ export class RestJsonInvoker {
 	 * @param queryParams optional query parameters
 	 * @returns a promise that will eventually contain the parsed response body
 	 */
-	public invokeGet<O extends object>(parameters: InvocationParamsWithoutBody<O>): Promise<O> {
+	public invokeGet<TResponse extends object>(parameters: InvocationParamsWithoutBody<TResponse>): Promise<TResponse> {
 
 		return this.invokeHelper({
 			...parameters,
@@ -36,7 +36,7 @@ export class RestJsonInvoker {
 	 * @param queryParams optional query parameters
 	 * @returns a promise that will eventually contain the parsed response body
 	 */
-	public invokePost<I extends object, O extends object>(parameters: InvocationParamsWithBody<I, O>): Promise<O> {
+	public invokePost<TRequest extends object, TResponse extends object>(parameters: InvocationParamsWithBody<TRequest, TResponse>): Promise<TResponse> {
 
 		return this.invokeHelper({
 			...parameters,
@@ -47,7 +47,7 @@ export class RestJsonInvoker {
 	/**
 	 * Internal helper
 	 */
-	private invokeHelper<I, O extends object>(parameters: InternalInvocationParams<I, O>): Promise<O> {
+	private invokeHelper<TRequest extends object, TResponse extends object>(parameters: InternalInvocationParams<TRequest, TResponse>): Promise<TResponse> {
 
 		return new Promise((resolve, reject) => {
 
@@ -144,10 +144,10 @@ export const restJsonInvoker = new RestJsonInvoker();
 /**
  * Helper type for invocation parameters
  */
-export type InvocationParamsWithoutBody<O> = {
+export type InvocationParamsWithoutBody<TResponse> = {
 
 	url: string,
-	responseBodyClass: ClassType<O>,
+	responseBodyClass: ClassType<TResponse>,
 	timeoutMilliseconds?: number,
 	queryParams?: QueryParams
 };
@@ -155,15 +155,15 @@ export type InvocationParamsWithoutBody<O> = {
 /**
  * Helper type for invocation parameters
  */
-export type InvocationParamsWithBody<I, O> = InvocationParamsWithoutBody<O> & {
+export type InvocationParamsWithBody<TRequest, TResponse> = InvocationParamsWithoutBody<TResponse> & {
 
-	requestBody: I
+	requestBody: TRequest
 };
 
 /**
  * Internal helper type for invocation parameters
  */
-type InternalInvocationParams<I, O> = InvocationParamsWithoutBody<O> & Partial<InvocationParamsWithBody<I, O>> & {
+type InternalInvocationParams<TRequest, TResponse> = InvocationParamsWithoutBody<TResponse> & Partial<InvocationParamsWithBody<TRequest, TResponse>> & {
 
 	method: HttpMethod
 }

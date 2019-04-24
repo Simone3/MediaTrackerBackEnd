@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
 import { CategoryInternal } from "../../models/internal/category";
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from "../../schemas/category";
-import { Queryable, queryHelper, Sortable } from "../database/query-helper";
+import { Queryable, QueryHelper, Sortable } from "../database/query-helper";
 import { logger } from "../../loggers/logger";
 import { AbstractEntityController } from "./helper";
 import { groupController } from "./group";
@@ -36,6 +36,17 @@ type OrderBy = Sortable<CategoryInternal>;
  */
 class CategoryController extends AbstractEntityController {
 
+	private readonly queryHelper: QueryHelper<CategoryInternal, CategoryDocument, Model<CategoryDocument>>;
+
+	/**
+	 * Constructor
+	 */
+	constructor() {
+
+		super();
+		this.queryHelper = new QueryHelper(CategoryModel);
+	}
+
 	/**
 	 * Gets a single category, or undefined if not found
 	 * @param userId user ID
@@ -48,7 +59,7 @@ class CategoryController extends AbstractEntityController {
 			owner: userId
 		};
 
-		return queryHelper.findOne(CategoryModel, conditions);
+		return this.queryHelper.findOne(conditions);
 	}
 
 	/**
@@ -65,7 +76,7 @@ class CategoryController extends AbstractEntityController {
 			name: "asc"
 		};
 
-		return queryHelper.find(CategoryModel, conditions, sortBy);
+		return this.queryHelper.find(conditions, sortBy);
 	}
 
 	/**
@@ -84,7 +95,7 @@ class CategoryController extends AbstractEntityController {
 		if(allowSameName) {
 
 			logger.debug('Same name is allowed');
-			return queryHelper.save(category, new CategoryModel());
+			return this.queryHelper.save(category, new CategoryModel());
 		}
 		else {
 
@@ -93,7 +104,7 @@ class CategoryController extends AbstractEntityController {
 				owner: category.owner,
 				name: category.name
 			};
-			return queryHelper.checkUniquenessAndSave(CategoryModel, category, new CategoryModel(), conditions);
+			return this.queryHelper.checkUniquenessAndSave(category, new CategoryModel(), conditions);
 		}
 	}
 
@@ -114,7 +125,7 @@ class CategoryController extends AbstractEntityController {
 			return Promise.all([
 				groupController.deleteAllGroupsInCategory(categoryId),
 				mediaItemController.deleteAllMediaItemsInCategory(categoryId),
-				queryHelper.deleteById(CategoryModel, categoryId)
+				this.queryHelper.deleteById(categoryId)
 			])
 		});
 	}
@@ -130,7 +141,7 @@ class CategoryController extends AbstractEntityController {
 			owner: userId
 		};
 
-		return queryHelper.delete(CategoryModel, conditions);
+		return this.queryHelper.delete(conditions);
 	}
 
 	/**

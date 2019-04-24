@@ -1,7 +1,7 @@
 import { Document, Model, model } from "mongoose";
 import { GroupInternal } from "../../models/internal/group";
 import { GroupSchema, GROUP_COLLECTION_NAME } from "../../schemas/group";
-import { Queryable, queryHelper, Sortable } from "../database/query-helper";
+import { Queryable, QueryHelper, Sortable } from "../database/query-helper";
 import { logger } from "../../loggers/logger";
 import { AbstractEntityController } from "./helper";
 import { AppError } from "../../models/error/error";
@@ -35,6 +35,17 @@ type OrderBy = Sortable<GroupInternal>;
  */
 class GroupController extends AbstractEntityController {
 
+	private readonly queryHelper: QueryHelper<GroupInternal, GroupDocument, Model<GroupDocument>>;
+
+	/**
+	 * Constructor
+	 */
+	constructor() {
+
+		super();
+		this.queryHelper = new QueryHelper(GroupModel);
+	}
+
 	/**
 	 * Gets a single group, or undefined if not found
 	 * @param userId user ID
@@ -49,7 +60,7 @@ class GroupController extends AbstractEntityController {
 			category: categoryId
 		};
 
-		return queryHelper.findOne(GroupModel, conditions);
+		return this.queryHelper.findOne(conditions);
 	}
 	
 	/**
@@ -68,7 +79,7 @@ class GroupController extends AbstractEntityController {
 			name: "asc"
 		};
 
-		return queryHelper.find(GroupModel, conditions, sortBy);
+		return this.queryHelper.find(conditions, sortBy);
 	}
 
 	/**
@@ -87,7 +98,7 @@ class GroupController extends AbstractEntityController {
 		if(allowSameName) {
 
 			logger.debug('Same name is allowed');
-			return queryHelper.save(group, new GroupModel());
+			return this.queryHelper.save(group, new GroupModel());
 		}
 		else {
 
@@ -97,7 +108,7 @@ class GroupController extends AbstractEntityController {
 				category: group.category,
 				name: group.name
 			};
-			return queryHelper.checkUniquenessAndSave(GroupModel, group, new GroupModel(), conditions);
+			return this.queryHelper.checkUniquenessAndSave(group, new GroupModel(), conditions);
 		}
 	}
 
@@ -120,7 +131,7 @@ class GroupController extends AbstractEntityController {
 		}, () => {
 			return Promise.all([
 				mediaItemController.deleteAllMediaItemsInGroup(groupId),
-				queryHelper.deleteById(GroupModel, groupId)
+				this.queryHelper.deleteById(groupId)
 			])
 		});
 	}
@@ -136,7 +147,7 @@ class GroupController extends AbstractEntityController {
 			category: categoryId
 		};
 
-		return queryHelper.delete(GroupModel, conditions);
+		return this.queryHelper.delete(conditions);
 	}
 
 	/**
@@ -150,7 +161,7 @@ class GroupController extends AbstractEntityController {
 			owner: userId
 		};
 
-		return queryHelper.delete(GroupModel, conditions);
+		return this.queryHelper.delete(conditions);
 	}
 
 	/**

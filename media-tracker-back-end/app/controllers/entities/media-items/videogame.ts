@@ -22,11 +22,11 @@ const VideogameModel: Model<VideogameDocument> = model<VideogameDocument>(VIDEOG
 class VideogameEntityController extends MediaItemEntityController<VideogameInternal, VideogameSortByInternal, VideogameFilterInternal> {
 	
 	/**
-	 * @override
+	 * Constructor
 	 */
-	protected getModelType(): Model<VideogameInternal & Document> {
-		
-		return VideogameModel;
+	constructor() {
+
+		super(VideogameModel);
 	}
 	
 	/**

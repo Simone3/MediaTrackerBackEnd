@@ -2,23 +2,23 @@ import { SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal } from "
 
 /**
  * Abstract controller for a generic media item catalog
- * @template S the media item catalog search result
- * @template C the media item catalog details
+ * @template TSearchMediaItemCatalogResultInternal the media item catalog search result
+ * @template TCatalogMediaItemInternal the media item catalog details
  */
-export abstract class MediaItemCatalogController<S extends SearchMediaItemCatalogResultInternal, C extends CatalogMediaItemInternal> {
+export abstract class MediaItemCatalogController<TSearchMediaItemCatalogResultInternal extends SearchMediaItemCatalogResultInternal, TCatalogMediaItemInternal extends CatalogMediaItemInternal> {
 
 	/**
 	 * Searches the media item catalog by term
 	 * @param searchTerm the search term
 	 * @returns the list of catalog results, as a promise
 	 */
-	public abstract searchMediaItemCatalogByTerm(searchTerm: string): Promise<S[]>;
+	public abstract searchMediaItemCatalogByTerm(searchTerm: string): Promise<TSearchMediaItemCatalogResultInternal[]>;
 
 	/**
 	 * Loads the catalog details for a specific media item
 	 * @param catalogItemId the catalog-specific media item ID
 	 * @returns the catalog details, as a promise
 	 */
-	public abstract getMediaItemFromCatalog(catalogItemId: string): Promise<C>;
+	public abstract getMediaItemFromCatalog(catalogItemId: string): Promise<TCatalogMediaItemInternal>;
 }
 

@@ -14,7 +14,7 @@ export type MediaItemMapperParams = {
 /**
  * Abstract mapper for media items
  */
-export abstract class MediaItemMapper<I extends MediaItemInternal, E extends MediaItem> extends ModelMapper<I, E, MediaItemMapperParams> {
+export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemInternal, TMediaItem extends MediaItem> extends ModelMapper<TMediaItemInternal, TMediaItem, MediaItemMapperParams> {
 	
 	/**
 	 * Common mapping helper for implementations
@@ -62,7 +62,7 @@ export abstract class MediaItemMapper<I extends MediaItemInternal, E extends Med
 /**
  * Abstract mapper for media item filters
  */
-export abstract class MediaItemFilterMapper<I extends MediaItemFilterInternal, E extends MediaItemFilter> extends ModelMapper<I, E, never> {
+export abstract class MediaItemFilterMapper<TMediaItemFilterInternal extends MediaItemFilterInternal, TMediaItemFilter extends MediaItemFilter> extends ModelMapper<TMediaItemFilterInternal, TMediaItemFilter, never> {
 	
 	/**
 	 * Common mapping helper for implementations
@@ -90,7 +90,7 @@ export abstract class MediaItemFilterMapper<I extends MediaItemFilterInternal, E
 /**
  * Abstract mapper for media item sort options
  */
-export abstract class MediaItemSortMapper<I extends MediaItemSortByInternal, E extends MediaItemSortBy> extends ModelMapper<I, E, never> {
+export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends MediaItemSortByInternal, TMediaItemSortBy extends MediaItemSortBy> extends ModelMapper<TMediaItemSortByInternal, TMediaItemSortBy, never> {
 	
 	/**
 	 * Common mapping helper for implementations
@@ -144,7 +144,7 @@ export abstract class MediaItemSortMapper<I extends MediaItemSortByInternal, E e
 /**
  * Abstract mapper for media item catalog search results
  */
-export abstract class MediaItemCatalogSearchMapper<I extends SearchMediaItemCatalogResultInternal, E extends SearchMediaItemCatalogResult> extends ModelMapper<I, E, never> {
+export abstract class MediaItemCatalogSearchMapper<TSearchMediaItemCatalogResultInternal extends SearchMediaItemCatalogResultInternal, TSearchMediaItemCatalogResult extends SearchMediaItemCatalogResult> extends ModelMapper<TSearchMediaItemCatalogResultInternal, TSearchMediaItemCatalogResult, never> {
 	
 	/**
 	 * Common mapping helper for implementations
@@ -174,7 +174,7 @@ export abstract class MediaItemCatalogSearchMapper<I extends SearchMediaItemCata
 /**
  * Abstract mapper for media item catalog details
  */
-export abstract class MediaItemCatalogDetailsMapper<I extends CatalogMediaItemInternal, E extends CatalogMediaItem> extends ModelMapper<I, E, never> {
+export abstract class MediaItemCatalogDetailsMapper<TCatalogMediaItemInternal extends CatalogMediaItemInternal, TCatalogMediaItem extends CatalogMediaItem> extends ModelMapper<TCatalogMediaItemInternal, TCatalogMediaItem, never> {
 	
 	/**
 	 * Common mapping helper for implementations
