@@ -328,6 +328,7 @@ export abstract class MediaItemEntityController<E extends MediaItemInternal, S e
 
 				let mediaItemCheckPromise: Promise<PersistedEntityInternal | undefined>;
 
+				// Preconditions are different when it's a new media item or an existing one
 				if(mediaItemId) {
 
 					// Make sure the media item exists

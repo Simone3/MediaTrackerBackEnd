@@ -9,6 +9,7 @@ import { userController } from "./user";
 import { UserInternal } from "../../models/internal/user";
 import { AppError } from "../../models/error/error";
 import { mediaItemFactory } from "../../factories/media-item";
+import { MediaItemInternal } from "../../models/internal/media-items/media-item";
 
 /**
  * Mongoose document for categories
@@ -77,7 +78,8 @@ class CategoryController extends AbstractEntityController {
 		await this.checkWritePreconditions(
 			AppError.DATABASE_SAVE.withDetails(category._id ? 'Category does not exists for given user' : 'User does not exist'),
 			category.owner,
-			category._id);
+			category._id,
+			category);
 
 		if(allowSameName) {
 
@@ -137,23 +139,36 @@ class CategoryController extends AbstractEntityController {
 	 * @param user the user
 	 * @param categoryId the category ID (optional to use this method for new inserts)
 	 */
-	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, categoryId?: string): Promise<void> {
+	private async checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, categoryId?: string, newCategoryData?: CategoryInternal): Promise<void> {
 
-		return this.checkExistencePreconditionsHelper(errorToThow, () => {
+		const userId = typeof(user) === 'string' ? user : user._id;
 
-			const userId = typeof(user) === 'string' ? user : user._id;
+		// Preconditions are different when it's a new category or an existing one
+		if(categoryId) {
 
-			if(categoryId) {
+			// First check that the category exists
+			const categoryCheckPromise = this.getCategory(userId, categoryId);
+			await this.checkExistencePreconditionsHelper(errorToThow, () => categoryCheckPromise);
 
-				// Make sure the category exists
-				return this.getCategory(userId, categoryId);
+			// Then, if the media type changes, check that the category is empty
+			const category = await categoryCheckPromise;
+			if(category && newCategoryData && category.mediaType !== newCategoryData.mediaType) {
+
+				const mediaItemController = await mediaItemFactory.getEntityControllerFromCategoryId(userId, categoryId);
+				const mediaItems: MediaItemInternal[] = await mediaItemController.getAllMediaItemsInCategory(categoryId);
+				if(mediaItems.length > 0) {
+
+					throw AppError.DATABASE_SAVE.withDetails('Cannot change category media type if it contains media items');
+				}
 			}
-			else {
+			return;
+		}
+		else {
 
-				// Make sure the user exists
-				return userController.getUser(userId);
-			}
-		});
+			// Make sure the user exists
+			await this.checkExistencePreconditionsHelper(errorToThow, () => userController.getUser(userId));
+			return;
+		}
 	}
 }
 
