@@ -1,7 +1,9 @@
 import { QueryHelper } from 'app/controllers/database/query-helper';
 import { PersistedEntityInternal } from 'app/models/internal/common';
 import chai from 'chai';
-import mongoose, { Document, model, Model, Schema } from 'mongoose';
+import { Document, model, Model, Schema } from 'mongoose';
+import { setupTestDatabaseConnection } from 'test/helpers/test-database-helper';
+import { randomName } from 'test/helpers/test-misc-helper';
 
 const expect = chai.expect;
 
@@ -16,11 +18,11 @@ const TestSchema = new Schema({
 
 interface TestDocument extends TestInternalModel, Document {}
 
-const TestModel = model<TestDocument>('Name', TestSchema);
+const TestModel = model<TestDocument>('TestModel', TestSchema);
 
-const randomName = (): string => {
+const mapEntityToString = (entity: TestInternalModel): string => {
 
-	return `MyTest-${10000 * Math.random()}`;
+	return `${String(entity._id)} - ${entity.name}`;
 };
 
 /**
@@ -28,57 +30,9 @@ const randomName = (): string => {
  */
 describe('QueryHelper Tests', () => {
 	
-	/**
-	 * Init connection on startup
-	 */
-	before((done) => {
-
-		mongoose.connect('mongodb://localhost/mediaTrackerBackEndTestDatabase');
-		const db = mongoose.connection;
-
-		db.on('error', (error) => {
-
-			done(`Test database connection error: ${error}`);
-		});
-
-		db.once('open', () => {
-			
-			done();
-		});
-	});
-
-	/**
-	 * Drop database after each test
-	 */
-	afterEach((done) => {
-
-		mongoose.connection.db.dropDatabase((error) => {
-
-			if(error) {
-
-				done(error);
-			}
-			else {
-
-				done();
-			}
-		});
-	});
-
-	/**
-	 * Close connection at the end
-	 */
-	after((done) => {
-		
-		mongoose.connection.close(done);
-	});
-
+	setupTestDatabaseConnection();
+	
 	const queryHelper = new QueryHelper<TestInternalModel, TestDocument, Model<TestDocument>>(TestModel);
-
-	const mapEntityToString = (entity: TestInternalModel): string => {
-
-		return `${String(entity._id)} - ${entity.name}`;
-	};
 
 	describe('Database Write Queries', () => {
 
