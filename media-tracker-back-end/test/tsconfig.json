@@ -1,0 +1,13 @@
+{
+	"extends": "../tsconfig.common.json",
+	"compilerOptions": {
+		"outDir": "build-test",
+		"baseUrl": "./",
+		"paths" : {
+		  "app/*": ["../app/*"],
+		  "test/*": ["../test/*"]
+		}
+	},
+	"include": ["../app/**/*", "../test/**/*"],
+	"exclude": ["../node_modules"]
+}
