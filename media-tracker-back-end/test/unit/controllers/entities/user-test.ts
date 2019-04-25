@@ -28,7 +28,6 @@ describe('UserController Tests', () => {
 
 			const insertedUser = await userController.saveUser({ _id: undefined, name: randomName() });
 			const insertedId = insertedUser._id;
-			expect(insertedUser._id, 'SaveUser (insert) returned empty ID').to.exist;
 
 			const newName = `Changed-${randomName()}`;
 			await userController.saveUser({ _id: insertedId, name: newName });

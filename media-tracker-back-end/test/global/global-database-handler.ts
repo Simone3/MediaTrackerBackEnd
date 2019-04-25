@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 
-/**
- * Init connection on startup
- */
+// Init connection on startup
 before((done) => {
 
 	mongoose.connect('mongodb://localhost/mediaTrackerBackEndTestDatabase');
@@ -19,9 +17,7 @@ before((done) => {
 	});
 });
 
-/**
- * Drop database after each test
- */
+// Drop database after each test
 afterEach((done) => {
 
 	mongoose.connection.db.dropDatabase((error) => {
@@ -37,9 +33,7 @@ afterEach((done) => {
 	});
 });
 
-/**
- * Close connection at the end
- */
+// Close connection at the end
 after((done) => {
 	
 	mongoose.connection.close(done);

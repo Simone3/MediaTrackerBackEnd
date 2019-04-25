@@ -146,7 +146,7 @@ describe('QueryHelper Tests', () => {
 
 			const foundEntities = await queryHelper.find({});
 			expect(foundEntities, 'Find did not return the correct number of results').to.have.lengthOf(insertedEntities.length);
-			expect(foundEntities.map(mapEntityToString), 'Find did not return the correct results').to.eql(insertedEntities.map(mapEntityToString));
+			expect(foundEntities.map(mapEntityToString), 'Find did not return the correct results').to.have.members(insertedEntities.map(mapEntityToString));
 		});
 
 		it('Find with valid conditions should return the matching entities', async() => {
@@ -159,7 +159,7 @@ describe('QueryHelper Tests', () => {
 
 			const foundEntities = await queryHelper.find({ name: nameToFind });
 			expect(foundEntities, 'Find did not return the correct number of results').to.have.lengthOf(1);
-			expect(String(foundEntities[0]._id), 'Find did not return the correct results').to.eql(String(insertedEntities[1]._id));
+			expect(String(foundEntities[0]._id), 'Find did not return the correct results').to.equal(String(insertedEntities[1]._id));
 		});
 
 		it('FindOne should return undefined if empty database', async() => {
