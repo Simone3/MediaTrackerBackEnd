@@ -4,6 +4,7 @@ import { databaseManager } from 'app/controllers/database/database-manager';
 import { finalizeAndCloseAllLoggers, logger } from 'app/loggers/logger';
 import { server } from 'app/server/server';
 import exitHook from 'exit-hook';
+import { AppError } from './models/error/error';
 
 /**
  * Initializes the application
@@ -23,8 +24,8 @@ export const init = (): void => {
 			})
 			.catch((error) => {
 	
-				logger.error('Database connection error: %s, exiting...', error);
-				process.exit(1);
+				logger.error('Database connection error: %s', error);
+				throw AppError.DATABASE_INIT.withDetails(error);
 			});
 	});
 

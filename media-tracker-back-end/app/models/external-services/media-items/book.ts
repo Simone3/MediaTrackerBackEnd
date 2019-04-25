@@ -15,8 +15,8 @@ export class GoogleBooksVolumeLight {
 	public publishedDate?: string;
 
 	@IsOptional()
-	@IsNotEmpty({each: true})
-	@IsString({each: true})
+	@IsNotEmpty({ each: true })
+	@IsString({ each: true })
 	public authors?: string[];
 }
 
@@ -30,7 +30,9 @@ export class GoogleBooksSearchResult {
 	public id!: string;
 
 	@IsDefined()
-	@Type(() => GoogleBooksVolumeLight)
+	@Type(() => {
+		return GoogleBooksVolumeLight;
+	})
 	@ValidateNested()
 	public volumeInfo!: GoogleBooksVolumeLight;
 }
@@ -41,8 +43,10 @@ export class GoogleBooksSearchResult {
 export class GoogleBooksSearchResponse {
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => GoogleBooksSearchResult)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return GoogleBooksSearchResult;
+	})
 	@ValidateNested()
 	public items?: GoogleBooksSearchResult[];
 }
@@ -67,8 +71,8 @@ export class GoogleBooksImageLinks {
 export class GoogleBooksVolumeFull extends GoogleBooksVolumeLight {
 
 	@IsOptional()
-	@IsNotEmpty({each: true})
-	@IsString({each: true})
+	@IsNotEmpty({ each: true })
+	@IsString({ each: true })
 	public categories?: string[];
 
 	@IsOptional()
@@ -80,7 +84,9 @@ export class GoogleBooksVolumeFull extends GoogleBooksVolumeLight {
 	public pageCount?: number;
 
 	@IsOptional()
-	@Type(() => GoogleBooksImageLinks)
+	@Type(() => {
+		return GoogleBooksImageLinks;
+	})
 	@ValidateNested()
 	public imageLinks?: GoogleBooksImageLinks;
 }
@@ -95,7 +101,9 @@ export class GoogleBooksDetailsResponse {
 	public id!: string;
 
 	@IsDefined()
-	@Type(() => GoogleBooksVolumeFull)
+	@Type(() => {
+		return GoogleBooksVolumeFull;
+	})
 	@ValidateNested()
 	public volumeInfo!: GoogleBooksVolumeFull;
 }

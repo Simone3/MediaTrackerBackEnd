@@ -1,5 +1,6 @@
 import { stringUtils } from 'app/controllers/utilities/misc-utils';
 import { ModelMapper } from 'app/mappers/common';
+import { AppError } from 'app/models/error/error';
 import { GoogleBooksDetailsResponse, GoogleBooksSearchResult, GoogleBooksVolumeLight } from 'app/models/external-services/media-items/book';
 import { CatalogBookInternal, SearchBookCatalogResultInternal } from 'app/models/internal/media-items/book';
 
@@ -13,7 +14,7 @@ class BookExternalSearchServiceMapper extends ModelMapper<SearchBookCatalogResul
 	 */
 	protected convertToExternal(): GoogleBooksSearchResult {
 
-		throw 'convertToExternal unimplemented'
+		throw AppError.GENERIC.withDetails('convertToExternal unimplemented');
 	}
 	
 	/**
@@ -39,7 +40,7 @@ class BookExternalDetailsServiceMapper extends ModelMapper<CatalogBookInternal, 
 	 */
 	protected convertToExternal(): GoogleBooksDetailsResponse {
 
-		throw 'convertToExternal unimplemented'
+		throw AppError.GENERIC.withDetails('convertToExternal unimplemented');
 	}
 	
 	/**
@@ -71,5 +72,4 @@ export const bookExternalSearchServiceMapper = new BookExternalSearchServiceMapp
  * Singleton instance of book details external service mapper
  */
 export const bookExternalDetailsServiceMapper = new BookExternalDetailsServiceMapper();
-
 

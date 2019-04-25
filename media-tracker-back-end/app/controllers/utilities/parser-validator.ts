@@ -30,7 +30,7 @@ class ParserValidator {
 				forbidNonWhitelisted: true,
 				forbidUnknownValues: true
 			}
-		}
+		};
 	}
 }
 

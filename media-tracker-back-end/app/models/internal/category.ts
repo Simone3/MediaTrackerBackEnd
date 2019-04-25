@@ -5,7 +5,7 @@ import { UserInternal } from 'app/models/internal/user';
 /**
  * Array of all media types, internal type NOT to be exposed via API
  */
-export const INTERNAL_MEDIA_TYPES: ['BOOK', 'MOVIE', 'TV_SHOW', 'VIDEOGAME'] = ['BOOK', 'MOVIE', 'TV_SHOW', 'VIDEOGAME'];
+export const INTERNAL_MEDIA_TYPES: [ 'BOOK', 'MOVIE', 'TV_SHOW', 'VIDEOGAME' ] = [ 'BOOK', 'MOVIE', 'TV_SHOW', 'VIDEOGAME' ];
 
 /**
  * A category media type, internal type NOT to be exposed via API

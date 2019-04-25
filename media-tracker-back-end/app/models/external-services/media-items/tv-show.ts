@@ -25,8 +25,10 @@ export class TmdbTvShowSearchResult {
 export class TmdbTvShowSearchResponse {
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TmdbTvShowSearchResult)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return TmdbTvShowSearchResult;
+	})
 	@ValidateNested()
 	public results?: TmdbTvShowSearchResult[];
 }
@@ -69,8 +71,10 @@ export class TmdbTvShowDetailsResponse {
 	public in_production?: boolean;
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TmdbTvShowGenre)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return TmdbTvShowGenre;
+	})
 	@ValidateNested()
 	public genres?: TmdbTvShowGenre[];
 
@@ -83,7 +87,7 @@ export class TmdbTvShowDetailsResponse {
 	public overview?: string;
 
 	@IsOptional()
-	@IsInt({each: true})
+	@IsInt({ each: true })
 	public episode_run_time?: number[];
 
 	@IsOptional()
@@ -95,8 +99,10 @@ export class TmdbTvShowDetailsResponse {
 	public number_of_seasons?: number;
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TmdbTvShowCreator)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return TmdbTvShowCreator;
+	})
 	@ValidateNested()
 	public created_by?: TmdbTvShowCreator[];
  
@@ -121,8 +127,10 @@ export class TmdbTvShowEpisode {
 export class TmdbTvShowSeasonDataResponse {
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TmdbTvShowEpisode)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return TmdbTvShowEpisode;
+	})
 	@ValidateNested()
 	public episodes?: TmdbTvShowEpisode[];
 }

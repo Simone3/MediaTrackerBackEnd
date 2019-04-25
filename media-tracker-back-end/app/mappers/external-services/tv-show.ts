@@ -1,5 +1,6 @@
 import { stringUtils } from 'app/controllers/utilities/misc-utils';
 import { ModelMapper } from 'app/mappers/common';
+import { AppError } from 'app/models/error/error';
 import { TmdbTvShowCreator, TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeasonDataResponse } from 'app/models/external-services/media-items/tv-show';
 import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from 'app/models/internal/media-items/tv-show';
 
@@ -13,7 +14,7 @@ class TvShowExternalSearchServiceMapper extends ModelMapper<SearchTvShowCatalogR
 	 */
 	protected convertToExternal(): TmdbTvShowSearchResult {
 
-		throw 'convertToExternal unimplemented'
+		throw AppError.GENERIC.withDetails('convertToExternal unimplemented');
 	}
 	
 	/**
@@ -46,7 +47,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 	 */
 	protected convertToExternal(): TmdbTvShowDetailsResponse {
 
-		throw 'convertToExternal unimplemented'
+		throw AppError.GENERIC.withDetails('convertToExternal unimplemented');
 	}
 	
 	/**
@@ -67,7 +68,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 	 */
 	private getCreator(creators?: TmdbTvShowCreator[]): string | undefined {
 
-		return stringUtils.join(creators, ', ', undefined, ['name']);
+		return stringUtils.join(creators, ', ', undefined, [ 'name' ]);
 	}
 
 	/**
@@ -115,5 +116,3 @@ export const tvShowExternalSearchServiceMapper = new TvShowExternalSearchService
  * Singleton instance of TV show details external service mapper
  */
 export const tvShowExternalDetailsServiceMapper = new TvShowExternalDetailsServiceMapper();
-
-

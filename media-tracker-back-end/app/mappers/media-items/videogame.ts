@@ -16,7 +16,7 @@ class VideogameMapper extends MediaItemMapper<VideogameInternal, IdentifiedVideo
 			...this.commonToExternal(source),
 			uid: source._id,
 			developer: source.developer
-		}
+		};
 	}
 		
 	/**
@@ -26,9 +26,9 @@ class VideogameMapper extends MediaItemMapper<VideogameInternal, IdentifiedVideo
 		
 		return {
 			...this.commonToInternal(source, extraParams),
-			_id: (source.uid ? source.uid : null),
+			_id: source.uid ? source.uid : null,
 			developer: source.developer
-		}
+		};
 	}
 }
 
@@ -180,11 +180,4 @@ export const videogameCatalogSearchMapper = new VideogameCatalogSearchMapper();
  * Singleton instance of the videogames catalog details mapper
  */
 export const videogameCatalogDetailsMapper = new VideogameCatalogDetailsMapper();
-
-
-
-
-
-
-
 

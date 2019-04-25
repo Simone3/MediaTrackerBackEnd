@@ -37,8 +37,10 @@ export class GiantBombSearchResult {
 export class GiantBombSearchResponse {
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => GiantBombSearchResult)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return GiantBombSearchResult;
+	})
 	@ValidateNested()
 	public results?: GiantBombSearchResult[];
 }
@@ -107,8 +109,10 @@ export class GiantBombImage {
 export class GiantBombDetailsResult extends GiantBombSearchResult {
 	
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => GiantBombGenre)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return GiantBombGenre;
+	})
 	@ValidateNested()
 	public genres?: GiantBombGenre[];
 
@@ -117,25 +121,33 @@ export class GiantBombDetailsResult extends GiantBombSearchResult {
 	public deck?: string;
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => GiantBombDeveloper)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return GiantBombDeveloper;
+	})
 	@ValidateNested()
 	public developers?: GiantBombDeveloper[];
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => GiantBombPublisher)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return GiantBombPublisher;
+	})
 	@ValidateNested()
 	public publishers?: GiantBombPublisher[];
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => GiantBombPlatform)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return GiantBombPlatform;
+	})
 	@ValidateNested()
 	public platforms?: GiantBombPlatform[];
 
 	@IsOptional()
-	@Type(() => GiantBombImage)
+	@Type(() => {
+		return GiantBombImage;
+	})
 	@ValidateNested()
 	public image?: GiantBombImage;
 }
@@ -146,7 +158,9 @@ export class GiantBombDetailsResult extends GiantBombSearchResult {
 export class GiantBombDetailsResponse {
 
 	@IsDefined()
-	@Type(() => GiantBombDetailsResult)
+	@Type(() => {
+		return GiantBombDetailsResult;
+	})
 	@ValidateNested()
 	public results!: GiantBombDetailsResult;
 }

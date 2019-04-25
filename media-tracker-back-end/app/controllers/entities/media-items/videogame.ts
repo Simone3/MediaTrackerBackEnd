@@ -87,4 +87,3 @@ class VideogameEntityController extends MediaItemEntityController<VideogameInter
  */
 export const videogameEntityController = new VideogameEntityController();
 
-

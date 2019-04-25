@@ -16,7 +16,7 @@ class TvShowMapper extends MediaItemMapper<TvShowInternal, IdentifiedTvShow> {
 			...this.commonToExternal(source),
 			uid: source._id,
 			creator: source.creator
-		}
+		};
 	}
 		
 	/**
@@ -26,9 +26,9 @@ class TvShowMapper extends MediaItemMapper<TvShowInternal, IdentifiedTvShow> {
 		
 		return {
 			...this.commonToInternal(source, extraParams),
-			_id: (source.uid ? source.uid : null),
+			_id: source.uid ? source.uid : null,
 			creator: source.creator
-		}
+		};
 	}
 }
 
@@ -182,11 +182,4 @@ export const tvShowCatalogSearchMapper = new TvShowCatalogSearchMapper();
  * Singleton instance of the TV shows catalog details mapper
  */
 export const tvShowCatalogDetailsMapper = new TvShowCatalogDetailsMapper();
-
-
-
-
-
-
-
 

@@ -4,8 +4,8 @@ import { Schema } from 'mongoose';
  * Database schema for users
  */
 export const UserSchema: Schema = new Schema({
-	name: {type: String, required: true},
-	author: {type: String, required: false}
+	name: { type: String, required: true },
+	author: { type: String, required: false }
 }, {
 	timestamps: true
 });

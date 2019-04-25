@@ -14,6 +14,7 @@ class RequestScopeContext {
 
 		return httpContext.get(this.CORRELATION_ID);
 	}
+	
 	public set correlationId(value: string | undefined) {
 		
 		httpContext.set(this.CORRELATION_ID, value);

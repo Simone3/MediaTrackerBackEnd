@@ -30,10 +30,10 @@ export abstract class AbstractEntityController {
 
 			// Perform the cleanup
 			let deleted = 0;
-			let deletedElementsCount = await deleteCallback();
+			const deletedElementsCount = await deleteCallback();
 			if(deletedElementsCount instanceof Array) {
 
-				for(let count of deletedElementsCount) {
+				for(const count of deletedElementsCount) {
 
 					deleted += count;
 				}
@@ -55,7 +55,7 @@ export abstract class AbstractEntityController {
 	 * Helper to check that one or more persisted entities exist
 	 * @param errorToThrow the error to throw if preconditions fail
 	 * @param checkCallback callback that returns a promise containing either undefined (= no entity found = precondition fail), a single entity (= entity found =
-	 *                      precondition pass) or an array of possibly undefined entities (if all defined, = precondition pass; if at least one undefined, = 
+	 *                      precondition pass) or an array of possibly undefined entities (if all defined, = precondition pass; if at least one undefined, =
 	 *                      precondition fail)
 	 */
 	protected checkExistencePreconditionsHelper(errorToThrow: AppError, checkCallback: () => Promise<PersistedEntityInternal | undefined | (PersistedEntityInternal | undefined)[]>): Promise<void> {
@@ -69,7 +69,7 @@ export abstract class AbstractEntityController {
 
 						if(result instanceof Array) {
 
-							for(let resultValue of result) {
+							for(const resultValue of result) {
 
 								if(!resultValue) {
 
@@ -98,7 +98,7 @@ export abstract class AbstractEntityController {
 
 					// Generic error, KO
 					reject(errorToThrow.withDetails(error));
-				})
+				});
 		});
 	}
 }

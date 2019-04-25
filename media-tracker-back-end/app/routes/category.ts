@@ -9,7 +9,7 @@ import { ErrorResponse } from 'app/models/api/common';
 import { AppError } from 'app/models/error/error';
 import express, { Router } from 'express';
 
-var router: Router = express.Router();
+const router: Router = express.Router();
 
 /**
  * Route to get all saved categories
@@ -21,11 +21,11 @@ router.get('/users/:userId/categories', (request, response) => {
 	categoryController.getAllCategories(userId)
 		.then((categories) => {
 
-			const body: GetAllCategoriesResponse = {
+			const responseBody: GetAllCategoriesResponse = {
 				categories: categoryMapper.toExternalList(categories)
 			};
 			
-			response.json(body);
+			response.json(responseBody);
 		})
 		.catch((error) => {
 
@@ -33,7 +33,6 @@ router.get('/users/:userId/categories', (request, response) => {
 			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
 		});
 });
-
 
 /**
  * Route to add a new category
@@ -43,17 +42,17 @@ router.post('/users/:userId/categories', (request, response) => {
 	const userId: string = request.params.userId;
 
 	parserValidator.parseAndValidate(AddCategoryRequest, request.body)
-		.then((body) => {
+		.then((parsedRequest) => {
 
-			const newCategory = categoryMapper.toInternal({...body.newCategory, uid: ''}, {userId});
-			categoryController.saveCategory(newCategory, body.allowSameName)
+			const newCategory = categoryMapper.toInternal({ ...parsedRequest.newCategory, uid: '' }, { userId });
+			categoryController.saveCategory(newCategory, parsedRequest.allowSameName)
 				.then(() => {
 			
-					const body: AddCategoryResponse = {
+					const responseBody: AddCategoryResponse = {
 						message: 'Category successfully added'
 					};
 
-					response.json(body);
+					response.json(responseBody);
 				})
 				.catch((error) => {
 
@@ -77,17 +76,17 @@ router.put('/users/:userId/categories/:id', (request, response) => {
 	const id: string = request.params.id;
 
 	parserValidator.parseAndValidate(UpdateCategoryRequest, request.body)
-		.then((body) => {
+		.then((parsedRequest) => {
 
-			const category = categoryMapper.toInternal({...body.category, uid: id}, {userId});
-			categoryController.saveCategory(category, body.allowSameName)
+			const category = categoryMapper.toInternal({ ...parsedRequest.category, uid: id }, { userId });
+			categoryController.saveCategory(category, parsedRequest.allowSameName)
 				.then(() => {
 				
-					const body: UpdateCategoryResponse = {
+					const responseBody: UpdateCategoryResponse = {
 						message: 'Category successfully updated'
 					};
 
-					response.json(body);
+					response.json(responseBody);
 				})
 				.catch((error) => {
 
@@ -115,11 +114,11 @@ router.delete('/users/:userId/categories/:id', (request, response) => {
 	categoryController.deleteCategory(userId, id, forceEvenIfNotEmpty)
 		.then(() => {
 			
-			const body: DeleteCategoryResponse = {
+			const responseBody: DeleteCategoryResponse = {
 				message: 'Category successfully deleted'
 			};
 
-			response.json(body);
+			response.json(responseBody);
 		})
 		.catch((error) => {
 

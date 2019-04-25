@@ -6,7 +6,7 @@ import { IsDefined, IsIn, IsNotEmpty, IsString, ValidateNested } from 'class-val
 /**
  * Array of all media types, publicly exposed via API
  */
-export const MEDIA_TYPES: ['BOOK', 'MOVIE', 'TV_SHOW', 'VIDEOGAME'] = ['BOOK', 'MOVIE', 'TV_SHOW', 'VIDEOGAME'];
+export const MEDIA_TYPES: [ 'BOOK', 'MOVIE', 'TV_SHOW', 'VIDEOGAME' ] = [ 'BOOK', 'MOVIE', 'TV_SHOW', 'VIDEOGAME' ];
 
 /**
  * A category media type, publicly exposed via API
@@ -32,7 +32,7 @@ export class Category {
 	@IsString()
 	@IsIn(MEDIA_TYPES)
 	public mediaType!: MediaType
-};
+}
 
 /**
  * Model for a category with an ID property, publicly exposed via API
@@ -45,7 +45,7 @@ export class IdentifiedCategory extends Category {
 	@IsNotEmpty()
 	@IsString()
 	public uid!: string;
-};
+}
 
 /**
  * Request for the 'add category' API
@@ -56,10 +56,12 @@ export class AddCategoryRequest extends CommonSaveRequest {
 	 * The category to add
 	 */
 	@IsDefined()
-	@Type(() => Category)
+	@Type(() => {
+		return Category;
+	})
 	@ValidateNested()
 	public newCategory!: Category;
-};
+}
 
 /**
  * Response for the 'add category' API
@@ -81,7 +83,7 @@ export class DeleteCategoryResponse extends CommonResponse {
 export class GetAllCategoriesResponse extends CommonResponse {
 
 	public categories: IdentifiedCategory[] = [];
-};
+}
 
 /**
  * Request for the 'update category' API
@@ -92,10 +94,12 @@ export class UpdateCategoryRequest extends CommonSaveRequest {
 	 * The category to update
 	 */
 	@IsDefined()
-	@Type(() => Category)
+	@Type(() => {
+		return Category;
+	})
 	@ValidateNested()
 	public category!: Category;
-};
+}
 
 /**
  * Response for the 'update category' API

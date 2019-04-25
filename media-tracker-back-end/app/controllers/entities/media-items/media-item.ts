@@ -15,7 +15,7 @@ import { Document, Model } from 'mongoose';
 /**
  * Abstract controller for media item entities
  * @template TMediaItemInternal the media item entity
- * @template TMediaItemSortByInternal the media item sort conditions 
+ * @template TMediaItemSortByInternal the media item sort conditions
  * @template TMediaItemFilterInternal the media item filter conditions
  */
 export abstract class MediaItemEntityController<TMediaItemInternal extends MediaItemInternal, TMediaItemSortByInternal extends MediaItemSortByInternal, TMediaItemFilterInternal extends MediaItemFilterInternal> extends AbstractEntityController {
@@ -102,7 +102,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 			for(const value of sortBy) {
 
-				let sortDirection: SortDirection = value.ascending ? 'asc' : 'desc';
+				const sortDirection: SortDirection = value.ascending ? 'asc' : 'desc';
 				this.setSortConditions(value, sortDirection, sortConditions);
 			}
 		}
@@ -135,8 +135,8 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 		// Complete query conditions
 		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions.owner = userId,
-		conditions.category = categoryId,
+		conditions.owner = userId;
+		conditions.category = categoryId;
 		conditions.$or = searchConditions;
 		this.setConditionsFromFilter(conditions, filterBy);
 
@@ -159,7 +159,8 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 			mediaItem.owner,
 			mediaItem.category,
 			mediaItem.group,
-			mediaItem._id);
+			mediaItem._id
+		);
 
 		if(allowSameName) {
 
@@ -192,7 +193,8 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 			userId,
 			categoryId,
 			undefined,
-			mediaItemId);
+			mediaItemId
+		);
 
 		return this.queryHelper.deleteById(mediaItemId);
 	}
@@ -330,9 +332,9 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 			this.checkExistencePreconditionsHelper(errorToThow, () => {
 
-				const userId = typeof(user) === 'string' ? user : user._id;
-				const categoryId = typeof(category) === 'string' ? category : category._id;
-				const groupId = !group || typeof(group) === 'string' ? group : group._id;
+				const userId = typeof user === 'string' ? user : user._id;
+				const categoryId = typeof category === 'string' ? category : category._id;
+				const groupId = !group || typeof group === 'string' ? group : group._id;
 
 				let mediaItemCheckPromise: Promise<PersistedEntityInternal | undefined>;
 
@@ -348,9 +350,9 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 					const categoryCheckPromise = categoryController.getCategory(userId, categoryId);
 
 					// Check that media item and category media types are compatible (first then())
-					categoryCheckPromise.then((category) => {
+					categoryCheckPromise.then((retrievedCategory) => {
 
-						if(category && category.mediaType !== this.getLinkedMediaType()) {
+						if(retrievedCategory && retrievedCategory.mediaType !== this.getLinkedMediaType()) {
 
 							reject(AppError.DATABASE_SAVE.withDetails('Media item and category have incompatible media types'));
 						}
@@ -384,5 +386,4 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 		});
 	}
 }
-
 

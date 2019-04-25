@@ -26,7 +26,7 @@ export class Videogame extends MediaItem {
 	@IsOptional()
 	@IsString()
 	public developer?: string;
-};
+}
 
 /**
  * Model for a videogame with an ID property, publicly exposed via API
@@ -39,12 +39,12 @@ export class IdentifiedVideogame extends Videogame {
 	@IsNotEmpty()
 	@IsString()
 	public uid!: string;
-};
+}
 
 /**
  * Videogame filtering options, publicly exposed via API
  */
-export class VideogameFilter extends MediaItemFilter{
+export class VideogameFilter extends MediaItemFilter {
 
 }
 
@@ -57,7 +57,7 @@ export class VideogameSortField extends MediaItemSortField {
 	
 	public static values(): string[] {
 
-		return [...MediaItemSortField.commonValues(), this.DEVELOPER];
+		return [ ...MediaItemSortField.commonValues(), this.DEVELOPER ];
 	}
 }
 
@@ -91,10 +91,12 @@ export class AddVideogameRequest extends AddMediaItemRequest {
 	 * The videogame to add
 	 */
 	@IsDefined()
-	@Type(() => Videogame)
+	@Type(() => {
+		return Videogame;
+	})
 	@ValidateNested()
 	public newVideogame!: Videogame;
-};
+}
 
 /**
  * Response for the 'get all videogames' API
@@ -105,7 +107,7 @@ export class GetAllVideogamesResponse extends GetAllMediaItemsResponse {
 	 * The retrieved videogames
 	 */
 	public videogames: IdentifiedVideogame[] = [];
-};
+}
 
 /**
  * Request for the 'update videogame' API
@@ -116,10 +118,12 @@ export class UpdateVideogameRequest extends UpdateMediaItemRequest {
 	 * The new videogame data to save
 	 */
 	@IsDefined()
-	@Type(() => Videogame)
+	@Type(() => {
+		return Videogame;
+	})
 	@ValidateNested()
 	public videogame!: Videogame;
-};
+}
 
 /**
  * Request for the 'filter videogames' API
@@ -130,7 +134,9 @@ export class FilterVideogamesRequest extends FilterMediaItemsRequest {
 	 * Filtering options
 	 */
 	@IsOptional()
-	@Type(() => VideogameFilter)
+	@Type(() => {
+		return VideogameFilter;
+	})
 	@ValidateNested()
 	public filter?: VideogameFilter;
 
@@ -138,11 +144,13 @@ export class FilterVideogamesRequest extends FilterMediaItemsRequest {
 	 * Ordering options
 	 */
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => VideogameSortBy)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return VideogameSortBy;
+	})
 	@ValidateNested()
 	public sortBy?: VideogameSortBy[];
-};
+}
 
 /**
  * Response for the 'filter videogames' API
@@ -164,10 +172,12 @@ export class SearchVideogamesRequest extends SearchMediaItemsRequest {
 	 * Currently active filtering options
 	 */
 	@IsOptional()
-	@Type(() => VideogameFilter)
+	@Type(() => {
+		return VideogameFilter;
+	})
 	@ValidateNested()
 	public filter?: VideogameFilter;
-};
+}
 
 /**
  * Response for the 'search videogames' API
@@ -178,14 +188,14 @@ export class SearchVideogamesResponse extends SearchMediaItemsResponse {
 	 * The retrieved videogames
 	 */
 	public videogames: IdentifiedVideogame[] = [];
-};
+}
 
 /**
  * Response for the 'search catalog' API
  */
 export class SearchVideogameCatalogResponse extends SearchMediaItemCatalogResponse {
 
-};
+}
 
 /**
  * Response for the 'get from catalog' API
@@ -196,4 +206,4 @@ export class GetVideogameFromCatalogResponse extends GetMediaItemFromCatalogResp
 	 * The videogame details
 	 */
 	public catalogVideogame: CatalogVideogame = new CatalogVideogame();
-};
+}

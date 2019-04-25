@@ -16,7 +16,7 @@ class MovieMapper extends MediaItemMapper<MovieInternal, IdentifiedMovie> {
 			...this.commonToExternal(source),
 			uid: source._id,
 			director: source.director
-		}
+		};
 	}
 		
 	/**
@@ -26,9 +26,9 @@ class MovieMapper extends MediaItemMapper<MovieInternal, IdentifiedMovie> {
 		
 		return {
 			...this.commonToInternal(source, extraParams),
-			_id: (source.uid ? source.uid : null),
+			_id: source.uid ? source.uid : null,
 			director: source.director
-		}
+		};
 	}
 }
 
@@ -180,11 +180,4 @@ export const movieCatalogSearchMapper = new MovieCatalogSearchMapper();
  * Singleton instance of the movies catalog details mapper
  */
 export const movieCatalogDetailsMapper = new MovieCatalogDetailsMapper();
-
-
-
-
-
-
-
 

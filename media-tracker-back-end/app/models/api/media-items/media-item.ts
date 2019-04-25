@@ -65,10 +65,12 @@ export abstract class MediaItem {
 	 * The media item group
 	 */
 	@IsOptional()
-	@Type(() => MediaItemGroup)
+	@Type(() => {
+		return MediaItemGroup;
+	})
 	@ValidateNested()
 	public group?: MediaItemGroup;
-};
+}
 
 /**
  * Abstract media items filtering options, publicly exposed via API
@@ -101,7 +103,7 @@ export abstract class MediaItemSortField {
 	
 	public static commonValues(): string[] {
 
-		return [this.IMPORTANCE, this.NAME, this.GROUP];
+		return [ this.IMPORTANCE, this.NAME, this.GROUP ];
 	}
 }
 
@@ -124,7 +126,7 @@ export abstract class MediaItemSortBy {
 export abstract class SearchMediaItemCatalogResult {
 
 	public catalogId: string = '';
-	public  title: string = '';
+	public title: string = '';
 	public releaseDate?: string;
 }
 
@@ -133,7 +135,7 @@ export abstract class SearchMediaItemCatalogResult {
  */
 export abstract class AddMediaItemRequest extends CommonSaveRequest {
 
-};
+}
 
 /**
  * Response for the 'add media item' API
@@ -154,14 +156,14 @@ export class DeleteMediaItemResponse extends CommonResponse {
  */
 export abstract class GetAllMediaItemsResponse extends CommonResponse {
 
-};
+}
 
 /**
  * Abstract request for the 'update media item' API
  */
 export abstract class UpdateMediaItemRequest extends CommonSaveRequest {
 
-};
+}
 
 /**
  * Response for the 'update media item' API
@@ -175,7 +177,7 @@ export class UpdateMediaItemResponse extends CommonResponse {
  */
 export abstract class FilterMediaItemsRequest extends CommonRequest {
 
-};
+}
 
 /**
  * Abstract response for the 'filter media items' API
@@ -195,14 +197,14 @@ export abstract class SearchMediaItemsRequest extends CommonRequest {
 	@IsNotEmpty()
 	@IsString()
 	public searchTerm!: string;
-};
+}
 
 /**
  * Abstract response for the 'search media items' API
  */
 export abstract class SearchMediaItemsResponse extends CommonResponse {
 
-};
+}
 
 /**
  * Abstract response for the 'search catalog' API
@@ -213,30 +215,12 @@ export abstract class SearchMediaItemCatalogResponse extends CommonResponse {
 	 * The search results
 	 */
 	public searchResults: SearchMediaItemCatalogResult[] = [];
-};
+}
 
 /**
  * Abstract response for the 'get from catalog' API
  */
 export abstract class GetMediaItemFromCatalogResponse extends CommonResponse {
 
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 

@@ -6,7 +6,7 @@ import { Schema } from 'mongoose';
  */
 export const BookSchema: Schema = new Schema({
 	...commonMediaItemSchemaDefinition,
-	author: {type: String, required: false}
+	author: { type: String, required: false }
 }, {
 	...commonMediaItemSchemaOptions
 });

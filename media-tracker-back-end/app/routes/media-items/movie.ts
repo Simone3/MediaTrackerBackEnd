@@ -37,11 +37,11 @@ entityRouterBuilder.filter({
 	requestClass: FilterMoviesRequest,
 
 	filterRequestReader: (request) => {
-		return (request.filter ? movieFilterMapper.toInternal(request.filter) : undefined)
+		return request.filter ? movieFilterMapper.toInternal(request.filter) : undefined;
 	},
 
 	sortRequestReader: (request) => {
-		return (request.sortBy ? movieSortMapper.toInternalList(request.sortBy) : undefined)
+		return request.sortBy ? movieSortMapper.toInternalList(request.sortBy) : undefined;
 	},
 
 	responseBuilder: (commonResponse, movies) => {
@@ -59,7 +59,7 @@ entityRouterBuilder.search({
 	requestClass: SearchMoviesRequest,
 
 	filterRequestReader: (request) => {
-		return (request.filter ? movieFilterMapper.toInternal(request.filter) : undefined)
+		return request.filter ? movieFilterMapper.toInternal(request.filter) : undefined;
 	},
 
 	responseBuilder: (commonResponse, movies) => {
@@ -77,7 +77,7 @@ entityRouterBuilder.addNew({
 	requestClass: AddMovieRequest,
 
 	mediaItemRequestReader: (request, mediaItemId, userId, categoryId) => {
-		return movieMapper.toInternal({...request.newMovie, uid: mediaItemId}, {userId, categoryId});
+		return movieMapper.toInternal({ ...request.newMovie, uid: mediaItemId }, { userId, categoryId });
 	}
 });
 
@@ -87,7 +87,7 @@ entityRouterBuilder.updateExisting({
 	requestClass: UpdateMovieRequest,
 
 	mediaItemRequestReader: (request, mediaItemId, userId, categoryId) => {
-		return movieMapper.toInternal({...request.movie, uid: mediaItemId}, {userId, categoryId});
+		return movieMapper.toInternal({ ...request.movie, uid: mediaItemId }, { userId, categoryId });
 	}
 });
 

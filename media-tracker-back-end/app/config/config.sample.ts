@@ -46,7 +46,7 @@ export const config: Config = {
 				season: {
 					relativePath: '/tv/:tvShowId/season/:seasonNumber',
 					queryParams: {
-						api_key: '<your_api_key_here>',
+						api_key: '<your_api_key_here>'
 					}
 				}
 			}
@@ -68,7 +68,7 @@ export const config: Config = {
 			details: {
 				relativePath: '/volumes/:bookId',
 				queryParams: {
-					key: '<your_api_key_here>',
+					key: '<your_api_key_here>'
 				}
 			}
 		},

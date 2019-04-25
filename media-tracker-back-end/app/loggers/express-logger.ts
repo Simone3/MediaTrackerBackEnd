@@ -5,7 +5,7 @@ import { RequestHandler } from 'express-serve-static-core';
 import uuid from 'uuid';
 
 /**
- * Express middleware to set request-scoped context information 
+ * Express middleware to set request-scoped context information
  */
 export const logCorrelationMiddleware: RequestHandler = (_, __, next): void => {
 	

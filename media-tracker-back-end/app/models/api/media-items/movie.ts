@@ -26,7 +26,7 @@ export class Movie extends MediaItem {
 	@IsOptional()
 	@IsString()
 	public director?: string;
-};
+}
 
 /**
  * Model for a movie with an ID property, publicly exposed via API
@@ -39,12 +39,12 @@ export class IdentifiedMovie extends Movie {
 	@IsNotEmpty()
 	@IsString()
 	public uid!: string;
-};
+}
 
 /**
  * Movie filtering options, publicly exposed via API
  */
-export class MovieFilter extends MediaItemFilter{
+export class MovieFilter extends MediaItemFilter {
 
 }
 
@@ -57,7 +57,7 @@ export class MovieSortField extends MediaItemSortField {
 	
 	public static values(): string[] {
 
-		return [...MediaItemSortField.commonValues(), this.DIRECTOR];
+		return [ ...MediaItemSortField.commonValues(), this.DIRECTOR ];
 	}
 }
 
@@ -91,10 +91,12 @@ export class AddMovieRequest extends AddMediaItemRequest {
 	 * The movie to add
 	 */
 	@IsDefined()
-	@Type(() => Movie)
+	@Type(() => {
+		return Movie;
+	})
 	@ValidateNested()
 	public newMovie!: Movie;
-};
+}
 
 /**
  * Response for the 'get all movies' API
@@ -105,7 +107,7 @@ export class GetAllMoviesResponse extends GetAllMediaItemsResponse {
 	 * The retrieved movies
 	 */
 	public movies: IdentifiedMovie[] = [];
-};
+}
 
 /**
  * Request for the 'update movie' API
@@ -116,10 +118,12 @@ export class UpdateMovieRequest extends UpdateMediaItemRequest {
 	 * The new movie data to save
 	 */
 	@IsDefined()
-	@Type(() => Movie)
+	@Type(() => {
+		return Movie;
+	})
 	@ValidateNested()
 	public movie!: Movie;
-};
+}
 
 /**
  * Request for the 'filter movies' API
@@ -130,7 +134,9 @@ export class FilterMoviesRequest extends FilterMediaItemsRequest {
 	 * Filtering options
 	 */
 	@IsOptional()
-	@Type(() => MovieFilter)
+	@Type(() => {
+		return MovieFilter;
+	})
 	@ValidateNested()
 	public filter?: MovieFilter;
 
@@ -138,11 +144,13 @@ export class FilterMoviesRequest extends FilterMediaItemsRequest {
 	 * Ordering options
 	 */
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => MovieSortBy)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return MovieSortBy;
+	})
 	@ValidateNested()
 	public sortBy?: MovieSortBy[];
-};
+}
 
 /**
  * Response for the 'filter movies' API
@@ -164,10 +172,12 @@ export class SearchMoviesRequest extends SearchMediaItemsRequest {
 	 * Currently active filtering options
 	 */
 	@IsOptional()
-	@Type(() => MovieFilter)
+	@Type(() => {
+		return MovieFilter;
+	})
 	@ValidateNested()
 	public filter?: MovieFilter;
-};
+}
 
 /**
  * Response for the 'search movies' API
@@ -178,14 +188,14 @@ export class SearchMoviesResponse extends SearchMediaItemsResponse {
 	 * The retrieved movies
 	 */
 	public movies: IdentifiedMovie[] = [];
-};
+}
 
 /**
  * Response for the 'search catalog' API
  */
 export class SearchMovieCatalogResponse extends SearchMediaItemCatalogResponse {
 
-};
+}
 
 /**
  * Response for the 'get from catalog' API
@@ -196,4 +206,4 @@ export class GetMovieFromCatalogResponse extends GetMediaItemFromCatalogResponse
 	 * The movie details
 	 */
 	public catalogMovie: CatalogMovie = new CatalogMovie();
-};
+}

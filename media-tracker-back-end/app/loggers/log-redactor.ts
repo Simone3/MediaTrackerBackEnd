@@ -14,8 +14,8 @@ class LogRedactor {
 	 * Internal map of object keys to redact
 	 */
 	private readonly REDACTED_OBJECT_KEYS: RedactedMap = {
-		'api_key': true,
-		'key': true
+		api_key: true,
+		key: true
 	};
 
 	/**
@@ -29,15 +29,15 @@ class LogRedactor {
 
 				if(value) {
 
-					return JSON.stringify(value, (k, v) => {
+					return JSON.stringify(value, (strigifyKey, strigifyValue) => {
 							
-						if(this.REDACTED_OBJECT_KEYS[k]) {
+						if(this.REDACTED_OBJECT_KEYS[strigifyKey]) {
 							
 							return '********';
 						}
 						else {
 		
-							return v;
+							return strigifyValue;
 						}
 					});
 				}

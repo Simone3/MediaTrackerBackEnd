@@ -71,13 +71,13 @@ class UserController extends AbstractEntityController {
 	public deleteUser(id: string, forceEvenIfNotEmpty: boolean): Promise<number> {
 		
 		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
-			return categoryController.getAllCategories(id)
+			return categoryController.getAllCategories(id);
 		}, () => {
 
 			// Delete all media item entities (with each controller)
-			let mediaItemControllers = mediaItemFactory.getAllEntityControllers();
+			const mediaItemControllers = mediaItemFactory.getAllEntityControllers();
 			const mediaItemPromises: Promise<number>[] = [];
-			for(let mediaItemController of mediaItemControllers) {
+			for(const mediaItemController of mediaItemControllers) {
 
 				mediaItemPromises.push(mediaItemController.deleteAllMediaItemsForUser(id));
 			}
@@ -88,7 +88,8 @@ class UserController extends AbstractEntityController {
 					categoryController.deleteAllCategoriesForUser(id),
 					groupController.deleteAllGroupsForUser(id),
 					this.queryHelper.deleteById(id)
-				]));
+				])
+			);
 		});
 	}
 }
@@ -97,5 +98,4 @@ class UserController extends AbstractEntityController {
  * Singleton implementation of the user controller
  */
 export const userController = new UserController();
-
 

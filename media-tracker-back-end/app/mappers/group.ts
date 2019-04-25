@@ -1,5 +1,6 @@
 import { ModelMapper } from 'app/mappers/common';
 import { IdentifiedGroup } from 'app/models/api/group';
+import { AppError } from 'app/models/error/error';
 import { GroupInternal } from 'app/models/internal/group';
 
 /**
@@ -32,11 +33,11 @@ class GroupMapper extends ModelMapper<GroupInternal, IdentifiedGroup, GroupMappe
 	protected convertToInternal(source: IdentifiedGroup, extraParams?: GroupMapperParams): GroupInternal {
 		
 		if(!extraParams) {
-			throw 'convertToInternal.extraParams cannot be undefined'
+			throw AppError.GENERIC.withDetails('convertToInternal.extraParams cannot be undefined');
 		}
 
 		return {
-			_id: (source.uid ? source.uid : null),
+			_id: source.uid ? source.uid : null,
 			name: source.name,
 			owner: extraParams.userId,
 			category: extraParams.categoryId
@@ -48,5 +49,4 @@ class GroupMapper extends ModelMapper<GroupInternal, IdentifiedGroup, GroupMappe
  * Singleton instance of the groups mapper
  */
 export const groupMapper = new GroupMapper();
-
 

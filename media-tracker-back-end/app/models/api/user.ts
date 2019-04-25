@@ -13,7 +13,7 @@ export class User {
 	@IsNotEmpty()
 	@IsString()
 	public name!: string;
-};
+}
 
 /**
  * Model for a user with an ID property, publicly exposed via API
@@ -26,7 +26,7 @@ export class IdentifiedUser extends User {
 	@IsNotEmpty()
 	@IsString()
 	public uid!: string;
-};
+}
 
 /**
  * Request for the 'add user' API
@@ -34,10 +34,12 @@ export class IdentifiedUser extends User {
 export class AddUserRequest extends CommonRequest {
 
 	@IsDefined()
-	@Type(() => User)
+	@Type(() => {
+		return User;
+	})
 	@ValidateNested()
 	public newUser!: User;
-};
+}
 
 /**
  * Response for the 'add user' API
@@ -65,10 +67,12 @@ export class DeleteUserResponse extends CommonResponse {
 export class UpdateUserRequest extends CommonRequest {
 
 	@IsDefined()
-	@Type(() => User)
+	@Type(() => {
+		return User;
+	})
 	@ValidateNested()
 	public user!: User;
-};
+}
 
 /**
  * Response for the 'update user' API

@@ -87,4 +87,3 @@ class TvShowEntityController extends MediaItemEntityController<TvShowInternal, T
  */
 export const tvShowEntityController = new TvShowEntityController();
 
-

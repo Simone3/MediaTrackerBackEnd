@@ -86,5 +86,3 @@ class BookEntityController extends MediaItemEntityController<BookInternal, BookS
  * Singleton implementation of the book entity controller
  */
 export const bookEntityController = new BookEntityController();
-
-

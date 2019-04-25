@@ -1,5 +1,6 @@
 import { dateUtils, stringUtils } from 'app/controllers/utilities/misc-utils';
 import { ModelMapper } from 'app/mappers/common';
+import { AppError } from 'app/models/error/error';
 import { GiantBombDetailsResponse, GiantBombSearchResult } from 'app/models/external-services/media-items/videogame';
 import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal } from 'app/models/internal/media-items/videogame';
 
@@ -13,7 +14,7 @@ class VideogameExternalSearchServiceMapper extends ModelMapper<SearchVideogameCa
 	 */
 	protected convertToExternal(): GiantBombSearchResult {
 
-		throw 'convertToExternal unimplemented'
+		throw AppError.GENERIC.withDetails('convertToExternal unimplemented');
 	}
 	
 	/**
@@ -60,7 +61,7 @@ class VideogameExternalDetailsServiceMapper extends ModelMapper<CatalogVideogame
 	 */
 	protected convertToExternal(): GiantBombDetailsResponse {
 
-		throw 'convertToExternal unimplemented'
+		throw AppError.GENERIC.withDetails('convertToExternal unimplemented');
 	}
 	
 	/**
@@ -69,7 +70,7 @@ class VideogameExternalDetailsServiceMapper extends ModelMapper<CatalogVideogame
 	protected convertToInternal(source: GiantBombDetailsResponse): CatalogVideogameInternal {
 		
 		return {
-			developer: stringUtils.join(source.results.developers, ', ', undefined, ['name']),
+			developer: stringUtils.join(source.results.developers, ', ', undefined, [ 'name' ]),
 			name: source.results.name
 		};
 	}
@@ -84,5 +85,4 @@ export const videogameExternalSearchServiceMapper = new VideogameExternalSearchS
  * Singleton instance of videogame details external service mapper
  */
 export const videogameExternalDetailsServiceMapper = new VideogameExternalDetailsServiceMapper();
-
 

@@ -17,7 +17,7 @@ class DatabaseManager {
 			
 			logger.info('Starting database connection...');
 
-			var options: ConnectionOptions = {
+			const options: ConnectionOptions = {
 				useNewUrlParser: true
 			};
 
@@ -31,7 +31,7 @@ class DatabaseManager {
 	
 			mongoose.connect(databaseUrl, options);
 	
-			var db = mongoose.connection;
+			const db = mongoose.connection;
 	
 			db.on('error', (error): void => {
 				
@@ -57,5 +57,3 @@ class DatabaseManager {
 }
 
 export const databaseManager = new DatabaseManager();
-
-

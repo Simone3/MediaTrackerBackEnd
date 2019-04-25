@@ -12,7 +12,7 @@ import { userRouter } from 'app/routes/user';
 import express from 'express';
 
 // Base setup
-var app = express();
+const app = express();
 app.use(express.json());
 app.use(requestScopeContextMiddleware);
 

@@ -87,4 +87,3 @@ class MovieEntityController extends MediaItemEntityController<MovieInternal, Mov
  */
 export const movieEntityController = new MovieEntityController();
 
-

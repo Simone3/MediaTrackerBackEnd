@@ -3,7 +3,7 @@ import { ErrorResponse } from 'app/models/api/common';
 import { AppError } from 'app/models/error/error';
 import express, { Response, Router } from 'express';
 
-var router: Router = express.Router();
+const router: Router = express.Router();
 
 router.all('*', (_, res: Response) => {
 

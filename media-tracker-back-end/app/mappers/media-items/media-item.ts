@@ -26,7 +26,7 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			importance: source.importance
 		};
 
-		if(source.group && source.orderInGroup && typeof(source.group) !== 'string') {
+		if(source.group && source.orderInGroup && typeof source.group !== 'string') {
 
 			target.group = {
 				groupId: String(source.group._id),
@@ -44,7 +44,7 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 	protected commonToInternal(source: MediaItem, extraParams?: MediaItemMapperParams): MediaItemInternal {
 
 		if(!extraParams) {
-			throw 'convertToInternal.extraParams cannot be undefined'
+			throw AppError.GENERIC.withDetails('convertToInternal.extraParams cannot be undefined');
 		}
 
 		return {
@@ -52,8 +52,8 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			name: source.name,
 			category: extraParams.categoryId,
 			owner: extraParams.userId,
-			group: (source.group ? source.group.groupId : undefined),
-			orderInGroup: (source.group ? source.group.orderInGroup : undefined),
+			group: source.group ? source.group.groupId : undefined,
+			orderInGroup: source.group ? source.group.orderInGroup : undefined,
 			importance: source.importance
 		};
 	}
@@ -122,7 +122,7 @@ export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends Media
 			case 'IMPORTANCE': return MediaItemSortField.IMPORTANCE;
 			case 'NAME': return MediaItemSortField.NAME;
 			case 'GROUP': return MediaItemSortField.GROUP;
-			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
+			default: throw AppError.GENERIC.withDetails(`Cannot map ${source}`);
 		}
 	}
 	
@@ -136,7 +136,7 @@ export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends Media
 			case MediaItemSortField.IMPORTANCE: return 'IMPORTANCE';
 			case MediaItemSortField.NAME: return 'NAME';
 			case MediaItemSortField.GROUP: return 'GROUP';
-			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
+			default: throw AppError.GENERIC.withDetails(`Cannot map ${source}`);
 		}
 	}
 }
@@ -196,6 +196,4 @@ export abstract class MediaItemCatalogDetailsMapper<TCatalogMediaItemInternal ex
 		};
 	}
 }
-
-
 

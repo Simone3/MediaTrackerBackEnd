@@ -90,13 +90,13 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 						this.getSeasonData(catalogItemId, detailsResponse.number_of_seasons)
 							.then((seasonResponse) => {
 
-								resolve(tvShowExternalDetailsServiceMapper.toInternal(detailsResponse, {currentSeasonData: seasonResponse}));
+								resolve(tvShowExternalDetailsServiceMapper.toInternal(detailsResponse, { currentSeasonData: seasonResponse }));
 							})
 							.catch((error) => {
 
 								logger.error('TV show catalog (season) invocation error: %s', error);
 								reject(AppError.GENERIC.unlessAppError(error));
-							})
+							});
 					}
 					else {
 
@@ -138,7 +138,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 		};
 
 		return restJsonInvoker.invokeGet(invocationParams);
-	} 
+	}
 }
 
 /**

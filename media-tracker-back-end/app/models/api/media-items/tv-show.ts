@@ -33,7 +33,7 @@ export class TvShow extends MediaItem {
 	@IsOptional()
 	@IsString()
 	public creator?: string;
-};
+}
 
 /**
  * Model for a TV show with an ID property, publicly exposed via API
@@ -46,12 +46,12 @@ export class IdentifiedTvShow extends TvShow {
 	@IsNotEmpty()
 	@IsString()
 	public uid!: string;
-};
+}
 
 /**
  * TvShow filtering options, publicly exposed via API
  */
-export class TvShowFilter extends MediaItemFilter{
+export class TvShowFilter extends MediaItemFilter {
 
 }
 
@@ -64,7 +64,7 @@ export class TvShowSortField extends MediaItemSortField {
 	
 	public static values(): string[] {
 
-		return [...MediaItemSortField.commonValues(), this.CREATOR];
+		return [ ...MediaItemSortField.commonValues(), this.CREATOR ];
 	}
 }
 
@@ -98,10 +98,12 @@ export class AddTvShowRequest extends AddMediaItemRequest {
 	 * The TV show to add
 	 */
 	@IsDefined()
-	@Type(() => TvShow)
+	@Type(() => {
+		return TvShow;
+	})
 	@ValidateNested()
 	public newTvShow!: TvShow;
-};
+}
 
 /**
  * Response for the 'get all TV shows' API
@@ -112,7 +114,7 @@ export class GetAllTvShowsResponse extends GetAllMediaItemsResponse {
 	 * The retrieved TV shows
 	 */
 	public tvShows: IdentifiedTvShow[] = [];
-};
+}
 
 /**
  * Request for the 'update TV show' API
@@ -123,10 +125,12 @@ export class UpdateTvShowRequest extends UpdateMediaItemRequest {
 	 * The new TV show data to save
 	 */
 	@IsDefined()
-	@Type(() => TvShow)
+	@Type(() => {
+		return TvShow;
+	})
 	@ValidateNested()
 	public tvShow!: TvShow;
-};
+}
 
 /**
  * Request for the 'filter TV shows' API
@@ -137,7 +141,9 @@ export class FilterTvShowsRequest extends FilterMediaItemsRequest {
 	 * Filtering options
 	 */
 	@IsOptional()
-	@Type(() => TvShowFilter)
+	@Type(() => {
+		return TvShowFilter;
+	})
 	@ValidateNested()
 	public filter?: TvShowFilter;
 
@@ -145,11 +151,13 @@ export class FilterTvShowsRequest extends FilterMediaItemsRequest {
 	 * Ordering options
 	 */
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TvShowSortBy)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return TvShowSortBy;
+	})
 	@ValidateNested()
 	public sortBy?: TvShowSortBy[];
-};
+}
 
 /**
  * Response for the 'filter TV shows' API
@@ -171,10 +179,12 @@ export class SearchTvShowsRequest extends SearchMediaItemsRequest {
 	 * Currently active filtering options
 	 */
 	@IsOptional()
-	@Type(() => TvShowFilter)
+	@Type(() => {
+		return TvShowFilter;
+	})
 	@ValidateNested()
 	public filter?: TvShowFilter;
-};
+}
 
 /**
  * Response for the 'search TV shows' API
@@ -185,14 +195,14 @@ export class SearchTvShowsResponse extends SearchMediaItemsResponse {
 	 * The retrieved TV shows
 	 */
 	public tvShows: IdentifiedTvShow[] = [];
-};
+}
 
 /**
  * Response for the 'search catalog' API
  */
 export class SearchTvShowCatalogResponse extends SearchMediaItemCatalogResponse {
 
-};
+}
 
 /**
  * Response for the 'get from catalog' API
@@ -203,4 +213,4 @@ export class GetTvShowFromCatalogResponse extends GetMediaItemFromCatalogRespons
 	 * The TV show details
 	 */
 	public catalogTvShow: CatalogTvShow = new CatalogTvShow();
-};
+}

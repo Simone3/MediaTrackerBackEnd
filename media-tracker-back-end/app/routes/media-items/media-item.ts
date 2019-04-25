@@ -36,7 +36,7 @@ abstract class AbstractRouterBuilder {
 /**
  * Helper class to build the media item Express routes
  * @template TMediaItemInternal the media item entity
- * @template TMediaItemSortByInternal the media item sort conditions 
+ * @template TMediaItemSortByInternal the media item sort conditions
  * @template TMediaItemFilterInternal the media item filter conditions
  */
 export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemInternal, TMediaItemSortByInternal extends MediaItemSortByInternal, TMediaItemFilterInternal extends MediaItemFilterInternal> extends AbstractRouterBuilder {
@@ -61,7 +61,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 		responseBuilder: TWriteResponse<GetAllMediaItemsResponse, TMediaItemInternal[], TResponse>;
 	}): void {
 
-		this.router.get('/users/:userId/categories/:categoryId/' + this.mediaItemPathName, (request, response): void => {
+		this.router.get(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}`, (request, response): void => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -69,9 +69,9 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 			this.mediaItemController.getAllMediaItems(userId, categoryId)
 				.then((mediaItems) => {
 
-					const body: TResponse = routeConfig.responseBuilder({}, mediaItems);
+					const responseBody: TResponse = routeConfig.responseBuilder({}, mediaItems);
 					
-					response.json(body);
+					response.json(responseBody);
 				})
 				.catch((error) => {
 
@@ -98,29 +98,29 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 		responseBuilder: TWriteResponse<FilterMediaItemsResponse, TMediaItemInternal[], TResponse>;
 	}): void {
 
-		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/filter', (request, response) => {
+		this.router.post(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/filter`, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
-				.then((body) => {
+				.then((parsedRequest) => {
 
-					const filterOptions = routeConfig.filterRequestReader(body);
-					const orderOptions = routeConfig.sortRequestReader(body);
+					const filterOptions = routeConfig.filterRequestReader(parsedRequest);
+					const orderOptions = routeConfig.sortRequestReader(parsedRequest);
 
 					this.mediaItemController.filterAndOrderMediaItems(userId, categoryId, filterOptions, orderOptions)
 						.then((mediaItems) => {
 						
-							const body: TResponse = routeConfig.responseBuilder({}, mediaItems);
+							const responseBody: TResponse = routeConfig.responseBuilder({}, mediaItems);
 							
-							response.json(body);
+							response.json(responseBody);
 						})
 						.catch((error) => {
 
 							logger.error('Filter media items generic error: %s', error);
 							response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
-						})
+						});
 				})
 				.catch((error) => {
 
@@ -145,29 +145,29 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 		responseBuilder: TWriteResponse<SearchMediaItemsResponse, TMediaItemInternal[], TResponse>;
 	}): void {
 
-		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/search', (request, response) => {
+		this.router.post(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/search`, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
-				.then((body) => {
+				.then((parsedRequest) => {
 
-					const filterBy = routeConfig.filterRequestReader(body);
-					const searchTerm = body.searchTerm;
+					const filterBy = routeConfig.filterRequestReader(parsedRequest);
+					const searchTerm = parsedRequest.searchTerm;
 
 					this.mediaItemController.searchMediaItems(userId, categoryId, searchTerm, filterBy)
 						.then((mediaItems) => {
 
-							const body: TResponse = routeConfig.responseBuilder({}, mediaItems);
+							const responseBody: TResponse = routeConfig.responseBuilder({}, mediaItems);
 							
-							response.json(body);
+							response.json(responseBody);
 						})
 						.catch((error) => {
 
 							logger.error('Search media items generic error: %s', error);
 							response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
-						})
+						});
 				})
 				.catch((error) => {
 
@@ -189,30 +189,30 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 		mediaItemRequestReader: TReadRequestWithExtraData<TRequest, TMediaItemInternal>;
 	}): void {
 
-		this.router.post('/users/:userId/categories/:categoryId/' + this.mediaItemPathName, (request, response) => {
+		this.router.post(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}`, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
-				.then((body) => {
+				.then((parsedRequest) => {
 
-					const newMediaItem = routeConfig.mediaItemRequestReader(body, '', userId, categoryId);
+					const newMediaItem = routeConfig.mediaItemRequestReader(parsedRequest, '', userId, categoryId);
 
-					this.mediaItemController.saveMediaItem(newMediaItem, body.allowSameName)
+					this.mediaItemController.saveMediaItem(newMediaItem, parsedRequest.allowSameName)
 						.then(() => {
 						
-							const body: AddMediaItemResponse = {
+							const responseBody: AddMediaItemResponse = {
 								message: 'Media item successfully added'
 							};
 			
-							response.json(body);
+							response.json(responseBody);
 						})
 						.catch((error) => {
 
 							logger.error('Add media item generic error: %s', error);
 							response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
-						})
+						});
 				})
 				.catch((error) => {
 
@@ -234,31 +234,31 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 		mediaItemRequestReader: TReadRequestWithExtraData<TRequest, TMediaItemInternal>;
 	}): void {
 
-		this.router.put('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/:id', (request, response) => {
+		this.router.put(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/:id`, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
 			const id: string = request.params.id;
 
 			parserValidator.parseAndValidate(routeConfig.requestClass, request.body)
-				.then((body) => {
+				.then((parsedRequest) => {
 
-					const mediaItem = routeConfig.mediaItemRequestReader(body, id, userId, categoryId);
+					const mediaItem = routeConfig.mediaItemRequestReader(parsedRequest, id, userId, categoryId);
 
-					this.mediaItemController.saveMediaItem(mediaItem, body.allowSameName)
+					this.mediaItemController.saveMediaItem(mediaItem, parsedRequest.allowSameName)
 						.then(() => {
 						
-							const body: UpdateMediaItemResponse = {
+							const responseBody: UpdateMediaItemResponse = {
 								message: 'Media item successfully updated'
 							};
 			
-							response.json(body);
+							response.json(responseBody);
 						})
 						.catch((error) => {
 							
 							logger.error('Update media item generic error: %s', error);
 							response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
-						})
+						});
 				})
 				.catch((error) => {
 
@@ -273,7 +273,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 	 */
 	public delete(): void {
 
-		this.router.delete('/users/:userId/categories/:categoryId/' + this.mediaItemPathName + '/:id', (request, response) => {
+		this.router.delete(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/:id`, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -282,11 +282,11 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 			this.mediaItemController.deleteMediaItem(userId, categoryId, id)
 				.then(() => {
 					
-					const body: DeleteMediaItemResponse = {
+					const responseBody: DeleteMediaItemResponse = {
 						message: 'Media item successfully deleted'
 					};
 
-					response.json(body);
+					response.json(responseBody);
 				})
 				.catch((error) => {
 
@@ -324,16 +324,16 @@ export class MediaItemCatalogRouterBuilder<TSearchMediaItemCatalogResultInternal
 		responseBuilder: TWriteResponse<SearchMediaItemCatalogResponse, TSearchMediaItemCatalogResultInternal[], TResponse>;
 	}): void {
 
-		this.router.get('/catalog/' + this.mediaItemPathName + '/search/:searchTerm', (request, response) => {
+		this.router.get(`/catalog/${this.mediaItemPathName}/search/:searchTerm`, (request, response) => {
 
 			const searchTerm: string = request.params.searchTerm;
 
 			this.mediaItemCatalogController.searchMediaItemCatalogByTerm(searchTerm)
 				.then((searchResults) => {
 
-					const body: TResponse = routeConfig.responseBuilder({searchResults: []}, searchResults);
+					const responseBody: TResponse = routeConfig.responseBuilder({ searchResults: [] }, searchResults);
 
-					response.json(body);
+					response.json(responseBody);
 				})
 				.catch((error) => {
 
@@ -353,16 +353,16 @@ export class MediaItemCatalogRouterBuilder<TSearchMediaItemCatalogResultInternal
 		responseBuilder: TWriteResponse<GetMediaItemFromCatalogResponse, TCatalogMediaItemInternal, TResponse>;
 	}): void {
 
-		this.router.get('/catalog/' + this.mediaItemPathName + '/:catalogId', (request, response) => {
+		this.router.get(`/catalog/${this.mediaItemPathName}/:catalogId`, (request, response) => {
 
 			const catalogId: string = request.params.catalogId;
 
 			this.mediaItemCatalogController.getMediaItemFromCatalog(catalogId)
 				.then((catalogMediaItem) => {
 
-					const body: TResponse = routeConfig.responseBuilder({}, catalogMediaItem);
+					const responseBody: TResponse = routeConfig.responseBuilder({}, catalogMediaItem);
 					
-					response.json(body);
+					response.json(responseBody);
 				})
 				.catch((error) => {
 

@@ -9,7 +9,7 @@ import { AddUserRequest, AddUserResponse, DeleteUserResponse, UpdateUserRequest,
 import { AppError } from 'app/models/error/error';
 import express, { Router } from 'express';
 
-var router: Router = express.Router();
+const router: Router = express.Router();
 
 /**
  * Route to add a new user
@@ -17,24 +17,24 @@ var router: Router = express.Router();
 router.post('/users', (request, response) => {
 
 	parserValidator.parseAndValidate(AddUserRequest, request.body)
-		.then((body) => {
+		.then((parsedRequest) => {
 
-			const newUser = userMapper.toInternal({...body.newUser, uid: ''});
+			const newUser = userMapper.toInternal({ ...parsedRequest.newUser, uid: '' });
 			userController.saveUser(newUser)
 				.then((savedUser) => {
 				
-					const body: AddUserResponse = {
+					const responseBody: AddUserResponse = {
 						message: 'User successfully added',
 						userId: savedUser._id
 					};
 
-					response.json(body);
+					response.json(responseBody);
 				})
 				.catch((error) => {
 
 					logger.error('Add user generic error: %s', error);
 					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
-				})
+				});
 		})
 		.catch((error) => {
 
@@ -51,23 +51,23 @@ router.put('/users/:id', (request, response) => {
 	const id: string = request.params.id;
 
 	parserValidator.parseAndValidate(UpdateUserRequest, request.body)
-		.then((body) => {
+		.then((parsedRequest) => {
 
-			const user = userMapper.toInternal({...body.user, uid: id});
+			const user = userMapper.toInternal({ ...parsedRequest.user, uid: id });
 			userController.saveUser(user)
 				.then(() => {
 				
-					const body: UpdateUserResponse = {
+					const responseBody: UpdateUserResponse = {
 						message: 'User successfully updated'
 					};
 		
-					response.json(body);
+					response.json(responseBody);
 				})
 				.catch((error) => {
 
 					logger.error('Update user generic error: %s', error);
 					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
-				})
+				});
 		})
 		.catch((error) => {
 
@@ -87,11 +87,11 @@ router.delete('/users/:id', (request, response) => {
 	userController.deleteUser(id, forceEvenIfNotEmpty)
 		.then(() => {
 			
-			const body: DeleteUserResponse = {
+			const responseBody: DeleteUserResponse = {
 				message: 'User successfully deleted'
 			};
 
-			response.json(body);
+			response.json(responseBody);
 		})
 		.catch((error) => {
 

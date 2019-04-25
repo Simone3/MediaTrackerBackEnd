@@ -25,8 +25,10 @@ export class TmdbMovieSearchResult {
 export class TmdbMovieSearchResponse {
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TmdbMovieSearchResult)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return TmdbMovieSearchResult;
+	})
 	@ValidateNested()
 	public results?: TmdbMovieSearchResult[];
 }
@@ -51,8 +53,10 @@ export class TmdbMovieCrewPerson {
 export class TmdbMovieCredits {
 
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TmdbMovieCrewPerson)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return TmdbMovieCrewPerson;
+	})
 	@ValidateNested()
 	public crew?: TmdbMovieCrewPerson[];
 }
@@ -81,8 +85,10 @@ export class TmdbMovieDetailsResponse {
 	public release_date?: string;
 	
 	@IsOptional()
-	@IsDefined({each: true})
-	@Type(() => TmdbMovieGenre)
+	@IsDefined({ each: true })
+	@Type(() => {
+		return TmdbMovieGenre;
+	})
 	@ValidateNested()
 	public genres?: TmdbMovieGenre[];
 	
@@ -99,7 +105,9 @@ export class TmdbMovieDetailsResponse {
 	public runtime?: number;
 	
 	@IsOptional()
-	@Type(() => TmdbMovieCredits)
+	@Type(() => {
+		return TmdbMovieCredits;
+	})
 	@ValidateNested()
 	public credits?: TmdbMovieCredits;
 	

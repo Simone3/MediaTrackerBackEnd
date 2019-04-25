@@ -37,11 +37,11 @@ entityRouterBuilder.filter({
 	requestClass: FilterVideogamesRequest,
 
 	filterRequestReader: (request) => {
-		return (request.filter ? videogameFilterMapper.toInternal(request.filter) : undefined)
+		return request.filter ? videogameFilterMapper.toInternal(request.filter) : undefined;
 	},
 
 	sortRequestReader: (request) => {
-		return (request.sortBy ? videogameSortMapper.toInternalList(request.sortBy) : undefined)
+		return request.sortBy ? videogameSortMapper.toInternalList(request.sortBy) : undefined;
 	},
 
 	responseBuilder: (commonResponse, videogames) => {
@@ -59,7 +59,7 @@ entityRouterBuilder.search({
 	requestClass: SearchVideogamesRequest,
 
 	filterRequestReader: (request) => {
-		return (request.filter ? videogameFilterMapper.toInternal(request.filter) : undefined)
+		return request.filter ? videogameFilterMapper.toInternal(request.filter) : undefined;
 	},
 
 	responseBuilder: (commonResponse, videogames) => {
@@ -77,7 +77,7 @@ entityRouterBuilder.addNew({
 	requestClass: AddVideogameRequest,
 
 	mediaItemRequestReader: (request, mediaItemId, userId, categoryId) => {
-		return videogameMapper.toInternal({...request.newVideogame, uid: mediaItemId}, {userId, categoryId});
+		return videogameMapper.toInternal({ ...request.newVideogame, uid: mediaItemId }, { userId, categoryId });
 	}
 });
 
@@ -87,7 +87,7 @@ entityRouterBuilder.updateExisting({
 	requestClass: UpdateVideogameRequest,
 
 	mediaItemRequestReader: (request, mediaItemId, userId, categoryId) => {
-		return videogameMapper.toInternal({...request.videogame, uid: mediaItemId}, {userId, categoryId});
+		return videogameMapper.toInternal({ ...request.videogame, uid: mediaItemId }, { userId, categoryId });
 	}
 });
 

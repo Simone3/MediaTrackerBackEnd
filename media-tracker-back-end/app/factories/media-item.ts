@@ -18,7 +18,10 @@ import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, M
  */
 class ResolverHelper {
 
-	public constructor(public entityController: EntityController, public catalogController: CatalogController) {}
+	public constructor(public entityController: EntityController, public catalogController: CatalogController) {
+
+		// Just for parameter properties
+	}
 }
 
 /**
@@ -157,7 +160,7 @@ class MediaItemFactory {
 				return new ResolverHelper(movieEntityController, movieCatalogController);
 
 			default:
-				throw AppError.GENERIC.withDetails('Cannot resolve controllers from media type ' + mediaType);
+				throw AppError.GENERIC.withDetails(`Cannot resolve controllers from media type ${mediaType}`);
 		}
 	}
 
@@ -171,9 +174,9 @@ class MediaItemFactory {
 			this.ENTITY_CONTROLLERS.length = 0;
 			this.CATALOG_CONTROLLERS.length = 0;
 	
-			for(let mediaType of INTERNAL_MEDIA_TYPES) {
+			for(const mediaType of INTERNAL_MEDIA_TYPES) {
 	
-				let resolved = this.internalFromMediaType(mediaType);
+				const resolved = this.internalFromMediaType(mediaType);
 				this.ENTITY_CONTROLLERS.push(resolved.entityController);
 				this.CATALOG_CONTROLLERS.push(resolved.catalogController);
 			}
@@ -192,7 +195,6 @@ type EntityController = MediaItemEntityController<MediaItemInternal, MediaItemSo
  * Helper type alias
  */
 type CatalogController = MediaItemCatalogController<SearchMediaItemCatalogResultInternal, CatalogMediaItemInternal>
-
 
 /**
  * The singleton instance of the media item factory

@@ -90,7 +90,8 @@ class CategoryController extends AbstractEntityController {
 			AppError.DATABASE_SAVE.withDetails(category._id ? 'Category does not exists for given user' : 'User does not exist'),
 			category.owner,
 			category._id,
-			category);
+			category
+		);
 
 		if(allowSameName) {
 
@@ -120,13 +121,13 @@ class CategoryController extends AbstractEntityController {
 		const mediaItemController = await mediaItemFactory.getEntityControllerFromCategoryId(userId, categoryId);
 
 		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
-			return mediaItemController.getAllMediaItemsInCategory(categoryId)
+			return mediaItemController.getAllMediaItemsInCategory(categoryId);
 		}, () => {
 			return Promise.all([
 				groupController.deleteAllGroupsInCategory(categoryId),
 				mediaItemController.deleteAllMediaItemsInCategory(categoryId),
 				this.queryHelper.deleteById(categoryId)
-			])
+			]);
 		});
 	}
 
@@ -152,14 +153,16 @@ class CategoryController extends AbstractEntityController {
 	 */
 	private async checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, categoryId?: string, newCategoryData?: CategoryInternal): Promise<void> {
 
-		const userId = typeof(user) === 'string' ? user : user._id;
+		const userId = typeof user === 'string' ? user : user._id;
 
 		// Preconditions are different when it's a new category or an existing one
 		if(categoryId) {
 
 			// First check that the category exists
 			const categoryCheckPromise = this.getCategory(userId, categoryId);
-			await this.checkExistencePreconditionsHelper(errorToThow, () => categoryCheckPromise);
+			await this.checkExistencePreconditionsHelper(errorToThow, () => {
+				return categoryCheckPromise;
+			});
 
 			// Then, if the media type changes, check that the category is empty
 			const category = await categoryCheckPromise;
@@ -172,13 +175,13 @@ class CategoryController extends AbstractEntityController {
 					throw AppError.DATABASE_SAVE.withDetails('Cannot change category media type if it contains media items');
 				}
 			}
-			return;
 		}
 		else {
 
 			// Make sure the user exists
-			await this.checkExistencePreconditionsHelper(errorToThow, () => userController.getUser(userId));
-			return;
+			await this.checkExistencePreconditionsHelper(errorToThow, () => {
+				return userController.getUser(userId);
+			});
 		}
 	}
 }
@@ -187,5 +190,4 @@ class CategoryController extends AbstractEntityController {
  * Singleton implementation of the category controller
  */
 export const categoryController = new CategoryController();
-
 

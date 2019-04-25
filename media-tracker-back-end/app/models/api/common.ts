@@ -17,7 +17,7 @@ export class CommonResponse {
 	 * A generic message for easy response reading, should never be displayed to the user
 	 */
 	public message?: string;
-};
+}
 
 /**
  * Generic response for a failure outcome
@@ -64,6 +64,4 @@ export class CommonSaveRequest {
 	@IsBoolean()
 	public allowSameName?: boolean;
 }
-
-
 

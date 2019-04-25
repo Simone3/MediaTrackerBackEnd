@@ -33,11 +33,11 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 	protected convertToInternal(source: IdentifiedCategory, extraParams?: CategoryMapperParams): CategoryInternal {
 		
 		if(!extraParams) {
-			throw 'convertToInternal.extraParams cannot be undefined'
+			throw AppError.GENERIC.withDetails('convertToInternal.extraParams cannot be undefined');
 		}
 
 		return {
-			_id: (source.uid ? source.uid : null),
+			_id: source.uid ? source.uid : null,
 			name: source.name,
 			owner: extraParams.userId,
 			mediaType: this.toInternalMediaType(source.mediaType)
@@ -55,7 +55,7 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 			case 'MOVIE': return 'MOVIE';
 			case 'TV_SHOW': return 'TV_SHOW';
 			case 'VIDEOGAME': return 'VIDEOGAME';
-			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
+			default: throw AppError.GENERIC.withDetails(`Cannot map ${source}`);
 		}
 	}
 
@@ -70,7 +70,7 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 			case 'MOVIE': return 'MOVIE';
 			case 'TV_SHOW': return 'TV_SHOW';
 			case 'VIDEOGAME': return 'VIDEOGAME';
-			default: throw AppError.GENERIC.withDetails('Cannot map ' + source);
+			default: throw AppError.GENERIC.withDetails(`Cannot map ${source}`);
 		}
 	}
 }
@@ -79,5 +79,4 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
  * Singleton instance of the categories mapper
  */
 export const categoryMapper = new CategoryMapper();
-
 

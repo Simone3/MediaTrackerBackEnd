@@ -13,7 +13,7 @@ export class Group {
 	@IsNotEmpty()
 	@IsString()
 	public name!: string;
-};
+}
 
 /**
  * Model for a group with an ID property, publicly exposed via API
@@ -26,7 +26,7 @@ export class IdentifiedGroup extends Group {
 	@IsNotEmpty()
 	@IsString()
 	public uid!: string;
-};
+}
 
 /**
  * Request for the 'add group' API
@@ -37,10 +37,12 @@ export class AddGroupRequest extends CommonSaveRequest {
 	 * The group to add
 	 */
 	@IsDefined()
-	@Type(() => Group)
+	@Type(() => {
+		return Group;
+	})
 	@ValidateNested()
 	public newGroup!: Group;
-};
+}
 
 /**
  * Response for the 'add group' API
@@ -62,7 +64,7 @@ export class DeleteGroupResponse extends CommonResponse {
 export class GetAllGroupsResponse extends CommonResponse {
 
 	public groups: IdentifiedGroup[] = [];
-};
+}
 
 /**
  * Request for the 'update group' API
@@ -73,10 +75,12 @@ export class UpdateGroupRequest extends CommonSaveRequest {
 	 * The group to update
 	 */
 	@IsDefined()
-	@Type(() => Group)
+	@Type(() => {
+		return Group;
+	})
 	@ValidateNested()
 	public group!: Group;
-};
+}
 
 /**
  * Response for the 'update group' API

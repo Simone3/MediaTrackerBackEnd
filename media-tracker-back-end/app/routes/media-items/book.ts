@@ -37,11 +37,11 @@ entityRouterBuilder.filter({
 	requestClass: FilterBooksRequest,
 
 	filterRequestReader: (request) => {
-		return (request.filter ? bookFilterMapper.toInternal(request.filter) : undefined)
+		return request.filter ? bookFilterMapper.toInternal(request.filter) : undefined;
 	},
 
 	sortRequestReader: (request) => {
-		return (request.sortBy ? bookSortMapper.toInternalList(request.sortBy) : undefined)
+		return request.sortBy ? bookSortMapper.toInternalList(request.sortBy) : undefined;
 	},
 
 	responseBuilder: (commonResponse, books) => {
@@ -59,7 +59,7 @@ entityRouterBuilder.search({
 	requestClass: SearchBooksRequest,
 
 	filterRequestReader: (request) => {
-		return (request.filter ? bookFilterMapper.toInternal(request.filter) : undefined)
+		return request.filter ? bookFilterMapper.toInternal(request.filter) : undefined;
 	},
 
 	responseBuilder: (commonResponse, books) => {
@@ -77,7 +77,7 @@ entityRouterBuilder.addNew({
 	requestClass: AddBookRequest,
 
 	mediaItemRequestReader: (request, mediaItemId, userId, categoryId) => {
-		return bookMapper.toInternal({...request.newBook, uid: mediaItemId}, {userId, categoryId});
+		return bookMapper.toInternal({ ...request.newBook, uid: mediaItemId }, { userId, categoryId });
 	}
 });
 
@@ -87,7 +87,7 @@ entityRouterBuilder.updateExisting({
 	requestClass: UpdateBookRequest,
 
 	mediaItemRequestReader: (request, mediaItemId, userId, categoryId) => {
-		return bookMapper.toInternal({...request.book, uid: mediaItemId}, {userId, categoryId});
+		return bookMapper.toInternal({ ...request.book, uid: mediaItemId }, { userId, categoryId });
 	}
 });
 

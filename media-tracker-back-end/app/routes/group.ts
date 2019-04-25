@@ -9,7 +9,7 @@ import { AddGroupRequest, AddGroupResponse, DeleteGroupResponse, GetAllGroupsRes
 import { AppError } from 'app/models/error/error';
 import express, { Router } from 'express';
 
-var router: Router = express.Router();
+const router: Router = express.Router();
 
 /**
  * Route to get all saved groups
@@ -22,11 +22,11 @@ router.get('/users/:userId/categories/:categoryId/groups', (request, response) =
 	groupController.getAllGroups(userId, categoryId)
 		.then((groups) => {
 
-			const body: GetAllGroupsResponse = {
+			const responseBody: GetAllGroupsResponse = {
 				groups: groupMapper.toExternalList(groups)
 			};
 			
-			response.json(body);
+			response.json(responseBody);
 		})
 		.catch((error) => {
 
@@ -44,17 +44,17 @@ router.post('/users/:userId/categories/:categoryId/groups', (request, response) 
 	const categoryId: string = request.params.categoryId;
 
 	parserValidator.parseAndValidate(AddGroupRequest, request.body)
-		.then((body) => {
+		.then((parsedRequest) => {
 
-			const newGroup = groupMapper.toInternal({...body.newGroup, uid: ''}, {userId, categoryId});
-			groupController.saveGroup(newGroup, body.allowSameName)
+			const newGroup = groupMapper.toInternal({ ...parsedRequest.newGroup, uid: '' }, { userId, categoryId });
+			groupController.saveGroup(newGroup, parsedRequest.allowSameName)
 				.then(() => {
 			
-					const body: AddGroupResponse = {
+					const responseBody: AddGroupResponse = {
 						message: 'Group successfully added'
 					};
 
-					response.json(body);
+					response.json(responseBody);
 				})
 				.catch((error) => {
 
@@ -79,17 +79,17 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
 	const id: string = request.params.id;
 
 	parserValidator.parseAndValidate(UpdateGroupRequest, request.body)
-		.then((body) => {
+		.then((parsedRequest) => {
 
-			const group = groupMapper.toInternal({...body.group, uid: id}, {userId, categoryId});
-			groupController.saveGroup(group, body.allowSameName)
+			const group = groupMapper.toInternal({ ...parsedRequest.group, uid: id }, { userId, categoryId });
+			groupController.saveGroup(group, parsedRequest.allowSameName)
 				.then(() => {
 				
-					const body: UpdateGroupResponse = {
+					const responseBody: UpdateGroupResponse = {
 						message: 'Group successfully updated'
 					};
 
-					response.json(body);
+					response.json(responseBody);
 				})
 				.catch((error) => {
 
@@ -118,11 +118,11 @@ router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, resp
 	groupController.deleteGroup(userId, categoryId, id, forceEvenIfNotEmpty)
 		.then(() => {
 			
-			const body: DeleteGroupResponse = {
+			const responseBody: DeleteGroupResponse = {
 				message: 'Group successfully deleted'
 			};
 
-			response.json(body);
+			response.json(responseBody);
 		})
 		.catch((error) => {
 

@@ -37,11 +37,11 @@ entityRouterBuilder.filter({
 	requestClass: FilterTvShowsRequest,
 
 	filterRequestReader: (request) => {
-		return (request.filter ? tvShowFilterMapper.toInternal(request.filter) : undefined)
+		return request.filter ? tvShowFilterMapper.toInternal(request.filter) : undefined;
 	},
 
 	sortRequestReader: (request) => {
-		return (request.sortBy ? tvShowSortMapper.toInternalList(request.sortBy) : undefined)
+		return request.sortBy ? tvShowSortMapper.toInternalList(request.sortBy) : undefined;
 	},
 
 	responseBuilder: (commonResponse, tvShows) => {
@@ -59,7 +59,7 @@ entityRouterBuilder.search({
 	requestClass: SearchTvShowsRequest,
 
 	filterRequestReader: (request) => {
-		return (request.filter ? tvShowFilterMapper.toInternal(request.filter) : undefined)
+		return request.filter ? tvShowFilterMapper.toInternal(request.filter) : undefined;
 	},
 
 	responseBuilder: (commonResponse, tvShows) => {
@@ -77,7 +77,7 @@ entityRouterBuilder.addNew({
 	requestClass: AddTvShowRequest,
 
 	mediaItemRequestReader: (request, mediaItemId, userId, categoryId) => {
-		return tvShowMapper.toInternal({...request.newTvShow, uid: mediaItemId}, {userId, categoryId});
+		return tvShowMapper.toInternal({ ...request.newTvShow, uid: mediaItemId }, { userId, categoryId });
 	}
 });
 
@@ -87,7 +87,7 @@ entityRouterBuilder.updateExisting({
 	requestClass: UpdateTvShowRequest,
 
 	mediaItemRequestReader: (request, mediaItemId, userId, categoryId) => {
-		return tvShowMapper.toInternal({...request.tvShow, uid: mediaItemId}, {userId, categoryId});
+		return tvShowMapper.toInternal({ ...request.tvShow, uid: mediaItemId }, { userId, categoryId });
 	}
 });
 

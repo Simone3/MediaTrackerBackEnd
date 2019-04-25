@@ -70,5 +70,3 @@ export abstract class ModelMapper<TInternal, TExternal, TParams> {
 	}
 }
 
-
-

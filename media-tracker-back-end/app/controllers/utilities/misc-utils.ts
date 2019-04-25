@@ -29,24 +29,24 @@ class MiscUtilsController {
 		}
 		
 		// Build full URL
-		let fullUrl = (urlParts[0] ? urlParts[0] : '');
-		for (let i = 1; i < urlParts.length; i++) {
+		let fullUrl = urlParts[0] ? urlParts[0] : '';
+		for(let i = 1; i < urlParts.length; i++) {
 
 			if(urlParts[i] && urlParts[i].length > 0) {
 
-				let fullEnds = fullUrl.endsWith('/');
-				let partStarts = urlParts[i].startsWith('/');
+				const fullEnds = fullUrl.endsWith('/');
+				const partStarts = urlParts[i].startsWith('/');
 				if(fullEnds && partStarts) {
 					
-					fullUrl = fullUrl + urlParts[i].substring(1);
+					fullUrl += urlParts[i].substring(1);
 				}
 				else if(!fullEnds && !partStarts) {
 
-					fullUrl = fullUrl + '/' + urlParts[i];
+					fullUrl += `/${urlParts[i]}`;
 				}
 				else {
 
-					fullUrl = fullUrl + urlParts[i];
+					fullUrl += urlParts[i];
 				}
 			}
 		}
@@ -54,9 +54,9 @@ class MiscUtilsController {
 		// Replace path params
 		if(pathParams) {
 
-			for(let key in pathParams) {
+			for(const key in pathParams) {
 
-				fullUrl = fullUrl.replace(':' + key, pathParams[key]);
+				fullUrl = fullUrl.replace(`:${key}`, pathParams[key]);
 			}
 		}
 		
@@ -68,7 +68,7 @@ class MiscUtilsController {
 	 */
 	public parseBoolean(value: unknown): boolean {
 
-		if(typeof(value) === 'string') {
+		if(typeof value === 'string') {
 
 			value = value.trim().toLowerCase();
 		}
@@ -108,7 +108,7 @@ class EnumUtils {
 
 		const result = [];
 
-		for(let enumKey in theEnum) {
+		for(const enumKey in theEnum) {
 
 			if(isNaN(Number(enumKey))) {
 		
@@ -128,11 +128,11 @@ class EnumUtils {
 
 		const result = [];
 
-		for(let enumStringKey in theEnum) {
+		for(const enumStringKey in theEnum) {
 
 			if(isNaN(Number(enumStringKey))) {
 		
-				let enumKeyOf = enumStringKey as keyof typeof theEnum;
+				const enumKeyOf = enumStringKey as keyof typeof theEnum;
 				result.push(theEnum[enumKeyOf]);
 			}
 		}
@@ -174,11 +174,11 @@ class DateUtils {
 		let stringDate = String(year);
 		if(month) {
 
-			stringDate += '-' + month;
+			stringDate += `-${month}`;
 
 			if(day) {
 
-				stringDate += '-' + day;
+				stringDate += `-${day}`;
 			}
 		}
 
@@ -198,7 +198,7 @@ export const dateUtils = new DateUtils();
 class StringUtils {
 
 	/**
-	 * Similar to the default array join but with truthy check (undefined elements will be skipped) and, optionally, sub-properties 
+	 * Similar to the default array join but with truthy check (undefined elements will be skipped) and, optionally, sub-properties
 	 * @param array the possibly undefined source array
 	 * @param separator the separator
 	 * @param defaultIfEmpty the default value to return if the join produces an empty result
@@ -214,7 +214,7 @@ class StringUtils {
 		if(array) {
 
 			let result = '';
-			for(let value of array) {
+			for(const value of array) {
 
 				// Then check if the single element of the array is defined
 				if(value) {
@@ -223,15 +223,15 @@ class StringUtils {
 					let toAppend: string | undefined;
 					if(!properties || properties.length === 0) {
 
-						toAppend = '' + value;
+						toAppend = String(value);
 					}
 					else {
 
-						for(let property of properties) {
+						for(const property of properties) {
 
 							if(value[property]) {
 
-								toAppend = '' + value[property];
+								toAppend = String(value[property]);
 								break;
 							}
 						}

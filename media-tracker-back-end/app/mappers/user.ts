@@ -24,7 +24,7 @@ class UserMapper extends ModelMapper<UserInternal, IdentifiedUser, never> {
 	protected convertToInternal(source: IdentifiedUser): UserInternal {
 		
 		return {
-			_id: (source.uid ? source.uid : null),
+			_id: source.uid ? source.uid : null,
 			name: source.name
 		};
 	}
@@ -34,5 +34,4 @@ class UserMapper extends ModelMapper<UserInternal, IdentifiedUser, never> {
  * Singleton instance of the users mapper
  */
 export const userMapper = new UserMapper();
-
 

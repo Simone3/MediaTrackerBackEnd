@@ -93,7 +93,8 @@ class GroupController extends AbstractEntityController {
 			AppError.DATABASE_SAVE.withDetails(group._id ? 'Group does not exists for given user/category' : 'User or category does not exist'),
 			group.owner,
 			group.category,
-			group._id);
+			group._id
+		);
 
 		if(allowSameName) {
 
@@ -132,7 +133,7 @@ class GroupController extends AbstractEntityController {
 			return Promise.all([
 				mediaItemController.deleteAllMediaItemsInGroup(groupId),
 				this.queryHelper.deleteById(groupId)
-			])
+			]);
 		});
 	}
 
@@ -175,8 +176,8 @@ class GroupController extends AbstractEntityController {
 
 		return this.checkExistencePreconditionsHelper(errorToThow, () => {
 
-			const userId = typeof(user) === 'string' ? user : user._id;
-			const categoryId = typeof(category) === 'string' ? category : category._id;
+			const userId = typeof user === 'string' ? user : user._id;
+			const categoryId = typeof category === 'string' ? category : category._id;
 
 			if(groupId) {
 
@@ -196,5 +197,4 @@ class GroupController extends AbstractEntityController {
  * Singleton implementation of the group controller
  */
 export const groupController = new GroupController();
-
 

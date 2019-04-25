@@ -59,7 +59,7 @@ export class RestJsonInvoker {
 				timeout: parameters.timeoutMilliseconds,
 				headers: {
 					'Content-Type': 'application/json',
-					'Accept': 'application/json',
+					Accept: 'application/json',
 					'Accept-Charset': 'utf-8',
 					'User-Agent': config.externalApis.userAgent
 				}
@@ -81,7 +81,7 @@ export class RestJsonInvoker {
 	
 							logger.error('External API response parse error: %s', error);
 							reject(AppError.EXTERNAL_API_PARSE.unlessAppError(error));
-						})
+						});
 				})
 				.catch((error) => {
 
@@ -103,7 +103,7 @@ export class RestJsonInvoker {
 		}
 		else if(error instanceof RequestError) {
 			
-			let code = (error.error && error.error.code && typeof error.error.code === 'string' ? String(error.error.code) : '');
+			const code = error.error && error.error.code && typeof error.error.code === 'string' ? String(error.error.code) : '';
 			if(code.includes('TIMEDOUT')) {
 				
 				return AppError.EXTERNAL_API_TIMEOUT.withDetails(error);
@@ -171,5 +171,4 @@ type InternalInvocationParams<TRequest, TResponse> = InvocationParamsWithoutBody
 export type QueryParams = {
 	[key: string]: string;
 };
-
 

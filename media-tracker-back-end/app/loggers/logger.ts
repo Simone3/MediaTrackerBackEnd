@@ -16,7 +16,7 @@ const layout: PatternLayout = {
 			return requestScopeContext.correlationId || 'NONE';
 		}
 	}
-}
+};
 
 /**
  * Global log4js configuration
@@ -35,7 +35,7 @@ configure({
 	},
 	categories: {
 		default: {
-			appenders: ['file', 'console'],
+			appenders: [ 'file', 'console' ],
 			level: 'debug'
 		}
 	}

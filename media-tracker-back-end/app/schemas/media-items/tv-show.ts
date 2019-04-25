@@ -6,7 +6,7 @@ import { Schema } from 'mongoose';
  */
 export const TvShowSchema: Schema = new Schema({
 	...commonMediaItemSchemaDefinition,
-	creator: {type: String, required: false}
+	creator: { type: String, required: false }
 }, {
 	...commonMediaItemSchemaOptions
 });

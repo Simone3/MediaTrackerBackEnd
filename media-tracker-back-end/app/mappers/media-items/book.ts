@@ -16,7 +16,7 @@ class BookMapper extends MediaItemMapper<BookInternal, IdentifiedBook> {
 			...this.commonToExternal(source),
 			uid: source._id,
 			author: source.author
-		}
+		};
 	}
 		
 	/**
@@ -26,9 +26,9 @@ class BookMapper extends MediaItemMapper<BookInternal, IdentifiedBook> {
 		
 		return {
 			...this.commonToInternal(source, extraParams),
-			_id: (source.uid ? source.uid : null),
+			_id: source.uid ? source.uid : null,
 			author: source.author
-		}
+		};
 	}
 }
 
@@ -180,11 +180,3 @@ export const bookCatalogSearchMapper = new BookCatalogSearchMapper();
  * Singleton instance of the books catalog details mapper
  */
 export const bookCatalogDetailsMapper = new BookCatalogDetailsMapper();
-
-
-
-
-
-
-
-
