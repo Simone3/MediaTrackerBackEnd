@@ -11,7 +11,10 @@ module.exports = {
 		'no-unused-expressions': ['off'],
 
 		// Disable for semplicity
-		'no-throw-literal': ['off']
+		'no-throw-literal': ['off'],
+
+		// Disable for Mocha callbacks that require access to "this"
+		'prefer-arrow-callback': ['off']
 	}
 };
 

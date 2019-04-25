@@ -2,7 +2,6 @@ import { QueryHelper } from 'app/controllers/database/query-helper';
 import { PersistedEntityInternal } from 'app/models/internal/common';
 import chai from 'chai';
 import { Document, model, Model, Schema } from 'mongoose';
-import { setupTestDatabaseConnection } from 'test/helpers/test-database-helper';
 import { randomName } from 'test/helpers/test-misc-helper';
 
 const expect = chai.expect;
@@ -29,9 +28,7 @@ const mapEntityToString = (entity: TestInternalModel): string => {
  * Tests for the query helper
  */
 describe('QueryHelper Tests', () => {
-	
-	setupTestDatabaseConnection();
-	
+		
 	const queryHelper = new QueryHelper<TestInternalModel, TestDocument, Model<TestDocument>>(TestModel);
 
 	describe('Database Write Queries', () => {
@@ -168,7 +165,7 @@ describe('QueryHelper Tests', () => {
 		it('FindOne should return undefined if empty database', async() => {
 
 			const foundEntity = await queryHelper.findOne({});
-			expect(foundEntity, 'Find did not return an undefined result').to.be.undefined;
+			expect(foundEntity, 'Find returned a defined result').to.be.undefined;
 		});
 
 		it('FindOne with valid conditions should return the matching entity', async() => {
