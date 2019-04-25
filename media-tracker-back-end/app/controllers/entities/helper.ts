@@ -47,7 +47,7 @@ export abstract class AbstractEntityController {
 		}
 		catch(error) {
 
-			throw AppError.DATABASE_DELETE.unlessAppError(error);
+			throw AppError.DATABASE_DELETE.withDetails(error);
 		}
 	}
 

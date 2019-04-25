@@ -31,7 +31,7 @@ router.get('/users/:userId/categories/:categoryId/groups', (request, response) =
 		.catch((error) => {
 
 			logger.error('Get groups generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 		});
 });
 
@@ -59,13 +59,13 @@ router.post('/users/:userId/categories/:categoryId/groups', (request, response) 
 				.catch((error) => {
 
 					logger.error('Add group generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Add group request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -94,13 +94,13 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
 				.catch((error) => {
 
 					logger.error('Update group generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Update group request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -127,7 +127,7 @@ router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, resp
 		.catch((error) => {
 
 			logger.error('Delete group generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 		});
 });
 

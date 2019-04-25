@@ -50,7 +50,7 @@ class MovieCatalogController extends MediaItemCatalogController<SearchMovieCatal
 				.catch((error) => {
 					
 					logger.error('Movie catalog invocation error: %s', error);
-					reject(AppError.GENERIC.unlessAppError(error));
+					reject(AppError.GENERIC.withDetails(error));
 				});
 		});
 	}
@@ -88,7 +88,7 @@ class MovieCatalogController extends MediaItemCatalogController<SearchMovieCatal
 				.catch((error) => {
 					
 					logger.error('Movie catalog invocation error: %s', error);
-					reject(AppError.GENERIC.unlessAppError(error));
+					reject(AppError.GENERIC.withDetails(error));
 				});
 		});
 	}

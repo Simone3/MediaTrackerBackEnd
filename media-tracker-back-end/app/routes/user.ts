@@ -33,13 +33,13 @@ router.post('/users', (request, response) => {
 				.catch((error) => {
 
 					logger.error('Add user generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Add user request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -66,13 +66,13 @@ router.put('/users/:id', (request, response) => {
 				.catch((error) => {
 
 					logger.error('Update user generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Update user request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -96,7 +96,7 @@ router.delete('/users/:id', (request, response) => {
 		.catch((error) => {
 
 			logger.error('Delete user generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 		});
 });
 

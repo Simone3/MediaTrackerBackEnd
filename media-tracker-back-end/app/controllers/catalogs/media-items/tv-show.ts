@@ -50,7 +50,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 				.catch((error) => {
 					
 					logger.error('TV show catalog invocation error: %s', error);
-					reject(AppError.GENERIC.unlessAppError(error));
+					reject(AppError.GENERIC.withDetails(error));
 				});
 		});
 	}
@@ -95,7 +95,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 							.catch((error) => {
 
 								logger.error('TV show catalog (season) invocation error: %s', error);
-								reject(AppError.GENERIC.unlessAppError(error));
+								reject(AppError.GENERIC.withDetails(error));
 							});
 					}
 					else {
@@ -106,7 +106,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 				.catch((error) => {
 					
 					logger.error('TV show catalog (details) invocation error: %s', error);
-					reject(AppError.GENERIC.unlessAppError(error));
+					reject(AppError.GENERIC.withDetails(error));
 				});
 		});
 	}

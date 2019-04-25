@@ -2,6 +2,7 @@
 import { config } from 'app/config/config';
 import { requestScopeContext } from 'app/controllers/utilities/request-scope-context';
 import { logRedactor } from 'app/loggers/log-redactor';
+import { AppError } from 'app/models/error/error';
 import { configure, getLogger, Logger, PatternLayout, shutdown } from 'log4js';
 
 /**
@@ -84,6 +85,27 @@ class MediaTrackerLogger {
 		if(this.log4js.isErrorEnabled()) {
 
 			this.log4js.error(message, ...this.stringify(args));
+
+			for(const arg of args) {
+
+				if(arg instanceof AppError) {
+
+					let currentArg: string | AppError | undefined = arg;
+
+					while(currentArg && currentArg instanceof AppError) {
+
+						this.log4js.error('Caused by AppError:');
+						this.log4js.error(currentArg);
+
+						currentArg = currentArg.errorDetails;
+					}
+				}
+				else if(arg instanceof Error) {
+
+					this.log4js.error('Caused by raw Error:');
+					this.log4js.error(arg);
+				}
+			}
 		}
 	}
 

@@ -36,7 +36,7 @@ class DatabaseManager {
 			db.on('error', (error): void => {
 				
 				logger.error('Database connection error: %s', error);
-				reject(AppError.DATABASE_INIT.unlessAppError(error));
+				reject(AppError.DATABASE_INIT.withDetails(error));
 			});
 	
 			db.once('open', (): void => {

@@ -59,7 +59,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 				.catch((error) => {
 
 					logger.error('Database find error: %s', error);
-					reject(AppError.DATABASE_FIND.unlessAppError(error));
+					reject(AppError.DATABASE_FIND.withDetails(error));
 				});
 		});
 	}
@@ -138,14 +138,14 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 							.catch((error) => {
 
 								logger.error('Database save error after uniqueness check: %s', error);
-								reject(AppError.DATABASE_SAVE.unlessAppError(error));
+								reject(AppError.DATABASE_SAVE.withDetails(error));
 							});
 					}
 				})
 				.catch((error) => {
 
 					logger.error('Database uniqueness check error: %s', error);
-					reject(AppError.DATABASE_SAVE.unlessAppError(error));
+					reject(AppError.DATABASE_SAVE.withDetails(error));
 				});
 		});
 	}
@@ -180,7 +180,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 				if(error) {
 					
 					logger.error('Database save error: %s', error);
-					reject(AppError.DATABASE_SAVE.unlessAppError(error));
+					reject(AppError.DATABASE_SAVE.withDetails(error));
 				}
 				else if(savedDocument) {
 
@@ -220,7 +220,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 				.catch((error) => {
 
 					logger.error('Database delete error: %s', error);
-					reject(AppError.DATABASE_DELETE.unlessAppError(error));
+					reject(AppError.DATABASE_DELETE.withDetails(error));
 				});
 		});
 	}
@@ -242,7 +242,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 				.catch((error) => {
 
 					logger.error('Database delete error: %s', error);
-					reject(AppError.DATABASE_DELETE.unlessAppError(error));
+					reject(AppError.DATABASE_DELETE.withDetails(error));
 				});
 		});
 	}

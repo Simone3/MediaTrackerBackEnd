@@ -1,7 +1,7 @@
 /**
  * An application error that can be thrown or promise-rejected in the code and then handled in a response with negative outcome
  */
-export class AppError {
+export class AppError extends Error {
 
 	public static GENERIC = new AppError('generic.application', 'Generic application error');
 	public static NOT_FOUND = new AppError('api.not.found', 'Cannot find the requested API');
@@ -23,6 +23,8 @@ export class AppError {
 
 	private constructor(errorCode: string, errorDescription: string, errorDetails?: string | AppError) {
 		
+		super(`${errorCode} - ${errorDescription} - ${errorDetails}`);
+
 		this._errorCode = errorCode;
 		this._errorDescription = errorDescription;
 		this._errorDetails = errorDetails;
@@ -75,20 +77,5 @@ export class AppError {
 		}
 
 		return new AppError(this.errorCode, this.errorDescription, convertedErrorDetails);
-	}
-
-	/**
-	 * If 'error' is an AppError, returns it: otherwise returns this element with 'error' as details
-	 */
-	public unlessAppError(error: unknown): AppError {
-
-		if(error && error instanceof AppError) {
-
-			return error;
-		}
-		else {
-
-			return this.withDetails(error);
-		}
 	}
 }

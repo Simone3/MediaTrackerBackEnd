@@ -46,9 +46,27 @@ export class ErrorResponse extends CommonResponse {
 	public constructor(error: AppError) {
 
 		super();
-		this.errorCode = error.errorCode;
-		this.errorDescription = error.errorDescription;
-		this.errorDetails = error.errorDetails;
+
+		const sourceError = this.getSourceAppError(error);
+		
+		this.errorCode = sourceError.errorCode;
+		this.errorDescription = sourceError.errorDescription;
+		this.errorDetails = sourceError.errorDetails;
+	}
+
+	/**
+	 * Helper to extract the source error from the stack of AppErrors
+	 */
+	private getSourceAppError(error: AppError): AppError {
+
+		let currentError: AppError = error;
+
+		while(currentError.errorDetails && currentError.errorDetails instanceof AppError) {
+
+			currentError = error.errorDetails as AppError;
+		}
+
+		return currentError;
 	}
 }
 

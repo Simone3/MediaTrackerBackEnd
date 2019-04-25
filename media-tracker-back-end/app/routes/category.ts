@@ -30,7 +30,7 @@ router.get('/users/:userId/categories', (request, response) => {
 		.catch((error) => {
 
 			logger.error('Get categories generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 		});
 });
 
@@ -57,13 +57,13 @@ router.post('/users/:userId/categories', (request, response) => {
 				.catch((error) => {
 
 					logger.error('Add category generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Add category request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -91,13 +91,13 @@ router.put('/users/:userId/categories/:id', (request, response) => {
 				.catch((error) => {
 
 					logger.error('Update category generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Update category request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -123,7 +123,7 @@ router.delete('/users/:userId/categories/:id', (request, response) => {
 		.catch((error) => {
 
 			logger.error('Delete category generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.unlessAppError(error)));
+			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
 		});
 });
 

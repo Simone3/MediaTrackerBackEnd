@@ -80,7 +80,7 @@ export class RestJsonInvoker {
 						.catch((error) => {
 	
 							logger.error('External API response parse error: %s', error);
-							reject(AppError.EXTERNAL_API_PARSE.unlessAppError(error));
+							reject(AppError.EXTERNAL_API_PARSE.withDetails(error));
 						});
 				})
 				.catch((error) => {

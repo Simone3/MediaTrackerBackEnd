@@ -50,7 +50,7 @@ class VideogameCatalogController extends MediaItemCatalogController<SearchVideog
 				.catch((error) => {
 					
 					logger.error('Videogame catalog invocation error: %s', error);
-					reject(AppError.GENERIC.unlessAppError(error));
+					reject(AppError.GENERIC.withDetails(error));
 				});
 		});
 	}
@@ -88,7 +88,7 @@ class VideogameCatalogController extends MediaItemCatalogController<SearchVideog
 				.catch((error) => {
 					
 					logger.error('Videogame catalog invocation error: %s', error);
-					reject(AppError.GENERIC.unlessAppError(error));
+					reject(AppError.GENERIC.withDetails(error));
 				});
 		});
 	}

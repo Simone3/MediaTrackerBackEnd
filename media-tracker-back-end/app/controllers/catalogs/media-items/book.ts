@@ -50,7 +50,7 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 				.catch((error) => {
 					
 					logger.error('Book catalog invocation error: %s', error);
-					reject(AppError.GENERIC.unlessAppError(error));
+					reject(AppError.GENERIC.withDetails(error));
 				});
 		});
 	}
@@ -88,7 +88,7 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 				.catch((error) => {
 					
 					logger.error('Book catalog invocation error: %s', error);
-					reject(AppError.GENERIC.unlessAppError(error));
+					reject(AppError.GENERIC.withDetails(error));
 				});
 		});
 	}
