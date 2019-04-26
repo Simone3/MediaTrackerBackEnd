@@ -7,7 +7,7 @@ const expect = chai.expect;
 /**
  * Tests for the date utilities
  */
-describe.only('DateUtils Tests', () => {
+describe('DateUtils Tests', () => {
 		
 	const check = (value: string, expected: string): void => {
 
@@ -18,7 +18,7 @@ describe.only('DateUtils Tests', () => {
 
 	describe('DateUtils Tests', () => {
 
-		it('Should correctly parse dates from numbers', async() => {
+		it('Should correctly parse dates from numbers', (done) => {
 
 			check(dateUtils.dateStringFromYearMonthDay(2019, 4, 26), '2019-04-26');
 			check(dateUtils.dateStringFromYearMonthDay(2019, 1, 1), '2019-01-01');
@@ -34,6 +34,8 @@ describe.only('DateUtils Tests', () => {
 
 			expect(() => dateUtils.dateStringFromYearMonthDay(2019, 5, 32)).to.throw(AppError);
 			expect(() => dateUtils.dateStringFromYearMonthDay(2019, 50)).to.throw(AppError);
+			
+			done();
 		});
 	});
 });
