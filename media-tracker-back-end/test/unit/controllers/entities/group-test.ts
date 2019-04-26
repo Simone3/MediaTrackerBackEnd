@@ -1,10 +1,9 @@
-import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
 import { userController } from 'app/controllers/entities/user';
 import { GroupInternal } from 'app/models/internal/group';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
-import { getTestCategory, getTestGroup, getTestUser, TestUC } from 'helpers/entities-builder-helper';
+import { getTestGroup, initTestUCHelper, TestUC } from 'helpers/entities-builder-helper';
 import { extractId, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
@@ -20,14 +19,6 @@ describe('GroupController Tests', () => {
 
 		const firstUC: TestUC = { user: '', category: '' };
 		const secondUC: TestUC = { user: '', category: '' };
-		
-		const initTestUCHelper = async(target: TestUC, namePrefix: string): Promise<void> => {
-
-			const insertedUser = await userController.saveUser(getTestUser(undefined, randomName(`${namePrefix}User`)));
-			target.user = insertedUser._id;
-			const insertedCategory = await categoryController.saveCategory(getTestCategory(undefined, target, randomName(`${namePrefix}Category`)));
-			target.category = insertedCategory._id;
-		};
 
 		// Create new users and categories for each test
 		beforeEach(async() => {

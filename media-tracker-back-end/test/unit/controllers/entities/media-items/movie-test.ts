@@ -1,11 +1,9 @@
-import { categoryController } from 'app/controllers/entities/category';
-import { groupController } from 'app/controllers/entities/group';
 import { movieEntityController } from 'app/controllers/entities/media-items/movie';
 import { userController } from 'app/controllers/entities/user';
 import { MovieInternal } from 'app/models/internal/media-items/movie';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
-import { getTestCategory, getTestGroup, getTestMovie, getTestMovieInGroup, getTestUser, TestUCG } from 'helpers/entities-builder-helper';
+import { getTestMovie, getTestMovieInGroup, initTestUCGHelper, TestUCG } from 'helpers/entities-builder-helper';
 import { extractName, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
@@ -22,25 +20,6 @@ describe('MovieController Tests', () => {
 		const firstUCG: TestUCG = { user: '', category: '' };
 		const secondUCG: TestUCG = { user: '', category: '' };
 		const thirdUCG: TestUCG = { user: '', category: '' };
-		
-		const initTestUCGHelper = async(target: TestUCG, namePrefix: string, user?: string): Promise<void> => {
-
-			if(user) {
-
-				target.user = user;
-			}
-			else {
-
-				const insertedUser = await userController.saveUser(getTestUser(undefined, randomName(`${namePrefix}User`)));
-				target.user = insertedUser._id;
-			}
-
-			const insertedCategory = await categoryController.saveCategory(getTestCategory(undefined, target, randomName(`${namePrefix}Category`)));
-			target.category = insertedCategory._id;
-			
-			const insertedGroup = await groupController.saveGroup(getTestGroup(undefined, target, randomName(`${namePrefix}Group`)));
-			target.group = insertedGroup._id;
-		};
 
 		const helperCompareResults = (expected: string[], result: MovieInternal[], matchInOrder?: boolean): void => {
 

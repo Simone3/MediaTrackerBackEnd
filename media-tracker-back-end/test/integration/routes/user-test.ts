@@ -12,7 +12,7 @@ const expect = chai.expect;
 /**
  * Tests for the user controller
  */
-describe.only('User API Tests', () => {
+describe('User API Tests', () => {
 
 	setupTestDatabaseConnection();
 	setupTestServer();

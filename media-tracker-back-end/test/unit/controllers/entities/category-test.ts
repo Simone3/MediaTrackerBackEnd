@@ -3,7 +3,7 @@ import { userController } from 'app/controllers/entities/user';
 import { CategoryInternal } from 'app/models/internal/category';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
-import { getTestCategory, getTestUser, TestU } from 'helpers/entities-builder-helper';
+import { getTestCategory, initTestUHelper, TestU } from 'helpers/entities-builder-helper';
 import { extractId, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
@@ -19,12 +19,6 @@ describe('CategoryController Tests', () => {
 
 		const firstU: TestU = { user: '' };
 		const secondU: TestU = { user: '' };
-		
-		const initTestUHelper = async(target: TestU, namePrefix: string): Promise<void> => {
-
-			const insertedUser = await userController.saveUser(getTestUser(undefined, randomName(`${namePrefix}User`)));
-			target.user = insertedUser._id;
-		};
 
 		// Create new users for each test
 		beforeEach(async() => {
