@@ -19,6 +19,9 @@ module.exports = {
 
 		// Console is OK for tests
 		'no-console': ['off'],
+
+		// "any" is OK for tests
+		'@typescript-eslint/no-explicit-any': ['off']
 	}
 };
 
