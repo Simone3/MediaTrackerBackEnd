@@ -1,6 +1,7 @@
 import { QueryHelper } from 'app/controllers/database/query-helper';
 import { PersistedEntityInternal } from 'app/models/internal/common';
 import chai from 'chai';
+import { setupDatabaseConnection } from 'helpers/database-handler-helper';
 import { Document, model, Model, Schema } from 'mongoose';
 import { randomName } from 'test/helpers/test-misc-helper';
 
@@ -28,7 +29,9 @@ const mapEntityToString = (entity: TestInternalModel): string => {
  * Tests for the query helper
  */
 describe('QueryHelper Tests', () => {
-		
+	
+	setupDatabaseConnection();
+
 	const queryHelper = new QueryHelper<TestInternalModel, TestDocument, Model<TestDocument>>(TestModel);
 
 	describe('Database Write Queries', () => {

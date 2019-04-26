@@ -3,6 +3,7 @@ import { groupController } from 'app/controllers/entities/group';
 import { userController } from 'app/controllers/entities/user';
 import { GroupInternal } from 'app/models/internal/group';
 import chai from 'chai';
+import { setupDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestCategory, getTestGroup, getTestUser, TestUC } from 'helpers/entities-builder-helper';
 import { extractId, randomName } from 'helpers/test-misc-helper';
 
@@ -12,6 +13,8 @@ const expect = chai.expect;
  * Tests for the group controller
  */
 describe('GroupController Tests', () => {
+	
+	setupDatabaseConnection();
 	
 	describe('GroupController Tests', () => {
 

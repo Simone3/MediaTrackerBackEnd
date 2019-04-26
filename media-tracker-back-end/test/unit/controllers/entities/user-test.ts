@@ -1,6 +1,7 @@
 import { userController } from 'app/controllers/entities/user';
 import { UserInternal } from 'app/models/internal/user';
 import chai from 'chai';
+import { setupDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestUser } from 'helpers/entities-builder-helper';
 import { randomName } from 'helpers/test-misc-helper';
 
@@ -10,6 +11,8 @@ const expect = chai.expect;
  * Tests for the user controller
  */
 describe('UserController Tests', () => {
+	
+	setupDatabaseConnection();
 	
 	describe('UserController Tests', () => {
 

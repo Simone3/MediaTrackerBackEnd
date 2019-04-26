@@ -1,4 +1,4 @@
-import { AppError } from "app/models/error/error";
+import { AppError } from 'app/models/error/error';
 
 /**
  * Some utilities for dates
