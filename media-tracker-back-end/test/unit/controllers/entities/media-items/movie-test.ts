@@ -4,7 +4,7 @@ import { movieEntityController } from 'app/controllers/entities/media-items/movi
 import { userController } from 'app/controllers/entities/user';
 import { MovieInternal } from 'app/models/internal/media-items/movie';
 import chai from 'chai';
-import { setupDatabaseConnection } from 'helpers/database-handler-helper';
+import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestCategory, getTestGroup, getTestMovie, getTestMovieInGroup, getTestUser, TestUCG } from 'helpers/entities-builder-helper';
 import { extractName, randomName } from 'helpers/test-misc-helper';
 
@@ -15,7 +15,7 @@ const expect = chai.expect;
  */
 describe('MovieController Tests', () => {
 	
-	setupDatabaseConnection();
+	setupTestDatabaseConnection();
 	
 	describe('MovieController Tests', () => {
 

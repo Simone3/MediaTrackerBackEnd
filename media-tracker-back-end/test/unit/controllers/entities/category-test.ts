@@ -2,7 +2,7 @@ import { categoryController } from 'app/controllers/entities/category';
 import { userController } from 'app/controllers/entities/user';
 import { CategoryInternal } from 'app/models/internal/category';
 import chai from 'chai';
-import { setupDatabaseConnection } from 'helpers/database-handler-helper';
+import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestCategory, getTestUser, TestU } from 'helpers/entities-builder-helper';
 import { extractId, randomName } from 'helpers/test-misc-helper';
 
@@ -13,7 +13,7 @@ const expect = chai.expect;
  */
 describe('CategoryController Tests', () => {
 	
-	setupDatabaseConnection();
+	setupTestDatabaseConnection();
 	
 	describe('CategoryController Tests', () => {
 

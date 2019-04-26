@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 /**
  * Helper to start the MongoDB connection
  */
-export const setupDatabaseConnection = (): void => {
+export const setupTestDatabaseConnection = (): void => {
 
 	// Init connection on startup
 	before((done) => {
