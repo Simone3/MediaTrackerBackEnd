@@ -2,7 +2,7 @@ import { categoryController } from 'app/controllers/entities/category';
 import { userController } from 'app/controllers/entities/user';
 import { CategoryInternal } from 'app/models/internal/category';
 import chai from 'chai';
-import { randomName } from 'helpers/test-misc-helper';
+import { extractId, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
 
@@ -16,27 +16,27 @@ describe('CategoryController Tests', () => {
 		let firstUser: string;
 		let secondUser: string;
 		
-		// Create a user for each test
+		// Create new users for each test
 		beforeEach(async() => {
 
-			let insertedUser = await userController.saveUser({ _id: undefined, name: `First-${randomName()}` });
+			let insertedUser = await userController.saveUser({ _id: undefined, name: randomName('First') });
 			firstUser = insertedUser._id;
 
-			insertedUser = await userController.saveUser({ _id: undefined, name: `Second-${randomName()}` });
+			insertedUser = await userController.saveUser({ _id: undefined, name: randomName('Second') });
 			secondUser = insertedUser._id;
 		});
 
 		const buildCategory = (_id: unknown, name: string, user?: string): CategoryInternal => {
 			
-			return { _id: _id, mediaType: 'MOVIE', owner: user ? user : firstUser, name: name };
+			return {
+				_id: _id,
+				mediaType: 'MOVIE',
+				owner: user ? user : firstUser,
+				name: name
+			};
 		};
 
-		const extractId = (category: CategoryInternal): string => {
-
-			return String(category._id);
-		};
-
-		it('GetCategory should return the corrent category after SaveCategory', async() => {
+		it('GetCategory should return the correct category after SaveCategory', async() => {
 
 			const insertedCategory = await categoryController.saveCategory(buildCategory(undefined, randomName()));
 			const insertedId = insertedCategory._id;
@@ -62,12 +62,12 @@ describe('CategoryController Tests', () => {
 			expect(foundCategory, 'GetCategory returned an defined result').to.be.undefined;
 		});
 
-		it('GetCategory should return the corrent category after two SaveCategory (insert and update)', async() => {
+		it('GetCategory should return the correct category after two SaveCategory (insert and update)', async() => {
 
 			const insertedCategory = await categoryController.saveCategory(buildCategory(undefined, randomName()));
 			const insertedId = insertedCategory._id;
 
-			const newName = `Changed-${randomName()}`;
+			const newName = randomName('Changed');
 			await categoryController.saveCategory(buildCategory(insertedId, newName));
 
 			let foundCategory = await categoryController.getCategory(firstUser, insertedId);
@@ -95,6 +95,37 @@ describe('CategoryController Tests', () => {
 			const foundSecondUserCategories = await categoryController.getAllCategories(secondUser);
 			expect(foundSecondUserCategories, 'GetAllCategories did not return the correct number of results for second user').to.have.lengthOf(secondUserCategories.length);
 			expect(foundSecondUserCategories.map(extractId), 'GetAllCategories did not return the correct results for second user').to.have.members(secondUserCategories.map(extractId));
+		});
+
+		it('SaveCategory (insert) should not accept an invalid user', async() => {
+
+			try {
+
+				await categoryController.saveCategory(buildCategory(undefined, randomName(), '5cbf26ea895c281b54b6737f'));
+			}
+			catch(error) {
+
+				return;
+			}
+
+			throw 'SaveCategory should have returned an error';
+		});
+
+		it('SaveCategory (update) should not accept an invalid user', async() => {
+
+			const insertedCategory = await categoryController.saveCategory(buildCategory(undefined, randomName()));
+			const insertedId = insertedCategory._id;
+
+			try {
+
+				await categoryController.saveCategory(buildCategory(insertedId, randomName(), '5cbf26ea895c281b54b6737f'));
+			}
+			catch(error) {
+
+				return;
+			}
+
+			throw 'SaveCategory should have returned an error';
 		});
 		
 		it('GetCategory after DeleteCategory should return undefined', async() => {

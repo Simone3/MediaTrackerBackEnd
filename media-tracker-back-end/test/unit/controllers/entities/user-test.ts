@@ -12,7 +12,7 @@ describe('UserController Tests', () => {
 	
 	describe('UserController Tests', () => {
 
-		it('GetUser should return the corrent user after SaveUser', async() => {
+		it('GetUser should return the correct user after SaveUser', async() => {
 
 			const insertedUser = await userController.saveUser({ _id: undefined, name: randomName() });
 			const insertedId = insertedUser._id;
@@ -24,12 +24,12 @@ describe('UserController Tests', () => {
 			expect(String(foundUser._id), 'GetUser returned wrong ID').to.equal(String(insertedId));
 		});
 
-		it('GetUser should return the corrent user after two SaveUser (insert and update)', async() => {
+		it('GetUser should return the correct user after two SaveUser (insert and update)', async() => {
 
 			const insertedUser = await userController.saveUser({ _id: undefined, name: randomName() });
 			const insertedId = insertedUser._id;
 
-			const newName = `Changed-${randomName()}`;
+			const newName = randomName('Changed');
 			await userController.saveUser({ _id: insertedId, name: newName });
 
 			let foundUser = await userController.getUser(insertedId);

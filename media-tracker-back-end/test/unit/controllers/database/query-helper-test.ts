@@ -110,7 +110,7 @@ describe('QueryHelper Tests', () => {
 
 		it('Delete should remove just some entities with valid conditions', async() => {
 
-			const nameToDelete = `Del-${randomName()}`;
+			const nameToDelete = randomName('Del');
 			await queryHelper.save({ _id: undefined, name: randomName() }, new TestModel());
 			await queryHelper.save({ _id: undefined, name: nameToDelete }, new TestModel());
 			await queryHelper.save({ _id: undefined, name: randomName() }, new TestModel());
@@ -151,7 +151,7 @@ describe('QueryHelper Tests', () => {
 
 		it('Find with valid conditions should return the matching entities', async() => {
 
-			const nameToFind = `FindMe-${randomName()}`;
+			const nameToFind = randomName('FindMe');
 			const insertedEntities: TestInternalModel[] = [];
 			insertedEntities.push(await queryHelper.save({ _id: undefined, name: randomName() }, new TestModel()));
 			insertedEntities.push(await queryHelper.save({ _id: undefined, name: nameToFind }, new TestModel()));
@@ -170,7 +170,7 @@ describe('QueryHelper Tests', () => {
 
 		it('FindOne with valid conditions should return the matching entity', async() => {
 
-			const nameToFind = `FindMe-${randomName()}`;
+			const nameToFind = randomName('FindMe');
 			const insertedEntities: TestInternalModel[] = [];
 			insertedEntities.push(await queryHelper.save({ _id: undefined, name: randomName() }, new TestModel()));
 			insertedEntities.push(await queryHelper.save({ _id: undefined, name: nameToFind }, new TestModel()));
