@@ -1,6 +1,6 @@
-import { ValuesOf } from 'app/controllers/utilities/helper-types';
 import { PersistedEntityInternal } from 'app/models/internal/common';
 import { UserInternal } from 'app/models/internal/user';
+import { ValuesOf } from 'app/utilities/helper-types';
 
 /**
  * Array of all media types, internal type NOT to be exposed via API

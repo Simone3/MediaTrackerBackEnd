@@ -1,5 +1,5 @@
-import { requestScopeContext } from 'app/controllers/utilities/request-scope-context';
 import { inputOutputLogger } from 'app/loggers/logger';
+import { requestScopeContext } from 'app/utilities/request-scope-context';
 import mung from 'express-mung';
 import { RequestHandler } from 'express-serve-static-core';
 import uuid from 'uuid';

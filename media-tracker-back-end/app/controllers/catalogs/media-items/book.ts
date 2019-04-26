@@ -1,12 +1,12 @@
 import { config } from 'app/config/config';
 import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 import { restJsonInvoker } from 'app/controllers/external-services/rest-json-invoker';
-import { miscUtils } from 'app/controllers/utilities/misc-utils';
 import { logger } from 'app/loggers/logger';
 import { bookExternalDetailsServiceMapper, bookExternalSearchServiceMapper } from 'app/mappers/external-services/book';
 import { AppError } from 'app/models/error/error';
 import { GoogleBooksDetailsResponse, GoogleBooksSearchResponse } from 'app/models/external-services/media-items/book';
 import { CatalogBookInternal, SearchBookCatalogResultInternal } from 'app/models/internal/media-items/book';
+import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
  * Controller for book catalog

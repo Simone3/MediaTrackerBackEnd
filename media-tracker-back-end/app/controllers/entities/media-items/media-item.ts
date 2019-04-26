@@ -2,7 +2,6 @@ import { Populatable, Queryable, QueryHelper, Sortable, SortDirection } from 'ap
 import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
-import { miscUtils } from 'app/controllers/utilities/misc-utils';
 import { logger } from 'app/loggers/logger';
 import { AppError } from 'app/models/error/error';
 import { CategoryInternal, MediaTypeInternal } from 'app/models/internal/category';
@@ -10,6 +9,7 @@ import { PersistedEntityInternal } from 'app/models/internal/common';
 import { GroupInternal } from 'app/models/internal/group';
 import { MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal } from 'app/models/internal/media-items/media-item';
 import { UserInternal } from 'app/models/internal/user';
+import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model } from 'mongoose';
 
 /**

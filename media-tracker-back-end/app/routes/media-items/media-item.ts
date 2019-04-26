@@ -1,11 +1,11 @@
 import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
-import { parserValidator } from 'app/controllers/utilities/parser-validator';
 import { logger } from 'app/loggers/logger';
 import { ErrorResponse } from 'app/models/api/common';
 import { AddMediaItemRequest, AddMediaItemResponse, DeleteMediaItemResponse, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, SearchMediaItemCatalogResponse, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest, UpdateMediaItemResponse } from 'app/models/api/media-items/media-item';
 import { AppError } from 'app/models/error/error';
 import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
+import { parserValidator } from 'app/utilities/parser-validator';
 import { ClassType } from 'class-transformer/ClassTransformer';
 import express, { Router } from 'express';
 

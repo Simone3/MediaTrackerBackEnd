@@ -1,9 +1,9 @@
-import { dateUtils } from 'app/controllers/utilities/date-utils';
-import { stringUtils } from 'app/controllers/utilities/string-utils';
 import { ModelMapper } from 'app/mappers/common';
 import { AppError } from 'app/models/error/error';
 import { GiantBombDetailsResponse, GiantBombSearchResult } from 'app/models/external-services/media-items/videogame';
 import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal } from 'app/models/internal/media-items/videogame';
+import { dateUtils } from 'app/utilities/date-utils';
+import { stringUtils } from 'app/utilities/string-utils';
 
 /**
  * Mapper for the videogames search external service

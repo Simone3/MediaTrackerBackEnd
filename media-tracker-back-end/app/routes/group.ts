@@ -1,12 +1,12 @@
 
 import { groupController } from 'app/controllers/entities/group';
-import { miscUtils } from 'app/controllers/utilities/misc-utils';
-import { parserValidator } from 'app/controllers/utilities/parser-validator';
 import { logger } from 'app/loggers/logger';
 import { groupMapper } from 'app/mappers/group';
 import { ErrorResponse } from 'app/models/api/common';
 import { AddGroupRequest, AddGroupResponse, DeleteGroupResponse, GetAllGroupsResponse, UpdateGroupRequest, UpdateGroupResponse } from 'app/models/api/group';
 import { AppError } from 'app/models/error/error';
+import { miscUtils } from 'app/utilities/misc-utils';
+import { parserValidator } from 'app/utilities/parser-validator';
 import express, { Router } from 'express';
 
 const router: Router = express.Router();

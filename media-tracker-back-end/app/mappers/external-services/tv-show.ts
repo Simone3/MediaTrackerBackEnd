@@ -1,8 +1,8 @@
-import { stringUtils } from 'app/controllers/utilities/string-utils';
 import { ModelMapper } from 'app/mappers/common';
 import { AppError } from 'app/models/error/error';
 import { TmdbTvShowCreator, TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeasonDataResponse } from 'app/models/external-services/media-items/tv-show';
 import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from 'app/models/internal/media-items/tv-show';
+import { stringUtils } from 'app/utilities/string-utils';
 
 /**
  * Mapper for the TV shows search external service

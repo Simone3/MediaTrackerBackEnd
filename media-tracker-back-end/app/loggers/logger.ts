@@ -1,8 +1,8 @@
 
 import { config } from 'app/config/config';
-import { requestScopeContext } from 'app/controllers/utilities/request-scope-context';
 import { logRedactor } from 'app/loggers/log-redactor';
 import { AppError } from 'app/models/error/error';
+import { requestScopeContext } from 'app/utilities/request-scope-context';
 import { configure, getLogger, Logger, PatternLayout, shutdown } from 'log4js';
 
 /**

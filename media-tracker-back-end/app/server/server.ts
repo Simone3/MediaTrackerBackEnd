@@ -1,5 +1,4 @@
 import { config } from 'app/config/config';
-import { requestScopeContextMiddleware } from 'app/controllers/utilities/request-scope-context';
 import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddleware } from 'app/loggers/express-logger';
 import { catchAllRouter } from 'app/routes/catch-all';
 import { categoryRouter } from 'app/routes/category';
@@ -9,6 +8,7 @@ import { movieCatalogRouter, movieEntityRouter } from 'app/routes/media-items/mo
 import { tvShowCatalogRouter, tvShowEntityRouter } from 'app/routes/media-items/tv-show';
 import { videogameCatalogRouter, videogameEntityRouter } from 'app/routes/media-items/videogame';
 import { userRouter } from 'app/routes/user';
+import { requestScopeContextMiddleware } from 'app/utilities/request-scope-context';
 import express from 'express';
 
 // Base setup

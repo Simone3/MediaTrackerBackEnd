@@ -1,12 +1,12 @@
 import { config } from 'app/config/config';
 import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 import { restJsonInvoker } from 'app/controllers/external-services/rest-json-invoker';
-import { miscUtils } from 'app/controllers/utilities/misc-utils';
 import { logger } from 'app/loggers/logger';
 import { videogameExternalDetailsServiceMapper, videogameExternalSearchServiceMapper } from 'app/mappers/external-services/videogame';
 import { AppError } from 'app/models/error/error';
 import { GiantBombDetailsResponse, GiantBombSearchResponse } from 'app/models/external-services/media-items/videogame';
 import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal } from 'app/models/internal/media-items/videogame';
+import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
  * Controller for videogame catalog

@@ -1,8 +1,8 @@
-import { stringUtils } from 'app/controllers/utilities/string-utils';
 import { ModelMapper } from 'app/mappers/common';
 import { AppError } from 'app/models/error/error';
 import { GoogleBooksDetailsResponse, GoogleBooksSearchResult, GoogleBooksVolumeLight } from 'app/models/external-services/media-items/book';
 import { CatalogBookInternal, SearchBookCatalogResultInternal } from 'app/models/internal/media-items/book';
+import { stringUtils } from 'app/utilities/string-utils';
 
 /**
  * Mapper for the books search external service

@@ -1,5 +1,5 @@
-import { ValuesOf } from 'app/controllers/utilities/helper-types';
 import { CommonResponse, CommonSaveRequest } from 'app/models/api/common';
+import { ValuesOf } from 'app/utilities/helper-types';
 import { Type } from 'class-transformer';
 import { IsDefined, IsIn, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 

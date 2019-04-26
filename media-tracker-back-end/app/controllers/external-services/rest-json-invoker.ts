@@ -1,8 +1,8 @@
 import { config } from 'app/config/config';
-import { HttpMethod } from 'app/controllers/utilities/misc-utils';
-import { parserValidator } from 'app/controllers/utilities/parser-validator';
 import { externalInvocationsInputOutputLogger, logger } from 'app/loggers/logger';
 import { AppError } from 'app/models/error/error';
+import { HttpMethod } from 'app/utilities/misc-utils';
+import { parserValidator } from 'app/utilities/parser-validator';
 import { ClassType } from 'class-transformer-validator';
 import { UrlOptions } from 'request';
 import request, { RequestPromiseOptions } from 'request-promise-native';
