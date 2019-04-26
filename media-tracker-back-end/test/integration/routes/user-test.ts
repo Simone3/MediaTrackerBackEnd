@@ -10,7 +10,7 @@ import { randomName } from 'helpers/test-misc-helper';
 const expect = chai.expect;
 
 /**
- * Tests for the user controller
+ * Tests for the user API
  */
 describe('User API Tests', () => {
 
@@ -28,7 +28,7 @@ describe('User API Tests', () => {
 				}
 			});
 			
-			const userId: string = response.userId;
+			const userId: string = response.uid;
 			expect(userId, 'API did not return a UID').not.to.be.undefined;
 			
 			let foundUser = await userController.getUser(userId);
@@ -43,7 +43,7 @@ describe('User API Tests', () => {
 			const userId: string = String(user._id);
 			const newName = randomName('Changed');
 
-			await callHelper('PUT', `/users/${user._id}`, {
+			await callHelper('PUT', `/users/${userId}`, {
 				user: {
 					name: newName
 				}
@@ -62,25 +62,16 @@ describe('User API Tests', () => {
 			const user = await userController.saveUser(getTestUser(undefined));
 			const userId: string = String(user._id);
 
-			await callHelper('DELETE', `/users/${user._id}`);
+			await callHelper('DELETE', `/users/${userId}`);
 			
 			const foundUser = await userController.getUser(userId);
 			expect(foundUser, 'GetUser returned a defined result').to.be.undefined;
 		});
 
-		it('Should check for name validity on insert', async() => {
+		it('Should check for name validity', async() => {
 
 			await callHelper('POST', '/users', {
 				newUser: {}
-			}, 500);
-		});
-
-		it('Should check for name validity on update', async() => {
-
-			const user = await userController.saveUser(getTestUser(undefined));
-
-			await callHelper('PUT', `/users/${user._id}`, {
-				user: {}
 			}, 500);
 		});
 	});
