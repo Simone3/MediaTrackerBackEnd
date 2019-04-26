@@ -12,6 +12,7 @@ module.exports = {
 
 		// Disable for semplicity
 		'no-throw-literal': ['off'],
+		'arrow-body-style': ['off'],
 
 		// Disable for Mocha callbacks that require access to "this"
 		'prefer-arrow-callback': ['off'],
