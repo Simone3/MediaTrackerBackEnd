@@ -1,4 +1,4 @@
-import { CommonRequest, CommonResponse } from 'app/models/api/common';
+import { CommonAddResponse, CommonRequest, CommonResponse } from 'app/models/api/common';
 import { Type } from 'class-transformer';
 import { IsDefined, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 
@@ -44,14 +44,8 @@ export class AddUserRequest extends CommonRequest {
 /**
  * Response for the 'add user' API
  */
-export class AddUserResponse extends CommonResponse {
+export class AddUserResponse extends CommonAddResponse {
 
-	/**
-	 * The user unique ID
-	 */
-	@IsNotEmpty()
-	@IsString()
-	public userId!: string;
 }
 
 /**

@@ -1,4 +1,4 @@
-import { CommonResponse, CommonSaveRequest } from 'app/models/api/common';
+import { CommonAddResponse, CommonResponse, CommonSaveRequest } from 'app/models/api/common';
 import { Type } from 'class-transformer';
 import { IsDefined, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 
@@ -47,7 +47,7 @@ export class AddGroupRequest extends CommonSaveRequest {
 /**
  * Response for the 'add group' API
  */
-export class AddGroupResponse extends CommonResponse {
+export class AddGroupResponse extends CommonAddResponse {
 
 }
 

@@ -48,10 +48,11 @@ router.post('/users/:userId/categories/:categoryId/groups', (request, response) 
 
 			const newGroup = groupMapper.toInternal({ ...parsedRequest.newGroup, uid: '' }, { userId, categoryId });
 			groupController.saveGroup(newGroup, parsedRequest.allowSameName)
-				.then(() => {
+				.then((savedGroup) => {
 			
 					const responseBody: AddGroupResponse = {
-						message: 'Group successfully added'
+						message: 'Group successfully added',
+						uid: savedGroup._id
 					};
 
 					response.json(responseBody);

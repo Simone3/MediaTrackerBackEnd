@@ -46,10 +46,11 @@ router.post('/users/:userId/categories', (request, response) => {
 
 			const newCategory = categoryMapper.toInternal({ ...parsedRequest.newCategory, uid: '' }, { userId });
 			categoryController.saveCategory(newCategory, parsedRequest.allowSameName)
-				.then(() => {
+				.then((savedCategory) => {
 			
 					const responseBody: AddCategoryResponse = {
-						message: 'Category successfully added'
+						message: 'Category successfully added',
+						uid: savedCategory._id
 					};
 
 					response.json(responseBody);

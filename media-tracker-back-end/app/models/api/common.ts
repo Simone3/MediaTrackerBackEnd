@@ -73,7 +73,7 @@ export class ErrorResponse extends CommonResponse {
 /**
  * Type that can be extended by insert or update API requests for common fields
  */
-export class CommonSaveRequest {
+export class CommonSaveRequest extends CommonRequest {
 
 	/**
 	 * If true, the element is allowed to have the same name of another existing element
@@ -83,3 +83,13 @@ export class CommonSaveRequest {
 	public allowSameName?: boolean;
 }
 
+/**
+ * Type that can be extended by "add new" APIs to return the new entity ID
+ */
+export class CommonAddResponse extends CommonResponse {
+
+	/**
+	 * The new element unique ID
+	 */
+	public uid!: string;
+}

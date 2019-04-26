@@ -200,10 +200,11 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 					const newMediaItem = routeConfig.mediaItemRequestReader(parsedRequest, '', userId, categoryId);
 
 					this.mediaItemController.saveMediaItem(newMediaItem, parsedRequest.allowSameName)
-						.then(() => {
+						.then((savedMediaItem) => {
 						
 							const responseBody: AddMediaItemResponse = {
-								message: 'Media item successfully added'
+								message: 'Media item successfully added',
+								uid: savedMediaItem._id
 							};
 			
 							response.json(responseBody);

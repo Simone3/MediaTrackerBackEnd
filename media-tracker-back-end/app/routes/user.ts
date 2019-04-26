@@ -25,7 +25,7 @@ router.post('/users', (request, response) => {
 				
 					const responseBody: AddUserResponse = {
 						message: 'User successfully added',
-						userId: savedUser._id
+						uid: savedUser._id
 					};
 
 					response.json(responseBody);

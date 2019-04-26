@@ -1,4 +1,4 @@
-import { CommonRequest, CommonResponse, CommonSaveRequest } from 'app/models/api/common';
+import { CommonAddResponse, CommonRequest, CommonResponse, CommonSaveRequest } from 'app/models/api/common';
 import { Type } from 'class-transformer';
 import { IsBoolean, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
@@ -140,7 +140,7 @@ export abstract class AddMediaItemRequest extends CommonSaveRequest {
 /**
  * Response for the 'add media item' API
  */
-export class AddMediaItemResponse extends CommonResponse {
+export class AddMediaItemResponse extends CommonAddResponse {
 
 }
 

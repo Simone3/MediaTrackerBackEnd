@@ -1,4 +1,4 @@
-import { CommonResponse, CommonSaveRequest } from 'app/models/api/common';
+import { CommonAddResponse, CommonResponse, CommonSaveRequest } from 'app/models/api/common';
 import { ValuesOf } from 'app/utilities/helper-types';
 import { Type } from 'class-transformer';
 import { IsDefined, IsIn, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
@@ -66,7 +66,7 @@ export class AddCategoryRequest extends CommonSaveRequest {
 /**
  * Response for the 'add category' API
  */
-export class AddCategoryResponse extends CommonResponse {
+export class AddCategoryResponse extends CommonAddResponse {
 
 }
 
