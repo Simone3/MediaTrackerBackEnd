@@ -1,6 +1,7 @@
 import { userController } from 'app/controllers/entities/user';
 import { UserInternal } from 'app/models/internal/user';
 import chai from 'chai';
+import { getTestUser } from 'helpers/entities-builder-helper';
 import { randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
@@ -14,7 +15,7 @@ describe('UserController Tests', () => {
 
 		it('GetUser should return the correct user after SaveUser', async() => {
 
-			const insertedUser = await userController.saveUser({ _id: undefined, name: randomName() });
+			const insertedUser = await userController.saveUser(getTestUser(undefined));
 			const insertedId = insertedUser._id;
 			expect(insertedUser._id, 'SaveUser (insert) returned empty ID').to.exist;
 
@@ -26,11 +27,11 @@ describe('UserController Tests', () => {
 
 		it('GetUser should return the correct user after two SaveUser (insert and update)', async() => {
 
-			const insertedUser = await userController.saveUser({ _id: undefined, name: randomName() });
+			const insertedUser = await userController.saveUser(getTestUser(undefined));
 			const insertedId = insertedUser._id;
 
 			const newName = randomName('Changed');
-			await userController.saveUser({ _id: insertedId, name: newName });
+			await userController.saveUser(getTestUser(insertedId, newName));
 
 			let foundUser = await userController.getUser(insertedId);
 			expect(foundUser, 'GetUser returned an undefined result').not.to.be.undefined;
@@ -41,12 +42,12 @@ describe('UserController Tests', () => {
 
 		it('SaveUser (insert) should block two users with same name', async() => {
 
-			await userController.saveUser({ _id: undefined, name: 'MyFirstName' });
-			await userController.saveUser({ _id: undefined, name: 'MySecondName' });
+			await userController.saveUser(getTestUser(undefined, 'MyFirstName'));
+			await userController.saveUser(getTestUser(undefined, 'MySecondName'));
 
 			try {
 
-				await userController.saveUser({ _id: undefined, name: 'MyFirstName' });
+				await userController.saveUser(getTestUser(undefined, 'MyFirstName'));
 			}
 			catch(error) {
 
@@ -58,13 +59,13 @@ describe('UserController Tests', () => {
 
 		it('SaveUser (update) should block two users with same name', async() => {
 
-			const firstUser = await userController.saveUser({ _id: undefined, name: 'MyFirstName' });
+			const firstUser = await userController.saveUser(getTestUser(undefined, 'MyFirstName'));
 			const firstUserId = firstUser._id;
-			await userController.saveUser({ _id: undefined, name: 'MySecondName' });
+			await userController.saveUser(getTestUser(undefined, 'MySecondName'));
 
 			try {
 
-				await userController.saveUser({ _id: firstUserId, name: 'MySecondName' });
+				await userController.saveUser(getTestUser(firstUserId, 'MySecondName'));
 			}
 			catch(error) {
 
@@ -78,7 +79,7 @@ describe('UserController Tests', () => {
 			
 			this.timeout(4000);
 			
-			const user = await userController.saveUser({ _id: undefined, name: randomName() });
+			const user = await userController.saveUser(getTestUser(undefined));
 			const userId = user._id;
 
 			await userController.deleteUser(userId, false);

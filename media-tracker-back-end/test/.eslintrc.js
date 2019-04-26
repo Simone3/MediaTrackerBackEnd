@@ -14,7 +14,10 @@ module.exports = {
 		'no-throw-literal': ['off'],
 
 		// Disable for Mocha callbacks that require access to "this"
-		'prefer-arrow-callback': ['off']
+		'prefer-arrow-callback': ['off'],
+
+		// Console is OK for tests
+		'no-console': ['off'],
 	}
 };
 

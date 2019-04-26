@@ -15,3 +15,11 @@ export const extractId = (valueWithId: { _id: unknown }): string => {
 
 	return String(valueWithId._id);
 };
+
+/**
+ * Helper to return the "name" property as a string from an object
+ */
+export const extractName = (valueWithName: { name: string }): string => {
+
+	return String(valueWithName.name);
+};
