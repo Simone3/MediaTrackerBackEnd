@@ -1,7 +1,7 @@
 import { config } from 'app/config/config';
 import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 import { restJsonInvoker } from 'app/controllers/external-services/rest-json-invoker';
-import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { miscUtils } from 'app/controllers/utilities/misc-utils';
 import { logger } from 'app/loggers/logger';
 import { videogameExternalDetailsServiceMapper, videogameExternalSearchServiceMapper } from 'app/mappers/external-services/videogame';
 import { AppError } from 'app/models/error/error';
@@ -20,7 +20,7 @@ class VideogameCatalogController extends MediaItemCatalogController<SearchVideog
 
 		return new Promise((resolve, reject): void => {
 		
-			const url = miscUtilsController.buildUrl([
+			const url = miscUtils.buildUrl([
 				config.externalApis.giantBomb.basePath,
 				config.externalApis.giantBomb.search.relativePath
 			]);
@@ -66,7 +66,7 @@ class VideogameCatalogController extends MediaItemCatalogController<SearchVideog
 				videogameId: catalogItemId
 			};
 
-			const url = miscUtilsController.buildUrl([
+			const url = miscUtils.buildUrl([
 				config.externalApis.giantBomb.basePath,
 				config.externalApis.giantBomb.details.relativePath
 			], pathParams);

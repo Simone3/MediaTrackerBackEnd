@@ -2,7 +2,7 @@ import { Populatable, Queryable, QueryHelper, Sortable, SortDirection } from 'ap
 import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
-import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { miscUtils } from 'app/controllers/utilities/misc-utils';
 import { logger } from 'app/loggers/logger';
 import { AppError } from 'app/models/error/error';
 import { CategoryInternal, MediaTypeInternal } from 'app/models/internal/category';
@@ -122,7 +122,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	public searchMediaItems(userId: string, categoryId: string, term: string, filterBy?: TMediaItemFilterInternal): Promise<TMediaItemInternal[]> {
 
-		const termRegExp = new RegExp(miscUtilsController.escapeRegExp(term), 'i');
+		const termRegExp = new RegExp(miscUtils.escapeRegExp(term), 'i');
 		
 		// Common search conditions
 		const searchConditions: Queryable<TMediaItemInternal>[] = [];

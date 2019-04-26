@@ -1,4 +1,5 @@
-import { dateUtils, stringUtils } from 'app/controllers/utilities/misc-utils';
+import { dateUtils } from 'app/controllers/utilities/date-utils';
+import { stringUtils } from 'app/controllers/utilities/string-utils';
 import { ModelMapper } from 'app/mappers/common';
 import { AppError } from 'app/models/error/error';
 import { GiantBombDetailsResponse, GiantBombSearchResult } from 'app/models/external-services/media-items/videogame';

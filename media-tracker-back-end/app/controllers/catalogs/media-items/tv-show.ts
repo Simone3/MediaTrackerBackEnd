@@ -1,7 +1,7 @@
 import { config } from 'app/config/config';
 import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 import { restJsonInvoker } from 'app/controllers/external-services/rest-json-invoker';
-import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { miscUtils } from 'app/controllers/utilities/misc-utils';
 import { logger } from 'app/loggers/logger';
 import { tvShowExternalDetailsServiceMapper, tvShowExternalSearchServiceMapper } from 'app/mappers/external-services/tv-show';
 import { AppError } from 'app/models/error/error';
@@ -20,7 +20,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 
 		return new Promise((resolve, reject): void => {
 		
-			const url = miscUtilsController.buildUrl([
+			const url = miscUtils.buildUrl([
 				config.externalApis.theMovieDb.basePath,
 				config.externalApis.theMovieDb.tvShows.search.relativePath
 			]);
@@ -66,7 +66,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 				tvShowId: catalogItemId
 			};
 
-			const url = miscUtilsController.buildUrl([
+			const url = miscUtils.buildUrl([
 				config.externalApis.theMovieDb.basePath,
 				config.externalApis.theMovieDb.tvShows.details.relativePath
 			], pathParams);
@@ -123,7 +123,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 			seasonNumber: String(seasonNumber)
 		};
 
-		const url = miscUtilsController.buildUrl([
+		const url = miscUtils.buildUrl([
 			config.externalApis.theMovieDb.basePath,
 			config.externalApis.theMovieDb.tvShows.season.relativePath
 		], pathParams);

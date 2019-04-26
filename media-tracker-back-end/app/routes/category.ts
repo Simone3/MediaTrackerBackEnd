@@ -1,6 +1,6 @@
 
 import { categoryController } from 'app/controllers/entities/category';
-import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { miscUtils } from 'app/controllers/utilities/misc-utils';
 import { parserValidator } from 'app/controllers/utilities/parser-validator';
 import { logger } from 'app/loggers/logger';
 import { categoryMapper } from 'app/mappers/category';
@@ -109,7 +109,7 @@ router.delete('/users/:userId/categories/:id', (request, response) => {
 	const userId: string = request.params.userId;
 	const id: string = request.params.id;
 
-	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);
+	const forceEvenIfNotEmpty = miscUtils.parseBoolean(request.query.forceEvenIfNotEmpty);
 
 	categoryController.deleteCategory(userId, id, forceEvenIfNotEmpty)
 		.then(() => {

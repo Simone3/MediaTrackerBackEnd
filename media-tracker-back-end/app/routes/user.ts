@@ -1,6 +1,6 @@
 
 import { userController } from 'app/controllers/entities/user';
-import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { miscUtils } from 'app/controllers/utilities/misc-utils';
 import { parserValidator } from 'app/controllers/utilities/parser-validator';
 import { logger } from 'app/loggers/logger';
 import { userMapper } from 'app/mappers/user';
@@ -82,7 +82,7 @@ router.put('/users/:id', (request, response) => {
 router.delete('/users/:id', (request, response) => {
 
 	const id: string = request.params.id;
-	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);
+	const forceEvenIfNotEmpty = miscUtils.parseBoolean(request.query.forceEvenIfNotEmpty);
 
 	userController.deleteUser(id, forceEvenIfNotEmpty)
 		.then(() => {

@@ -1,4 +1,4 @@
-import { ValuesOf } from 'app/controllers/utilities/misc-utils';
+import { ValuesOf } from 'app/controllers/utilities/helper-types';
 import { PersistedEntityInternal } from 'app/models/internal/common';
 import { UserInternal } from 'app/models/internal/user';
 

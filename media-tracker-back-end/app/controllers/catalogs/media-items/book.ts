@@ -1,7 +1,7 @@
 import { config } from 'app/config/config';
 import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 import { restJsonInvoker } from 'app/controllers/external-services/rest-json-invoker';
-import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { miscUtils } from 'app/controllers/utilities/misc-utils';
 import { logger } from 'app/loggers/logger';
 import { bookExternalDetailsServiceMapper, bookExternalSearchServiceMapper } from 'app/mappers/external-services/book';
 import { AppError } from 'app/models/error/error';
@@ -20,7 +20,7 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 
 		return new Promise((resolve, reject): void => {
 		
-			const url = miscUtilsController.buildUrl([
+			const url = miscUtils.buildUrl([
 				config.externalApis.googleBooks.basePath,
 				config.externalApis.googleBooks.search.relativePath
 			]);
@@ -66,7 +66,7 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 				bookId: catalogItemId
 			};
 
-			const url = miscUtilsController.buildUrl([
+			const url = miscUtils.buildUrl([
 				config.externalApis.googleBooks.basePath,
 				config.externalApis.googleBooks.details.relativePath
 			], pathParams);

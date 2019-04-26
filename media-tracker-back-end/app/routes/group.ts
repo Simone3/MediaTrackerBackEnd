@@ -1,6 +1,6 @@
 
 import { groupController } from 'app/controllers/entities/group';
-import { miscUtilsController } from 'app/controllers/utilities/misc-utils';
+import { miscUtils } from 'app/controllers/utilities/misc-utils';
 import { parserValidator } from 'app/controllers/utilities/parser-validator';
 import { logger } from 'app/loggers/logger';
 import { groupMapper } from 'app/mappers/group';
@@ -113,7 +113,7 @@ router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, resp
 	const categoryId: string = request.params.categoryId;
 	const id: string = request.params.id;
 	
-	const forceEvenIfNotEmpty = miscUtilsController.parseBoolean(request.query.forceEvenIfNotEmpty);
+	const forceEvenIfNotEmpty = miscUtils.parseBoolean(request.query.forceEvenIfNotEmpty);
 
 	groupController.deleteGroup(userId, categoryId, id, forceEvenIfNotEmpty)
 		.then(() => {
