@@ -1,10 +1,9 @@
 import { categoryController } from 'app/controllers/entities/category';
-import { movieEntityController } from 'app/controllers/entities/media-items/movie';
 import { CategoryInternal } from 'app/models/internal/category';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
-import { getTestCategory, getTestMovie, initTestUHelper, TestU } from 'helpers/entities-builder-helper';
+import { getTestCategory, initTestUHelper, TestU } from 'helpers/entities-builder-helper';
 import { setupTestServer } from 'helpers/server-handler-helper';
 import { extractName, randomName } from 'helpers/test-misc-helper';
 
@@ -49,7 +48,7 @@ describe('Category API Tests', () => {
 
 		it('Should update an existing category', async() => {
 
-			const category = await categoryController.saveCategory(getTestCategory(undefined, firstU));
+			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
 			const categoryId: string = String(category._id);
 			const newName = randomName('Changed');
 
@@ -66,26 +65,11 @@ describe('Category API Tests', () => {
 			expect(foundCategory.name, 'GetCategory returned the wrong name').to.equal(newName);
 		});
 
-		it('Should not allow to change media type if the category is not empty', async() => {
-
-			const category = await categoryController.saveCategory(getTestCategory(undefined, firstU));
-			const categoryId: string = String(category._id);
-
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, { user: firstU.user, category: categoryId }));
-			
-			await callHelper('PUT', `/users/${firstU.user}/categories/${categoryId}`, {
-				category: {
-					name: randomName(),
-					mediaType: 'BOOK'
-				}
-			}, 500);
-		});
-
 		it('Should return all user categories', async() => {
 
-			await categoryController.saveCategory(getTestCategory(undefined, firstU, 'Rrr'));
-			await categoryController.saveCategory(getTestCategory(undefined, firstU, 'Bbb'));
-			await categoryController.saveCategory(getTestCategory(undefined, firstU, 'Zzz'));
+			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, 'Rrr'));
+			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, 'Bbb'));
+			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, 'Zzz'));
 			
 			const response = await callHelper('GET', `/users/${firstU.user}/categories`);
 			expect(response.categories, 'API did not return the correct number of categories').to.have.lengthOf(3);
@@ -94,7 +78,7 @@ describe('Category API Tests', () => {
 
 		it('Should delete an existing category', async() => {
 
-			const category = await categoryController.saveCategory(getTestCategory(undefined, firstU));
+			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
 			const categoryId: string = String(category._id);
 
 			await callHelper('DELETE', `/users/${firstU.user}/categories/${categoryId}`);

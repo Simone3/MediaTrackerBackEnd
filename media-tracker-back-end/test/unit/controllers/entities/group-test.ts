@@ -23,8 +23,8 @@ describe('GroupController Tests', () => {
 		// Create new users/categories and categories for each test
 		beforeEach(async() => {
 
-			await initTestUCHelper(firstUC, 'First');
-			await initTestUCHelper(secondUC, 'Second');
+			await initTestUCHelper('MOVIE', firstUC, 'First');
+			await initTestUCHelper('MOVIE', secondUC, 'Second');
 		});
 		
 		it('GetGroup should return the correct group after SaveGroup', async() => {

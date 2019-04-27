@@ -38,9 +38,9 @@ describe('MovieController Tests', () => {
 		// Create new users/categories/groups for each test
 		beforeEach(async() => {
 
-			await initTestUCGHelper(firstUCG, 'First');
-			await initTestUCGHelper(secondUCG, 'Second');
-			await initTestUCGHelper(thirdUCG, 'Third', firstUCG.user);
+			await initTestUCGHelper('MOVIE', firstUCG, 'First');
+			await initTestUCGHelper('MOVIE', secondUCG, 'Second');
+			await initTestUCGHelper('MOVIE', thirdUCG, 'Third', firstUCG.user);
 		});
 
 		it('GetMediaItem should return the correct movie after SaveMediaItem', async() => {

@@ -6,7 +6,7 @@ import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestMovie, initTestUCGHelper, TestUCG } from 'helpers/entities-builder-helper';
 import { setupTestServer } from 'helpers/server-handler-helper';
 import { extractCatalogId, extractName, extractTitle, randomName } from 'helpers/test-misc-helper';
-import { setupExternalServicesMocks } from 'mocks/external-services-mocks';
+import { setupMovieExternalServicesMocks } from 'mocks/external-services-mocks';
 
 const expect = chai.expect;
 
@@ -17,7 +17,7 @@ describe('Movie API Tests', () => {
 
 	setupTestDatabaseConnection();
 	setupTestServer();
-	setupExternalServicesMocks();
+	setupMovieExternalServicesMocks();
 
 	describe('Movie API Tests', () => {
 
@@ -26,7 +26,7 @@ describe('Movie API Tests', () => {
 		// Create new users/categories/groups for each test
 		beforeEach(async() => {
 
-			await initTestUCGHelper(firstUCG, 'First');
+			await initTestUCGHelper('MOVIE', firstUCG, 'First');
 		});
 
 		it('Should create a new movie', async() => {
@@ -149,7 +149,7 @@ describe('Movie API Tests', () => {
 			const response = await callHelper('GET', `/catalog/movies/123`);
 			
 			expect(response.catalogMovie, 'API did not return a valid catalog details result').not.to.be.undefined;
-			expect(response.catalogMovie.name, 'API did not return a valid catalog details result').to.be.equal('Mock Movie');
+			expect(response.catalogMovie.name, 'API did not return a valid catalog details result').to.be.equal('Mock Movie 1');
 			expect(response.catalogMovie.director, 'API did not return a valid catalog details result').to.be.equal('Some Director');
 		});
 	});

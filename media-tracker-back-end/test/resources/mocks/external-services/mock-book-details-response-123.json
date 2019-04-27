@@ -1,0 +1,72 @@
+{
+    "kind": "books#volume",
+    "id": "123",
+    "etag": "1OSlbWuiCxY",
+    "selfLink": "https://www.googleapis.com/books/v1/volumes/YTqqPwAACAAJ",
+    "volumeInfo": {
+        "title": "Mock Book 1",
+        "subtitle": "Being the First Part of the Lord of the Rings",
+        "authors": [
+            "Some Author"
+        ],
+        "publisher": "HarperCollins",
+        "publishedDate": "2002",
+        "description": "<p>Large print hardback edition of the first volume of J.R.R. Tolkien's epic adventure, The Lord of the Rings, complete with fold-out map.</p> Sauron, the Dark Lord, has gathered to him all the Rings of Power - the means by which he intends to rule Middle-earth. All he lacks in his plans for dominion is the One Ring - the ring that rules them all - which has fallen into the hands of the hobbit, Bilbo Baggins.<br> In a sleepy village in the Shire, young Frodo Baggins finds himself faced with an immense task, as his elderly cousin Bilbo entrusts the Ring to his care. Frodo must leave his home and make a perilous journey across Middle-earth to the Cracks of Doom, there to destroy the Ring and foil the Dark Lord in his evil purpose.<br> Now available in large print and impossible to describe in a few words, JRR Tolkien's great work of imaginative fiction has been labelled both a heroic romance and a classic fantasy fiction. By turns comic and homely, epic and diabolic, the narrative moves through countless changes of scene and character in an imaginary world which is totally convincing in its detail.",
+        "industryIdentifiers": [
+            {
+                "type": "ISBN_10",
+                "identifier": "0007136633"
+            },
+            {
+                "type": "ISBN_13",
+                "identifier": "9780007136636"
+            }
+        ],
+        "readingModes": {
+            "text": false,
+            "image": false
+        },
+        "pageCount": 513,
+        "printedPageCount": 513,
+        "dimensions": {
+            "height": "24.00 cm",
+            "width": "16.00 cm",
+            "thickness": "5.30 cm"
+        },
+        "printType": "BOOK",
+        "averageRating": 5,
+        "ratingsCount": 6,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "imageLinks": {
+            "smallThumbnail": "http://books.google.com/books/content?id=YTqqPwAACAAJ&printsec=frontcover&img=1&zoom=5&imgtk=AFLRE73P2tV6QxXdlG0-V16_-ctEJUSkzkPegFRNA9ATXS4ngrVqqtWFIZoi1Q5I07TtLDwx-BJyw2-FI9v_L9gdtMKKvVSC54xDWTHzPTk-VEdtfa8bTzC71_8GkYe5uXvpSuwLdxru&source=gbs_api",
+            "thumbnail": "http://books.google.com/books/content?id=YTqqPwAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72OZGhUPTW_1_RnTs98DY6qjQKQg0A_Fh_rT_JFmdA6roIHhLVbAKRSdEaXqaGMP-GYPNFbOl4l-sBEwj5_hz9zrdS-3u9A_Pp16jwYMENYJgcacJLp_Cr3ZwGxB3VFnngrShS_&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.com/books?id=YTqqPwAACAAJ&hl=&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=YTqqPwAACAAJ&source=gbs_api",
+        "canonicalVolumeLink": "https://market.android.com/details?id=book-YTqqPwAACAAJ"
+    },
+    "saleInfo": {
+        "country": "US",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+    },
+    "accessInfo": {
+        "country": "US",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+            "isAvailable": false
+        },
+        "pdf": {
+            "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=YTqqPwAACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+    }
+}

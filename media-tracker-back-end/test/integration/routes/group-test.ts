@@ -24,7 +24,7 @@ describe('Group API Tests', () => {
 		// Create new users/categories for each test
 		beforeEach(async() => {
 
-			await initTestUCHelper(firstUC, 'First');
+			await initTestUCHelper('MOVIE', firstUC, 'First');
 		});
 
 		it('Should create a new group', async() => {
