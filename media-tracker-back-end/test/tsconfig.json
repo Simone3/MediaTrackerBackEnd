@@ -6,7 +6,8 @@
 		"paths" : {
 		  "app/*": ["../app/*"],
 		  "test/*": ["../test/*"]
-		}
+		},
+		"resolveJsonModule": true
 	},
 	"include": ["../app/**/*", "../test/**/*"],
 	"exclude": ["../node_modules"]
