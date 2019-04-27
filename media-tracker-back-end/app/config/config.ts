@@ -34,5 +34,7 @@ switch(environment) {
 		throw AppError.GENERIC.withDetails('MEDIA_TRACKER_BE_ENV environment property is not set or is not recognized');
 }
 
-// Export the correct configuration
+/**
+ * The application centralized configuration properties, varies by environment and during automatic testing
+ */
 export const config: Config = envConfig;
