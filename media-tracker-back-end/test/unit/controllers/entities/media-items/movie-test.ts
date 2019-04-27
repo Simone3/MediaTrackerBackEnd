@@ -20,6 +20,7 @@ describe('MovieController Tests', () => {
 		const firstUCG: TestUCG = { user: '', category: '' };
 		const secondUCG: TestUCG = { user: '', category: '' };
 		const thirdUCG: TestUCG = { user: '', category: '' };
+		const wrongMediaUCG: TestUCG = { user: '', category: '' };
 
 		const helperCompareResults = (expected: string[], result: MovieInternal[], matchInOrder?: boolean): void => {
 
@@ -41,6 +42,7 @@ describe('MovieController Tests', () => {
 			await initTestUCGHelper('MOVIE', firstUCG, 'First');
 			await initTestUCGHelper('MOVIE', secondUCG, 'Second');
 			await initTestUCGHelper('MOVIE', thirdUCG, 'Third', firstUCG.user);
+			await initTestUCGHelper('BOOK', wrongMediaUCG, 'WrongMediaType');
 		});
 
 		it('GetMediaItem should return the correct movie after SaveMediaItem', async() => {
@@ -266,6 +268,20 @@ describe('MovieController Tests', () => {
 					category: firstUCG.category,
 					group: '5cbf26ea895c281b54b6737f'
 				}, 5));
+			}
+			catch(error) {
+
+				return;
+			}
+
+			throw 'SaveMediaItem should have returned an error';
+		});
+
+		it('SaveMediaItem (insert) should not allow a category with wrong media type', async() => {
+
+			try {
+				
+				await movieEntityController.saveMediaItem(getTestMovie(undefined, wrongMediaUCG));
 			}
 			catch(error) {
 
