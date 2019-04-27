@@ -63,7 +63,7 @@ export class ErrorResponse extends CommonResponse {
 
 		while(currentError.errorDetails && currentError.errorDetails instanceof AppError) {
 
-			currentError = error.errorDetails as AppError;
+			currentError = currentError.errorDetails as AppError;
 		}
 
 		return currentError;
