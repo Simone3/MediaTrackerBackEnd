@@ -1,3 +1,4 @@
+import { config } from 'app/config/config';
 import { server } from 'app/server/server';
 
 let serverInstance: any;
@@ -10,7 +11,7 @@ export const setupTestServer = (): void => {
 	// Init server on startup
 	before((done) => {
 
-		serverInstance = server.listen(3123, () => {
+		serverInstance = server.listen(config.server.port, () => {
 		
 			done();
 		});

@@ -1,3 +1,4 @@
+import { config } from 'app/config/config';
 import mongoose from 'mongoose';
 
 /**
@@ -8,7 +9,7 @@ export const setupTestDatabaseConnection = (): void => {
 	// Init connection on startup
 	before((done) => {
 
-		mongoose.connect('mongodb://localhost/mediaTrackerBackEndTestDatabase');
+		mongoose.connect(config.db.url);
 		const db = mongoose.connection;
 
 		db.on('error', (error) => {

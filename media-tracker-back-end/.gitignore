@@ -431,4 +431,6 @@ MigrationBackup/
 
 ############### PROJECT-SPECIFIC
 
-app/config/config.ts
+app/config/config.*.ts
+!app/config/config.test.ts
+!app/config/config.sample.ts

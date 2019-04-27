@@ -1,3 +1,6 @@
+/**
+ * Type for configuration files
+ */
 export type Config = {
 	server: {
 		port: number;
@@ -93,7 +96,7 @@ export type Config = {
 		};
 	};
 	log: {
-		level: 'debug' | 'info' | 'error';
+		level: 'debug' | 'info' | 'error' | 'off';
 		file: string;
 		logApisInputOutput: boolean;
 		logExternalApisInputOutput: boolean;

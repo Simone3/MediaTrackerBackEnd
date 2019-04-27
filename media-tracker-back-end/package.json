@@ -4,7 +4,7 @@
   "description": "Back-End for the Media Tracker app",
   "main": "index.ts",
   "scripts": {
-    "test": "ts-mocha --paths --file test/global/global-import-annotations.ts -p test/tsconfig.json test/**/*.ts",
+    "test": "ts-mocha --paths --file test/global/global-init-tests.ts -p test/tsconfig.json test/**/*.ts",
     "start": "ts-node-dev -r tsconfig-paths/register index.ts",
     "debug": "ts-node-dev -r tsconfig-paths/register --inspect --respawn index.ts"
   },

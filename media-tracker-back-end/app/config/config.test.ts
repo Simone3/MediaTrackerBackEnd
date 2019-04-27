@@ -1,32 +1,32 @@
 import { Config } from 'app/config/config-type';
 
 /**
- * Sample configuration that can be used as a template for other files, see config.ts
+ * Configuration for automatic testing (unit and integration)
  */
-export const sampleConfig: Config = {
+export const testConfig: Config = {
 	server: {
-		port: 3000
+		port: 3123
 	},
 	db: {
-		url: 'mongodb://<your_db_host_here>/<your_db_name_here>'
+		url: 'mongodb://localhost/mediaTrackerBackEndTestDatabase'
 	},
 	externalApis: {
-		timeoutMilliseconds: 5000,
-		userAgent: '<your_user_agent>',
+		timeoutMilliseconds: 1,
+		userAgent: '',
 		theMovieDb: {
-			basePath: 'http://api.themoviedb.org/3',
+			basePath: 'http://mock-movie-api',
 			movies: {
 				search: {
 					relativePath: '/search/movie/',
 					queryParams: {
-						api_key: '<your_api_key_here>',
+						api_key: 'mock-api-key',
 						query: ''
 					}
 				},
 				details: {
 					relativePath: '/movie/:movieId',
 					queryParams: {
-						api_key: '<your_api_key_here>',
+						api_key: 'mock-api-key',
 						append_to_response: 'credits'
 					}
 				},
@@ -36,30 +36,30 @@ export const sampleConfig: Config = {
 				search: {
 					relativePath: '/search/tv/',
 					queryParams: {
-						api_key: '<your_api_key_here>',
+						api_key: 'mock-api-key',
 						query: ''
 					}
 				},
 				details: {
 					relativePath: '/tv/:tvShowId',
 					queryParams: {
-						api_key: '<your_api_key_here>'
+						api_key: 'mock-api-key'
 					}
 				},
 				season: {
 					relativePath: '/tv/:tvShowId/season/:seasonNumber',
 					queryParams: {
-						api_key: '<your_api_key_here>'
+						api_key: 'mock-api-key'
 					}
 				}
 			}
 		},
 		googleBooks: {
-			basePath: 'https://www.googleapis.com/books/v1',
+			basePath: 'https://mock-book-api',
 			search: {
 				relativePath: '/volumes',
 				queryParams: {
-					key: '<your_api_key_here>',
+					key: 'mock-api-key',
 					langRestrict: 'en',
 					country: 'US',
 					orderBy: 'relevance',
@@ -71,16 +71,16 @@ export const sampleConfig: Config = {
 			details: {
 				relativePath: '/volumes/:bookId',
 				queryParams: {
-					key: '<your_api_key_here>'
+					key: 'mock-api-key'
 				}
 			}
 		},
 		giantBomb: {
-			basePath: 'http://www.giantbomb.com/api',
+			basePath: 'http://mock-videogame-api',
 			search: {
 				relativePath: '/search',
 				queryParams: {
-					api_key: '<your_api_key_here>',
+					api_key: 'mock-api-key',
 					format: 'json',
 					resources: 'game',
 					limit: '10',
@@ -90,7 +90,7 @@ export const sampleConfig: Config = {
 			details: {
 				relativePath: '/game/:videogameId',
 				queryParams: {
-					api_key: '<your_api_key_here>',
+					api_key: 'mock-api-key',
 					format: 'json',
 					field_list: 'id,original_release_date,expected_release_day,expected_release_month,expected_release_year,genres,name,deck,developers,publishers,platforms,image'
 				}
@@ -98,8 +98,8 @@ export const sampleConfig: Config = {
 		}
 	},
 	log: {
-		level: 'debug',
-		file: '<your_path_here>/media-tracker.log',
+		level: 'off',
+		file: 'C:/dev/MediaTracker/logs/media-tracker-tests.log',
 		logApisInputOutput: true,
 		logExternalApisInputOutput: true,
 		logDatabaseQueries: true
