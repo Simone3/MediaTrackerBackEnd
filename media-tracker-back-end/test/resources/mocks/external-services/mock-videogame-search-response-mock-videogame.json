@@ -1,0 +1,245 @@
+{
+    "error": "OK",
+    "limit": 10,
+    "offset": 0,
+    "number_of_page_results": 1,
+    "number_of_total_results": 2,
+    "status_code": 1,
+    "results": [
+        {
+            "aliases": "The Witcher\nWitcher",
+            "api_detail_url": "https://www.giantbomb.com/api/game/3030-10473/",
+            "date_added": "2008-04-01 15:55:11",
+            "date_last_updated": "2017-01-17 16:32:12",
+            "deck": "The Witcher is an Action Role Playing Game developed by CD Projekt RED and is based on the book \"The Last Wish\" by Polish author Andrzej Sapkowski. An Enhanced Edition was released in September, 2008. A director's cut version was released for North America on July 31, 2009.",
+            "description": "Some other long description",
+            "expected_release_day": null,
+            "expected_release_month": null,
+            "expected_release_quarter": null,
+            "expected_release_year": null,
+            "guid": "3030-10473",
+            "id": 123,
+            "image": {
+                "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2558589-w1clean.jpg",
+                "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2558589-w1clean.jpg",
+                "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2558589-w1clean.jpg",
+                "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2558589-w1clean.jpg",
+                "small_url": "https://www.giantbomb.com/api/image/scale_small/2558589-w1clean.jpg",
+                "super_url": "https://www.giantbomb.com/api/image/scale_large/2558589-w1clean.jpg",
+                "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2558589-w1clean.jpg",
+                "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2558589-w1clean.jpg",
+                "original_url": "https://www.giantbomb.com/api/image/original/2558589-w1clean.jpg",
+                "image_tags": "All Images,Box Art"
+            },
+            "image_tags": [
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3AAll+Images",
+                    "name": "All Images",
+                    "total": 1472
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3ABox+Art",
+                    "name": "Box Art",
+                    "total": 16
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3ACharacters",
+                    "name": "Characters",
+                    "total": 62
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3AConcept+Art",
+                    "name": "Concept Art",
+                    "total": 71
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3AHerbalism",
+                    "name": "Herbalism",
+                    "total": 6
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3ALoading+Screens",
+                    "name": "Loading Screens",
+                    "total": 29
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3AMaps",
+                    "name": "Maps",
+                    "total": 1
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3APC+Screenshots",
+                    "name": "PC Screenshots",
+                    "total": 1009
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3ARenders",
+                    "name": "Renders",
+                    "total": 30
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3AScreenshots",
+                    "name": "Screenshots",
+                    "total": 472
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3AThe+Price+of+Neutrality",
+                    "name": "The Price of Neutrality",
+                    "total": 11
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-10473/?filter=image_tag%3AWallpaper",
+                    "name": "Wallpaper",
+                    "total": 16
+                }
+            ],
+            "name": "Mock Videogame 1",
+            "number_of_user_reviews": 0,
+            "original_game_rating": [
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/game_rating/3065-17/",
+                    "id": 17,
+                    "name": "BBFC: 18"
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/game_rating/3065-16/",
+                    "id": 16,
+                    "name": "ESRB: M"
+                }
+            ],
+            "original_release_date": "2007-10-30 00:00:00",
+            "platforms": [
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/platform/3045-17/",
+                    "id": 17,
+                    "name": "Mac",
+                    "site_detail_url": "https://www.giantbomb.com/mac/3045-17/",
+                    "abbreviation": "MAC"
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/platform/3045-94/",
+                    "id": 94,
+                    "name": "PC",
+                    "site_detail_url": "https://www.giantbomb.com/pc/3045-94/",
+                    "abbreviation": "PC"
+                }
+            ],
+            "site_detail_url": "https://www.giantbomb.com/the-witcher/3030-10473/",
+            "resource_type": "game"
+        },
+        {
+            "aliases": "The Witcher III: Wild Hunt",
+            "api_detail_url": "https://www.giantbomb.com/api/game/3030-41484/",
+            "date_added": "2013-02-04 20:57:56",
+            "date_last_updated": "2018-11-25 09:27:56",
+            "deck": "CD Projekt RED's third Witcher combines the series' non-linear storytelling with a sprawling open world that concludes the saga of Geralt of Rivia.",
+            "description": "Some other long description",
+            "expected_release_day": null,
+            "expected_release_month": null,
+            "expected_release_quarter": null,
+            "expected_release_year": null,
+            "guid": "3030-41484",
+            "id": 456,
+            "image": {
+                "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2945734-the%20witcher%203%20-%20wild%20hunt.jpg",
+                "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2945734-the%20witcher%203%20-%20wild%20hunt.jpg",
+                "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2945734-the%20witcher%203%20-%20wild%20hunt.jpg",
+                "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2945734-the%20witcher%203%20-%20wild%20hunt.jpg",
+                "small_url": "https://www.giantbomb.com/api/image/scale_small/2945734-the%20witcher%203%20-%20wild%20hunt.jpg",
+                "super_url": "https://www.giantbomb.com/api/image/scale_large/2945734-the%20witcher%203%20-%20wild%20hunt.jpg",
+                "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2945734-the%20witcher%203%20-%20wild%20hunt.jpg",
+                "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2945734-the%20witcher%203%20-%20wild%20hunt.jpg",
+                "original_url": "https://www.giantbomb.com/api/image/original/2945734-the%20witcher%203%20-%20wild%20hunt.jpg",
+                "image_tags": "All Images"
+            },
+            "image_tags": [
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-41484/?filter=image_tag%3AAll+Images",
+                    "name": "All Images",
+                    "total": 211
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-41484/?filter=image_tag%3ABox+Art",
+                    "name": "Box Art",
+                    "total": 5
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-41484/?filter=image_tag%3AConcept+Art",
+                    "name": "Concept Art",
+                    "total": 1
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-41484/?filter=image_tag%3APAX+East+2016",
+                    "name": "PAX East 2016",
+                    "total": 3
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-41484/?filter=image_tag%3APAX+Prime+2014",
+                    "name": "PAX Prime 2014",
+                    "total": 6
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-41484/?filter=image_tag%3APC+Screenshot",
+                    "name": "PC Screenshot",
+                    "total": 1
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-41484/?filter=image_tag%3APS4+Screenshots",
+                    "name": "PS4 Screenshots",
+                    "total": 99
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-41484/?filter=image_tag%3AScreenshots",
+                    "name": "Screenshots",
+                    "total": 43
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/images/3030-41484/?filter=image_tag%3AThe+Witcher+3%3A+Wild+Hunt+Collector%27s+Edition",
+                    "name": "The Witcher 3: Wild Hunt Collector's Edition",
+                    "total": 6
+                }
+            ],
+            "name": "Mock Videogame 2",
+            "number_of_user_reviews": 0,
+            "original_game_rating": [
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/game_rating/3065-16/",
+                    "id": 16,
+                    "name": "ESRB: M"
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/game_rating/3065-37/",
+                    "id": 37,
+                    "name": "PEGI: 18+"
+                }
+            ],
+            "original_release_date": "2015-05-19 00:00:00",
+            "platforms": [
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/platform/3045-94/",
+                    "id": 94,
+                    "name": "PC",
+                    "site_detail_url": "https://www.giantbomb.com/pc/3045-94/",
+                    "abbreviation": "PC"
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/platform/3045-145/",
+                    "id": 145,
+                    "name": "Xbox One",
+                    "site_detail_url": "https://www.giantbomb.com/xbox-one/3045-145/",
+                    "abbreviation": "XONE"
+                },
+                {
+                    "api_detail_url": "https://www.giantbomb.com/api/platform/3045-146/",
+                    "id": 146,
+                    "name": "PlayStation 4",
+                    "site_detail_url": "https://www.giantbomb.com/playstation-4/3045-146/",
+                    "abbreviation": "PS4"
+                }
+            ],
+            "site_detail_url": "https://www.giantbomb.com/the-witcher-3-wild-hunt/3030-41484/",
+            "resource_type": "game"
+		}
+    ],
+    "version": "1.0"
+}

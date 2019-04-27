@@ -1,0 +1,388 @@
+{
+    "_id": "5b763c52c3a368755502486c",
+    "air_date": "2019-04-14",
+    "episodes": [
+        {
+            "air_date": "2019-04-14",
+            "episode_number": 1,
+            "id": 1551825,
+            "name": "Winterfell",
+            "overview": "Jon and Daenerys arrive in Winterfell and are met with skepticism. Sam learns about the fate of his family. Cersei gives Euron the reward he aims for. Theon follows his heart.",
+            "production_code": "801",
+            "season_number": 8,
+            "show_id": 1399,
+            "still_path": "/aeLFDgp0J9140lS4nWUgZZRK6Rp.jpg",
+            "vote_average": 8.196,
+            "vote_count": 24,
+            "crew": [
+                {
+                    "id": 33316,
+                    "credit_id": "5256c8a919c2956ff6047440",
+                    "name": "David Nutter",
+                    "department": "Directing",
+                    "job": "Director",
+                    "gender": 2,
+                    "profile_path": "/2ii4ZXKtwaxL0b4wlp0NnbcLZSy.jpg"
+                },
+                {
+                    "id": 1575063,
+                    "credit_id": "56ba6918c3a3687cab000ed8",
+                    "name": "Dave Hill",
+                    "department": "Writing",
+                    "job": "Writer",
+                    "gender": 0,
+                    "profile_path": null
+                }
+            ],
+            "guest_stars": [
+                {
+                    "id": 1475127,
+                    "name": "Gemma Whelan",
+                    "credit_id": "57016fd8c3a3685694000643",
+                    "character": "Yara Greyjoy",
+                    "order": 455,
+                    "gender": 1,
+                    "profile_path": "/rxhrku6ClgnTf5RsXEJyTXJxoG5.jpg"
+                },
+                {
+                    "id": 90060,
+                    "name": "Pilou Asbæk",
+                    "credit_id": "57018749c3a36856a5000960",
+                    "character": "Euron Greyjoy",
+                    "order": 457,
+                    "gender": 2,
+                    "profile_path": "/r0Z1eqyYcJYGy0x9MqgIKDHUrHG.jpg"
+                },
+                {
+                    "id": 27397,
+                    "name": "Anton Lesser",
+                    "credit_id": "57520f829251414c4a000140",
+                    "character": "Qyburn",
+                    "order": 457,
+                    "gender": 2,
+                    "profile_path": "/rKDn8ZHuIxl4Z3LLbUxvHdCOk0U.jpg"
+                },
+                {
+                    "id": 1369307,
+                    "name": "Hafþór Júlíus Björnsson",
+                    "credit_id": "57018020c3a36856a500086a",
+                    "character": "Gregor Clegane",
+                    "order": 459,
+                    "gender": 2,
+                    "profile_path": null
+                },
+                {
+                    "id": 2479,
+                    "name": "Rupert Vansittart",
+                    "credit_id": "57b7291fc3a3687f5900222d",
+                    "character": "Yohn Royce",
+                    "order": 461,
+                    "gender": 2,
+                    "profile_path": "/Adw0Z2bT8qU5H6S0swuUWrBKDDs.jpg"
+                },
+                {
+                    "id": 97416,
+                    "name": "Richard Dormer",
+                    "credit_id": "570176af925141607f0006b9",
+                    "character": "Beric Dondarrion",
+                    "order": 461,
+                    "gender": 2,
+                    "profile_path": "/wVQ3YFe4VCjgcfj56hmgOXaLwAW.jpg"
+                },
+                {
+                    "id": 1668004,
+                    "name": "Bella Ramsey",
+                    "credit_id": "57b72addc3a368150a001e21",
+                    "character": "Lyanna Mormont",
+                    "order": 461,
+                    "gender": 1,
+                    "profile_path": "/AlriUzoMqKfdyamDtZ7oP3K25y8.jpg"
+                },
+                {
+                    "id": 1034702,
+                    "name": "Daniel Portman",
+                    "credit_id": "570161ccc3a368569000042b",
+                    "character": "Podrick Payne",
+                    "order": 461,
+                    "gender": 2,
+                    "profile_path": "/7xhx2qqfaHc7ZUvFCzCUbaVyClv.jpg"
+                },
+                {
+                    "id": 72315,
+                    "name": "Ben Crompton",
+                    "credit_id": "570162069251416ec9000210",
+                    "character": "Eddison Tollett",
+                    "order": 461,
+                    "gender": 2,
+                    "profile_path": "/cpNhGGZq5lG4tWfVIpggor4BeAF.jpg"
+                }
+            ]
+        },
+        {
+            "air_date": "2019-04-21",
+            "episode_number": 2,
+            "id": 1551826,
+            "name": "A Knight of the Seven Kingdoms",
+            "overview": "The battle at Winterfell is approaching. Jaime is confronted with the consequences of the past. A tense interaction between Sansa and Daenerys follows.",
+            "production_code": "802",
+            "season_number": 8,
+            "show_id": 1399,
+            "still_path": "/2Tj1Mcl3NQOj0LBnOpNHpBWuZHU.jpg",
+            "vote_average": 8.294,
+            "vote_count": 17,
+            "crew": [
+                {
+                    "id": 33316,
+                    "credit_id": "5256c8a919c2956ff6047440",
+                    "name": "David Nutter",
+                    "department": "Directing",
+                    "job": "Director",
+                    "gender": 2,
+                    "profile_path": "/2ii4ZXKtwaxL0b4wlp0NnbcLZSy.jpg"
+                },
+                {
+                    "id": 1223784,
+                    "credit_id": "5256c8a419c2956ff6046f62",
+                    "name": "Bryan Cogman",
+                    "department": "Writing",
+                    "job": "Writer",
+                    "gender": 0,
+                    "profile_path": null
+                }
+            ],
+            "guest_stars": [
+                {
+                    "id": 2479,
+                    "name": "Rupert Vansittart",
+                    "credit_id": "57b7291fc3a3687f5900222d",
+                    "character": "Yohn Royce",
+                    "order": 461,
+                    "gender": 2,
+                    "profile_path": "/Adw0Z2bT8qU5H6S0swuUWrBKDDs.jpg"
+                },
+                {
+                    "id": 97416,
+                    "name": "Richard Dormer",
+                    "credit_id": "570176af925141607f0006b9",
+                    "character": "Beric Dondarrion",
+                    "order": 461,
+                    "gender": 2,
+                    "profile_path": "/wVQ3YFe4VCjgcfj56hmgOXaLwAW.jpg"
+                },
+                {
+                    "id": 1668004,
+                    "name": "Bella Ramsey",
+                    "credit_id": "57b72addc3a368150a001e21",
+                    "character": "Lyanna Mormont",
+                    "order": 461,
+                    "gender": 1,
+                    "profile_path": "/AlriUzoMqKfdyamDtZ7oP3K25y8.jpg"
+                },
+                {
+                    "id": 1034702,
+                    "name": "Daniel Portman",
+                    "credit_id": "570161ccc3a368569000042b",
+                    "character": "Podrick Payne",
+                    "order": 461,
+                    "gender": 2,
+                    "profile_path": "/7xhx2qqfaHc7ZUvFCzCUbaVyClv.jpg"
+                },
+                {
+                    "id": 72315,
+                    "name": "Ben Crompton",
+                    "credit_id": "570162069251416ec9000210",
+                    "character": "Eddison Tollett",
+                    "order": 461,
+                    "gender": 2,
+                    "profile_path": "/cpNhGGZq5lG4tWfVIpggor4BeAF.jpg"
+                }
+            ]
+        },
+        {
+            "air_date": "2019-04-28",
+            "episode_number": 3,
+            "id": 1551827,
+            "name": "Episode 3",
+            "overview": "The Night King and his army have arrived at Winterfell and the great battle begins.",
+            "production_code": "",
+            "season_number": 8,
+            "show_id": 1399,
+            "still_path": "/k69MmmwXIy1ywEQDZME4des9aRJ.jpg",
+            "vote_average": 0,
+            "vote_count": 1,
+            "crew": [
+                {
+                    "id": 114404,
+                    "credit_id": "56ba67bec3a3687ca8000e01",
+                    "name": "Miguel Sapochnik",
+                    "department": "Directing",
+                    "job": "Director",
+                    "gender": 2,
+                    "profile_path": "/9bntod7lWrRYMzYeoOqN6N9L5bt.jpg"
+                },
+                {
+                    "id": 9813,
+                    "credit_id": "5256c8a019c2956ff6046e2b",
+                    "name": "David Benioff",
+                    "department": "Writing",
+                    "job": "Writer",
+                    "gender": 2,
+                    "profile_path": "/8CuuNIKMzMUL1NKOPv9AqEwM7og.jpg"
+                },
+                {
+                    "id": 228068,
+                    "credit_id": "5256c8a219c2956ff6046e4b",
+                    "name": "D. B. Weiss",
+                    "department": "Writing",
+                    "job": "Writer",
+                    "gender": 2,
+                    "profile_path": "/caUAtilEe06OwOjoQY3B7BgpARi.jpg"
+                }
+            ],
+            "guest_stars": []
+        },
+        {
+            "air_date": "2019-05-05",
+            "episode_number": 4,
+            "id": 1551828,
+            "name": "Episode 4",
+            "overview": "",
+            "production_code": "",
+            "season_number": 8,
+            "show_id": 1399,
+            "still_path": null,
+            "vote_average": 0,
+            "vote_count": 0,
+            "crew": [
+                {
+                    "id": 33316,
+                    "credit_id": "5256c8a919c2956ff6047440",
+                    "name": "David Nutter",
+                    "department": "Directing",
+                    "job": "Director",
+                    "gender": 2,
+                    "profile_path": "/2ii4ZXKtwaxL0b4wlp0NnbcLZSy.jpg"
+                },
+                {
+                    "id": 9813,
+                    "credit_id": "5256c8a019c2956ff6046e2b",
+                    "name": "David Benioff",
+                    "department": "Writing",
+                    "job": "Writer",
+                    "gender": 2,
+                    "profile_path": "/8CuuNIKMzMUL1NKOPv9AqEwM7og.jpg"
+                },
+                {
+                    "id": 228068,
+                    "credit_id": "5256c8a219c2956ff6046e4b",
+                    "name": "D. B. Weiss",
+                    "department": "Writing",
+                    "job": "Writer",
+                    "gender": 2,
+                    "profile_path": "/caUAtilEe06OwOjoQY3B7BgpARi.jpg"
+                }
+            ],
+            "guest_stars": []
+        },
+        {
+            "air_date": "2019-05-12",
+            "episode_number": 5,
+            "id": 1551829,
+            "name": "Episode 5",
+            "overview": "",
+            "production_code": "",
+            "season_number": 8,
+            "show_id": 1399,
+            "still_path": null,
+            "vote_average": 0,
+            "vote_count": 0,
+            "crew": [
+                {
+                    "id": 114404,
+                    "credit_id": "56ba67bec3a3687ca8000e01",
+                    "name": "Miguel Sapochnik",
+                    "department": "Directing",
+                    "job": "Director",
+                    "gender": 2,
+                    "profile_path": "/9bntod7lWrRYMzYeoOqN6N9L5bt.jpg"
+                },
+                {
+                    "id": 9813,
+                    "credit_id": "5256c8a019c2956ff6046e2b",
+                    "name": "David Benioff",
+                    "department": "Writing",
+                    "job": "Writer",
+                    "gender": 2,
+                    "profile_path": "/8CuuNIKMzMUL1NKOPv9AqEwM7og.jpg"
+                },
+                {
+                    "id": 228068,
+                    "credit_id": "5256c8a219c2956ff6046e4b",
+                    "name": "D. B. Weiss",
+                    "department": "Writing",
+                    "job": "Writer",
+                    "gender": 2,
+                    "profile_path": "/caUAtilEe06OwOjoQY3B7BgpARi.jpg"
+                }
+            ],
+            "guest_stars": []
+        },
+        {
+            "air_date": "2019-05-19",
+            "episode_number": 6,
+            "id": 1551830,
+            "name": "Episode 6",
+            "overview": "",
+            "production_code": "",
+            "season_number": 8,
+            "show_id": 1399,
+            "still_path": null,
+            "vote_average": 0,
+            "vote_count": 0,
+            "crew": [
+                {
+                    "id": 9813,
+                    "credit_id": "54ef2a6ec3a3686d5e005a06",
+                    "name": "David Benioff",
+                    "department": "Directing",
+                    "job": "Director",
+                    "gender": 2,
+                    "profile_path": "/8CuuNIKMzMUL1NKOPv9AqEwM7og.jpg"
+                },
+                {
+                    "id": 228068,
+                    "credit_id": "54ef3247c3a3680b80006783",
+                    "name": "D. B. Weiss",
+                    "department": "Directing",
+                    "job": "Director",
+                    "gender": 2,
+                    "profile_path": "/caUAtilEe06OwOjoQY3B7BgpARi.jpg"
+                },
+                {
+                    "id": 9813,
+                    "credit_id": "5256c8a019c2956ff6046e2b",
+                    "name": "David Benioff",
+                    "department": "Writing",
+                    "job": "Writer",
+                    "gender": 2,
+                    "profile_path": "/8CuuNIKMzMUL1NKOPv9AqEwM7og.jpg"
+                },
+                {
+                    "id": 228068,
+                    "credit_id": "5256c8a219c2956ff6046e4b",
+                    "name": "D. B. Weiss",
+                    "department": "Writing",
+                    "job": "Writer",
+                    "gender": 2,
+                    "profile_path": "/caUAtilEe06OwOjoQY3B7BgpARi.jpg"
+                }
+            ],
+            "guest_stars": []
+        }
+    ],
+    "name": "Season 8",
+    "overview": "The Great War has come, the Wall has fallen and the Night King's army of the dead marches towards Westeros. The end is here, but who will take the Iron Throne?",
+    "id": 123,
+    "poster_path": "/3OcQhbrecf4F4pYss2gSirTGPvD.jpg",
+    "season_number": 8
+}

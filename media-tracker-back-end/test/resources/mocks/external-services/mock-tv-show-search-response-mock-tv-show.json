@@ -1,0 +1,45 @@
+{
+    "page": 1,
+    "total_results": 2,
+    "total_pages": 1,
+    "results": [
+        {
+            "original_name": "Mock TV Show 1",
+            "id": 123,
+            "name": "Mock TV Show 1",
+            "vote_count": 3200,
+            "vote_average": 8.38,
+            "poster_path": "/1yeVJox3rjo2jBKrrihIMj7uoS9.jpg",
+            "first_air_date": "2008-01-20",
+            "popularity": 71.168,
+            "genre_ids": [
+                18
+            ],
+            "original_language": "en",
+            "backdrop_path": "/eSzpy96DwBujGFj0xMbXBcGcfxX.jpg",
+            "overview": "Some description",
+            "origin_country": [
+                "US"
+            ]
+		},
+		{
+            "original_name": "Mock TV Show 2",
+            "id": 456,
+            "name": "Mock TV Show 2",
+            "vote_count": 3200,
+            "vote_average": 8.38,
+            "poster_path": "/1yeVJox3rjo2jBKrrihIMj7uoS9.jpg",
+            "first_air_date": "2008-01-20",
+            "popularity": 71.168,
+            "genre_ids": [
+                18
+            ],
+            "original_language": "en",
+            "backdrop_path": "/eSzpy96DwBujGFj0xMbXBcGcfxX.jpg",
+            "overview": "Some description",
+            "origin_country": [
+                "US"
+            ]
+        }
+    ]
+}

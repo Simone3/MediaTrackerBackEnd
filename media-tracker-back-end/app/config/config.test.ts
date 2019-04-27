@@ -55,7 +55,7 @@ export const testConfig: Config = {
 			}
 		},
 		googleBooks: {
-			basePath: 'https://mock-book-api',
+			basePath: 'http://mock-book-api',
 			search: {
 				relativePath: '/volumes',
 				queryParams: {

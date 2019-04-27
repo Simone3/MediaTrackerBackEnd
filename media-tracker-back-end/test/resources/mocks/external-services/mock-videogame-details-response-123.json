@@ -1,0 +1,82 @@
+{
+    "error": "OK",
+    "limit": 1,
+    "offset": 0,
+    "number_of_page_results": 1,
+    "number_of_total_results": 1,
+    "status_code": 1,
+    "results": {
+        "deck": "The Witcher is an Action Role Playing Game developed by CD Projekt RED and is based on the book \"The Last Wish\" by Polish author Andrzej Sapkowski. An Enhanced Edition was released in September, 2008. A director's cut version was released for North America on July 31, 2009.",
+        "expected_release_day": null,
+        "expected_release_month": null,
+        "expected_release_year": null,
+        "id": 123,
+        "image": {
+            "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2558589-w1clean.jpg",
+            "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2558589-w1clean.jpg",
+            "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2558589-w1clean.jpg",
+            "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2558589-w1clean.jpg",
+            "small_url": "https://www.giantbomb.com/api/image/scale_small/2558589-w1clean.jpg",
+            "super_url": "https://www.giantbomb.com/api/image/scale_large/2558589-w1clean.jpg",
+            "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2558589-w1clean.jpg",
+            "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2558589-w1clean.jpg",
+            "original_url": "https://www.giantbomb.com/api/image/original/2558589-w1clean.jpg",
+            "image_tags": "All Images,Box Art"
+        },
+        "name": "Mock Videogame 1",
+        "original_release_date": "2007-10-30 00:00:00",
+        "platforms": [
+            {
+                "api_detail_url": "https://www.giantbomb.com/api/platform/3045-17/",
+                "id": 17,
+                "name": "Mac",
+                "site_detail_url": "https://www.giantbomb.com/mac/3045-17/",
+                "abbreviation": "MAC"
+            },
+            {
+                "api_detail_url": "https://www.giantbomb.com/api/platform/3045-94/",
+                "id": 94,
+                "name": "PC",
+                "site_detail_url": "https://www.giantbomb.com/pc/3045-94/",
+                "abbreviation": "PC"
+            }
+        ],
+        "developers": [
+            {
+                "api_detail_url": "https://www.giantbomb.com/api/company/3010-2890/",
+                "id": 2890,
+                "name": "First Dev",
+                "site_detail_url": "https://www.giantbomb.com/cd-projekt-red/3010-2890/"
+            },
+            {
+                "api_detail_url": "https://www.giantbomb.com/api/company/3010-1175/",
+                "id": 1175,
+                "name": "Second Dev",
+                "site_detail_url": "https://www.giantbomb.com/cd-projekt-sa/3010-1175/"
+            }
+        ],
+        "genres": [
+            {
+                "api_detail_url": "https://www.giantbomb.com/api/genre/3060-5/",
+                "id": 5,
+                "name": "Role-Playing",
+                "site_detail_url": "https://www.giantbomb.com/games/?wikiSlug=role-playing&wikiTypeId=3060&wikiId=5&genre=5"
+            },
+            {
+                "api_detail_url": "https://www.giantbomb.com/api/genre/3060-43/",
+                "id": 43,
+                "name": "Action-Adventure",
+                "site_detail_url": "https://www.giantbomb.com/games/?wikiSlug=action-adventure&wikiTypeId=3060&wikiId=43&genre=43"
+            }
+        ],
+        "publishers": [
+            {
+                "api_detail_url": "https://www.giantbomb.com/api/publisher/3010-548/",
+                "id": 548,
+                "name": "Atari SA",
+                "site_detail_url": "https://www.giantbomb.com/atari-sa/3010-548/"
+            }
+        ]
+    },
+    "version": "0"
+}
