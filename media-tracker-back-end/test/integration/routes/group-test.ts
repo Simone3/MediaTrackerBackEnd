@@ -21,7 +21,7 @@ describe('Group API Tests', () => {
 
 		const firstUC: TestUC = { user: '', category: '' };
 
-		// Create new users for each test
+		// Create new users/categories for each test
 		beforeEach(async() => {
 
 			await initTestUCHelper(firstUC, 'First');

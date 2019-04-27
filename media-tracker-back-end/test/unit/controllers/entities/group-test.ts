@@ -20,7 +20,7 @@ describe('GroupController Tests', () => {
 		const firstUC: TestUC = { user: '', category: '' };
 		const secondUC: TestUC = { user: '', category: '' };
 
-		// Create new users and categories for each test
+		// Create new users/categories and categories for each test
 		beforeEach(async() => {
 
 			await initTestUCHelper(firstUC, 'First');

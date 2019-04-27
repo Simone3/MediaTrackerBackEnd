@@ -35,7 +35,7 @@ describe('MovieController Tests', () => {
 			}
 		};
 
-		// Create new users, categories and groups for each test
+		// Create new users/categories/groups for each test
 		beforeEach(async() => {
 
 			await initTestUCGHelper(firstUCG, 'First');
