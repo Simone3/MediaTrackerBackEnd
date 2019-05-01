@@ -6,6 +6,7 @@ import { mediaItemFactory } from 'app/factories/media-item';
 import { UserInternal } from 'app/models/internal/user';
 import { UserSchema, USER_COLLECTION_NAME } from 'app/schemas/user';
 import { Document, Model, model } from 'mongoose';
+import { ownPlatformController } from './own-platform';
 
 /**
  * Mongoose document for users
@@ -87,6 +88,7 @@ class UserController extends AbstractEntityController {
 				mediaItemPromises.concat([
 					categoryController.deleteAllCategoriesForUser(id),
 					groupController.deleteAllGroupsForUser(id),
+					ownPlatformController.deleteAllOwnPlatformsForUser(id),
 					this.queryHelper.deleteById(id)
 				])
 			);

@@ -10,6 +10,7 @@ import { MediaItemInternal } from 'app/models/internal/media-items/media-item';
 import { UserInternal } from 'app/models/internal/user';
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from 'app/schemas/category';
 import { Document, Model, model } from 'mongoose';
+import { ownPlatformController } from './own-platform';
 
 /**
  * Mongoose document for categories
@@ -126,6 +127,7 @@ class CategoryController extends AbstractEntityController {
 			return Promise.all([
 				groupController.deleteAllGroupsInCategory(categoryId),
 				mediaItemController.deleteAllMediaItemsInCategory(categoryId),
+				ownPlatformController.deleteAllOwnPlatformsInCategory(categoryId),
 				this.queryHelper.deleteById(categoryId)
 			]);
 		});
