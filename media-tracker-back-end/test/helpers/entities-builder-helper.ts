@@ -8,6 +8,7 @@ import { MediaItemInternal } from 'app/models/internal/media-items/media-item';
 import { MovieInternal } from 'app/models/internal/media-items/movie';
 import { TvShowInternal } from 'app/models/internal/media-items/tv-show';
 import { VideogameInternal } from 'app/models/internal/media-items/videogame';
+import { OwnPlatformInternal } from 'app/models/internal/own-platform';
 import { UserInternal } from 'app/models/internal/user';
 import { randomName } from 'test/helpers/test-misc-helper';
 
@@ -61,6 +62,24 @@ export const getTestGroup = (_id: unknown, data: TestUC, name?: string): GroupIn
 		owner: data.user,
 		category: data.category,
 		name: name ? name : randomName()
+	};
+};
+
+/**
+ * Helper to build a test own platform
+ */
+export const getTestOwnPlatform = (_id: unknown, data: TestUC, name?: string): OwnPlatformInternal => {
+	
+	if(!data.user || !data.category) {
+		throw 'Invalid test entity builder input';
+	}
+
+	return {
+		_id: _id,
+		owner: data.user,
+		category: data.category,
+		name: name ? name : randomName(),
+		color: '#0000FF'
 	};
 };
 
