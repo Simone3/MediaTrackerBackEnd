@@ -76,7 +76,9 @@ describe('Category API Tests', () => {
 			expect(response.categories.map(extractName), 'API did not return the correct categories').to.eql([ 'Bbb', 'Rrr', 'Zzz' ]);
 		});
 
-		it('Should delete an existing category', async() => {
+		it('Should delete an existing category', async function() {
+
+			this.timeout(4000);
 
 			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
 			const categoryId: string = String(category._id);

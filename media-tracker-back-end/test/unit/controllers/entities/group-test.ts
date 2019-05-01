@@ -1,3 +1,4 @@
+import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
 import { userController } from 'app/controllers/entities/user';
 import { GroupInternal } from 'app/models/internal/group';
@@ -185,6 +186,18 @@ describe('GroupController Tests', () => {
 			await groupController.saveGroup(getTestGroup(undefined, firstUC));
 
 			await userController.deleteUser(firstUC.user, true);
+
+			const foundGroups = await groupController.getAllGroups(firstUC.user, firstUC.category);
+			expect(foundGroups, 'GetAllGroups did not return the correct number of results').to.have.lengthOf(0);
+		});
+
+		it('Deleting a category should also delete all its groups', async function() {
+			
+			await groupController.saveGroup(getTestGroup(undefined, firstUC));
+			await groupController.saveGroup(getTestGroup(undefined, firstUC));
+			await groupController.saveGroup(getTestGroup(undefined, firstUC));
+
+			await categoryController.deleteCategory(firstUC.user, firstUC.category, true);
 
 			const foundGroups = await groupController.getAllGroups(firstUC.user, firstUC.category);
 			expect(foundGroups, 'GetAllGroups did not return the correct number of results').to.have.lengthOf(0);

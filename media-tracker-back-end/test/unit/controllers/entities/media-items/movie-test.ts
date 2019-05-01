@@ -1,3 +1,4 @@
+import { categoryController } from 'app/controllers/entities/category';
 import { movieEntityController } from 'app/controllers/entities/media-items/movie';
 import { userController } from 'app/controllers/entities/user';
 import { MovieInternal } from 'app/models/internal/media-items/movie';
@@ -311,6 +312,18 @@ describe('MovieController Tests', () => {
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
 
 			await userController.deleteUser(firstUCG.user, true);
+
+			const foundMovies = await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category);
+			expect(foundMovies, 'FilterAndOrder did not return the correct number of results').to.have.lengthOf(0);
+		});
+
+		it('Deleting a category should also delete all its media items', async function() {
+			
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
+
+			await categoryController.deleteCategory(firstUCG.user, firstUCG.category, true);
 
 			const foundMovies = await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category);
 			expect(foundMovies, 'FilterAndOrder did not return the correct number of results').to.have.lengthOf(0);

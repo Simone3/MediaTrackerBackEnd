@@ -139,8 +139,10 @@ describe('CategoryController Tests', () => {
 			throw 'SaveCategory should have returned an error';
 		});
 		
-		it('GetCategory after DeleteCategory should return undefined', async() => {
+		it('GetCategory after DeleteCategory should return undefined', async function() {
 			
+			this.timeout(4000);
+
 			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
 			const categoryId = category._id;
 
