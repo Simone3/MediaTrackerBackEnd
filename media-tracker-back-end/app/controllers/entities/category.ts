@@ -112,7 +112,8 @@ class CategoryController extends AbstractEntityController {
 
 	/**
 	 * Deletes a category with the given ID, returning a promise with the number of deleted elements
-	 * @param id the category ID
+	 * @param userId the user ID
+	 * @param categoryId the category ID
 	 * @param forceEvenIfNotEmpty forces delete even if not empty (deletes all media items and groups inside it)
 	 */
 	public async deleteCategory(userId: string, categoryId: string, forceEvenIfNotEmpty: boolean): Promise<number> {
