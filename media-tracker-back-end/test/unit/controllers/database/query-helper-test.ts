@@ -9,6 +9,7 @@ const expect = chai.expect;
 
 type TestInternalModel = PersistedEntityInternal & {
 	name: string;
+	description?: string;
 }
 
 const TestSchema = new Schema({
@@ -64,6 +65,32 @@ describe('QueryHelper Tests', () => {
 			expect(updatedEntity._id, 'Save (update) returned empty ID').to.exist;
 			expect(String(updatedEntity._id), 'Save (update) returned wrong ID').to.equal(String(insertedId));
 			expect(updatedEntity.name, 'Save (update) returned wrong name').to.equal(modifiedEntity.name);
+		});
+
+		it('UpdateSelectiveMany should update existing entities', async() => {
+			
+			const firstName = 'FirstName';
+			const secondName = 'SecondName';
+			const firstDescription = 'FirstDescription';
+			const secondDescription = 'SecondDescription';
+
+			await queryHelper.save({ _id: undefined, name: firstName, description: firstDescription }, new TestModel());
+			await queryHelper.save({ _id: undefined, name: firstName, description: firstDescription }, new TestModel());
+			await queryHelper.save({ _id: undefined, name: firstName, description: secondDescription }, new TestModel());
+			await queryHelper.save({ _id: undefined, name: firstName, description: firstDescription }, new TestModel());
+			await queryHelper.save({ _id: undefined, name: firstName, description: secondDescription }, new TestModel());
+			await queryHelper.save({ _id: undefined, name: firstName, description: undefined }, new TestModel());
+			await queryHelper.save({ _id: undefined, name: firstName, description: firstDescription }, new TestModel());
+
+			const updatedEntities = await queryHelper.updateSelectiveMany({ name: secondName }, { description: firstDescription });
+			expect(updatedEntities, 'UpdateSelectiveMany returned the wrong result').to.equal(4);
+			
+			const firstNameEntities = await queryHelper.find({ name: firstName });
+			expect(firstNameEntities, 'UpdateSelectiveMany updated the wrong entities').to.have.lengthOf(3);
+
+			const secondNameEntities = await queryHelper.find({ name: secondName });
+			expect(secondNameEntities, 'UpdateSelectiveMany did not update the expected entities').to.have.lengthOf(4);
+			expect(secondNameEntities[0].description, 'UpdateSelectiveMany updated the wrong field').to.equal(firstDescription);
 		});
 
 		it('Save should throw error if updating a non-existing entity', (done) => {

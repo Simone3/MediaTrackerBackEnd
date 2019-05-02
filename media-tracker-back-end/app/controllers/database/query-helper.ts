@@ -201,6 +201,31 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	}
 
 	/**
+	 * Helper to selectively update one or more records with the given values
+	 * @param set the new values (any other non-specified value will remain unchanged)
+	 * @param conditions filter conditions
+	 * @returns the number of updated records, as a promise
+	 */
+	public updateSelectiveMany(set: Partial<TPersistedEntity>, conditions?: Queryable<TPersistedEntity>): Promise<number> {
+		
+		return new Promise((resolve, reject): void => {
+
+			this.databaseModel.updateMany(conditions, set, (error, result) => {
+				
+				if(error) {
+					
+					logger.error('Database update selective error: %s', error);
+					reject(AppError.DATABASE_SAVE.withDetails(error));
+				}
+				else {
+
+					resolve(result.nModified);
+				}
+			});
+		});
+	}
+
+	/**
 	 * Helper to delete a database element by ID
 	 * @param id the element ID
 	 * @returns a promise with the number of deleted elements
