@@ -8,9 +8,11 @@ import { CategoryInternal, MediaTypeInternal } from 'app/models/internal/categor
 import { PersistedEntityInternal } from 'app/models/internal/common';
 import { GroupInternal } from 'app/models/internal/group';
 import { MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal } from 'app/models/internal/media-items/media-item';
+import { OwnPlatformInternal } from 'app/models/internal/own-platform';
 import { UserInternal } from 'app/models/internal/user';
 import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model } from 'mongoose';
+import { ownPlatformController } from '../own-platform';
 
 /**
  * Abstract controller for media item entities
@@ -72,6 +74,18 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
+	 * Gets all saved media items linked to the given own platform, as a promise
+	 * @param ownPlatformId the own platform ID
+	 */
+	public getAllMediaItemsInOwnPlatform(ownPlatformId: string): Promise<TMediaItemInternal[]> {
+
+		const conditions: Queryable<TMediaItemInternal> = {};
+		conditions.ownPlatform = ownPlatformId;
+
+		return this.queryHelper.find(conditions);
+	}
+
+	/**
 	 * Gets all saved media items for the given category, as a promise
 	 * @param categoryId the category ID
 	 */
@@ -109,6 +123,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 		const populate: Populatable<TMediaItemInternal> = {};
 		populate.group = true;
+		populate.ownPlatform = true;
 
 		return this.queryHelper.find(conditions, sortConditions, populate);
 	}
@@ -159,6 +174,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 			mediaItem.owner,
 			mediaItem.category,
 			mediaItem.group,
+			mediaItem.ownPlatform,
 			mediaItem._id
 		);
 
@@ -192,6 +208,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 			AppError.DATABASE_DELETE.withDetails('Media item does not exist for given user/category'),
 			userId,
 			categoryId,
+			undefined,
 			undefined,
 			mediaItemId
 		);
@@ -293,6 +310,10 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 				sortConditions.orderInGroup = sortDirection;
 				break;
 
+			case 'OWN_PLATFORM':
+				sortConditions.ownPlatform = sortDirection;
+				break;
+
 			default:
 				logger.error('Unexpected order by value: %s', sortByField);
 				throw AppError.GENERIC.withDetails('Unhandled orderBy value');
@@ -326,7 +347,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param group the group (optional)
 	 * @param mediaItemId the media item ID (optional to use this method for new inserts)
 	 */
-	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, group?: string | GroupInternal, mediaItemId?: string): Promise<void> {
+	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, group?: string | GroupInternal, ownPlatform?: string | OwnPlatformInternal, mediaItemId?: string): Promise<void> {
 
 		return new Promise((resolve, reject): void => {
 
@@ -335,14 +356,15 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 				const userId = typeof user === 'string' ? user : user._id;
 				const categoryId = typeof category === 'string' ? category : category._id;
 				const groupId = !group || typeof group === 'string' ? group : group._id;
+				const ownPlatformId = !ownPlatform || typeof ownPlatform === 'string' ? group : ownPlatform._id;
 
-				let mediaItemCheckPromise: Promise<PersistedEntityInternal | undefined>;
+				const checkPromises: Promise<PersistedEntityInternal | undefined>[] = [];
 
 				// Preconditions are different when it's a new media item or an existing one
 				if(mediaItemId) {
 
 					// Make sure the media item exists
-					mediaItemCheckPromise = this.getMediaItem(userId, categoryId, mediaItemId);
+					checkPromises.push(this.getMediaItem(userId, categoryId, mediaItemId));
 				}
 				else {
 
@@ -359,21 +381,22 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 					});
 
 					// Check that the category actually exists (second then(), handled by checkExistencePreconditionsHelper())
-					mediaItemCheckPromise = categoryCheckPromise;
+					checkPromises.push(categoryCheckPromise);
 				}
 
 				// If a group was set, also make sure the group exists
 				if(groupId) {
 
-					return Promise.all([
-						groupController.getGroup(userId, categoryId, groupId),
-						mediaItemCheckPromise
-					]);
+					checkPromises.push(groupController.getGroup(userId, categoryId, groupId));
 				}
-				else {
 
-					return mediaItemCheckPromise;
+				// If an own platform was set, also make sure the platform exists
+				if(ownPlatform) {
+
+					checkPromises.push(ownPlatformController.getOwnPlatform(userId, categoryId, ownPlatformId));
 				}
+
+				return Promise.all(checkPromises);
 			})
 				.then(() => {
 

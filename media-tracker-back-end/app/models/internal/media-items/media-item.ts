@@ -2,6 +2,7 @@ import { CategoryInternal } from 'app/models/internal/category';
 import { PersistedEntityInternal } from 'app/models/internal/common';
 import { GroupInternal } from 'app/models/internal/group';
 import { UserInternal } from 'app/models/internal/user';
+import { OwnPlatformInternal } from '../own-platform';
 
 /**
  * Model for a media item with base properties, internal type NOT to be exposed via API
@@ -19,6 +20,7 @@ export type MediaItemInternal = PersistedEntityInternal & {
 	name: string;
 	category: CategoryInternal | string;
 	group?: GroupInternal | string;
+	ownPlatform?: OwnPlatformInternal | string;
 	orderInGroup?: number;
 	owner: UserInternal | string;
 	importance: number;
@@ -31,12 +33,13 @@ export type MediaItemFilterInternal = {
 	
 	importance?: number;
 	groupId?: string;
+	ownPlatformId?: string;
 };
 
 /**
  * Values for ordering options, internal type NOT to be exposed via API
  */
-export type MediaItemSortFieldInternal = 'IMPORTANCE' | 'NAME' | 'GROUP';
+export type MediaItemSortFieldInternal = 'IMPORTANCE' | 'NAME' | 'GROUP' | 'OWN_PLATFORM';
 
 /**
  * Media items sort by options, internal type NOT to be exposed via API

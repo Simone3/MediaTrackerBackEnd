@@ -1,6 +1,7 @@
 import { CommonAddResponse, CommonRequest, CommonResponse, CommonSaveRequest } from 'app/models/api/common';
 import { Type } from 'class-transformer';
 import { IsBoolean, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { OwnPlatform } from '../own-platform';
 
 /**
  * Abstract model for a media item from the catalog, publicly exposed via API
@@ -43,6 +44,29 @@ export class MediaItemGroup {
 }
 
 /**
+ * Model for a media item own platform, publicly exposed via API
+ */
+export class MediaItemOwnPlatform {
+
+	/**
+	 * The own platform ID
+	 */
+	@IsNotEmpty()
+	@IsString()
+	public ownPlatformId!: string;
+
+	/**
+	 * The own platform full data. Loaded by GET methods but not required by PUT/POST methods
+	 */
+	@IsOptional()
+	@Type(() => {
+		return OwnPlatform;
+	})
+	@ValidateNested()
+	public ownPlatformData?: OwnPlatform;
+}
+
+/**
  * Abstract model for a media item, publicly exposed via API
  */
 export abstract class MediaItem {
@@ -70,6 +94,16 @@ export abstract class MediaItem {
 	})
 	@ValidateNested()
 	public group?: MediaItemGroup;
+
+	/**
+	 * The platform where the user owns the media item
+	 */
+	@IsOptional()
+	@Type(() => {
+		return MediaItemOwnPlatform;
+	})
+	@ValidateNested()
+	public ownPlatform?: MediaItemOwnPlatform;
 }
 
 /**
@@ -90,6 +124,13 @@ export abstract class MediaItemFilter {
 	@IsOptional()
 	@IsString()
 	public groupId?: string;
+
+	/**
+	 * Own platform to filter
+	 */
+	@IsOptional()
+	@IsString()
+	public ownPlatformId?: string;
 }
 
 /**
@@ -100,10 +141,11 @@ export abstract class MediaItemSortField {
 	public static readonly IMPORTANCE: string = 'IMPORTANCE';
 	public static readonly NAME: string = 'NAME';
 	public static readonly GROUP: string = 'GROUP';
+	public static readonly OWN_PLATFORM: string = 'OWN_PLATFORM';
 	
 	public static commonValues(): string[] {
 
-		return [ this.IMPORTANCE, this.NAME, this.GROUP ];
+		return [ this.IMPORTANCE, this.NAME, this.GROUP, this.OWN_PLATFORM ];
 	}
 }
 

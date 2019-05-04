@@ -2,6 +2,7 @@ import { ModelMapper } from 'app/mappers/common';
 import { CatalogMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResult } from 'app/models/api/media-items/media-item';
 import { AppError } from 'app/models/error/error';
 import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
+import { ownPlatformMapper } from '../own-platform';
 
 /**
  * Helper type
@@ -35,6 +36,14 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			};
 		}
 
+		if(source.ownPlatform && typeof source.ownPlatform !== 'string') {
+
+			target.ownPlatform = {
+				ownPlatformId: String(source.ownPlatform._id),
+				ownPlatformData: ownPlatformMapper.toExternal(source.ownPlatform)
+			};
+		}
+
 		return target;
 	}
 	
@@ -53,6 +62,7 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			category: extraParams.categoryId,
 			owner: extraParams.userId,
 			group: source.group ? source.group.groupId : undefined,
+			ownPlatform: source.ownPlatform ? source.ownPlatform.ownPlatformId : undefined,
 			orderInGroup: source.group ? source.group.orderInGroup : undefined,
 			importance: source.importance
 		};
@@ -71,7 +81,8 @@ export abstract class MediaItemFilterMapper<TMediaItemFilterInternal extends Med
 
 		return {
 			importance: source.importance,
-			groupId: source.groupId
+			groupId: source.groupId,
+			ownPlatformId: source.ownPlatformId
 		};
 	}
 	
@@ -82,7 +93,8 @@ export abstract class MediaItemFilterMapper<TMediaItemFilterInternal extends Med
 
 		return {
 			importance: source.importance,
-			groupId: source.groupId
+			groupId: source.groupId,
+			ownPlatformId: source.ownPlatformId
 		};
 	}
 }
@@ -122,6 +134,7 @@ export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends Media
 			case 'IMPORTANCE': return MediaItemSortField.IMPORTANCE;
 			case 'NAME': return MediaItemSortField.NAME;
 			case 'GROUP': return MediaItemSortField.GROUP;
+			case 'OWN_PLATFORM': return MediaItemSortField.OWN_PLATFORM;
 			default: throw AppError.GENERIC.withDetails(`Cannot map ${source}`);
 		}
 	}
@@ -136,6 +149,7 @@ export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends Media
 			case MediaItemSortField.IMPORTANCE: return 'IMPORTANCE';
 			case MediaItemSortField.NAME: return 'NAME';
 			case MediaItemSortField.GROUP: return 'GROUP';
+			case MediaItemSortField.OWN_PLATFORM: return 'OWN_PLATFORM';
 			default: throw AppError.GENERIC.withDetails(`Cannot map ${source}`);
 		}
 	}
