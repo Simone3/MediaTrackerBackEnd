@@ -24,6 +24,10 @@ export type TestUCG = TestUC & {
 	group?: string;
 };
 
+export type TestP = {
+	ownPlatform: string;
+};
+
 /**
  * Helper to build a test users
  */
@@ -89,6 +93,7 @@ export const getTestOwnPlatform = (_id: unknown, data: TestUC, name?: string): O
 type OptionalMediaItemTestData = {
 	name?: string;
 	importance?: number;
+	ownPlatform?: string;
 }
 
 /**
@@ -105,7 +110,8 @@ const getTestMediaItem = (_id: unknown, data: TestUCG, orderInGroup: number, opt
 		owner: data.user,
 		category: data.category,
 		name: optionalData && optionalData.name ? optionalData.name : randomName(),
-		importance: optionalData && optionalData.importance ? optionalData.importance : 10
+		importance: optionalData && optionalData.importance ? optionalData.importance : 10,
+		ownPlatform: optionalData && optionalData.ownPlatform ? optionalData.ownPlatform : undefined
 	};
 
 	if(data.group) {
