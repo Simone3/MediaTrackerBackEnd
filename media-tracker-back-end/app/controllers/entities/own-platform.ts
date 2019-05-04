@@ -1,11 +1,13 @@
 import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query-helper';
 import { categoryController } from 'app/controllers/entities/category';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
+import { mediaItemFactory } from 'app/factories/media-item';
 import { AppError } from 'app/models/error/error';
 import { CategoryInternal } from 'app/models/internal/category';
 import { OwnPlatformInternal } from 'app/models/internal/own-platform';
 import { UserInternal } from 'app/models/internal/user';
 import { OwnPlatformSchema, OWN_PLATFORM_COLLECTION_NAME } from 'app/schemas/own-platform';
+import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model, model } from 'mongoose';
 
 /**
@@ -108,7 +110,12 @@ class OwnPlatformController extends AbstractEntityController {
 		
 		await this.checkWritePreconditions(AppError.DATABASE_DELETE.withDetails('OwnPlatform does not exist for given user/category'), userId, categoryId, ownPlatformId);
 		
-		return this.queryHelper.deleteById(ownPlatformId);
+		const mediaItemController = await mediaItemFactory.getEntityControllerFromCategoryId(userId, categoryId);
+
+		return miscUtils.mergeAndSumPromiseResults(
+			this.queryHelper.deleteById(ownPlatformId),
+			mediaItemController.replaceOwnPlatformInAllMediaItems(userId, categoryId, ownPlatformId, undefined)
+		);
 	}
 
 	/**

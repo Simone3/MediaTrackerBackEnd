@@ -253,6 +253,27 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
+	 * Replaces an own platform in all media items in the given category
+	 * @param userId the user ID
+	 * @param categoryId the category ID
+	 * @param oldOwnPlatformId the old own platform
+	 * @param newOwnPlatformId the new own platform
+	 * @returns the number of updated media items, as a promise
+	 */
+	public replaceOwnPlatformInAllMediaItems(userId: string, categoryId: string, oldOwnPlatformId: string, newOwnPlatformId: string | undefined): Promise<number> {
+
+		const set: Partial<TMediaItemInternal> = {};
+		set.ownPlatform = newOwnPlatformId;
+
+		const conditions: Queryable<TMediaItemInternal> = {};
+		conditions.owner = userId;
+		conditions.category = categoryId;
+		conditions.ownPlatform = oldOwnPlatformId;
+
+		return this.queryHelper.updateSelectiveMany(set, conditions);
+	}
+
+	/**
 	 * Must be implemented by subclasses to define the default (e.g. for the 'get all media items' API) sort conditions
 	 * @returns at least one sort condition
 	 */
