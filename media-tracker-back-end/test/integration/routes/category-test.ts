@@ -5,7 +5,7 @@ import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestCategory, initTestUHelper, TestU } from 'helpers/entities-builder-helper';
 import { setupTestServer } from 'helpers/server-handler-helper';
-import { extractName, randomName } from 'helpers/test-misc-helper';
+import { extract, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
 
@@ -73,7 +73,7 @@ describe('Category API Tests', () => {
 			
 			const response = await callHelper('GET', `/users/${firstU.user}/categories`);
 			expect(response.categories, 'API did not return the correct number of categories').to.have.lengthOf(3);
-			expect(response.categories.map(extractName), 'API did not return the correct categories').to.eql([ 'Bbb', 'Rrr', 'Zzz' ]);
+			expect(extract(response.categories, 'name'), 'API did not return the correct categories').to.eql([ 'Bbb', 'Rrr', 'Zzz' ]);
 		});
 
 		it('Should delete an existing category', async function() {

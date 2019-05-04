@@ -5,7 +5,7 @@ import { GroupInternal } from 'app/models/internal/group';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestGroup, initTestUCHelper, TestUC } from 'helpers/entities-builder-helper';
-import { extractId, randomName } from 'helpers/test-misc-helper';
+import { extractAsString, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
 
@@ -94,11 +94,11 @@ describe('GroupController Tests', () => {
 
 			const foundfirstUCGroups = await groupController.getAllGroups(firstUC.user, firstUC.category);
 			expect(foundfirstUCGroups, 'GetAllGroups did not return the correct number of results for first user').to.have.lengthOf(firstUCGroups.length);
-			expect(foundfirstUCGroups.map(extractId), 'GetAllGroups did not return the correct results for first user').to.have.members(firstUCGroups.map(extractId));
+			expect(extractAsString(foundfirstUCGroups, '_id'), 'GetAllGroups did not return the correct results for first user').to.have.members(extractAsString(firstUCGroups, '_id'));
 
 			const foundsecondUCGroups = await groupController.getAllGroups(secondUC.user, secondUC.category);
 			expect(foundsecondUCGroups, 'GetAllGroups did not return the correct number of results for second user').to.have.lengthOf(secondUCGroups.length);
-			expect(foundsecondUCGroups.map(extractId), 'GetAllGroups did not return the correct results for second user').to.have.members(secondUCGroups.map(extractId));
+			expect(extractAsString(foundsecondUCGroups, '_id'), 'GetAllGroups did not return the correct results for second user').to.have.members(extractAsString(secondUCGroups, '_id'));
 
 			const foundWrongMatchGroups = await groupController.getAllGroups(firstUC.user, secondUC.category);
 			expect(foundWrongMatchGroups, 'GetAllGroups did not return the correct number of results for non-existing user-category pair').to.have.lengthOf(0);

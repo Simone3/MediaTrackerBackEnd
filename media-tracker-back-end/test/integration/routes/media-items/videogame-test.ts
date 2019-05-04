@@ -5,7 +5,7 @@ import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestVideogame, initTestUCGHelper, TestUCG } from 'helpers/entities-builder-helper';
 import { setupTestServer } from 'helpers/server-handler-helper';
-import { extractCatalogId, extractName, extractTitle, randomName } from 'helpers/test-misc-helper';
+import { extract, randomName } from 'helpers/test-misc-helper';
 import { setupVideogameExternalServicesMocks } from 'mocks/external-services-mocks';
 
 const expect = chai.expect;
@@ -85,7 +85,7 @@ describe('Videogame API Tests', () => {
 				}]
 			});
 			expect(response.videogames, 'API did not return the correct number of videogames').to.have.lengthOf(3);
-			expect(response.videogames.map(extractName), 'API did not return the correct videogames').to.be.eql([ 'Zzz', 'Bbb', 'Aaa' ]);
+			expect(extract(response.videogames, 'name'), 'API did not return the correct videogames').to.be.eql([ 'Zzz', 'Bbb', 'Aaa' ]);
 		});
 
 		it('Should search videogames by term', async() => {
@@ -103,7 +103,7 @@ describe('Videogame API Tests', () => {
 				searchTerm: 'test'
 			});
 			expect(response.videogames, 'API did not return the correct number of videogames').to.have.lengthOf(2);
-			expect(response.videogames.map(extractName), 'API did not return the correct videogames').to.have.members([ 'testAaa', 'ZzTESTz' ]);
+			expect(extract(response.videogames, 'name'), 'API did not return the correct videogames').to.have.members([ 'testAaa', 'ZzTESTz' ]);
 		});
 
 		it('Should delete an existing videogame', async() => {
@@ -140,8 +140,8 @@ describe('Videogame API Tests', () => {
 			const response = await callHelper('GET', `/catalog/videogames/search/Mock Videogame`);
 			
 			expect(response.searchResults, 'API did not return the correct number of catalog videogames').to.have.lengthOf(2);
-			expect(response.searchResults.map(extractTitle), 'API did not return the correct catalog videogames').to.have.members([ 'Mock Videogame 1', 'Mock Videogame 2' ]);
-			expect(response.searchResults.map(extractCatalogId), 'API did not return the correct catalog videogames').to.have.members([ '123', '456' ]);
+			expect(extract(response.searchResults, 'title'), 'API did not return the correct catalog videogames').to.have.members([ 'Mock Videogame 1', 'Mock Videogame 2' ]);
+			expect(extract(response.searchResults, 'catalogId'), 'API did not return the correct catalog videogames').to.have.members([ '123', '456' ]);
 		});
 
 		it('Should get videogame details from the catalog', async() => {

@@ -5,7 +5,7 @@ import { OwnPlatformInternal } from 'app/models/internal/own-platform';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestOwnPlatform, initTestUCHelper, TestUC } from 'helpers/entities-builder-helper';
-import { extractId, randomName } from 'helpers/test-misc-helper';
+import { extractAsString, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
 
@@ -92,13 +92,13 @@ describe('OwnPlatformController Tests', () => {
 			firstUCOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC)));
 			secondUCOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, secondUC)));
 
-			const foundfirstUCOwnPlatforms = await ownPlatformController.getAllOwnPlatforms(firstUC.user, firstUC.category);
-			expect(foundfirstUCOwnPlatforms, 'GetAllOwnPlatforms did not return the correct number of results for first user').to.have.lengthOf(firstUCOwnPlatforms.length);
-			expect(foundfirstUCOwnPlatforms.map(extractId), 'GetAllOwnPlatforms did not return the correct results for first user').to.have.members(firstUCOwnPlatforms.map(extractId));
+			const foundFirstUCOwnPlatforms = await ownPlatformController.getAllOwnPlatforms(firstUC.user, firstUC.category);
+			expect(foundFirstUCOwnPlatforms, 'GetAllOwnPlatforms did not return the correct number of results for first user').to.have.lengthOf(firstUCOwnPlatforms.length);
+			expect(extractAsString(foundFirstUCOwnPlatforms, '_id'), 'GetAllOwnPlatforms did not return the correct results for first user').to.have.members(extractAsString(firstUCOwnPlatforms, '_id'));
 
-			const foundsecondUCOwnPlatforms = await ownPlatformController.getAllOwnPlatforms(secondUC.user, secondUC.category);
-			expect(foundsecondUCOwnPlatforms, 'GetAllOwnPlatforms did not return the correct number of results for second user').to.have.lengthOf(secondUCOwnPlatforms.length);
-			expect(foundsecondUCOwnPlatforms.map(extractId), 'GetAllOwnPlatforms did not return the correct results for second user').to.have.members(secondUCOwnPlatforms.map(extractId));
+			const foundSecondUCOwnPlatforms = await ownPlatformController.getAllOwnPlatforms(secondUC.user, secondUC.category);
+			expect(foundSecondUCOwnPlatforms, 'GetAllOwnPlatforms did not return the correct number of results for second user').to.have.lengthOf(secondUCOwnPlatforms.length);
+			expect(extractAsString(foundSecondUCOwnPlatforms, '_id'), 'GetAllOwnPlatforms did not return the correct results for second user').to.have.members(extractAsString(secondUCOwnPlatforms, '_id'));
 
 			const foundWrongMatchOwnPlatforms = await ownPlatformController.getAllOwnPlatforms(firstUC.user, secondUC.category);
 			expect(foundWrongMatchOwnPlatforms, 'GetAllOwnPlatforms did not return the correct number of results for non-existing user-category pair').to.have.lengthOf(0);

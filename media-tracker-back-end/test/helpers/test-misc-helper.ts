@@ -9,33 +9,23 @@ export const randomName = (prefix?: string): string => {
 };
 
 /**
- * Helper to return the "_id" property as a string from an object
+ * Helper to extract the "field" field in each object in the array
  */
-export const extractId = (value: { _id: unknown }): string => {
+export const extract = function<V extends object>(array: V[], field: keyof V): V[keyof V][] {
 
-	return String(value._id);
+	return array.map((value) => {
+
+		return value[field];
+	});
 };
 
 /**
- * Helper to return the "name" property as a string from an object
+ * Helper to extract the "field" field in each object in the array, casting it to string
  */
-export const extractName = (value: { name: string }): string => {
+export const extractAsString = function<V extends object>(array: V[], field: keyof V): string[] {
 
-	return String(value.name);
-};
+	return array.map((value) => {
 
-/**
- * Helper to return the "title" property as a string from an object
- */
-export const extractTitle = (value: { title: string }): string => {
-
-	return String(value.title);
-};
-
-/**
- * Helper to return the "catalogId" property as a string from an object
- */
-export const extractCatalogId = (value: { catalogId: unknown }): string => {
-
-	return String(value.catalogId);
+		return String(value[field]);
+	});
 };

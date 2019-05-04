@@ -5,7 +5,7 @@ import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestOwnPlatform, initTestUCHelper, TestUC } from 'helpers/entities-builder-helper';
 import { setupTestServer } from 'helpers/server-handler-helper';
-import { extractName, randomName } from 'helpers/test-misc-helper';
+import { extract, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
 
@@ -77,7 +77,7 @@ describe('OwnPlatform API Tests', () => {
 			
 			const response = await callHelper('GET', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`);
 			expect(response.ownPlatforms, 'API did not return the correct number of own platforms').to.have.lengthOf(3);
-			expect(response.ownPlatforms.map(extractName), 'API did not return the correct own platforms').to.eql([ 'Bbb', 'Rrr', 'Zzz' ]);
+			expect(extract(response.ownPlatforms, 'name'), 'API did not return the correct own platforms').to.eql([ 'Bbb', 'Rrr', 'Zzz' ]);
 		});
 
 		it('Should delete an existing own platform', async() => {

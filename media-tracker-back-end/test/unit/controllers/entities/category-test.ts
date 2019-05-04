@@ -5,7 +5,7 @@ import { CategoryInternal } from 'app/models/internal/category';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestCategory, getTestMovie, initTestUHelper, TestU } from 'helpers/entities-builder-helper';
-import { extractId, randomName } from 'helpers/test-misc-helper';
+import { extractAsString, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
 
@@ -82,11 +82,11 @@ describe('CategoryController Tests', () => {
 
 			const foundfirstUCategories = await categoryController.getAllCategories(firstU.user);
 			expect(foundfirstUCategories, 'GetAllCategories did not return the correct number of results for first user').to.have.lengthOf(firstUCategories.length);
-			expect(foundfirstUCategories.map(extractId), 'GetAllCategories did not return the correct results for first user').to.have.members(firstUCategories.map(extractId));
+			expect(extractAsString(foundfirstUCategories, '_id'), 'GetAllCategories did not return the correct results for first user').to.have.members(extractAsString(firstUCategories, '_id'));
 
 			const foundsecondUCategories = await categoryController.getAllCategories(secondU.user);
 			expect(foundsecondUCategories, 'GetAllCategories did not return the correct number of results for second user').to.have.lengthOf(secondUCategories.length);
-			expect(foundsecondUCategories.map(extractId), 'GetAllCategories did not return the correct results for second user').to.have.members(secondUCategories.map(extractId));
+			expect(extractAsString(foundsecondUCategories, '_id'), 'GetAllCategories did not return the correct results for second user').to.have.members(extractAsString(secondUCategories, '_id'));
 		});
 
 		it('SaveCategory (update) not allow to change media type if the category is not empty', async() => {

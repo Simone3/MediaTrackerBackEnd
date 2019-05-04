@@ -5,7 +5,7 @@ import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestTvShow, initTestUCGHelper, TestUCG } from 'helpers/entities-builder-helper';
 import { setupTestServer } from 'helpers/server-handler-helper';
-import { extractCatalogId, extractName, extractTitle, randomName } from 'helpers/test-misc-helper';
+import { extract, randomName } from 'helpers/test-misc-helper';
 import { setupTvShowExternalServicesMocks } from 'mocks/external-services-mocks';
 
 const expect = chai.expect;
@@ -85,7 +85,7 @@ describe('TV show API Tests', () => {
 				}]
 			});
 			expect(response.tvShows, 'API did not return the correct number of TV shows').to.have.lengthOf(3);
-			expect(response.tvShows.map(extractName), 'API did not return the correct TV shows').to.be.eql([ 'Zzz', 'Bbb', 'Aaa' ]);
+			expect(extract(response.tvShows, 'name'), 'API did not return the correct TV shows').to.be.eql([ 'Zzz', 'Bbb', 'Aaa' ]);
 		});
 
 		it('Should search TV shows by term', async() => {
@@ -103,7 +103,7 @@ describe('TV show API Tests', () => {
 				searchTerm: 'test'
 			});
 			expect(response.tvShows, 'API did not return the correct number of TV shows').to.have.lengthOf(2);
-			expect(response.tvShows.map(extractName), 'API did not return the correct TV shows').to.have.members([ 'testAaa', 'ZzTESTz' ]);
+			expect(extract(response.tvShows, 'name'), 'API did not return the correct TV shows').to.have.members([ 'testAaa', 'ZzTESTz' ]);
 		});
 
 		it('Should delete an existing TV show', async() => {
@@ -140,8 +140,8 @@ describe('TV show API Tests', () => {
 			const response = await callHelper('GET', `/catalog/tv-shows/search/Mock TV Show`);
 			
 			expect(response.searchResults, 'API did not return the correct number of catalog TV shows').to.have.lengthOf(2);
-			expect(response.searchResults.map(extractTitle), 'API did not return the correct catalog TV shows').to.have.members([ 'Mock TV Show 1', 'Mock TV Show 2' ]);
-			expect(response.searchResults.map(extractCatalogId), 'API did not return the correct catalog TV shows').to.have.members([ '123', '456' ]);
+			expect(extract(response.searchResults, 'title'), 'API did not return the correct catalog TV shows').to.have.members([ 'Mock TV Show 1', 'Mock TV Show 2' ]);
+			expect(extract(response.searchResults, 'catalogId'), 'API did not return the correct catalog TV shows').to.have.members([ '123', '456' ]);
 		});
 
 		it('Should get TV show details from the catalog', async() => {

@@ -5,7 +5,7 @@ import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestMovie, initTestUCGHelper, TestUCG } from 'helpers/entities-builder-helper';
 import { setupTestServer } from 'helpers/server-handler-helper';
-import { extractCatalogId, extractName, extractTitle, randomName } from 'helpers/test-misc-helper';
+import { extract, randomName } from 'helpers/test-misc-helper';
 import { setupMovieExternalServicesMocks } from 'mocks/external-services-mocks';
 
 const expect = chai.expect;
@@ -85,7 +85,7 @@ describe('Movie API Tests', () => {
 				}]
 			});
 			expect(response.movies, 'API did not return the correct number of movies').to.have.lengthOf(3);
-			expect(response.movies.map(extractName), 'API did not return the correct movies').to.be.eql([ 'Zzz', 'Bbb', 'Aaa' ]);
+			expect(extract(response.movies, 'name'), 'API did not return the correct movies').to.be.eql([ 'Zzz', 'Bbb', 'Aaa' ]);
 		});
 
 		it('Should search movies by term', async() => {
@@ -103,7 +103,7 @@ describe('Movie API Tests', () => {
 				searchTerm: 'test'
 			});
 			expect(response.movies, 'API did not return the correct number of movies').to.have.lengthOf(2);
-			expect(response.movies.map(extractName), 'API did not return the correct movies').to.have.members([ 'testAaa', 'ZzTESTz' ]);
+			expect(extract(response.movies, 'name'), 'API did not return the correct movies').to.have.members([ 'testAaa', 'ZzTESTz' ]);
 		});
 
 		it('Should delete an existing movie', async() => {
@@ -140,8 +140,8 @@ describe('Movie API Tests', () => {
 			const response = await callHelper('GET', `/catalog/movies/search/Mock Movie`);
 			
 			expect(response.searchResults, 'API did not return the correct number of catalog movies').to.have.lengthOf(2);
-			expect(response.searchResults.map(extractTitle), 'API did not return the correct catalog movies').to.have.members([ 'Mock Movie 1', 'Mock Movie 2' ]);
-			expect(response.searchResults.map(extractCatalogId), 'API did not return the correct catalog movies').to.have.members([ '123', '456' ]);
+			expect(extract(response.searchResults, 'title'), 'API did not return the correct catalog movies').to.have.members([ 'Mock Movie 1', 'Mock Movie 2' ]);
+			expect(extract(response.searchResults, 'catalogId'), 'API did not return the correct catalog movies').to.have.members([ '123', '456' ]);
 		});
 
 		it('Should get movie details from the catalog', async() => {

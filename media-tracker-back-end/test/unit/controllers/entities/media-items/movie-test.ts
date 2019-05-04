@@ -4,8 +4,8 @@ import { userController } from 'app/controllers/entities/user';
 import { MovieInternal } from 'app/models/internal/media-items/movie';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
-import { getTestMovie, getTestMovieInGroup, initTestUCGHelper, TestUCG } from 'helpers/entities-builder-helper';
-import { extractName, randomName } from 'helpers/test-misc-helper';
+import { getTestMovie, getTestMovieInGroup, getTestOwnPlatform, initTestUCGHelper, TestUCG } from 'helpers/entities-builder-helper';
+import { extract, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
 
@@ -29,11 +29,11 @@ describe('MovieController Tests', () => {
 			
 			if(matchInOrder) {
 
-				expect(result.map(extractName), 'helperCompareResults - Ordered results do not match').to.eql(expected);
+				expect(extract(result, 'name'), 'helperCompareResults - Ordered results do not match').to.eql(expected);
 			}
 			else {
 
-				expect(result.map(extractName), 'helperCompareResults - Unordered results do not match').to.have.members(expected);
+				expect(extract(result, 'name'), 'helperCompareResults - Unordered results do not match').to.have.members(expected);
 			}
 		};
 
@@ -148,6 +148,18 @@ describe('MovieController Tests', () => {
 			helperCompareResults([], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, '.*'));
 			
 			helperCompareResults([ 'SomeRandomString' ], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'somerand'));
+		});
+		
+		it('FilterAndOrder result should contain group data', async() => {
+
+			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 2, { name: 'Aaa' }));
+
+			const foundMovies = await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category);
+			expect(foundMovies, 'GetMediaItem returned the wrong number of results').to.have.lengthOf(1);
+			expect(foundMovies[0].group, 'GetMediaItem returned an undefined group').not.to.be.undefined;
+			const groupData = foundMovies[0].group as GroupInternal;
+			expect(String(groupData._id), 'GetMediaItem returned an invalid group ID').to.equal(String(firstUCG.group));
+			expect(groupData.name, 'GetMediaItem returned an invalid group name').not.to.be.undefined;
 		});
 
 		it('FilterAndOrder should filter by group', async() => {

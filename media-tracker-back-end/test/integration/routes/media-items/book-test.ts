@@ -5,7 +5,7 @@ import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestBook, initTestUCGHelper, TestUCG } from 'helpers/entities-builder-helper';
 import { setupTestServer } from 'helpers/server-handler-helper';
-import { extractCatalogId, extractName, extractTitle, randomName } from 'helpers/test-misc-helper';
+import { extract, randomName } from 'helpers/test-misc-helper';
 import { setupBookExternalServicesMocks } from 'mocks/external-services-mocks';
 
 const expect = chai.expect;
@@ -85,7 +85,7 @@ describe('Book API Tests', () => {
 				}]
 			});
 			expect(response.books, 'API did not return the correct number of books').to.have.lengthOf(3);
-			expect(response.books.map(extractName), 'API did not return the correct books').to.be.eql([ 'Zzz', 'Bbb', 'Aaa' ]);
+			expect(extract(response.books, 'name'), 'API did not return the correct books').to.be.eql([ 'Zzz', 'Bbb', 'Aaa' ]);
 		});
 
 		it('Should search books by term', async() => {
@@ -103,7 +103,7 @@ describe('Book API Tests', () => {
 				searchTerm: 'test'
 			});
 			expect(response.books, 'API did not return the correct number of books').to.have.lengthOf(2);
-			expect(response.books.map(extractName), 'API did not return the correct books').to.have.members([ 'testAaa', 'ZzTESTz' ]);
+			expect(extract(response.books, 'name'), 'API did not return the correct books').to.have.members([ 'testAaa', 'ZzTESTz' ]);
 		});
 
 		it('Should delete an existing book', async() => {
@@ -140,8 +140,8 @@ describe('Book API Tests', () => {
 			const response = await callHelper('GET', `/catalog/books/search/Mock Book`);
 			
 			expect(response.searchResults, 'API did not return the correct number of catalog books').to.have.lengthOf(2);
-			expect(response.searchResults.map(extractTitle), 'API did not return the correct catalog books').to.have.members([ 'Mock Book 1', 'Mock Book 2' ]);
-			expect(response.searchResults.map(extractCatalogId), 'API did not return the correct catalog books').to.have.members([ '123', '456' ]);
+			expect(extract(response.searchResults, 'title'), 'API did not return the correct catalog books').to.have.members([ 'Mock Book 1', 'Mock Book 2' ]);
+			expect(extract(response.searchResults, 'catalogId'), 'API did not return the correct catalog books').to.have.members([ '123', '456' ]);
 		});
 
 		it('Should get book details from the catalog', async() => {
