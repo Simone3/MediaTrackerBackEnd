@@ -121,11 +121,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 			}
 		}
 
-		const populate: Populatable<TMediaItemInternal> = {};
-		populate.group = true;
-		populate.ownPlatform = true;
-
-		return this.queryHelper.find(conditions, sortConditions, populate);
+		return this.queryHelper.find(conditions, sortConditions, this.getPopulateAll());
 	}
 
 	/**
@@ -159,7 +155,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 		const sortBy: Sortable<TMediaItemInternal> = {};
 		sortBy.name = 'asc';
 
-		return this.queryHelper.find(conditions, sortBy);
+		return this.queryHelper.find(conditions, sortBy, this.getPopulateAll());
 	}
 
 	/**
@@ -339,6 +335,18 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 				logger.error('Unexpected order by value: %s', sortByField);
 				throw AppError.GENERIC.withDetails('Unhandled orderBy value');
 		}
+	}
+
+	/**
+	 * Helper to get the "populate" options for linked entities
+	 * @retuns the "populate" options
+	 */
+	protected getPopulateAll(): Populatable<TMediaItemInternal> {
+
+		const populate: Populatable<TMediaItemInternal> = {};
+		populate.group = true;
+		populate.ownPlatform = true;
+		return populate;
 	}
 
 	/**
