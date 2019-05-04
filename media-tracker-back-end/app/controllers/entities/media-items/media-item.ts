@@ -357,6 +357,11 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 				conditions.group = filterBy.groupId;
 			}
+
+			if(filterBy.ownPlatformId) {
+				
+				conditions.ownPlatform = filterBy.ownPlatformId;
+			}
 		}
 	}
 

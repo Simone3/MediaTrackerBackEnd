@@ -109,7 +109,7 @@ class MiscUtils {
 
 							totalCount += result.reduce((prev, curr) => {
 								return prev + curr;
-							})
+							});
 						}
 						else {
 
