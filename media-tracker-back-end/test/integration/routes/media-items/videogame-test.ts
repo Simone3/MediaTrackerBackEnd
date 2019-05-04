@@ -69,11 +69,11 @@ describe('Videogame API Tests', () => {
 
 		it('Should filter and sort videogames', async() => {
 
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, 'Rrr', 100));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, 'Bbb', 85));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, 'Zzz', 85));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, 'Ttt', 75));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, 'Aaa', 85));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Rrr', importance: 100 }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Zzz', importance: 85 }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Aaa', importance: 85 }));
 			
 			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames/filter`, {
 				filter: {
@@ -90,11 +90,11 @@ describe('Videogame API Tests', () => {
 
 		it('Should search videogames by term', async() => {
 
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, 'Rtestrr', 100));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, 'Bbb', 85));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, 'ZzTESTz', 85));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, 'Ttt', 75));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, 'testAaa', 85));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Rtestrr', importance: 100 }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'ZzTESTz', importance: 85 }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'testAaa', importance: 85 }));
 			
 			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames/search`, {
 				filter: {

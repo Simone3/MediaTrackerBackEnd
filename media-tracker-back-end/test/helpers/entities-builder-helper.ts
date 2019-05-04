@@ -84,9 +84,17 @@ export const getTestOwnPlatform = (_id: unknown, data: TestUC, name?: string): O
 };
 
 /**
+ * Helper type for media item extra test data
+ */
+type OptionalMediaItemTestData = {
+	name?: string;
+	importance?: number;
+}
+
+/**
  * Helper to build a generic media item
  */
-const getTestMediaItem = (_id: unknown, data: TestUCG, orderInGroup: number, name?: string, importance?: number): MediaItemInternal => {
+const getTestMediaItem = (_id: unknown, data: TestUCG, orderInGroup: number, optionalData?: OptionalMediaItemTestData): MediaItemInternal => {
 		
 	if(!data.user || !data.category) {
 		throw 'Invalid test entity builder input';
@@ -96,8 +104,8 @@ const getTestMediaItem = (_id: unknown, data: TestUCG, orderInGroup: number, nam
 		_id: _id,
 		owner: data.user,
 		category: data.category,
-		name: name ? name : randomName(),
-		importance: importance ? importance : 10
+		name: optionalData && optionalData.name ? optionalData.name : randomName(),
+		importance: optionalData && optionalData.importance ? optionalData.importance : 10
 	};
 
 	if(data.group) {
@@ -112,77 +120,77 @@ const getTestMediaItem = (_id: unknown, data: TestUCG, orderInGroup: number, nam
 /**
  * Helper to build a test movie (in a group)
  */
-export const getTestMovieInGroup = (_id: unknown, data: TestUCG, orderInGroup: number, name?: string, importance?: number): MovieInternal => {
+export const getTestMovieInGroup = (_id: unknown, data: TestUCG, orderInGroup: number, optionalData?: OptionalMediaItemTestData): MovieInternal => {
 		
-	return getTestMediaItem(_id, data, orderInGroup, name, importance);
+	return getTestMediaItem(_id, data, orderInGroup, optionalData);
 };
 
 /**
  * Helper to build a test movie
  */
-export const getTestMovie = (_id: unknown, data: TestUC, name?: string, importance?: number): MovieInternal => {
+export const getTestMovie = (_id: unknown, data: TestUC, optionalData?: OptionalMediaItemTestData): MovieInternal => {
 		
 	return getTestMovieInGroup(_id, {
 		user: data.user,
 		category: data.category
-	}, 0, name, importance);
+	}, 0, optionalData);
 };
 
 /**
  * Helper to build a test videogame (in a group)
  */
-export const getTestVideogameInGroup = (_id: unknown, data: TestUCG, orderInGroup: number, name?: string, importance?: number): VideogameInternal => {
+export const getTestVideogameInGroup = (_id: unknown, data: TestUCG, orderInGroup: number, optionalData?: OptionalMediaItemTestData): VideogameInternal => {
 		
-	return getTestMediaItem(_id, data, orderInGroup, name, importance);
+	return getTestMediaItem(_id, data, orderInGroup, optionalData);
 };
 
 /**
  * Helper to build a test videogame
  */
-export const getTestVideogame = (_id: unknown, data: TestUC, name?: string, importance?: number): VideogameInternal => {
+export const getTestVideogame = (_id: unknown, data: TestUC, optionalData?: OptionalMediaItemTestData): VideogameInternal => {
 		
 	return getTestVideogameInGroup(_id, {
 		user: data.user,
 		category: data.category
-	}, 0, name, importance);
+	}, 0, optionalData);
 };
 
 /**
  * Helper to build a test tvShow (in a group)
  */
-export const getTestTvShowInGroup = (_id: unknown, data: TestUCG, orderInGroup: number, name?: string, importance?: number): TvShowInternal => {
+export const getTestTvShowInGroup = (_id: unknown, data: TestUCG, orderInGroup: number, optionalData?: OptionalMediaItemTestData): TvShowInternal => {
 		
-	return getTestMediaItem(_id, data, orderInGroup, name, importance);
+	return getTestMediaItem(_id, data, orderInGroup, optionalData);
 };
 
 /**
  * Helper to build a test tvShow
  */
-export const getTestTvShow = (_id: unknown, data: TestUC, name?: string, importance?: number): TvShowInternal => {
+export const getTestTvShow = (_id: unknown, data: TestUC, optionalData?: OptionalMediaItemTestData): TvShowInternal => {
 		
 	return getTestTvShowInGroup(_id, {
 		user: data.user,
 		category: data.category
-	}, 0, name, importance);
+	}, 0, optionalData);
 };
 
 /**
  * Helper to build a test book (in a group)
  */
-export const getTestBookInGroup = (_id: unknown, data: TestUCG, orderInGroup: number, name?: string, importance?: number): BookInternal => {
+export const getTestBookInGroup = (_id: unknown, data: TestUCG, orderInGroup: number, optionalData?: OptionalMediaItemTestData): BookInternal => {
 		
-	return getTestMediaItem(_id, data, orderInGroup, name, importance);
+	return getTestMediaItem(_id, data, orderInGroup, optionalData);
 };
 
 /**
  * Helper to build a test book
  */
-export const getTestBook = (_id: unknown, data: TestUC, name?: string, importance?: number): BookInternal => {
+export const getTestBook = (_id: unknown, data: TestUC, optionalData?: OptionalMediaItemTestData): BookInternal => {
 		
 	return getTestBookInGroup(_id, {
 		user: data.user,
 		category: data.category
-	}, 0, name, importance);
+	}, 0, optionalData);
 };
 
 /**

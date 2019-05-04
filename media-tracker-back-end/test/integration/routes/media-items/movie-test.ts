@@ -69,11 +69,11 @@ describe('Movie API Tests', () => {
 
 		it('Should filter and sort movies', async() => {
 
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, 'Rrr', 100));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, 'Bbb', 85));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, 'Zzz', 85));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, 'Ttt', 75));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, 'Aaa', 85));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rrr', importance: 100 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz', importance: 85 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Aaa', importance: 85 }));
 			
 			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies/filter`, {
 				filter: {
@@ -90,11 +90,11 @@ describe('Movie API Tests', () => {
 
 		it('Should search movies by term', async() => {
 
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, 'Rtestrr', 100));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, 'Bbb', 85));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, 'ZzTESTz', 85));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, 'Ttt', 75));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, 'testAaa', 85));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rtestrr', importance: 100 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'ZzTESTz', importance: 85 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'testAaa', importance: 85 }));
 			
 			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies/search`, {
 				filter: {

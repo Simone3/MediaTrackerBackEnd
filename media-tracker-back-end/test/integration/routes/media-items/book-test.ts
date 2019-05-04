@@ -69,11 +69,11 @@ describe('Book API Tests', () => {
 
 		it('Should filter and sort books', async() => {
 
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, 'Rrr', 100));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, 'Bbb', 85));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, 'Zzz', 85));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, 'Ttt', 75));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, 'Aaa', 85));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Rrr', importance: 100 }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Zzz', importance: 85 }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Aaa', importance: 85 }));
 			
 			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/filter`, {
 				filter: {
@@ -90,11 +90,11 @@ describe('Book API Tests', () => {
 
 		it('Should search books by term', async() => {
 
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, 'Rtestrr', 100));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, 'Bbb', 85));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, 'ZzTESTz', 85));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, 'Ttt', 75));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, 'testAaa', 85));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Rtestrr', importance: 100 }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'ZzTESTz', importance: 85 }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'testAaa', importance: 85 }));
 			
 			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/search`, {
 				filter: {
