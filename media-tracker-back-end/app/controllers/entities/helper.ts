@@ -1,5 +1,6 @@
 import { AppError } from 'app/models/error/error';
 import { PersistedEntityInternal } from 'app/models/internal/common';
+import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
  * Helper controller for enities, with util methods
@@ -11,9 +12,9 @@ export abstract class AbstractEntityController {
 	 * @param forceEvenIfNotEmpty if true the checkCallback will not be performed and the deleteCallback will be executed, if false the checkCallback is executed
 	 *                            and an error is thrown if it returns a non-empty array
 	 * @param checkCallback the callback for the emptiness check promise
-	 * @param deleteCallback the callback for the delete promise
+	 * @param deleteCallback the callback for the delete promises
 	 */
-	protected async cleanupWithEmptyCheck<T>(forceEvenIfNotEmpty: boolean, checkCallback: () => Promise<T[]>, deleteCallback: () => Promise<number | number[]>): Promise<number> {
+	protected async cleanupWithEmptyCheck<T>(forceEvenIfNotEmpty: boolean, checkCallback: () => Promise<T[]>, deleteCallback: () => Promise<number[] | number>[]): Promise<number> {
 
 		try {
 
@@ -29,21 +30,7 @@ export abstract class AbstractEntityController {
 			}
 
 			// Perform the cleanup
-			let deleted = 0;
-			const deletedElementsCount = await deleteCallback();
-			if(deletedElementsCount instanceof Array) {
-
-				for(const count of deletedElementsCount) {
-
-					deleted += count;
-				}
-			}
-			else {
-
-				deleted += deletedElementsCount;
-			}
-
-			return deleted;
+			return miscUtils.mergeAndSumPromiseResults(...deleteCallback());
 		}
 		catch(error) {
 

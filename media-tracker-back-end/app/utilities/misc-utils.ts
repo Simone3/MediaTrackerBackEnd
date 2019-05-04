@@ -89,6 +89,42 @@ class MiscUtils {
 				return false;
 		}
 	}
+
+	/**
+	 * Similar to Promise.all but the resulting promise contains the sum of all results
+	 * @param sourcePromises the promises to merge
+	 * @returns a promise containing the total sum of the results
+	 */
+	public mergeAndSumPromiseResults(...sourcePromises: Promise<number[] | number>[]): Promise<number> {
+
+		return new Promise((resolve, reject) => {
+
+			Promise.all(sourcePromises)
+				.then((results) => {
+
+					let totalCount = 0;
+					for(const result of results) {
+
+						if(result instanceof Array) {
+
+							totalCount += result.reduce((prev, curr) => {
+								return prev + curr;
+							})
+						}
+						else {
+
+							totalCount += result;
+						}
+					}
+
+					resolve(totalCount);
+				})
+				.catch((error) => {
+
+					reject(error);
+				});
+		});
+	}
 }
 
 /**

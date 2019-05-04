@@ -125,12 +125,12 @@ class CategoryController extends AbstractEntityController {
 		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
 			return mediaItemController.getAllMediaItemsInCategory(categoryId);
 		}, () => {
-			return Promise.all([
+			return [
 				groupController.deleteAllGroupsInCategory(categoryId),
 				mediaItemController.deleteAllMediaItemsInCategory(categoryId),
 				ownPlatformController.deleteAllOwnPlatformsInCategory(categoryId),
 				this.queryHelper.deleteById(categoryId)
-			]);
+			];
 		});
 	}
 

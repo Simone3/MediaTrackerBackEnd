@@ -54,5 +54,57 @@ describe('MiscUtils Tests', () => {
 
 			done();
 		});
+
+		it('Should merge numeric promises', async() => {
+
+			const promise1: Promise<number> = new Promise((resolve) => {
+
+				resolve(3);
+			});
+
+			const promise2: Promise<number[]> = new Promise((resolve) => {
+
+				resolve([ 5, 1 ]);
+			});
+
+			const promise3: Promise<number> = new Promise((resolve) => {
+
+				resolve(9);
+			});
+
+			const result = await miscUtils.mergeAndSumPromiseResults(promise1, promise2, promise3);
+
+			expect(result).to.equal(18);
+		});
+
+		it('Should merge numeric promises with errors', async() => {
+
+			const promise1: Promise<number> = new Promise((resolve) => {
+
+				resolve(3);
+			});
+
+			const promise2: Promise<number[]> = new Promise((resolve) => {
+
+				resolve([ 5, 1 ]);
+			});
+
+			const promise3: Promise<number> = new Promise((_, reject) => {
+
+				reject('Some error!');
+			});
+
+			try {
+
+				await miscUtils.mergeAndSumPromiseResults(promise1, promise2, promise3);
+			}
+			catch(error) {
+
+				expect(error).to.equal('Some error!');
+				return;
+			}
+			
+			throw 'mergeAndSumPromiseResults should have returned an error';
+		});
 	});
 });

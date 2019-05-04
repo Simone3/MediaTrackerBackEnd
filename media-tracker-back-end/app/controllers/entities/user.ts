@@ -84,14 +84,12 @@ class UserController extends AbstractEntityController {
 			}
 
 			// Delete categories, groups and the user; and then wait for every delete promise
-			return Promise.all(
-				mediaItemPromises.concat([
-					categoryController.deleteAllCategoriesForUser(id),
-					groupController.deleteAllGroupsForUser(id),
-					ownPlatformController.deleteAllOwnPlatformsForUser(id),
-					this.queryHelper.deleteById(id)
-				])
-			);
+			return mediaItemPromises.concat([
+				categoryController.deleteAllCategoriesForUser(id),
+				groupController.deleteAllGroupsForUser(id),
+				ownPlatformController.deleteAllOwnPlatformsForUser(id),
+				this.queryHelper.deleteById(id)
+			]);
 		});
 	}
 }

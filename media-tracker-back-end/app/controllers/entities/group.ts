@@ -130,10 +130,10 @@ class GroupController extends AbstractEntityController {
 		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
 			return mediaItemController.getAllMediaItemsInGroup(groupId);
 		}, () => {
-			return Promise.all([
+			return [
 				mediaItemController.deleteAllMediaItemsInGroup(groupId),
 				this.queryHelper.deleteById(groupId)
-			]);
+			];
 		});
 	}
 
