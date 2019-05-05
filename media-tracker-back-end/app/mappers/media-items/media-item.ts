@@ -31,7 +31,9 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 
 			target.group = {
 				groupId: String(source.group._id),
-				groupName: source.group.name,
+				groupData: {
+					name: source.group.name
+				},
 				orderInGroup: source.orderInGroup
 			};
 		}

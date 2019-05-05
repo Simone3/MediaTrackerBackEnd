@@ -1,6 +1,7 @@
 import { CommonAddResponse, CommonRequest, CommonResponse, CommonSaveRequest } from 'app/models/api/common';
 import { Type } from 'class-transformer';
 import { IsBoolean, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { Group } from '../group';
 import { OwnPlatform } from '../own-platform';
 
 /**
@@ -29,11 +30,14 @@ export class MediaItemGroup {
 	public groupId!: string;
 
 	/**
-	 * The group name
+	 * The group full data. Loaded by GET methods but not required by PUT/POST methods
 	 */
 	@IsOptional()
-	@IsString()
-	public groupName?: string;
+	@Type(() => {
+		return Group;
+	})
+	@ValidateNested()
+	public groupData?: Group;
 
 	/**
 	 * The media item order inside the group
