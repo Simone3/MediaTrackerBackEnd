@@ -387,10 +387,10 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 			this.checkExistencePreconditionsHelper(errorToThow, () => {
 
-				const userId = typeof user === 'string' ? user : user._id;
-				const categoryId = typeof category === 'string' ? category : category._id;
-				const groupId = !group || typeof group === 'string' ? group : group._id;
-				const ownPlatformId = !ownPlatform || typeof ownPlatform === 'string' ? group : ownPlatform._id;
+				const userId = this.getEntityStringId(user);
+				const categoryId = this.getEntityStringId(category);
+				const groupId = group ? this.getEntityStringId(group) : undefined;
+				const ownPlatformId = ownPlatform ? this.getEntityStringId(ownPlatform) : undefined;
 
 				const checkPromises: Promise<PersistedEntityInternal | undefined>[] = [];
 

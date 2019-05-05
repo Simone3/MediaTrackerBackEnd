@@ -176,8 +176,8 @@ class GroupController extends AbstractEntityController {
 
 		return this.checkExistencePreconditionsHelper(errorToThow, () => {
 
-			const userId = typeof user === 'string' ? user : user._id;
-			const categoryId = typeof category === 'string' ? category : category._id;
+			const userId = this.getEntityStringId(user);
+			const categoryId = this.getEntityStringId(category);
 
 			if(groupId) {
 

@@ -156,7 +156,7 @@ class CategoryController extends AbstractEntityController {
 	 */
 	private async checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, categoryId?: string, newCategoryData?: CategoryInternal): Promise<void> {
 
-		const userId = typeof user === 'string' ? user : user._id;
+		const userId = this.getEntityStringId(user);
 
 		// Preconditions are different when it's a new category or an existing one
 		if(categoryId) {

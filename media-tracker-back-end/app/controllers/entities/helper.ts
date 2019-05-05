@@ -88,4 +88,14 @@ export abstract class AbstractEntityController {
 				});
 		});
 	}
+
+	/**
+	 * Helper to extract the ID from an entity
+	 * @param entity a string (it's already the ID) or a PersistedEntityInternal (from which the ID will be extracted)
+	 * @returns the ID, as a string
+	 */
+	protected getEntityStringId(entity: PersistedEntityInternal | string): string {
+
+		return typeof entity === 'string' ? entity : String(entity._id);
+	}
 }
