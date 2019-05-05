@@ -69,6 +69,27 @@ describe('OwnPlatform API Tests', () => {
 			expect(foundOwnPlatform.name, 'GetOwnPlatform returned the wrong name').to.equal(newName);
 		});
 
+		it('Should update an existing own platform', async() => {
+
+			const { _id: ownPlatformId1 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
+			const { _id: ownPlatformId2 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
+
+			const mergedName = randomName('TheMergedName');
+			const color = '#0000FF';
+
+			await callHelper('PUT', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/merge`, {
+				ownPlatformIds: [ ownPlatformId1, ownPlatformId2 ],
+				mergedOwnPlatform: {
+					name: mergedName,
+					color: color
+				}
+			});
+			
+			const foundOwnPlatforms = await ownPlatformController.getAllOwnPlatforms(firstUC.user, firstUC.category);
+			expect(foundOwnPlatforms, 'GetOwnPlatform returned the wrong number of results').to.have.lengthOf(1);
+			expect(foundOwnPlatforms[0].name, 'GetOwnPlatform returned the wrong name').to.equal(mergedName);
+		});
+
 		it('Should return all user own platforms', async() => {
 
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'Rrr'));

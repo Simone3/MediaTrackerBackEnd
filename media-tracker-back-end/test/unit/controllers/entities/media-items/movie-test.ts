@@ -424,6 +424,28 @@ describe('MovieController Tests', () => {
 			const otherPlatform = ownPlatforms.filter((value) => value)[0] as OwnPlatformInternal;
 			expect(String(otherPlatform._id)).to.equal(String(ownPlatformId2));
 		});
+
+		it('Merging an own platforms should also replace them in all media items', async function() {
+			
+			const { _id: ownPlatformId1 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUCG));
+			const { _id: ownPlatformId2 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUCG));
+
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { ownPlatform: ownPlatformId1 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { ownPlatform: ownPlatformId2 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { ownPlatform: undefined }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { ownPlatform: ownPlatformId1 }));
+
+			const mergedName = randomName('TheMergedName');
+			await ownPlatformController.mergeOwnPlatforms([ ownPlatformId1, ownPlatformId2 ], getTestOwnPlatform(undefined, firstUCG, mergedName));
+
+			const foundMovies = await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category);
+			expect(foundMovies, 'FilterAndOrder did not return the correct number of results').to.have.lengthOf(4);
+			const ownPlatforms: (OwnPlatformInternal | undefined)[] = extract(foundMovies, 'ownPlatform');
+			expect(ownPlatforms.filter((value) => !value)).to.have.lengthOf(1);
+			const definedPlatforms = ownPlatforms.filter((value) => value);
+			expect(definedPlatforms).to.have.lengthOf(3);
+			expect(extract(definedPlatforms as OwnPlatformInternal[], 'name')).to.eql([ mergedName, mergedName, mergedName ]);
+		});
 	});
 });
 

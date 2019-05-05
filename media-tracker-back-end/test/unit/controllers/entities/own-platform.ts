@@ -5,7 +5,7 @@ import { OwnPlatformInternal } from 'app/models/internal/own-platform';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestOwnPlatform, initTestUCHelper, TestUC } from 'helpers/entities-builder-helper';
-import { extractAsString, randomName } from 'helpers/test-misc-helper';
+import { extract, extractAsString, randomName } from 'helpers/test-misc-helper';
 
 const expect = chai.expect;
 
@@ -102,6 +102,24 @@ describe('OwnPlatformController Tests', () => {
 
 			const foundWrongMatchOwnPlatforms = await ownPlatformController.getAllOwnPlatforms(firstUC.user, secondUC.category);
 			expect(foundWrongMatchOwnPlatforms, 'GetAllOwnPlatforms did not return the correct number of results for non-existing user-category pair').to.have.lengthOf(0);
+		});
+
+		it('MergeOwnPlatforms should merge own platforms', async() => {
+
+			const mergedName = randomName('TheMergedName');
+			const nonMergedName = randomName('TheNonMergedName');
+			
+			const mergedOwnPlatforms: OwnPlatformInternal[] = [];
+			mergedOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC)));
+			ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, nonMergedName));
+			mergedOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC)));
+			mergedOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC)));
+
+			await ownPlatformController.mergeOwnPlatforms(extract(mergedOwnPlatforms, '_id'), getTestOwnPlatform(undefined, firstUC, mergedName));
+
+			const foundPlatforms = await ownPlatformController.getAllOwnPlatforms(firstUC.user, firstUC.category);
+			expect(foundPlatforms, 'GetAllOwnPlatforms did not return the correct number of results').to.have.lengthOf(2);
+			expect(extractAsString(foundPlatforms, 'name'), 'GetAllOwnPlatforms did not return the correct result').to.have.members([ mergedName, nonMergedName ]);
 		});
 
 		it('SaveOwnPlatform (insert) should not accept an invalid user', async() => {
