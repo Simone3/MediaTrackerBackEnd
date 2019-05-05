@@ -24,7 +24,9 @@
       ".tsx"
     ],
     "exclude": [
-      "**/*.d.ts"
+	  "**/*.d.ts",
+      "**/*.js",
+      "**/*.js.map"
     ],
     "reporter": [
       "html"
