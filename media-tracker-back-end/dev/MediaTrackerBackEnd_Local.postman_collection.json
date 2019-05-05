@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newUser\": {\n    \t\"name\": \"Del4\"\n    }\n}"
+							"raw": "{\n    \"newUser\": {\n    \t\"name\": \"TestMe\"\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users",
@@ -108,7 +108,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -116,7 +116,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ca86fb869629a26e8fdcc25",
+								"5ccebae360830e3ae0069ae4",
 								"categories"
 							]
 						}
@@ -137,10 +137,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newCategory\": {\n    \t\"name\": \"CMyCat2\"\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"newCategory\": {\n    \t\"name\": \"TestCat\",\n    \t\"mediaType\": \"MOVIE\"\n    },\n    \"allowSameName\": false\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -148,7 +148,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ca86fb869629a26e8fdcc25",
+								"5ccebae360830e3ae0069ae4",
 								"categories"
 							]
 						}
@@ -169,10 +169,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"category\": {\n    \t\"name\": \"MyCat2MODz\"\n    }\n}"
+							"raw": "{\n    \"category\": {\n    \t\"name\": \"TestCatMod\",\n    \t\"mediaType\": \"MOVIE\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -180,9 +180,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ca86fb869629a26e8fdcc25",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5cb1d4dda513dd2854833c73"
+								"5ccebb3b60830e3ae0069ae5"
 							]
 						}
 					},
@@ -229,7 +229,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/groups",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -237,9 +237,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ca86fb869629a26e8fdcc25",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5cb1d4dda513dd2854833c73",
+								"5ccebb3b60830e3ae0069ae5",
 								"groups"
 							]
 						}
@@ -263,7 +263,7 @@
 							"raw": "{\n    \"newGroup\": {\n    \t\"name\": \"BGroup1\"\n    },\n    \"allowSameName\": false\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/groups",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -271,9 +271,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ca86fb869629a26e8fdcc25",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5cb1d4dda513dd2854833c73",
+								"5ccebb3b60830e3ae0069ae5",
 								"groups"
 							]
 						}
@@ -297,7 +297,7 @@
 							"raw": "{\n    \"group\": {\n    \t\"name\": \"Group1EDITED\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/groups/5cb1d542a513dd2854833c77",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups/5cb1d542a513dd2854833c77",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -305,9 +305,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ca86fb869629a26e8fdcc25",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5cb1d4dda513dd2854833c73",
+								"5ccebb3b60830e3ae0069ae5",
 								"groups",
 								"5cb1d542a513dd2854833c77"
 							]
@@ -325,7 +325,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/groups/5cb1d542a513dd2854833c77",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups/5cb1d542a513dd2854833c77",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -333,9 +333,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ca86fb869629a26e8fdcc25",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5cb1d4dda513dd2854833c73",
+								"5ccebb3b60830e3ae0069ae5",
 								"groups",
 								"5cb1d542a513dd2854833c77"
 							]
@@ -346,10 +346,10 @@
 			]
 		},
 		{
-			"name": "MediaItem",
+			"name": "OwnPlatform",
 			"item": [
 				{
-					"name": "GetAllMediaItems",
+					"name": "GetAllOwnPlatforms",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -358,7 +358,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/media-items",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -366,33 +366,33 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ca86fb869629a26e8fdcc25",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5cb1d4dda513dd2854833c73",
-								"media-items"
+								"5ccebb3b60830e3ae0069ae5",
+								"own-platforms"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "AddMediaItem",
+					"name": "AddOwnPlatform",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newMediaItem\": {\n        \"name\": \"A\",\n        \"author\": \"test\",\n        \"importance\": 100,\n        \"group\": {\n            \"groupId\": \"5cb247379bb23437c8ea2049\",\n            \"orderInGroup\": 3\n        }\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"newOwnPlatform\": {\n    \t\"name\": \"SomeOP2\",\n    \t\"color\": \"#0000FF\"\n    },\n    \"allowSameName\": false\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/media-items",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -400,17 +400,17 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ca86fb869629a26e8fdcc25",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5cb1d4dda513dd2854833c73",
-								"media-items"
+								"5ccebb3b60830e3ae0069ae5",
+								"own-platforms"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "UpdateMediaItem",
+					"name": "UpdateOwnPlatform",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -423,10 +423,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"mediaItem\": {\n        \"name\": \"MediaItemInGroup3\",\n        \"author\": \"test\",\n        \"importance\": 100,\n    \t\"group\": {\n    \t\t\"groupId\": \"5caf8a9f33987f14c072d781\",\n    \t\t\"orderInGroup\": 1\n    \t}\n    }\n}"
+							"raw": "{\n    \"ownPlatform\": {\n    \t\"name\": \"SomeOP\",\n    \t\"color\": \"#1000FF\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5ca8abd5febc9e01981f04ed/media-items/5caf8b8533987f14c072d784",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms/5ccebc2360830e3ae0069ae9",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -434,18 +434,53 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5c8e2a0e7fc1bd2e9c1fc5fd",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5ca8abd5febc9e01981f04ed",
-								"media-items",
-								"5caf8b8533987f14c072d784"
+								"5ccebb3b60830e3ae0069ae5",
+								"own-platforms",
+								"5ccebc2360830e3ae0069ae9"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "DeleteMediaItem",
+					"name": "MergeOwnPlatforms",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ownPlatformIds\": [\"5ccebc8760830e3ae0069aeb\", \"5ccebc9060830e3ae0069aec\"],\n    \"mergedOwnPlatform\": {\n    \t\"name\": \"MergedData\",\n    \t\"color\": \"#1100FF\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms/merge",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5ccebae360830e3ae0069ae4",
+								"categories",
+								"5ccebb3b60830e3ae0069ae5",
+								"own-platforms",
+								"merge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOwnPlatform",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -454,7 +489,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73/media-items/5cb1d926316cbb1db045d783",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms/5ccebc2360830e3ae0069ae9",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -462,88 +497,23 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ca86fb869629a26e8fdcc25",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5cb1d4dda513dd2854833c73",
-								"media-items",
-								"5cb1d926316cbb1db045d783"
+								"5ccebb3b60830e3ae0069ae5",
+								"own-platforms",
+								"5ccebc2360830e3ae0069ae9"
 							]
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Movie",
+			"item": [
 				{
-					"name": "FilterMediaItems",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"filter\": {\n\t\t\"groupId\": \"5cae471c81d4e21b542f4699\"\n\t},\n    \"sortBy\": [\n        {\n            \"field\": \"GROUP\",\n            \"ascending\": true\n        },\n        {\n            \"field\": \"NAME\",\n            \"ascending\": true\n        }\n    ]\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5ca8abd5febc9e01981f04ed/media-items/filter",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"users",
-								"5c8e2a0e7fc1bd2e9c1fc5fd",
-								"categories",
-								"5ca8abd5febc9e01981f04ed",
-								"media-items",
-								"filter"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchMediaItems",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 100\n\t},\n    \"searchTerm\": \"MediaItemInGroup\"\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd/categories/5ca8abd5febc9e01981f04ed/media-items/search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"users",
-								"5c8e2a0e7fc1bd2e9c1fc5fd",
-								"categories",
-								"5ca8abd5febc9e01981f04ed",
-								"media-items",
-								"search"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SearchMediaItemCatalog",
+					"name": "GetAllMovies",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -552,7 +522,201 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/catalog/media-items/search/The Lord of Rings",
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26ea895c281b54b6737f/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf26ea895c281b54b6737f",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddMovie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newMovie\": {\n        \"name\": \"NEWAFTEREDIT\",\n        \"director\": \"Another\",\n        \"importance\": 10\n    },\n    \"allowSameName\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5ccebae360830e3ae0069ae4",
+								"categories",
+								"5ccebb3b60830e3ae0069ae5",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateMovie",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"movie\": {\n        \"name\": \"NEWAFTEREDIT2\",\n        \"director\": \"Anotherz\",\n        \"importance\": 30\n    },\n    \"allowSameName\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26ea895c281b54b6737f/movies/5cc010f260b8f8088c82f395",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf26ea895c281b54b6737f",
+								"movies",
+								"5cc010f260b8f8088c82f395"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteMovie",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cc01db25876832e2877fe9f/movies/5cc01dc15876832e2877fea0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cc01db25876832e2877fe9f",
+								"movies",
+								"5cc01dc15876832e2877fea0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FilterMovies",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"filter\": {\n        \"importance\": 100\n    },\n    \"sortBy\": [\n        {\n            \"field\": \"GROUP\",\n            \"ascending\": true\n        },\n        {\n            \"field\": \"DIRECTOR\",\n            \"ascending\": true\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbdcd1129d7e425c8b891d0/categories/5cbddb30f782142eac088f63/movies/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbdcd1129d7e425c8b891d0",
+								"categories",
+								"5cbddb30f782142eac088f63",
+								"movies",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchMovies",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 10\n\t},\n    \"searchTerm\": \"Low\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbdcd1129d7e425c8b891d0/categories/5cbddb30f782142eac088f63/movies/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbdcd1129d7e425c8b891d0",
+								"categories",
+								"5cbddb30f782142eac088f63",
+								"movies",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchMoviesCatalog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/catalog/movies/search/The Lord of Rings",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -560,7 +724,7 @@
 							"port": "3000",
 							"path": [
 								"catalog",
-								"media-items",
+								"movies",
 								"search",
 								"The Lord of Rings"
 							]
@@ -569,7 +733,7 @@
 					"response": []
 				},
 				{
-					"name": "GetMediaItemFromCatalog",
+					"name": "GetMovieFromCatalog",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -578,7 +742,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/catalog/media-items/120",
+							"raw": "http://localhost:3000/catalog/movies/120",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -586,8 +750,758 @@
 							"port": "3000",
 							"path": [
 								"catalog",
-								"media-items",
+								"movies",
 								"120"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TV Show",
+			"item": [
+				{
+					"name": "GetAllTvShows",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbec5fcafbc9c1f2cfec0af",
+								"tv-shows"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddTvShow",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newTvShow\": {\n        \"name\": \"MyTest6\",\n        \"creator\": \"Tttt\",\n        \"importance\": 10\n    },\n    \"allowSameName\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbec5fcafbc9c1f2cfec0af",
+								"tv-shows"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTvShow",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tvShow\": {\n        \"name\": \"MovieTest\",\n        \"creator\": \"UpdatedMyDirector\",\n        \"importance\": 20\n    },\n    \"allowSameName\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows/5cbddd4ee6991f1e746c5a94",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbec5fcafbc9c1f2cfec0af",
+								"tv-shows",
+								"5cbddd4ee6991f1e746c5a94"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTvShow",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows/5cbddd4ee6991f1e746c5a94",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbec5fcafbc9c1f2cfec0af",
+								"tv-shows",
+								"5cbddd4ee6991f1e746c5a94"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FilterTvShows",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"filter\": {\n        \"importance\": 10\n    },\n    \"sortBy\": [\n        {\n            \"field\": \"GROUP\",\n            \"ascending\": true\n        },\n        {\n            \"field\": \"CREATOR\",\n            \"ascending\": true\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbec5fcafbc9c1f2cfec0af",
+								"tv-shows",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchTvShows",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 10\n\t},\n    \"searchTerm\": \"Low\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbec5fcafbc9c1f2cfec0af",
+								"tv-shows",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchTvShowsCatalog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/catalog/tv-shows/search/Breaking Bad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"catalog",
+								"tv-shows",
+								"search",
+								"Breaking Bad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTvShowFromCatalog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/catalog/tv-shows/1399",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"catalog",
+								"tv-shows",
+								"1399"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "GetAllBooks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf26fe895c281b54b67381",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddBook",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newBook\": {\n        \"name\": \"MyBook\",\n        \"author\": \"MyAuthor\",\n        \"importance\": 10\n    },\n    \"allowSameName\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf26fe895c281b54b67381",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBook",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"book\": {\n        \"name\": \"MovieTest\",\n        \"author\": \"UpdatedMyDirector\",\n        \"importance\": 20\n    },\n    \"allowSameName\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books/5cbddd4ee6991f1e746c5a94",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf26fe895c281b54b67381",
+								"books",
+								"5cbddd4ee6991f1e746c5a94"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteBook",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books/5cbddd4ee6991f1e746c5a94",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf26fe895c281b54b67381",
+								"books",
+								"5cbddd4ee6991f1e746c5a94"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FilterBooks",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"filter\": {\n        \"importance\": 10\n    },\n    \"sortBy\": [\n        {\n            \"field\": \"GROUP\",\n            \"ascending\": true\n        },\n        {\n            \"field\": \"AUTHOR\",\n            \"ascending\": true\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf26fe895c281b54b67381",
+								"books",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchBooks",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 10\n\t},\n    \"searchTerm\": \"Low\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf26fe895c281b54b67381",
+								"books",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchBooksCatalog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/catalog/books/search/Lord of the Rings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"catalog",
+								"books",
+								"search",
+								"Lord of the Rings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookFromCatalog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/catalog/books/YTqqPwAACAAJ",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"catalog",
+								"books",
+								"YTqqPwAACAAJ"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Videogame",
+			"item": [
+				{
+					"name": "GetAllVideogames",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf42c8bb653c360cac66e6",
+								"videogames"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddVideogame",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newVideogame\": {\n        \"name\": \"MyGame\",\n        \"developer\": \"MyDev\",\n        \"importance\": 10\n    },\n    \"allowSameName\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf42c8bb653c360cac66e6",
+								"videogames"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateVideogame",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"videogame\": {\n        \"name\": \"MovieTest\",\n        \"developer\": \"UpdatedMyDirector\",\n        \"importance\": 20\n    },\n    \"allowSameName\": false\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames/5cbddd4ee6991f1e746c5a94",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf42c8bb653c360cac66e6",
+								"videogames",
+								"5cbddd4ee6991f1e746c5a94"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteVideogame",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames/5cbddd4ee6991f1e746c5a94",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf42c8bb653c360cac66e6",
+								"videogames",
+								"5cbddd4ee6991f1e746c5a94"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FilterVideogames",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"filter\": {\n        \"importance\": 10\n    },\n    \"sortBy\": [\n        {\n            \"field\": \"GROUP\",\n            \"ascending\": true\n        },\n        {\n            \"field\": \"DEVELOPER\",\n            \"ascending\": true\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf42c8bb653c360cac66e6",
+								"videogames",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchVideogames",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"filter\": {\n\t\t\"importance\": 10\n\t},\n    \"searchTerm\": \"Low\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cbec5f6afbc9c1f2cfec0ae",
+								"categories",
+								"5cbf42c8bb653c360cac66e6",
+								"videogames",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchVideogamesCatalog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/catalog/videogames/search/The Witcher",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"catalog",
+								"videogames",
+								"search",
+								"The Witcher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetVideogameFromCatalog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/catalog/videogames/10473",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"catalog",
+								"videogames",
+								"10473"
 							]
 						}
 					},
