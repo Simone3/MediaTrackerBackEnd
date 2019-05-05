@@ -33,7 +33,8 @@ describe('Category API Tests', () => {
 			const response = await callHelper('POST', `/users/${firstU.user}/categories`, {
 				newCategory: {
 					name: name,
-					mediaType: 'MOVIE'
+					mediaType: 'MOVIE',
+					color: '#0000FF'
 				}
 			});
 			
@@ -55,7 +56,8 @@ describe('Category API Tests', () => {
 			await callHelper('PUT', `/users/${firstU.user}/categories/${categoryId}`, {
 				category: {
 					name: newName,
-					mediaType: 'MOVIE'
+					mediaType: 'MOVIE',
+					color: '#0000FF'
 				}
 			});
 			

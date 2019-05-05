@@ -1,7 +1,7 @@
 import { CommonAddResponse, CommonResponse, CommonSaveRequest } from 'app/models/api/common';
 import { ValuesOf } from 'app/utilities/helper-types';
 import { Type } from 'class-transformer';
-import { IsDefined, IsIn, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { IsDefined, IsHexColor, IsIn, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Array of all media types, publicly exposed via API
@@ -32,6 +32,13 @@ export class Category {
 	@IsString()
 	@IsIn(MEDIA_TYPES)
 	public mediaType!: MediaType
+
+	/**
+	 * The category color
+	 */
+	@IsNotEmpty()
+	@IsHexColor()
+	public color!: string;
 }
 
 /**

@@ -19,5 +19,6 @@ export type CategoryInternal = PersistedEntityInternal & {
 
 	name: string;
 	mediaType: MediaTypeInternal;
+	color: string;
 	owner: UserInternal | string;
 }

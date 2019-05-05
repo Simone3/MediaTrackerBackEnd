@@ -48,7 +48,8 @@ export const getTestCategory = (_id: unknown, mediaType: MediaTypeInternal, data
 		_id: _id,
 		mediaType: mediaType,
 		owner: data.user,
-		name: name ? name : randomName()
+		name: name ? name : randomName(),
+		color: '#0000FF'
 	};
 };
 

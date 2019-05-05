@@ -23,7 +23,8 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 		return {
 			uid: source._id,
 			name: source.name,
-			mediaType: this.toExternalMediaType(source.mediaType)
+			mediaType: this.toExternalMediaType(source.mediaType),
+			color: source.color
 		};
 	}
 	
@@ -40,7 +41,8 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 			_id: source.uid ? source.uid : null,
 			name: source.name,
 			owner: extraParams.userId,
-			mediaType: this.toInternalMediaType(source.mediaType)
+			mediaType: this.toInternalMediaType(source.mediaType),
+			color: source.color
 		};
 	}
 
