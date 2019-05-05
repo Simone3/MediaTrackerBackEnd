@@ -137,7 +137,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newCategory\": {\n    \t\"name\": \"TestCat\",\n    \t\"mediaType\": \"MOVIE\"\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"newCategory\": {\n    \t\"name\": \"TestCat\",\n    \t\"mediaType\": \"MOVIE\"\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories",
@@ -260,7 +260,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newGroup\": {\n    \t\"name\": \"BGroup1\"\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"newGroup\": {\n    \t\"name\": \"BGroup1\"\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups",
@@ -389,7 +389,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newOwnPlatform\": {\n    \t\"name\": \"SomeOP2\",\n    \t\"color\": \"#0000FF\"\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"newOwnPlatform\": {\n    \t\"name\": \"SomeOP2\",\n    \t\"color\": \"#0000FF\"\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms",
@@ -553,7 +553,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newMovie\": {\n        \"name\": \"NEWAFTEREDIT\",\n        \"director\": \"Another\",\n        \"importance\": 10\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"newMovie\": {\n        \"name\": \"NEWAFTEREDIT\",\n        \"director\": \"Another\",\n        \"importance\": 10\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/movies",
@@ -587,7 +587,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"movie\": {\n        \"name\": \"NEWAFTEREDIT2\",\n        \"director\": \"Anotherz\",\n        \"importance\": 30\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"movie\": {\n        \"name\": \"NEWAFTEREDIT2\",\n        \"director\": \"Anotherz\",\n        \"importance\": 30\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26ea895c281b54b6737f/movies/5cc010f260b8f8088c82f395",
@@ -803,7 +803,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newTvShow\": {\n        \"name\": \"MyTest6\",\n        \"creator\": \"Tttt\",\n        \"importance\": 10\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"newTvShow\": {\n        \"name\": \"MyTest6\",\n        \"creator\": \"Tttt\",\n        \"importance\": 10\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows",
@@ -837,7 +837,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"tvShow\": {\n        \"name\": \"MovieTest\",\n        \"creator\": \"UpdatedMyDirector\",\n        \"importance\": 20\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"tvShow\": {\n        \"name\": \"MovieTest\",\n        \"creator\": \"UpdatedMyDirector\",\n        \"importance\": 20\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows/5cbddd4ee6991f1e746c5a94",
@@ -1053,7 +1053,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newBook\": {\n        \"name\": \"MyBook\",\n        \"author\": \"MyAuthor\",\n        \"importance\": 10\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"newBook\": {\n        \"name\": \"MyBook\",\n        \"author\": \"MyAuthor\",\n        \"importance\": 10\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books",
@@ -1087,7 +1087,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"book\": {\n        \"name\": \"MovieTest\",\n        \"author\": \"UpdatedMyDirector\",\n        \"importance\": 20\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"book\": {\n        \"name\": \"MovieTest\",\n        \"author\": \"UpdatedMyDirector\",\n        \"importance\": 20\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books/5cbddd4ee6991f1e746c5a94",
@@ -1303,7 +1303,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newVideogame\": {\n        \"name\": \"MyGame\",\n        \"developer\": \"MyDev\",\n        \"importance\": 10\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"newVideogame\": {\n        \"name\": \"MyGame\",\n        \"developer\": \"MyDev\",\n        \"importance\": 10\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames",
@@ -1337,7 +1337,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"videogame\": {\n        \"name\": \"MovieTest\",\n        \"developer\": \"UpdatedMyDirector\",\n        \"importance\": 20\n    },\n    \"allowSameName\": false\n}"
+							"raw": "{\n    \"videogame\": {\n        \"name\": \"MovieTest\",\n        \"developer\": \"UpdatedMyDirector\",\n        \"importance\": 20\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames/5cbddd4ee6991f1e746c5a94",
