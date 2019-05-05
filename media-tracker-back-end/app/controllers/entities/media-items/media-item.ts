@@ -256,7 +256,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param newOwnPlatformId the new own platform
 	 * @returns the number of updated media items, as a promise
 	 */
-	public replaceOwnPlatformInAllMediaItems(userId: string, categoryId: string, oldOwnPlatformId: string, newOwnPlatformId: string | undefined): Promise<number> {
+	public replaceOwnPlatformInAllMediaItems(userId: string, categoryId: string, oldOwnPlatformId: string | string[], newOwnPlatformId: string | undefined): Promise<number> {
 
 		const set: Partial<TMediaItemInternal> = {};
 		set.ownPlatform = newOwnPlatformId;
@@ -264,8 +264,16 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 		const conditions: Queryable<TMediaItemInternal> = {};
 		conditions.owner = userId;
 		conditions.category = categoryId;
-		conditions.ownPlatform = oldOwnPlatformId;
 
+		if(oldOwnPlatformId instanceof Array) {
+
+			conditions.ownPlatform = { $in: oldOwnPlatformId };
+		}
+		else {
+
+			conditions.ownPlatform = oldOwnPlatformId;
+		}
+		
 		return this.queryHelper.updateSelectiveMany(set, conditions);
 	}
 
@@ -425,7 +433,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 				}
 
 				// If an own platform was set, also make sure the platform exists
-				if(ownPlatform) {
+				if(ownPlatformId) {
 
 					checkPromises.push(ownPlatformController.getOwnPlatform(userId, categoryId, ownPlatformId));
 				}

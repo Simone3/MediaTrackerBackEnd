@@ -3,7 +3,7 @@ import { ownPlatformController } from 'app/controllers/entities/own-platform';
 import { logger } from 'app/loggers/logger';
 import { ownPlatformMapper } from 'app/mappers/own-platform';
 import { ErrorResponse } from 'app/models/api/common';
-import { AddOwnPlatformRequest, AddOwnPlatformResponse, DeleteOwnPlatformResponse, GetAllOwnPlatformsResponse, UpdateOwnPlatformRequest, UpdateOwnPlatformResponse } from 'app/models/api/own-platform';
+import { AddOwnPlatformRequest, AddOwnPlatformResponse, DeleteOwnPlatformResponse, GetAllOwnPlatformsResponse, MergeOwnPlatformsRequest, MergeOwnPlatformsResponse, UpdateOwnPlatformRequest, UpdateOwnPlatformResponse } from 'app/models/api/own-platform';
 import { AppError } from 'app/models/error/error';
 import { parserValidator } from 'app/utilities/parser-validator';
 import express, { Router } from 'express';
@@ -65,6 +65,40 @@ router.post('/users/:userId/categories/:categoryId/own-platforms', (request, res
 		.catch((error) => {
 
 			logger.error('Add own platform request error: %s', error);
+			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+		});
+});
+
+/**
+ * Route to merge two or more existing own platforms
+ */
+router.put('/users/:userId/categories/:categoryId/own-platforms/merge', (request, response) => {
+
+	const userId: string = request.params.userId;
+	const categoryId: string = request.params.categoryId;
+
+	parserValidator.parseAndValidate(MergeOwnPlatformsRequest, request.body)
+		.then((parsedRequest) => {
+
+			const ownPlatform = ownPlatformMapper.toInternal({ ...parsedRequest.mergedOwnPlatform, uid: '' }, { userId, categoryId });
+			ownPlatformController.mergeOwnPlatforms(parsedRequest.ownPlatformIds, ownPlatform)
+				.then(() => {
+				
+					const responseBody: MergeOwnPlatformsResponse = {
+						message: 'OwnPlatforms successfully merged'
+					};
+
+					response.json(responseBody);
+				})
+				.catch((error) => {
+
+					logger.error('Merge own platforms generic error: %s', error);
+					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+				});
+		})
+		.catch((error) => {
+
+			logger.error('Merge own platforms request error: %s', error);
 			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });

@@ -99,6 +99,53 @@ class OwnPlatformController extends AbstractEntityController {
 	}
 
 	/**
+	 * Merges two or more own platforms into one, also replacing their references in media items
+	 * @param ownPlatformIds the platform IDs (>= 2)
+	 * @param mergedData the final merged platform data
+	 * @returns the number of merged platforms, as a promise
+	 */
+	public async mergeOwnPlatforms(ownPlatformIds: string[], mergedData: OwnPlatformInternal): Promise<number> {
+
+		if(ownPlatformIds.length < 2) {
+
+			throw AppError.GENERIC.withDetails('Invalid mergeOwnPlatforms input');
+		}
+
+		// Check that all platforms belong to the given user and category
+		const userId = this.getEntityStringId(mergedData.owner);
+		const categoryId = this.getEntityStringId(mergedData.category);
+		const checkPlatforms = await this.queryHelper.find({
+			owner: userId,
+			category: categoryId,
+			_id: { $in: ownPlatformIds }
+		});
+		if(checkPlatforms.length !== ownPlatformIds.length) {
+
+			throw AppError.DATABASE_SAVE.withDetails('One or more platforms not found for given user/category');
+		}
+
+		// Define the platform to keep and the platforms to delete
+		const finalOwnPlatform: OwnPlatformInternal = {
+			...mergedData,
+			_id: ownPlatformIds[0]
+		};
+		const platformsToDelete = ownPlatformIds.slice(1, ownPlatformIds.length);
+
+		// Save the new platform data
+		await this.saveOwnPlatform(finalOwnPlatform);
+
+		// Replace platforms in all media items
+		const mediaItemController = await mediaItemFactory.getEntityControllerFromCategoryId(userId, categoryId);
+		await mediaItemController.replaceOwnPlatformInAllMediaItems(userId, categoryId, platformsToDelete, finalOwnPlatform._id);
+
+		// Delete all other platforms
+		return miscUtils.mergeAndSumPromiseResults(...platformsToDelete.map((id) => {
+
+			return this.queryHelper.deleteById(id);
+		}));
+	}
+
+	/**
 	 * Deletes a own platform with the given ID
 	 * @param userId the user ID
 	 * @param categoryId the category ID

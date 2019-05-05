@@ -294,7 +294,7 @@ export type SortDirection = 'asc' | 'desc';
  * Helper type to make all properties in T optional, possibily regular expressions and possibly with nested OR conditions
  */
 export type Queryable<T> = {
-	[P in keyof T]?: T[P] | RegExp;
+	[P in keyof T]?: T[P] | RegExp | { $in: T[P][] };
 } & {$or?: Queryable<T>[]};
 
 /**
