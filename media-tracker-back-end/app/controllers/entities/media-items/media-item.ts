@@ -161,9 +161,8 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	/**
 	 * Saves a new or an existing media item, returning it back as a promise
 	 * @param mediaItem the media item to insert or update
-	 * @param allowSameName whether to check or not if an existing category has the same name
 	 */
-	public async saveMediaItem(mediaItem: TMediaItemInternal, allowSameName?: boolean): Promise<TMediaItemInternal> {
+	public async saveMediaItem(mediaItem: TMediaItemInternal): Promise<TMediaItemInternal> {
 
 		await this.checkWritePreconditions(
 			AppError.DATABASE_SAVE.withDetails(mediaItem._id ? 'Media item or group does not exists for given user/category' : 'User or category or group does not exist'),
@@ -173,23 +172,8 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 			mediaItem.ownPlatform,
 			mediaItem._id
 		);
-
-		if(allowSameName) {
-
-			logger.debug('Same name is allowed');
-			return this.queryHelper.save(mediaItem, this.getNewEmptyDocument());
-		}
-		else {
-
-			logger.debug('Same name is NOT allowed');
-
-			const conditions: Queryable<TMediaItemInternal> = {};
-			conditions.owner = mediaItem.owner;
-			conditions.category = mediaItem.category;
-			conditions.name = mediaItem.name;
-			
-			return this.queryHelper.checkUniquenessAndSave(mediaItem, this.getNewEmptyDocument(), conditions);
-		}
+		
+		return this.queryHelper.save(mediaItem, this.getNewEmptyDocument());
 	}
 
 	/**

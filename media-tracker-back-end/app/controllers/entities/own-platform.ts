@@ -139,7 +139,7 @@ class OwnPlatformController extends AbstractEntityController {
 		await mediaItemController.replaceOwnPlatformInAllMediaItems(userId, categoryId, platformsToDelete, finalOwnPlatform._id);
 
 		// Delete all other platforms
-		return miscUtils.mergeAndSumPromiseResults(...platformsToDelete.map((id) => {
+		return miscUtils.mergeAndSumPromiseResults(platformsToDelete.map((id) => {
 
 			return this.queryHelper.deleteById(id);
 		}));
@@ -150,7 +150,6 @@ class OwnPlatformController extends AbstractEntityController {
 	 * @param userId the user ID
 	 * @param categoryId the category ID
 	 * @param ownPlatformId the own platform ID
-	 * @param forceEvenIfNotEmpty forces delete even if not empty (deletes all media items inside it)
 	 * @returns a promise with the number of deleted elements
 	 */
 	public async deleteOwnPlatform(userId: string, categoryId: string, ownPlatformId: string): Promise<number> {
@@ -159,10 +158,10 @@ class OwnPlatformController extends AbstractEntityController {
 		
 		const mediaItemController = await mediaItemFactory.getEntityControllerFromCategoryId(userId, categoryId);
 
-		return miscUtils.mergeAndSumPromiseResults(
+		return miscUtils.mergeAndSumPromiseResults([
 			this.queryHelper.deleteById(ownPlatformId),
 			mediaItemController.replaceOwnPlatformInAllMediaItems(userId, categoryId, ownPlatformId, undefined)
-		);
+		]);
 	}
 
 	/**

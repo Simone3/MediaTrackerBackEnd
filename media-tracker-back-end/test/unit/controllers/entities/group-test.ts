@@ -171,7 +171,7 @@ describe('GroupController Tests', () => {
 			const group = await groupController.saveGroup(getTestGroup(undefined, firstUC));
 			const groupId = group._id;
 
-			await groupController.deleteGroup(firstUC.user, firstUC.category, groupId, false);
+			await groupController.deleteGroup(firstUC.user, firstUC.category, groupId);
 
 			const foundGroup = await groupController.getGroup(firstUC.user, firstUC.category, groupId);
 			expect(foundGroup, 'GetGroup returned a defined result').to.be.undefined;
@@ -185,7 +185,7 @@ describe('GroupController Tests', () => {
 			await groupController.saveGroup(getTestGroup(undefined, firstUC));
 			await groupController.saveGroup(getTestGroup(undefined, firstUC));
 
-			await userController.deleteUser(firstUC.user, true);
+			await userController.deleteUser(firstUC.user);
 
 			const foundGroups = await groupController.getAllGroups(firstUC.user, firstUC.category);
 			expect(foundGroups, 'GetAllGroups did not return the correct number of results').to.have.lengthOf(0);
@@ -197,7 +197,7 @@ describe('GroupController Tests', () => {
 			await groupController.saveGroup(getTestGroup(undefined, firstUC));
 			await groupController.saveGroup(getTestGroup(undefined, firstUC));
 
-			await categoryController.deleteCategory(firstUC.user, firstUC.category, true);
+			await categoryController.deleteCategory(firstUC.user, firstUC.category);
 
 			const foundGroups = await groupController.getAllGroups(firstUC.user, firstUC.category);
 			expect(foundGroups, 'GetAllGroups did not return the correct number of results').to.have.lengthOf(0);

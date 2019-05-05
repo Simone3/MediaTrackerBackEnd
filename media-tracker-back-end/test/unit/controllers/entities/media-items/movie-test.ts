@@ -387,7 +387,7 @@ describe('MovieController Tests', () => {
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
 
-			await userController.deleteUser(firstUCG.user, true);
+			await userController.deleteUser(firstUCG.user);
 
 			const foundMovies = await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category);
 			expect(foundMovies, 'FilterAndOrder did not return the correct number of results').to.have.lengthOf(0);
@@ -399,7 +399,7 @@ describe('MovieController Tests', () => {
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
 
-			await categoryController.deleteCategory(firstUCG.user, firstUCG.category, true);
+			await categoryController.deleteCategory(firstUCG.user, firstUCG.category);
 
 			const foundMovies = await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category);
 			expect(foundMovies, 'FilterAndOrder did not return the correct number of results').to.have.lengthOf(0);

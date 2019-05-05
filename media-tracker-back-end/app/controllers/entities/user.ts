@@ -5,6 +5,7 @@ import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { mediaItemFactory } from 'app/factories/media-item';
 import { UserInternal } from 'app/models/internal/user';
 import { UserSchema, USER_COLLECTION_NAME } from 'app/schemas/user';
+import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model, model } from 'mongoose';
 import { ownPlatformController } from './own-platform';
 
@@ -67,30 +68,24 @@ class UserController extends AbstractEntityController {
 	/**
 	 * Deletes a user with the given ID, returning a promise with the number of deleted elements
 	 * @param id the user ID
-	 * @param forceEvenIfNotEmpty forces delete even if not empty (deletes all categories, groups and media items inside it)
 	 */
-	public deleteUser(id: string, forceEvenIfNotEmpty: boolean): Promise<number> {
+	public deleteUser(id: string): Promise<number> {
 		
-		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
-			return categoryController.getAllCategories(id);
-		}, () => {
+		// Delete all media item entities (with each controller)
+		const mediaItemControllers = mediaItemFactory.getAllEntityControllers();
+		const mediaItemPromises: Promise<number>[] = [];
+		for(const mediaItemController of mediaItemControllers) {
 
-			// Delete all media item entities (with each controller)
-			const mediaItemControllers = mediaItemFactory.getAllEntityControllers();
-			const mediaItemPromises: Promise<number>[] = [];
-			for(const mediaItemController of mediaItemControllers) {
+			mediaItemPromises.push(mediaItemController.deleteAllMediaItemsForUser(id));
+		}
 
-				mediaItemPromises.push(mediaItemController.deleteAllMediaItemsForUser(id));
-			}
-
-			// Delete categories, groups and the user; and then wait for every delete promise
-			return mediaItemPromises.concat([
-				categoryController.deleteAllCategoriesForUser(id),
-				groupController.deleteAllGroupsForUser(id),
-				ownPlatformController.deleteAllOwnPlatformsForUser(id),
-				this.queryHelper.deleteById(id)
-			]);
-		});
+		// Delete categories, groups and the user; and then wait for every delete promise
+		return miscUtils.mergeAndSumPromiseResults(mediaItemPromises.concat([
+			categoryController.deleteAllCategoriesForUser(id),
+			groupController.deleteAllGroupsForUser(id),
+			ownPlatformController.deleteAllOwnPlatformsForUser(id),
+			this.queryHelper.deleteById(id)
+		]));
 	}
 }
 

@@ -1,43 +1,11 @@
 import { AppError } from 'app/models/error/error';
 import { PersistedEntityInternal } from 'app/models/internal/common';
-import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
  * Helper controller for enities, with util methods
  */
 export abstract class AbstractEntityController {
-
-	/**
-	 * Helper to perform a (possibly) multiple collection cleanup with an optional emptiess check
-	 * @param forceEvenIfNotEmpty if true the checkCallback will not be performed and the deleteCallback will be executed, if false the checkCallback is executed
-	 *                            and an error is thrown if it returns a non-empty array
-	 * @param checkCallback the callback for the emptiness check promise
-	 * @param deleteCallback the callback for the delete promises
-	 */
-	protected async cleanupWithEmptyCheck<T>(forceEvenIfNotEmpty: boolean, checkCallback: () => Promise<T[]>, deleteCallback: () => Promise<number[] | number>[]): Promise<number> {
-
-		try {
-
-			// Emptiness check if the user did not decide to force the cleanup
-			if(!forceEvenIfNotEmpty) {
-
-				const arrayToCheck = await checkCallback();
-
-				if(arrayToCheck.length > 0) {
 	
-					throw AppError.DATABASE_DELETE_NOT_EMPTY;
-				}
-			}
-
-			// Perform the cleanup
-			return miscUtils.mergeAndSumPromiseResults(...deleteCallback());
-		}
-		catch(error) {
-
-			throw AppError.DATABASE_DELETE.withDetails(error);
-		}
-	}
-
 	/**
 	 * Helper to check that one or more persisted entities exist
 	 * @param errorToThrow the error to throw if preconditions fail

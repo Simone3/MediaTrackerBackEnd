@@ -146,7 +146,7 @@ describe('CategoryController Tests', () => {
 			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
 			const categoryId = category._id;
 
-			await categoryController.deleteCategory(firstU.user, categoryId, false);
+			await categoryController.deleteCategory(firstU.user, categoryId);
 
 			const foundCategory = await categoryController.getCategory(firstU.user, categoryId);
 			expect(foundCategory, 'GetCategory returned a defined result').to.be.undefined;
@@ -160,7 +160,7 @@ describe('CategoryController Tests', () => {
 			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
 			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
 
-			await userController.deleteUser(firstU.user, true);
+			await userController.deleteUser(firstU.user);
 
 			const foundCategories = await categoryController.getAllCategories(firstU.user);
 			expect(foundCategories, 'GetAllCategories did not return the correct number of results').to.have.lengthOf(0);

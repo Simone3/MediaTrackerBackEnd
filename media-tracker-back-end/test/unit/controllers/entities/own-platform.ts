@@ -203,7 +203,7 @@ describe('OwnPlatformController Tests', () => {
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
 
-			await userController.deleteUser(firstUC.user, true);
+			await userController.deleteUser(firstUC.user);
 
 			const foundOwnPlatforms = await ownPlatformController.getAllOwnPlatforms(firstUC.user, firstUC.category);
 			expect(foundOwnPlatforms, 'GetAllOwnPlatforms did not return the correct number of results').to.have.lengthOf(0);
@@ -215,7 +215,7 @@ describe('OwnPlatformController Tests', () => {
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
 
-			await categoryController.deleteCategory(firstUC.user, firstUC.category, true);
+			await categoryController.deleteCategory(firstUC.user, firstUC.category);
 
 			const foundOwnPlatforms = await ownPlatformController.getAllOwnPlatforms(firstUC.user, firstUC.category);
 			expect(foundOwnPlatforms, 'GetAllOwnPlatforms did not return the correct number of results').to.have.lengthOf(0);

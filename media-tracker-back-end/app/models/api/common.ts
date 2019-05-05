@@ -1,5 +1,4 @@
 import { AppError } from 'app/models/error/error';
-import { IsBoolean, IsOptional } from 'class-validator';
 
 /**
  * Type shared by all API requests
@@ -75,12 +74,6 @@ export class ErrorResponse extends CommonResponse {
  */
 export class CommonSaveRequest extends CommonRequest {
 
-	/**
-	 * If true, the element is allowed to have the same name of another existing element
-	 */
-	@IsOptional()
-	@IsBoolean()
-	public allowSameName?: boolean;
 }
 
 /**

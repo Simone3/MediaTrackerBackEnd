@@ -5,7 +5,6 @@ import { categoryMapper } from 'app/mappers/category';
 import { AddCategoryRequest, AddCategoryResponse, DeleteCategoryResponse, GetAllCategoriesResponse, UpdateCategoryRequest, UpdateCategoryResponse } from 'app/models/api/category';
 import { ErrorResponse } from 'app/models/api/common';
 import { AppError } from 'app/models/error/error';
-import { miscUtils } from 'app/utilities/misc-utils';
 import { parserValidator } from 'app/utilities/parser-validator';
 import express, { Router } from 'express';
 
@@ -45,7 +44,7 @@ router.post('/users/:userId/categories', (request, response) => {
 		.then((parsedRequest) => {
 
 			const newCategory = categoryMapper.toInternal({ ...parsedRequest.newCategory, uid: '' }, { userId });
-			categoryController.saveCategory(newCategory, parsedRequest.allowSameName)
+			categoryController.saveCategory(newCategory)
 				.then((savedCategory) => {
 			
 					const responseBody: AddCategoryResponse = {
@@ -80,7 +79,7 @@ router.put('/users/:userId/categories/:id', (request, response) => {
 		.then((parsedRequest) => {
 
 			const category = categoryMapper.toInternal({ ...parsedRequest.category, uid: id }, { userId });
-			categoryController.saveCategory(category, parsedRequest.allowSameName)
+			categoryController.saveCategory(category)
 				.then(() => {
 				
 					const responseBody: UpdateCategoryResponse = {
@@ -110,9 +109,7 @@ router.delete('/users/:userId/categories/:id', (request, response) => {
 	const userId: string = request.params.userId;
 	const id: string = request.params.id;
 
-	const forceEvenIfNotEmpty = miscUtils.parseBoolean(request.query.forceEvenIfNotEmpty);
-
-	categoryController.deleteCategory(userId, id, forceEvenIfNotEmpty)
+	categoryController.deleteCategory(userId, id)
 		.then(() => {
 			
 			const responseBody: DeleteCategoryResponse = {

@@ -95,7 +95,7 @@ class MiscUtils {
 	 * @param sourcePromises the promises to merge
 	 * @returns a promise containing the total sum of the results
 	 */
-	public mergeAndSumPromiseResults(...sourcePromises: Promise<number[] | number>[]): Promise<number> {
+	public mergeAndSumPromiseResults(sourcePromises: Promise<number[] | number>[]): Promise<number> {
 
 		return new Promise((resolve, reject) => {
 

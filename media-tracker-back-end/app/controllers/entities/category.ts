@@ -3,12 +3,12 @@ import { groupController } from 'app/controllers/entities/group';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { userController } from 'app/controllers/entities/user';
 import { mediaItemFactory } from 'app/factories/media-item';
-import { logger } from 'app/loggers/logger';
 import { AppError } from 'app/models/error/error';
 import { CategoryInternal } from 'app/models/internal/category';
 import { MediaItemInternal } from 'app/models/internal/media-items/media-item';
 import { UserInternal } from 'app/models/internal/user';
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from 'app/schemas/category';
+import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model, model } from 'mongoose';
 import { ownPlatformController } from './own-platform';
 
@@ -83,9 +83,8 @@ class CategoryController extends AbstractEntityController {
 	/**
 	 * Saves a new or an existing category, returning it back as a promise
 	 * @param category the category to insert or update
-	 * @param allowSameName whether to check or not if an existing category has the same name
 	 */
-	public async saveCategory(category: CategoryInternal, allowSameName?: boolean): Promise<CategoryInternal> {
+	public async saveCategory(category: CategoryInternal): Promise<CategoryInternal> {
 		
 		await this.checkWritePreconditions(
 			AppError.DATABASE_SAVE.withDetails(category._id ? 'Category does not exists for given user' : 'User does not exist'),
@@ -93,45 +92,27 @@ class CategoryController extends AbstractEntityController {
 			category._id,
 			category
 		);
-
-		if(allowSameName) {
-
-			logger.debug('Same name is allowed');
-			return this.queryHelper.save(category, new CategoryModel());
-		}
-		else {
-
-			logger.debug('Same name is NOT allowed');
-			const conditions: QueryConditions = {
-				owner: category.owner,
-				name: category.name
-			};
-			return this.queryHelper.checkUniquenessAndSave(category, new CategoryModel(), conditions);
-		}
+		
+		return this.queryHelper.save(category, new CategoryModel());
 	}
 
 	/**
 	 * Deletes a category with the given ID, returning a promise with the number of deleted elements
 	 * @param userId the user ID
 	 * @param categoryId the category ID
-	 * @param forceEvenIfNotEmpty forces delete even if not empty (deletes all media items and groups inside it)
 	 */
-	public async deleteCategory(userId: string, categoryId: string, forceEvenIfNotEmpty: boolean): Promise<number> {
+	public async deleteCategory(userId: string, categoryId: string): Promise<number> {
 
 		await this.checkWritePreconditions(AppError.DATABASE_DELETE.withDetails('Category does not exist for given user'), userId, categoryId);
 
 		const mediaItemController = await mediaItemFactory.getEntityControllerFromCategoryId(userId, categoryId);
 
-		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
-			return mediaItemController.getAllMediaItemsInCategory(categoryId);
-		}, () => {
-			return [
-				groupController.deleteAllGroupsInCategory(categoryId),
-				mediaItemController.deleteAllMediaItemsInCategory(categoryId),
-				ownPlatformController.deleteAllOwnPlatformsInCategory(categoryId),
-				this.queryHelper.deleteById(categoryId)
-			];
-		});
+		return miscUtils.mergeAndSumPromiseResults([
+			groupController.deleteAllGroupsInCategory(categoryId),
+			mediaItemController.deleteAllMediaItemsInCategory(categoryId),
+			ownPlatformController.deleteAllOwnPlatformsInCategory(categoryId),
+			this.queryHelper.deleteById(categoryId)
+		]);
 	}
 
 	/**

@@ -199,7 +199,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 
 					const newMediaItem = routeConfig.mediaItemRequestReader(parsedRequest, '', userId, categoryId);
 
-					this.mediaItemController.saveMediaItem(newMediaItem, parsedRequest.allowSameName)
+					this.mediaItemController.saveMediaItem(newMediaItem)
 						.then((savedMediaItem) => {
 						
 							const responseBody: AddMediaItemResponse = {
@@ -246,7 +246,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 
 					const mediaItem = routeConfig.mediaItemRequestReader(parsedRequest, id, userId, categoryId);
 
-					this.mediaItemController.saveMediaItem(mediaItem, parsedRequest.allowSameName)
+					this.mediaItemController.saveMediaItem(mediaItem)
 						.then(() => {
 						
 							const responseBody: UpdateMediaItemResponse = {

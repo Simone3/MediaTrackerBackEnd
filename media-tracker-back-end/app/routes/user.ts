@@ -5,7 +5,6 @@ import { userMapper } from 'app/mappers/user';
 import { ErrorResponse } from 'app/models/api/common';
 import { AddUserRequest, AddUserResponse, DeleteUserResponse, UpdateUserRequest, UpdateUserResponse } from 'app/models/api/user';
 import { AppError } from 'app/models/error/error';
-import { miscUtils } from 'app/utilities/misc-utils';
 import { parserValidator } from 'app/utilities/parser-validator';
 import express, { Router } from 'express';
 
@@ -82,9 +81,8 @@ router.put('/users/:id', (request, response) => {
 router.delete('/users/:id', (request, response) => {
 
 	const id: string = request.params.id;
-	const forceEvenIfNotEmpty = miscUtils.parseBoolean(request.query.forceEvenIfNotEmpty);
-
-	userController.deleteUser(id, forceEvenIfNotEmpty)
+	
+	userController.deleteUser(id)
 		.then(() => {
 			
 			const responseBody: DeleteUserResponse = {

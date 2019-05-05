@@ -5,7 +5,6 @@ import { groupMapper } from 'app/mappers/group';
 import { ErrorResponse } from 'app/models/api/common';
 import { AddGroupRequest, AddGroupResponse, DeleteGroupResponse, GetAllGroupsResponse, UpdateGroupRequest, UpdateGroupResponse } from 'app/models/api/group';
 import { AppError } from 'app/models/error/error';
-import { miscUtils } from 'app/utilities/misc-utils';
 import { parserValidator } from 'app/utilities/parser-validator';
 import express, { Router } from 'express';
 
@@ -47,7 +46,7 @@ router.post('/users/:userId/categories/:categoryId/groups', (request, response) 
 		.then((parsedRequest) => {
 
 			const newGroup = groupMapper.toInternal({ ...parsedRequest.newGroup, uid: '' }, { userId, categoryId });
-			groupController.saveGroup(newGroup, parsedRequest.allowSameName)
+			groupController.saveGroup(newGroup)
 				.then((savedGroup) => {
 			
 					const responseBody: AddGroupResponse = {
@@ -83,7 +82,7 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
 		.then((parsedRequest) => {
 
 			const group = groupMapper.toInternal({ ...parsedRequest.group, uid: id }, { userId, categoryId });
-			groupController.saveGroup(group, parsedRequest.allowSameName)
+			groupController.saveGroup(group)
 				.then(() => {
 				
 					const responseBody: UpdateGroupResponse = {
@@ -114,9 +113,7 @@ router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, resp
 	const categoryId: string = request.params.categoryId;
 	const id: string = request.params.id;
 	
-	const forceEvenIfNotEmpty = miscUtils.parseBoolean(request.query.forceEvenIfNotEmpty);
-
-	groupController.deleteGroup(userId, categoryId, id, forceEvenIfNotEmpty)
+	groupController.deleteGroup(userId, categoryId, id)
 		.then(() => {
 			
 			const responseBody: DeleteGroupResponse = {

@@ -72,7 +72,7 @@ describe('MiscUtils Tests', () => {
 				resolve(9);
 			});
 
-			const result = await miscUtils.mergeAndSumPromiseResults(promise1, promise2, promise3);
+			const result = await miscUtils.mergeAndSumPromiseResults([ promise1, promise2, promise3 ]);
 
 			expect(result).to.equal(18);
 		});
@@ -96,7 +96,7 @@ describe('MiscUtils Tests', () => {
 
 			try {
 
-				await miscUtils.mergeAndSumPromiseResults(promise1, promise2, promise3);
+				await miscUtils.mergeAndSumPromiseResults([ promise1, promise2, promise3 ]);
 			}
 			catch(error) {
 

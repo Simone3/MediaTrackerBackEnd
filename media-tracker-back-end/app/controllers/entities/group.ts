@@ -2,12 +2,12 @@ import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query
 import { categoryController } from 'app/controllers/entities/category';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { mediaItemFactory } from 'app/factories/media-item';
-import { logger } from 'app/loggers/logger';
 import { AppError } from 'app/models/error/error';
 import { CategoryInternal } from 'app/models/internal/category';
 import { GroupInternal } from 'app/models/internal/group';
 import { UserInternal } from 'app/models/internal/user';
 import { GroupSchema, GROUP_COLLECTION_NAME } from 'app/schemas/group';
+import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model, model } from 'mongoose';
 
 /**
@@ -85,9 +85,8 @@ class GroupController extends AbstractEntityController {
 	/**
 	 * Saves a new or an existing group, returning it back as a promise
 	 * @param group the group to insert or update
-	 * @param allowSameName whether to check or not if an existing group has the same name
 	 */
-	public async saveGroup(group: GroupInternal, allowSameName?: boolean): Promise<GroupInternal> {
+	public async saveGroup(group: GroupInternal): Promise<GroupInternal> {
 
 		await this.checkWritePreconditions(
 			AppError.DATABASE_SAVE.withDetails(group._id ? 'Group does not exists for given user/category' : 'User or category does not exist'),
@@ -95,22 +94,8 @@ class GroupController extends AbstractEntityController {
 			group.category,
 			group._id
 		);
-
-		if(allowSameName) {
-
-			logger.debug('Same name is allowed');
-			return this.queryHelper.save(group, new GroupModel());
-		}
-		else {
-
-			logger.debug('Same name is NOT allowed');
-			const conditions: QueryConditions = {
-				owner: group.owner,
-				category: group.category,
-				name: group.name
-			};
-			return this.queryHelper.checkUniquenessAndSave(group, new GroupModel(), conditions);
-		}
+		
+		return this.queryHelper.save(group, new GroupModel());
 	}
 
 	/**
@@ -118,23 +103,18 @@ class GroupController extends AbstractEntityController {
 	 * @param userId the user ID
 	 * @param categoryId the category ID
 	 * @param groupId the group ID
-	 * @param forceEvenIfNotEmpty forces delete even if not empty (deletes all media items inside it)
 	 * @returns a promise with the number of deleted elements
 	 */
-	public async deleteGroup(userId: string, categoryId: string, groupId: string, forceEvenIfNotEmpty: boolean): Promise<number> {
+	public async deleteGroup(userId: string, categoryId: string, groupId: string): Promise<number> {
 		
 		await this.checkWritePreconditions(AppError.DATABASE_DELETE.withDetails('Group does not exist for given user/category'), userId, categoryId, groupId);
 
 		const mediaItemController = await mediaItemFactory.getEntityControllerFromCategoryId(userId, categoryId);
 
-		return this.cleanupWithEmptyCheck(forceEvenIfNotEmpty, () => {
-			return mediaItemController.getAllMediaItemsInGroup(groupId);
-		}, () => {
-			return [
-				mediaItemController.deleteAllMediaItemsInGroup(groupId),
-				this.queryHelper.deleteById(groupId)
-			];
-		});
+		return miscUtils.mergeAndSumPromiseResults([
+			mediaItemController.deleteAllMediaItemsInGroup(groupId),
+			this.queryHelper.deleteById(groupId)
+		]);
 	}
 
 	/**

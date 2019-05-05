@@ -85,7 +85,7 @@ describe('UserController Tests', () => {
 			const user = await userController.saveUser(getTestUser(undefined));
 			const userId = user._id;
 
-			await userController.deleteUser(userId, false);
+			await userController.deleteUser(userId);
 
 			const foundUser = await userController.getUser(userId);
 			expect(foundUser, 'GetUser returned a defined result').to.be.undefined;
