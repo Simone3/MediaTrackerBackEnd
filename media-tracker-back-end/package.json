@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
+    "@types/cls-hooked": "^4.3.0",
     "@types/exit-hook": "^1.1.0",
     "@types/express": "^4.16.1",
     "@types/express-mung": "^0.5.0",
