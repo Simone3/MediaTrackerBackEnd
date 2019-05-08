@@ -2,6 +2,7 @@ import { ModelMapper } from 'app/mappers/common';
 import { CatalogMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResult } from 'app/models/api/media-items/media-item';
 import { AppError } from 'app/models/error/error';
 import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
+import { dateUtils } from 'app/utilities/date-utils';
 import { ownPlatformMapper } from '../own-platform';
 
 /**
@@ -24,7 +25,15 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 		
 		const target: MediaItem = {
 			name: source.name,
-			importance: source.importance
+			importance: source.importance,
+			genres: source.genres,
+			description: source.description,
+			userComment: source.userComment,
+			completedAt: dateUtils.toStringList(source.completedAt),
+			releaseDate: dateUtils.toString(source.releaseDate),
+			active: source.active,
+			catalogId: source.catalogId,
+			imageUrl: source.imageUrl
 		};
 
 		if(source.group && source.orderInGroup && typeof source.group !== 'string') {
@@ -66,7 +75,15 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			group: source.group ? source.group.groupId : undefined,
 			ownPlatform: source.ownPlatform ? source.ownPlatform.ownPlatformId : undefined,
 			orderInGroup: source.group ? source.group.orderInGroup : undefined,
-			importance: source.importance
+			importance: source.importance,
+			genres: source.genres,
+			description: source.description,
+			userComment: source.userComment,
+			completedAt: dateUtils.toDateList(source.completedAt),
+			releaseDate: dateUtils.toDate(source.releaseDate),
+			active: source.active,
+			catalogId: source.catalogId,
+			imageUrl: source.imageUrl
 		};
 	}
 }

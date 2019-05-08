@@ -1,6 +1,6 @@
 import { CommonAddResponse, CommonRequest, CommonResponse, CommonSaveRequest } from 'app/models/api/common';
 import { Type } from 'class-transformer';
-import { IsBoolean, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsBoolean, IsDateString, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Group } from '../group';
 import { OwnPlatform } from '../own-platform';
 
@@ -108,6 +108,40 @@ export abstract class MediaItem {
 	})
 	@ValidateNested()
 	public ownPlatform?: MediaItemOwnPlatform;
+
+	@IsOptional()
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public genres?: string[];
+
+	@IsOptional()
+	@IsString()
+	public description?: string;
+
+	@IsOptional()
+	@IsString()
+	public userComment?: string;
+
+	@IsOptional()
+	@IsDefined({ each: true })
+	@IsDateString({ each: true })
+	public completedAt?: string[];
+
+	@IsOptional()
+	@IsDateString()
+	public releaseDate?: string;
+
+	@IsOptional()
+	@IsBoolean()
+	public active?: boolean;
+
+	@IsOptional()
+	@IsString()
+	public catalogId?: string;
+
+	@IsOptional()
+	@IsString()
+	public imageUrl?: string;
 }
 
 /**

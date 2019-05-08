@@ -20,10 +20,18 @@ export type MediaItemInternal = PersistedEntityInternal & {
 	name: string;
 	category: CategoryInternal | string;
 	group?: GroupInternal | string;
-	ownPlatform?: OwnPlatformInternal | string;
 	orderInGroup?: number;
+	ownPlatform?: OwnPlatformInternal | string;
 	owner: UserInternal | string;
 	importance: number;
+	genres?: string[];
+	description?: string;
+	userComment?: string;
+	completedAt?: Date[];
+	releaseDate?: Date;
+	active?: boolean;
+	catalogId?: string;
+	imageUrl?: string;
 };
 
 /**
