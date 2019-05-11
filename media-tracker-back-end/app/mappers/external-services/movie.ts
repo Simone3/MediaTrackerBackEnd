@@ -3,6 +3,7 @@ import { ModelMapper } from 'app/mappers/common';
 import { AppError } from 'app/models/error/error';
 import { TmdbMovieCredits, TmdbMovieDetailsResponse, TmdbMovieSearchResult } from 'app/models/external-services/media-items/movie';
 import { CatalogMovieInternal, SearchMovieCatalogResultInternal } from 'app/models/internal/media-items/movie';
+import { dateUtils } from 'app/utilities/date-utils';
 
 /**
  * Mapper for the movies search external service
@@ -24,8 +25,8 @@ class MovieExternalSearchServiceMapper extends ModelMapper<SearchMovieCatalogRes
 		
 		return {
 			catalogId: String(source.id),
-			title: source.title,
-			releaseDate: source.release_date
+			name: source.title,
+			releaseDate: dateUtils.toDate(source.release_date)
 		};
 	}
 }

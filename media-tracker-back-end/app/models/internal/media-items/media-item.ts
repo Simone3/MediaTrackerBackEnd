@@ -5,33 +5,32 @@ import { UserInternal } from 'app/models/internal/user';
 import { OwnPlatformInternal } from '../own-platform';
 
 /**
- * Model for a media item with base properties, internal type NOT to be exposed via API
+ * Util type to extract common fields to both media item entities and catalog entries
  */
-export type CatalogMediaItemInternal = {
+type CoreMediaItemDataInternal = {
 
 	name: string;
+	genres?: string[];
+	description?: string;
+	releaseDate?: Date;
+	imageUrl?: string;
 };
 
 /**
  * Model for a media item with all properties, internal type NOT to be exposed via API
  */
-export type MediaItemInternal = PersistedEntityInternal & {
+export type MediaItemInternal = PersistedEntityInternal & CoreMediaItemDataInternal & {
 
-	name: string;
 	category: CategoryInternal | string;
 	group?: GroupInternal | string;
 	orderInGroup?: number;
 	ownPlatform?: OwnPlatformInternal | string;
 	owner: UserInternal | string;
 	importance: number;
-	genres?: string[];
-	description?: string;
 	userComment?: string;
 	completedAt?: Date[];
-	releaseDate?: Date;
 	active?: boolean;
 	catalogId?: string;
-	imageUrl?: string;
 };
 
 /**
@@ -58,12 +57,19 @@ export type MediaItemSortByInternal = {
 }
 
 /**
+ * Model for a media item with base properties, internal type NOT to be exposed via API
+ */
+export type CatalogMediaItemInternal = CoreMediaItemDataInternal & {
+
+};
+
+/**
  * Media item catalog search result, internal type NOT to be exposed via API
  */
 export type SearchMediaItemCatalogResultInternal = {
 
 	catalogId: string;
-	title: string;
-	releaseDate?: string;
+	name: string;
+	releaseDate?: Date;
 }
 

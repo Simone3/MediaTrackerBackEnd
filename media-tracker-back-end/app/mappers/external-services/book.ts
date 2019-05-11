@@ -2,6 +2,7 @@ import { ModelMapper } from 'app/mappers/common';
 import { AppError } from 'app/models/error/error';
 import { GoogleBooksDetailsResponse, GoogleBooksSearchResult, GoogleBooksVolumeLight } from 'app/models/external-services/media-items/book';
 import { CatalogBookInternal, SearchBookCatalogResultInternal } from 'app/models/internal/media-items/book';
+import { dateUtils } from 'app/utilities/date-utils';
 import { stringUtils } from 'app/utilities/string-utils';
 
 /**
@@ -24,8 +25,8 @@ class BookExternalSearchServiceMapper extends ModelMapper<SearchBookCatalogResul
 		
 		return {
 			catalogId: source.id,
-			title: source.volumeInfo.title,
-			releaseDate: source.volumeInfo.publishedDate
+			name: source.volumeInfo.title,
+			releaseDate: dateUtils.toDate(source.volumeInfo.publishedDate)
 		};
 	}
 }

@@ -5,9 +5,9 @@ import { Group } from '../group';
 import { OwnPlatform } from '../own-platform';
 
 /**
- * Abstract model for a media item from the catalog, publicly exposed via API
+ * Util class to extract common fields to both media item entities and catalog entries
  */
-export abstract class CatalogMediaItem {
+class CoreMediaItemData {
 
 	/**
 	 * The media item name
@@ -15,6 +15,35 @@ export abstract class CatalogMediaItem {
 	@IsNotEmpty()
 	@IsString()
 	public name!: string;
+
+	/**
+	 * The list of media item genres
+	 */
+	@IsOptional()
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public genres?: string[];
+
+	/**
+	 * The media item description
+	 */
+	@IsOptional()
+	@IsString()
+	public description?: string;
+
+	/**
+	 * The media item release date
+	 */
+	@IsOptional()
+	@IsDateString()
+	public releaseDate?: string;
+
+	/**
+	 * The URL to the thumbnail image
+	 */
+	@IsOptional()
+	@IsString()
+	public imageUrl?: string;
 }
 
 /**
@@ -73,14 +102,7 @@ export class MediaItemOwnPlatform {
 /**
  * Abstract model for a media item, publicly exposed via API
  */
-export abstract class MediaItem {
-
-	/**
-	 * The media item name
-	 */
-	@IsNotEmpty()
-	@IsString()
-	public name!: string;
+export abstract class MediaItem extends CoreMediaItemData {
 
 	/**
 	 * The media item importance level
@@ -109,39 +131,34 @@ export abstract class MediaItem {
 	@ValidateNested()
 	public ownPlatform?: MediaItemOwnPlatform;
 
-	@IsOptional()
-	@IsDefined({ each: true })
-	@IsString({ each: true })
-	public genres?: string[];
-
-	@IsOptional()
-	@IsString()
-	public description?: string;
-
+	/**
+	 * A user comment about the media item
+	 */
 	@IsOptional()
 	@IsString()
 	public userComment?: string;
 
+	/**
+	 * Dates on which the user "completed" (e.g. watched) the media item
+	 */
 	@IsOptional()
 	@IsDefined({ each: true })
 	@IsDateString({ each: true })
 	public completedAt?: string[];
 
-	@IsOptional()
-	@IsDateString()
-	public releaseDate?: string;
-
+	/**
+	 * If the user marked the media item as currently active (e.g. currently reading)
+	 */
 	@IsOptional()
 	@IsBoolean()
 	public active?: boolean;
 
+	/**
+	 * The data source catalog reference
+	 */
 	@IsOptional()
 	@IsString()
 	public catalogId?: string;
-
-	@IsOptional()
-	@IsString()
-	public imageUrl?: string;
 }
 
 /**
@@ -198,16 +215,6 @@ export abstract class MediaItemSortBy {
 	@IsDefined()
 	@IsBoolean()
 	public ascending!: boolean;
-}
-
-/**
- * Abstract media item catalog search result, publicly exposed via API
- */
-export abstract class SearchMediaItemCatalogResult {
-
-	public catalogId: string = '';
-	public title: string = '';
-	public releaseDate?: string;
 }
 
 /**
@@ -284,6 +291,23 @@ export abstract class SearchMediaItemsRequest extends CommonRequest {
  */
 export abstract class SearchMediaItemsResponse extends CommonResponse {
 
+}
+
+/**
+ * Abstract model for a media item from the catalog, publicly exposed via API
+ */
+export abstract class CatalogMediaItem extends CoreMediaItemData {
+
+}
+
+/**
+ * Abstract media item catalog search result, publicly exposed via API
+ */
+export abstract class SearchMediaItemCatalogResult {
+
+	public catalogId: string = '';
+	public name: string = '';
+	public releaseDate?: string;
 }
 
 /**

@@ -2,6 +2,7 @@ import { ModelMapper } from 'app/mappers/common';
 import { AppError } from 'app/models/error/error';
 import { TmdbTvShowCreator, TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeasonDataResponse } from 'app/models/external-services/media-items/tv-show';
 import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from 'app/models/internal/media-items/tv-show';
+import { dateUtils } from 'app/utilities/date-utils';
 import { stringUtils } from 'app/utilities/string-utils';
 
 /**
@@ -24,8 +25,8 @@ class TvShowExternalSearchServiceMapper extends ModelMapper<SearchTvShowCatalogR
 		
 		return {
 			catalogId: String(source.id),
-			title: source.name,
-			releaseDate: source.first_air_date
+			name: source.name,
+			releaseDate: dateUtils.toDate(source.first_air_date)
 		};
 	}
 }

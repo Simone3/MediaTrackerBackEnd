@@ -186,8 +186,8 @@ export abstract class MediaItemCatalogSearchMapper<TSearchMediaItemCatalogResult
 
 		return {
 			catalogId: source.catalogId,
-			title: source.title,
-			releaseDate: source.releaseDate
+			name: source.name,
+			releaseDate: dateUtils.toString(source.releaseDate)
 		};
 	}
 	
@@ -198,8 +198,8 @@ export abstract class MediaItemCatalogSearchMapper<TSearchMediaItemCatalogResult
 		
 		return {
 			catalogId: source.catalogId,
-			title: source.title,
-			releaseDate: source.releaseDate
+			name: source.name,
+			releaseDate: dateUtils.toDate(source.releaseDate)
 		};
 	}
 }

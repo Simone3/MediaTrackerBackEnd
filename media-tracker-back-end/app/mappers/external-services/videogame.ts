@@ -25,8 +25,8 @@ class VideogameExternalSearchServiceMapper extends ModelMapper<SearchVideogameCa
 		
 		return {
 			catalogId: String(source.id),
-			title: source.name,
-			releaseDate: this.getReleaseDate(source)
+			name: source.name,
+			releaseDate: dateUtils.toDate(this.getReleaseDate(source))
 		};
 	}
 
