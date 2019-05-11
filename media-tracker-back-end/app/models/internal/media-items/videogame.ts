@@ -1,19 +1,14 @@
 import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
 
 /**
- * Model for a media item with base properties, internal type NOT to be exposed via API
- */
-export type CatalogVideogameInternal = CatalogMediaItemInternal & {
-
-	developer?: string;
-};
-
-/**
  * Model for a media item with all properties, internal type NOT to be exposed via API
  */
 export type VideogameInternal = MediaItemInternal & {
 
 	developer?: string;
+	publisher?: string;
+	platforms?: string[];
+	averageLengthHours?: number;
 };
 
 /**
@@ -34,6 +29,14 @@ export type VideogameSortFieldInternal = MediaItemSortFieldInternal | 'DEVELOPER
 export type VideogameSortByInternal = MediaItemSortByInternal & {
 
 	field: VideogameSortFieldInternal;
+};
+
+/**
+ * Model for a media item with base properties, internal type NOT to be exposed via API
+ */
+export type CatalogVideogameInternal = CatalogMediaItemInternal & {
+
+	developer?: string;
 };
 
 /**

@@ -1,19 +1,6 @@
 import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from 'app/models/api/media-items/media-item';
 import { Type } from 'class-transformer';
-import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
-
-/**
- * Model for a videogame from the catalog, publicly exposed via API
- */
-export class CatalogVideogame extends CatalogMediaItem {
-
-	/**
-	 * The videogame developer
-	 */
-	@IsOptional()
-	@IsString()
-	public developer?: string;
-}
+import { IsDefined, IsIn, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Model for a videogame, publicly exposed via API
@@ -26,6 +13,28 @@ export class Videogame extends MediaItem {
 	@IsOptional()
 	@IsString()
 	public developer?: string;
+
+	/**
+	 * The videogame publisher
+	 */
+	@IsOptional()
+	@IsString()
+	public publisher?: string;
+	
+	/**
+	 * The list of platforms on which the game runs
+	 */
+	@IsOptional()
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public platforms?: string[];
+	
+	/**
+	 * The average game length in hours
+	 */
+	@IsOptional()
+	@IsInt()
+	public averageLengthHours?: number;
 }
 
 /**
@@ -73,13 +82,6 @@ export class VideogameSortBy extends MediaItemSortBy {
 	@IsString()
 	@IsIn(VideogameSortField.values())
 	public field!: string;
-}
-
-/**
- * Videogame catalog search result, publicly exposed via API
- */
-export class SearchVideogameCatalogResult extends SearchMediaItemCatalogResult {
-
 }
 
 /**
@@ -188,6 +190,26 @@ export class SearchVideogamesResponse extends SearchMediaItemsResponse {
 	 * The retrieved videogames
 	 */
 	public videogames: IdentifiedVideogame[] = [];
+}
+
+/**
+ * Model for a videogame from the catalog, publicly exposed via API
+ */
+export class CatalogVideogame extends CatalogMediaItem {
+
+	/**
+	 * The videogame developer
+	 */
+	@IsOptional()
+	@IsString()
+	public developer?: string;
+}
+
+/**
+ * Videogame catalog search result, publicly exposed via API
+ */
+export class SearchVideogameCatalogResult extends SearchMediaItemCatalogResult {
+
 }
 
 /**

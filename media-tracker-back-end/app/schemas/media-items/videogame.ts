@@ -6,7 +6,10 @@ import { Schema } from 'mongoose';
  */
 export const VideogameSchema: Schema = new Schema({
 	...commonMediaItemSchemaDefinition,
-	developer: { type: String, required: false }
+	developer: { type: String, required: false },
+	publisher: { type: String, required: false },
+	platforms: { type: [ String ], required: false },
+	averageLengthHours: { type: Number, required: false }
 }, {
 	...commonMediaItemSchemaOptions
 });
