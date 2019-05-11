@@ -1,20 +1,16 @@
 import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
 
 /**
- * Model for a media item with base properties, internal type NOT to be exposed via API
- */
-export type CatalogTvShowInternal = CatalogMediaItemInternal & {
-
-	creator?: string;
-	nextEpisodeAirDate?: string;
-};
-
-/**
  * Model for a media item with all properties, internal type NOT to be exposed via API
  */
 export type TvShowInternal = MediaItemInternal & {
 
 	creator?: string;
+	averageEpisodeRuntimeMinutes?: number;
+	episodesNumber?: number;
+	seasonsNumber?: number;
+	inProduction?: boolean;
+	nextEpisodeAirDate?: Date;
 };
 
 /**
@@ -35,6 +31,15 @@ export type TvShowSortFieldInternal = MediaItemSortFieldInternal | 'CREATOR';
 export type TvShowSortByInternal = MediaItemSortByInternal & {
 
 	field: TvShowSortFieldInternal;
+};
+
+/**
+ * Model for a media item with base properties, internal type NOT to be exposed via API
+ */
+export type CatalogTvShowInternal = CatalogMediaItemInternal & {
+
+	creator?: string;
+	nextEpisodeAirDate?: string;
 };
 
 /**

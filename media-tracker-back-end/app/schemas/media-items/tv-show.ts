@@ -6,7 +6,12 @@ import { Schema } from 'mongoose';
  */
 export const TvShowSchema: Schema = new Schema({
 	...commonMediaItemSchemaDefinition,
-	creator: { type: String, required: false }
+	creator: { type: String, required: false },
+	averageEpisodeRuntimeMinutes: { type: Number, required: false },
+	episodesNumber: { type: Number, required: false },
+	seasonsNumber: { type: Number, required: false },
+	inProduction: { type: Boolean, required: false },
+	nextEpisodeAirDate: { type: Date, required: false }
 }, {
 	...commonMediaItemSchemaOptions
 });

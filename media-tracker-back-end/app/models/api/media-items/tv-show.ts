@@ -1,26 +1,6 @@
 import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from 'app/models/api/media-items/media-item';
 import { Type } from 'class-transformer';
-import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
-
-/**
- * Model for a TV show from the catalog, publicly exposed via API
- */
-export class CatalogTvShow extends CatalogMediaItem {
-
-	/**
-	 * The TV show creator
-	 */
-	@IsOptional()
-	@IsString()
-	public creator?: string;
-
-	/**
-	 * The TV next episode air date
-	 */
-	@IsOptional()
-	@IsString()
-	public nextEpisodeAirDate?: string;
-}
+import { IsBoolean, IsDateString, IsDefined, IsIn, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Model for a TV show, publicly exposed via API
@@ -33,6 +13,41 @@ export class TvShow extends MediaItem {
 	@IsOptional()
 	@IsString()
 	public creator?: string;
+
+	/**
+	 * The average episode runtime in minutes
+	 */
+	@IsOptional()
+	@IsInt()
+	public averageEpisodeRuntimeMinutes?: number;
+	
+	/**
+	 * The total number of episoded
+	 */
+	@IsOptional()
+	@IsInt()
+	public episodesNumber?: number;
+	
+	/**
+	 * The total number of seasons
+	 */
+	@IsOptional()
+	@IsInt()
+	public seasonsNumber?: number;
+	
+	/**
+	 * If the show is in production or if it is concluded
+	 */
+	@IsOptional()
+	@IsBoolean()
+	public inProduction?: boolean;
+	
+	/**
+	 * The air date of the next episode, meaningful only if inProduction = true
+	 */
+	@IsOptional()
+	@IsDateString()
+	public nextEpisodeAirDate?: string;
 }
 
 /**
@@ -80,13 +95,6 @@ export class TvShowSortBy extends MediaItemSortBy {
 	@IsString()
 	@IsIn(TvShowSortField.values())
 	public field!: string;
-}
-
-/**
- * TvShow catalog search result, publicly exposed via API
- */
-export class SearchTvShowCatalogResult extends SearchMediaItemCatalogResult {
-
 }
 
 /**
@@ -195,6 +203,33 @@ export class SearchTvShowsResponse extends SearchMediaItemsResponse {
 	 * The retrieved TV shows
 	 */
 	public tvShows: IdentifiedTvShow[] = [];
+}
+
+/**
+ * Model for a TV show from the catalog, publicly exposed via API
+ */
+export class CatalogTvShow extends CatalogMediaItem {
+
+	/**
+	 * The TV show creator
+	 */
+	@IsOptional()
+	@IsString()
+	public creator?: string;
+
+	/**
+	 * The TV next episode air date
+	 */
+	@IsOptional()
+	@IsString()
+	public nextEpisodeAirDate?: string;
+}
+
+/**
+ * TvShow catalog search result, publicly exposed via API
+ */
+export class SearchTvShowCatalogResult extends SearchMediaItemCatalogResult {
+
 }
 
 /**
