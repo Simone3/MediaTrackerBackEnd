@@ -15,7 +15,8 @@ class BookMapper extends MediaItemMapper<BookInternal, IdentifiedBook> {
 		return {
 			...this.commonToExternal(source),
 			uid: source._id,
-			author: source.author
+			author: source.author,
+			pagesNumber: source.pagesNumber
 		};
 	}
 		
@@ -27,7 +28,8 @@ class BookMapper extends MediaItemMapper<BookInternal, IdentifiedBook> {
 		return {
 			...this.commonToInternal(source, extraParams),
 			_id: source.uid ? source.uid : null,
-			author: source.author
+			author: source.author,
+			pagesNumber: source.pagesNumber
 		};
 	}
 }

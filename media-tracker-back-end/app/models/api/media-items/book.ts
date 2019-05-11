@@ -1,19 +1,6 @@
 import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from 'app/models/api/media-items/media-item';
 import { Type } from 'class-transformer';
-import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
-
-/**
- * Model for a book from the catalog, publicly exposed via API
- */
-export class CatalogBook extends CatalogMediaItem {
-
-	/**
-	 * The book author
-	 */
-	@IsOptional()
-	@IsString()
-	public author?: string;
-}
+import { IsDefined, IsIn, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Model for a book, publicly exposed via API
@@ -26,6 +13,13 @@ export class Book extends MediaItem {
 	@IsOptional()
 	@IsString()
 	public author?: string;
+
+	/**
+	 * The number of pages
+	 */
+	@IsOptional()
+	@IsInt()
+	public pagesNumber?: number;
 }
 
 /**
@@ -73,13 +67,6 @@ export class BookSortBy extends MediaItemSortBy {
 	@IsString()
 	@IsIn(BookSortField.values())
 	public field!: string;
-}
-
-/**
- * Book catalog search result, publicly exposed via API
- */
-export class SearchBookCatalogResult extends SearchMediaItemCatalogResult {
-
 }
 
 /**
@@ -188,6 +175,26 @@ export class SearchBooksResponse extends SearchMediaItemsResponse {
 	 * The retrieved books
 	 */
 	public books: IdentifiedBook[] = [];
+}
+
+/**
+ * Model for a book from the catalog, publicly exposed via API
+ */
+export class CatalogBook extends CatalogMediaItem {
+
+	/**
+	 * The book author
+	 */
+	@IsOptional()
+	@IsString()
+	public author?: string;
+}
+
+/**
+ * Book catalog search result, publicly exposed via API
+ */
+export class SearchBookCatalogResult extends SearchMediaItemCatalogResult {
+
 }
 
 /**
