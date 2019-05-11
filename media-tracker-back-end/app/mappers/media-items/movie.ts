@@ -15,7 +15,8 @@ class MovieMapper extends MediaItemMapper<MovieInternal, IdentifiedMovie> {
 		return {
 			...this.commonToExternal(source),
 			uid: source._id,
-			director: source.director
+			director: source.director,
+			durationMinutes: source.durationMinutes
 		};
 	}
 		
@@ -27,7 +28,8 @@ class MovieMapper extends MediaItemMapper<MovieInternal, IdentifiedMovie> {
 		return {
 			...this.commonToInternal(source, extraParams),
 			_id: source.uid ? source.uid : null,
-			director: source.director
+			director: source.director,
+			durationMinutes: source.durationMinutes
 		};
 	}
 }

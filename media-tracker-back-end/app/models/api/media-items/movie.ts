@@ -1,19 +1,6 @@
 import { AddMediaItemRequest, CatalogMediaItem, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResponse, SearchMediaItemCatalogResult, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest } from 'app/models/api/media-items/media-item';
 import { Type } from 'class-transformer';
-import { IsDefined, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
-
-/**
- * Model for a movie from the catalog, publicly exposed via API
- */
-export class CatalogMovie extends CatalogMediaItem {
-
-	/**
-	 * The movie director
-	 */
-	@IsOptional()
-	@IsString()
-	public director?: string;
-}
+import { IsDefined, IsIn, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Model for a movie, publicly exposed via API
@@ -26,6 +13,13 @@ export class Movie extends MediaItem {
 	@IsOptional()
 	@IsString()
 	public director?: string;
+
+	/**
+	 * The movie duration in minutes
+	 */
+	@IsOptional()
+	@IsInt()
+	public durationMinutes?: number;
 }
 
 /**
@@ -73,13 +67,6 @@ export class MovieSortBy extends MediaItemSortBy {
 	@IsString()
 	@IsIn(MovieSortField.values())
 	public field!: string;
-}
-
-/**
- * Movie catalog search result, publicly exposed via API
- */
-export class SearchMovieCatalogResult extends SearchMediaItemCatalogResult {
-
 }
 
 /**
@@ -188,6 +175,26 @@ export class SearchMoviesResponse extends SearchMediaItemsResponse {
 	 * The retrieved movies
 	 */
 	public movies: IdentifiedMovie[] = [];
+}
+
+/**
+ * Model for a movie from the catalog, publicly exposed via API
+ */
+export class CatalogMovie extends CatalogMediaItem {
+
+	/**
+	 * The movie director
+	 */
+	@IsOptional()
+	@IsString()
+	public director?: string;
+}
+
+/**
+ * Movie catalog search result, publicly exposed via API
+ */
+export class SearchMovieCatalogResult extends SearchMediaItemCatalogResult {
+
 }
 
 /**
