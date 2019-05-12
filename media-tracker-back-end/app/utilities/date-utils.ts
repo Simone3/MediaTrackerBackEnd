@@ -105,7 +105,7 @@ class DateUtils {
 
 		if(dateString) {
 
-			return new Date();
+			return new Date(dateString);
 		}
 		else {
 
