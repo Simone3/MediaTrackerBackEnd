@@ -140,7 +140,7 @@ describe('Book API Tests', () => {
 			const response = await callHelper('GET', `/catalog/books/search/Mock Book`);
 			
 			expect(response.searchResults, 'API did not return the correct number of catalog books').to.have.lengthOf(2);
-			expect(extract(response.searchResults, 'title'), 'API did not return the correct catalog books').to.have.members([ 'Mock Book 1', 'Mock Book 2' ]);
+			expect(extract(response.searchResults, 'name'), 'API did not return the correct catalog books').to.have.members([ 'Mock Book 1', 'Mock Book 2' ]);
 			expect(extract(response.searchResults, 'catalogId'), 'API did not return the correct catalog books').to.have.members([ '123', '456' ]);
 		});
 
@@ -150,7 +150,7 @@ describe('Book API Tests', () => {
 			
 			expect(response.catalogBook, 'API did not return a valid catalog details result').not.to.be.undefined;
 			expect(response.catalogBook.name, 'API did not return a valid catalog details result').to.be.equal('Mock Book 1');
-			expect(response.catalogBook.author, 'API did not return a valid catalog details result').to.be.equal('Some Author');
+			expect(response.catalogBook.authors, 'API did not return a valid catalog details result').to.be.eql([ 'Some Author' ]);
 		});
 	});
 });

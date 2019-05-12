@@ -140,7 +140,7 @@ describe('Movie API Tests', () => {
 			const response = await callHelper('GET', `/catalog/movies/search/Mock Movie`);
 			
 			expect(response.searchResults, 'API did not return the correct number of catalog movies').to.have.lengthOf(2);
-			expect(extract(response.searchResults, 'title'), 'API did not return the correct catalog movies').to.have.members([ 'Mock Movie 1', 'Mock Movie 2' ]);
+			expect(extract(response.searchResults, 'name'), 'API did not return the correct catalog movies').to.have.members([ 'Mock Movie 1', 'Mock Movie 2' ]);
 			expect(extract(response.searchResults, 'catalogId'), 'API did not return the correct catalog movies').to.have.members([ '123', '456' ]);
 		});
 
@@ -150,7 +150,7 @@ describe('Movie API Tests', () => {
 			
 			expect(response.catalogMovie, 'API did not return a valid catalog details result').not.to.be.undefined;
 			expect(response.catalogMovie.name, 'API did not return a valid catalog details result').to.be.equal('Mock Movie 1');
-			expect(response.catalogMovie.director, 'API did not return a valid catalog details result').to.be.equal('Some Director');
+			expect(response.catalogMovie.directors, 'API did not return a valid catalog details result').to.be.eql([ 'Some Director' ]);
 		});
 	});
 });

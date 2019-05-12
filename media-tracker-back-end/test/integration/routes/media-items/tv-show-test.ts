@@ -140,7 +140,7 @@ describe('TV show API Tests', () => {
 			const response = await callHelper('GET', `/catalog/tv-shows/search/Mock TV Show`);
 			
 			expect(response.searchResults, 'API did not return the correct number of catalog TV shows').to.have.lengthOf(2);
-			expect(extract(response.searchResults, 'title'), 'API did not return the correct catalog TV shows').to.have.members([ 'Mock TV Show 1', 'Mock TV Show 2' ]);
+			expect(extract(response.searchResults, 'name'), 'API did not return the correct catalog TV shows').to.have.members([ 'Mock TV Show 1', 'Mock TV Show 2' ]);
 			expect(extract(response.searchResults, 'catalogId'), 'API did not return the correct catalog TV shows').to.have.members([ '123', '456' ]);
 		});
 
@@ -150,7 +150,7 @@ describe('TV show API Tests', () => {
 			
 			expect(response.catalogTvShow, 'API did not return a valid catalog details result').not.to.be.undefined;
 			expect(response.catalogTvShow.name, 'API did not return a valid catalog details result').to.be.equal('Mock TV Show 1');
-			expect(response.catalogTvShow.creator, 'API did not return a valid catalog details result').to.be.equal('First Creator, Second Creator');
+			expect(response.catalogTvShow.creators, 'API did not return a valid catalog details result').to.be.eql([ 'First Creator', 'Second Creator' ]);
 		});
 	});
 });

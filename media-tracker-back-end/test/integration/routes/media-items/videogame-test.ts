@@ -140,7 +140,7 @@ describe('Videogame API Tests', () => {
 			const response = await callHelper('GET', `/catalog/videogames/search/Mock Videogame`);
 			
 			expect(response.searchResults, 'API did not return the correct number of catalog videogames').to.have.lengthOf(2);
-			expect(extract(response.searchResults, 'title'), 'API did not return the correct catalog videogames').to.have.members([ 'Mock Videogame 1', 'Mock Videogame 2' ]);
+			expect(extract(response.searchResults, 'name'), 'API did not return the correct catalog videogames').to.have.members([ 'Mock Videogame 1', 'Mock Videogame 2' ]);
 			expect(extract(response.searchResults, 'catalogId'), 'API did not return the correct catalog videogames').to.have.members([ '123', '456' ]);
 		});
 
@@ -150,7 +150,7 @@ describe('Videogame API Tests', () => {
 			
 			expect(response.catalogVideogame, 'API did not return a valid catalog details result').not.to.be.undefined;
 			expect(response.catalogVideogame.name, 'API did not return a valid catalog details result').to.be.equal('Mock Videogame 1');
-			expect(response.catalogVideogame.developer, 'API did not return a valid catalog details result').to.be.equal('First Dev, Second Dev');
+			expect(response.catalogVideogame.developers, 'API did not return a valid catalog details result').to.be.eql([ 'First Dev', 'Second Dev' ]);
 		});
 	});
 });
