@@ -8,11 +8,12 @@ import { IsDefined, IsIn, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNeste
 export class Book extends MediaItem {
 
 	/**
-	 * The book author
+	 * The book author(s)
 	 */
 	@IsOptional()
-	@IsString()
-	public author?: string;
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public authors?: string[];
 
 	/**
 	 * The number of pages
@@ -183,11 +184,19 @@ export class SearchBooksResponse extends SearchMediaItemsResponse {
 export class CatalogBook extends CatalogMediaItem {
 
 	/**
-	 * The book author
+	 * The book author(s)
 	 */
 	@IsOptional()
-	@IsString()
-	public author?: string;
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public authors?: string[];
+
+	/**
+	 * The number of pages
+	 */
+	@IsOptional()
+	@IsInt()
+	public pagesNumber?: number;
 }
 
 /**

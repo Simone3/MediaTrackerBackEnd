@@ -125,6 +125,45 @@ class MiscUtils {
 				});
 		});
 	}
+
+	/**
+	 * Extracts the "field" values for each element of the array, as trimmed and ordered strings removing empty or undefined values
+	 * @param array the source array, possibly undefined
+	 * @param field the field to extract
+	 * @returns undefined if array is undefined or empty, the list of sorted strings otherwise
+	 */
+	public extractFilterAndSortFieldValues<V extends object>(array: V[] | undefined, field: keyof V): string[] | undefined {
+		
+		if(!array) {
+
+			return undefined;
+		}
+
+		return this.filterAndSortValues(array.map((value) => {
+			return String(value[field]);
+		}));
+	}
+
+	/**
+	 * Trims and orders strings removing empty or undefined values
+	 * @param array the source array, possibly undefined
+	 * @returns undefined if array is undefined or empty, the list of sorted strings otherwise
+	 */
+	public filterAndSortValues(array: string[] | undefined): string[] | undefined {
+		
+		if(!array) {
+
+			return undefined;
+		}
+
+		const strings = array.map((value) => {
+			return value.trim();
+		}).filter((value) => {
+			return value;
+		}).sort();
+
+		return strings.length > 0 ? strings : undefined;
+	}
 }
 
 /**

@@ -16,7 +16,7 @@ class TvShowMapper extends MediaItemMapper<TvShowInternal, IdentifiedTvShow> {
 		return {
 			...this.commonToExternal(source),
 			uid: source._id,
-			creator: source.creator,
+			creators: source.creators,
 			averageEpisodeRuntimeMinutes: source.averageEpisodeRuntimeMinutes,
 			episodesNumber: source.episodesNumber,
 			seasonsNumber: source.seasonsNumber,
@@ -33,7 +33,7 @@ class TvShowMapper extends MediaItemMapper<TvShowInternal, IdentifiedTvShow> {
 		return {
 			...this.commonToInternal(source, extraParams),
 			_id: source.uid ? source.uid : null,
-			creator: source.creator,
+			creators: source.creators,
 			averageEpisodeRuntimeMinutes: source.averageEpisodeRuntimeMinutes,
 			episodesNumber: source.episodesNumber,
 			seasonsNumber: source.seasonsNumber,
@@ -151,8 +151,8 @@ class TvShowCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<CatalogTv
 
 		return {
 			...this.commonToExternal(source),
-			creator: source.creator,
-			nextEpisodeAirDate: source.nextEpisodeAirDate
+			creators: source.creators,
+			nextEpisodeAirDate: dateUtils.toString(source.nextEpisodeAirDate)
 		};
 	}
 	
@@ -163,8 +163,8 @@ class TvShowCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<CatalogTv
 
 		return {
 			...this.commonToInternal(source),
-			creator: source.creator,
-			nextEpisodeAirDate: source.nextEpisodeAirDate
+			creators: source.creators,
+			nextEpisodeAirDate: dateUtils.toDate(source.nextEpisodeAirDate)
 		};
 	}
 }

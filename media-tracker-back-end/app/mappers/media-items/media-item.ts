@@ -215,7 +215,11 @@ export abstract class MediaItemCatalogDetailsMapper<TCatalogMediaItemInternal ex
 	protected commonToExternal(source: CatalogMediaItemInternal): CatalogMediaItem {
 
 		return {
-			name: source.name
+			name: source.name,
+			genres: source.genres,
+			description: source.description,
+			releaseDate: dateUtils.toString(source.releaseDate),
+			imageUrl: source.imageUrl
 		};
 	}
 	
@@ -225,7 +229,11 @@ export abstract class MediaItemCatalogDetailsMapper<TCatalogMediaItemInternal ex
 	protected commonToInternal(source: CatalogMediaItem): CatalogMediaItemInternal {
 		
 		return {
-			name: source.name
+			name: source.name,
+			genres: source.genres,
+			description: source.description,
+			releaseDate: dateUtils.toDate(source.releaseDate),
+			imageUrl: source.imageUrl
 		};
 	}
 }

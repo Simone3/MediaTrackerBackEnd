@@ -55,7 +55,7 @@ class MovieEntityController extends MediaItemEntityController<MovieInternal, Mov
 		switch(sortBy.field) {
 
 			case 'DIRECTOR':
-				sortConditions.director = sortDirection;
+				sortConditions.directors = sortDirection;
 				break;
 			
 			default:
@@ -69,7 +69,7 @@ class MovieEntityController extends MediaItemEntityController<MovieInternal, Mov
 	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: Queryable<MovieInternal>[]): void {
 		
 		searchConditions.push({
-			director: termRegExp
+			directors: termRegExp
 		});
 	}
 

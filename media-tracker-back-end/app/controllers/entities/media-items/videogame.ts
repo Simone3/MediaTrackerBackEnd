@@ -55,7 +55,7 @@ class VideogameEntityController extends MediaItemEntityController<VideogameInter
 		switch(sortBy.field) {
 
 			case 'DEVELOPER':
-				sortConditions.developer = sortDirection;
+				sortConditions.developers = sortDirection;
 				break;
 			
 			default:
@@ -69,7 +69,7 @@ class VideogameEntityController extends MediaItemEntityController<VideogameInter
 	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: Queryable<VideogameInternal>[]): void {
 		
 		searchConditions.push({
-			developer: termRegExp
+			developers: termRegExp
 		});
 	}
 

@@ -8,11 +8,12 @@ import { IsDefined, IsIn, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNeste
 export class Movie extends MediaItem {
 
 	/**
-	 * The movie director
+	 * The movie director(s)
 	 */
 	@IsOptional()
-	@IsString()
-	public director?: string;
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public directors?: string[];
 
 	/**
 	 * The movie duration in minutes
@@ -183,11 +184,19 @@ export class SearchMoviesResponse extends SearchMediaItemsResponse {
 export class CatalogMovie extends CatalogMediaItem {
 
 	/**
-	 * The movie director
+	 * The movie director(s)
 	 */
 	@IsOptional()
-	@IsString()
-	public director?: string;
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public directors?: string[];
+
+	/**
+	 * The movie duration in minutes
+	 */
+	@IsOptional()
+	@IsInt()
+	public durationMinutes?: number;
 }
 
 /**

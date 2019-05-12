@@ -4,6 +4,7 @@ import { AppError } from 'app/models/error/error';
 import { TmdbMovieCredits, TmdbMovieDetailsResponse, TmdbMovieSearchResult } from 'app/models/external-services/media-items/movie';
 import { CatalogMovieInternal, SearchMovieCatalogResultInternal } from 'app/models/internal/media-items/movie';
 import { dateUtils } from 'app/utilities/date-utils';
+import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
  * Mapper for the movies search external service
@@ -50,15 +51,20 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 	protected convertToInternal(source: TmdbMovieDetailsResponse): CatalogMovieInternal {
 		
 		return {
-			director: this.getDirectorName(source.credits),
-			name: source.title
+			name: source.title,
+			genres: miscUtils.extractFilterAndSortFieldValues(source.genres, 'name'),
+			description: source.overview,
+			releaseDate: dateUtils.toDate(source.release_date),
+			imageUrl: source.backdropPath,
+			directors: this.getDirectors(source.credits),
+			durationMinutes: source.runtime
 		};
 	}
 
 	/**
-	 * Helper to get the director's name
+	 * Helper to get the director(s)
 	 */
-	private getDirectorName(credits: TmdbMovieCredits | undefined): string | undefined {
+	private getDirectors(credits: TmdbMovieCredits | undefined): string[] | undefined {
 
 		if(credits) {
 
@@ -66,13 +72,15 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 			
 			if(crew) {
 
+				const directors = [];
 				for(const person of crew) {
 
 					if(person && config.externalApis.theMovieDb.movies.directorJobName === person.job) {
 
-						return person.name;
+						directors.push(person.name);
 					}
 				}
+				return miscUtils.filterAndSortValues(directors);
 			}
 		}
 		return undefined;

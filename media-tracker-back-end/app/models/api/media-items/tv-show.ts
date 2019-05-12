@@ -8,11 +8,12 @@ import { IsBoolean, IsDateString, IsDefined, IsIn, IsInt, IsNotEmpty, IsOptional
 export class TvShow extends MediaItem {
 
 	/**
-	 * The TV show creator
+	 * The TV show creator(s)
 	 */
 	@IsOptional()
-	@IsString()
-	public creator?: string;
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public creators?: string[];
 
 	/**
 	 * The average episode runtime in minutes
@@ -211,17 +212,46 @@ export class SearchTvShowsResponse extends SearchMediaItemsResponse {
 export class CatalogTvShow extends CatalogMediaItem {
 
 	/**
-	 * The TV show creator
+	 * The TV show creator(s)
 	 */
 	@IsOptional()
-	@IsString()
-	public creator?: string;
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public creators?: string[];
 
 	/**
-	 * The TV next episode air date
+	 * The average episode runtime in minutes
 	 */
 	@IsOptional()
-	@IsString()
+	@IsInt()
+	public averageEpisodeRuntimeMinutes?: number;
+	
+	/**
+	 * The total number of episoded
+	 */
+	@IsOptional()
+	@IsInt()
+	public episodesNumber?: number;
+	
+	/**
+	 * The total number of seasons
+	 */
+	@IsOptional()
+	@IsInt()
+	public seasonsNumber?: number;
+	
+	/**
+	 * If the show is in production or if it is concluded
+	 */
+	@IsOptional()
+	@IsBoolean()
+	public inProduction?: boolean;
+	
+	/**
+	 * The air date of the next episode, meaningful only if inProduction = true
+	 */
+	@IsOptional()
+	@IsDateString()
 	public nextEpisodeAirDate?: string;
 }
 

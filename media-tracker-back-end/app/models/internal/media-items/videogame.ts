@@ -1,13 +1,20 @@
 import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
 
 /**
+ * Util type to extract common fields to both videogame entities and catalog entries
+ */
+type CoreVideogameDataInternal = {
+
+	developers?: string[];
+	publishers?: string[];
+	platforms?: string[];
+};
+
+/**
  * Model for a media item with all properties, internal type NOT to be exposed via API
  */
-export type VideogameInternal = MediaItemInternal & {
+export type VideogameInternal = MediaItemInternal & CoreVideogameDataInternal & {
 
-	developer?: string;
-	publisher?: string;
-	platforms?: string[];
 	averageLengthHours?: number;
 };
 
@@ -34,9 +41,8 @@ export type VideogameSortByInternal = MediaItemSortByInternal & {
 /**
  * Model for a media item with base properties, internal type NOT to be exposed via API
  */
-export type CatalogVideogameInternal = CatalogMediaItemInternal & {
+export type CatalogVideogameInternal = CatalogMediaItemInternal & CoreVideogameDataInternal & {
 
-	developer?: string;
 };
 
 /**

@@ -1,9 +1,9 @@
 import { ModelMapper } from 'app/mappers/common';
 import { AppError } from 'app/models/error/error';
-import { GoogleBooksDetailsResponse, GoogleBooksSearchResult, GoogleBooksVolumeLight } from 'app/models/external-services/media-items/book';
+import { GoogleBooksDetailsResponse, GoogleBooksSearchResult, GoogleBooksVolumeFull } from 'app/models/external-services/media-items/book';
 import { CatalogBookInternal, SearchBookCatalogResultInternal } from 'app/models/internal/media-items/book';
 import { dateUtils } from 'app/utilities/date-utils';
-import { stringUtils } from 'app/utilities/string-utils';
+import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
  * Mapper for the books search external service
@@ -51,16 +51,33 @@ class BookExternalDetailsServiceMapper extends ModelMapper<CatalogBookInternal, 
 		
 		return {
 			name: source.volumeInfo.title,
-			author: this.getAuthor(source.volumeInfo)
+			genres: miscUtils.filterAndSortValues(source.volumeInfo.categories),
+			description: source.volumeInfo.description,
+			releaseDate: dateUtils.toDate(source.volumeInfo.publishedDate),
+			imageUrl: this.getImageUrl(source.volumeInfo),
+			authors: miscUtils.filterAndSortValues(source.volumeInfo.authors),
+			pagesNumber: source.volumeInfo.pageCount
 		};
 	}
 
 	/**
-	 * Helper to get the author(s) name
+	 * Helper to get the image URL
 	 */
-	private getAuthor(volume: GoogleBooksVolumeLight): string | undefined {
+	private getImageUrl(volumeInfo: GoogleBooksVolumeFull): string | undefined {
+		
+		if(volumeInfo.imageLinks) {
 
-		return stringUtils.join(volume.authors, ', ', undefined);
+			if(volumeInfo.imageLinks.medium) {
+
+				return volumeInfo.imageLinks.medium;
+			}
+			else if(volumeInfo.imageLinks.thumbnail) {
+
+				return volumeInfo.imageLinks.thumbnail;
+			}
+		}
+
+		return undefined;
 	}
 }
 

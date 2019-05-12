@@ -15,8 +15,8 @@ class VideogameMapper extends MediaItemMapper<VideogameInternal, IdentifiedVideo
 		return {
 			...this.commonToExternal(source),
 			uid: source._id,
-			developer: source.developer,
-			publisher: source.publisher,
+			developers: source.developers,
+			publishers: source.publishers,
 			platforms: source.platforms,
 			averageLengthHours: source.averageLengthHours
 		};
@@ -30,8 +30,8 @@ class VideogameMapper extends MediaItemMapper<VideogameInternal, IdentifiedVideo
 		return {
 			...this.commonToInternal(source, extraParams),
 			_id: source.uid ? source.uid : null,
-			developer: source.developer,
-			publisher: source.publisher,
+			developers: source.developers,
+			publishers: source.publishers,
 			platforms: source.platforms,
 			averageLengthHours: source.averageLengthHours
 		};
@@ -146,7 +146,7 @@ class VideogameCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<Catalo
 
 		return {
 			...this.commonToExternal(source),
-			developer: source.developer
+			developers: source.developers
 		};
 	}
 	
@@ -157,7 +157,7 @@ class VideogameCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<Catalo
 
 		return {
 			...this.commonToInternal(source),
-			developer: source.developer
+			developers: source.developers
 		};
 	}
 }

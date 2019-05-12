@@ -55,7 +55,7 @@ class TvShowEntityController extends MediaItemEntityController<TvShowInternal, T
 		switch(sortBy.field) {
 
 			case 'CREATOR':
-				sortConditions.creator = sortDirection;
+				sortConditions.creators = sortDirection;
 				break;
 			
 			default:
@@ -69,7 +69,7 @@ class TvShowEntityController extends MediaItemEntityController<TvShowInternal, T
 	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: Queryable<TvShowInternal>[]): void {
 		
 		searchConditions.push({
-			creator: termRegExp
+			creators: termRegExp
 		});
 	}
 

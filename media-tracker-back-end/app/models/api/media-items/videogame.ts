@@ -8,18 +8,20 @@ import { IsDefined, IsIn, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNeste
 export class Videogame extends MediaItem {
 
 	/**
-	 * The videogame developer
+	 * The videogame developer(s)
 	 */
 	@IsOptional()
-	@IsString()
-	public developer?: string;
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public developers?: string[];
 
 	/**
-	 * The videogame publisher
+	 * The videogame publisher(s)
 	 */
 	@IsOptional()
-	@IsString()
-	public publisher?: string;
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public publishers?: string[];
 	
 	/**
 	 * The list of platforms on which the game runs
@@ -198,11 +200,35 @@ export class SearchVideogamesResponse extends SearchMediaItemsResponse {
 export class CatalogVideogame extends CatalogMediaItem {
 
 	/**
-	 * The videogame developer
+	 * The videogame developer(s)
 	 */
 	@IsOptional()
-	@IsString()
-	public developer?: string;
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public developers?: string[];
+
+	/**
+	 * The videogame publisher(s)
+	 */
+	@IsOptional()
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public publishers?: string[];
+	
+	/**
+	 * The list of platforms on which the game runs
+	 */
+	@IsOptional()
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public platforms?: string[];
+	
+	/**
+	 * The average game length in hours
+	 */
+	@IsOptional()
+	@IsInt()
+	public averageLengthHours?: number;
 }
 
 /**

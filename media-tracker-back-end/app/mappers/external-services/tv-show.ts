@@ -1,9 +1,9 @@
 import { ModelMapper } from 'app/mappers/common';
 import { AppError } from 'app/models/error/error';
-import { TmdbTvShowCreator, TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeasonDataResponse } from 'app/models/external-services/media-items/tv-show';
+import { TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeasonDataResponse } from 'app/models/external-services/media-items/tv-show';
 import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from 'app/models/internal/media-items/tv-show';
 import { dateUtils } from 'app/utilities/date-utils';
-import { stringUtils } from 'app/utilities/string-utils';
+import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
  * Mapper for the TV shows search external service
@@ -58,25 +58,24 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 		
 		return {
 			name: source.name,
-			creator: this.getCreator(source.created_by),
+			genres: miscUtils.extractFilterAndSortFieldValues(source.genres, 'name'),
+			description: source.overview,
+			releaseDate: dateUtils.toDate(source.first_air_date),
+			imageUrl: source.backdrop_path,
+			creators: miscUtils.extractFilterAndSortFieldValues(source.created_by, 'name'),
+			averageEpisodeRuntimeMinutes: this.getAverageEpisodeRuntime(source.episode_run_time),
+			episodesNumber: source.number_of_episodes,
+			seasonsNumber: source.number_of_seasons,
+			inProduction: source.in_production,
 			nextEpisodeAirDate: extraParams ? this.getNextEpisodeAirDate(extraParams.currentSeasonData) : undefined
 		};
-	}
-	
-	/**
-	 * Helper to build the creators list
-	 * @param creators the optional creators array
-	 */
-	private getCreator(creators?: TmdbTvShowCreator[]): string | undefined {
-
-		return stringUtils.join(creators, ', ', undefined, [ 'name' ]);
 	}
 
 	/**
 	 * Helper to get the next episode air date
 	 * @param currentSeasonData the current season data
 	 */
-	private getNextEpisodeAirDate(currentSeasonData?: TmdbTvShowSeasonDataResponse): string | undefined {
+	private getNextEpisodeAirDate(currentSeasonData?: TmdbTvShowSeasonDataResponse): Date | undefined {
 
 		if(currentSeasonData && currentSeasonData.episodes) {
 
@@ -99,12 +98,27 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 					}
 				}
 			}
-			return nextEpisodeAirDate ? nextEpisodeAirDate : undefined;
+			return nextEpisodeAirDate ? dateUtils.toDate(nextEpisodeAirDate) : undefined;
 		}
 		else {
 
 			return undefined;
 		}
+	}
+
+	/**
+	 * Helper to get the average episode runtime
+	 */
+	private getAverageEpisodeRuntime(runtimes: number[] | undefined): number | undefined {
+
+		if(runtimes && runtimes.length > 0) {
+
+			return runtimes.reduce((previous, current) => {
+				return previous + current;
+			}, 0) / runtimes.length;
+		}
+		
+		return undefined;
 	}
 }
 

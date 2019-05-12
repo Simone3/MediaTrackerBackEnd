@@ -55,7 +55,7 @@ class BookEntityController extends MediaItemEntityController<BookInternal, BookS
 		switch(sortBy.field) {
 
 			case 'AUTHOR':
-				sortConditions.author = sortDirection;
+				sortConditions.authors = sortDirection;
 				break;
 			
 			default:
@@ -69,7 +69,7 @@ class BookEntityController extends MediaItemEntityController<BookInternal, BookS
 	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: Queryable<BookInternal>[]): void {
 		
 		searchConditions.push({
-			author: termRegExp
+			authors: termRegExp
 		});
 	}
 

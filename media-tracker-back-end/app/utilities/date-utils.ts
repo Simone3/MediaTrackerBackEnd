@@ -6,13 +6,14 @@ import { AppError } from 'app/models/error/error';
 class DateUtils {
 
 	/**
-     * Formats a possibly partial date-string from single numeric values. If some are missing, the last day of the month/day is taken.
+     * Builds a possibly partial date from single numeric values. If some are missing, the last day of the month/day is taken.
 	 * Input and output are all in UTC.
      * @param year the year
      * @param month the optional month (1-12)
      * @param day the optional day
+	 * @returns the date
      */
-	public dateStringFromYearMonthDay(year: number, month?: number, day?: number): string {
+	public dateFromYearMonthDay(year: number, month?: number, day?: number): Date {
 		
 		if(month && (month <= 0 || month > 12)) {
 
@@ -48,8 +49,20 @@ class DateUtils {
 			dateDay = 0;
 		}
 
-		const date: Date = new Date(Date.UTC(dateYear, dateMonth, dateDay, 0, 0, 0, 0));
+		return new Date(Date.UTC(dateYear, dateMonth, dateDay, 0, 0, 0, 0));
+	}
+
+	/**
+     * Formats a possibly partial date-string from single numeric values. If some are missing, the last day of the month/day is taken.
+	 * Input and output are all in UTC.
+     * @param year the year
+     * @param month the optional month (1-12)
+     * @param day the optional day
+	 * @returns the date-string
+     */
+	public dateStringFromYearMonthDay(year: number, month?: number, day?: number): string {
 		
+		const date = this.dateFromYearMonthDay(year, month, day);
 		return date.toISOString();
 	}
 

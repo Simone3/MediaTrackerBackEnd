@@ -1,16 +1,23 @@
 import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
 
 /**
- * Model for a media item with all properties, internal type NOT to be exposed via API
+ * Util type to extract common fields to both TV show entities and catalog entries
  */
-export type TvShowInternal = MediaItemInternal & {
+type CoreTvShowDataInternal = {
 
-	creator?: string;
+	creators?: string[];
 	averageEpisodeRuntimeMinutes?: number;
 	episodesNumber?: number;
 	seasonsNumber?: number;
 	inProduction?: boolean;
 	nextEpisodeAirDate?: Date;
+};
+
+/**
+ * Model for a media item with all properties, internal type NOT to be exposed via API
+ */
+export type TvShowInternal = MediaItemInternal & CoreTvShowDataInternal & {
+
 };
 
 /**
@@ -36,10 +43,8 @@ export type TvShowSortByInternal = MediaItemSortByInternal & {
 /**
  * Model for a media item with base properties, internal type NOT to be exposed via API
  */
-export type CatalogTvShowInternal = CatalogMediaItemInternal & {
-
-	creator?: string;
-	nextEpisodeAirDate?: string;
+export type CatalogTvShowInternal = CatalogMediaItemInternal & CoreTvShowDataInternal & {
+	
 };
 
 /**

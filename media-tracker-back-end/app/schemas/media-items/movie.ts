@@ -6,7 +6,7 @@ import { Schema } from 'mongoose';
  */
 export const MovieSchema: Schema = new Schema({
 	...commonMediaItemSchemaDefinition,
-	director: { type: String, required: false },
+	directosr: { type: [ String ], required: false },
 	durationMinutes: { type: Number, required: false }
 }, {
 	...commonMediaItemSchemaOptions

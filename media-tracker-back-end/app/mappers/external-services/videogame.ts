@@ -1,9 +1,30 @@
 import { ModelMapper } from 'app/mappers/common';
 import { AppError } from 'app/models/error/error';
-import { GiantBombDetailsResponse, GiantBombSearchResult } from 'app/models/external-services/media-items/videogame';
+import { GiantBombDetailsResponse, GiantBombDetailsResult, GiantBombImage, GiantBombSearchResult } from 'app/models/external-services/media-items/videogame';
 import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal } from 'app/models/internal/media-items/videogame';
 import { dateUtils } from 'app/utilities/date-utils';
-import { stringUtils } from 'app/utilities/string-utils';
+import { miscUtils } from 'app/utilities/misc-utils';
+
+/**
+ * Helper to get the release date from the videogame data
+ * @param gameData the game data
+ * @returns the release date as a string or undefined
+ */
+const getReleaseDate = (gameData: GiantBombSearchResult | GiantBombDetailsResult): Date | undefined => {
+
+	if(gameData.expected_release_year) {
+
+		return dateUtils.dateFromYearMonthDay(gameData.expected_release_year, gameData.expected_release_month, gameData.expected_release_day);
+	}
+	else if(gameData.original_release_date) {
+
+		return dateUtils.toDate(gameData.original_release_date);
+	}
+	else {
+
+		return undefined;
+	}
+};
 
 /**
  * Mapper for the videogames search external service
@@ -26,29 +47,8 @@ class VideogameExternalSearchServiceMapper extends ModelMapper<SearchVideogameCa
 		return {
 			catalogId: String(source.id),
 			name: source.name,
-			releaseDate: dateUtils.toDate(this.getReleaseDate(source))
+			releaseDate: getReleaseDate(source)
 		};
-	}
-
-	/**
-	 * Helper to get the release date from the videogame data
-	 * @param gameData the game data
-	 * @returns the release date as a string or undefined
-	 */
-	private getReleaseDate(gameData: GiantBombSearchResult): string | undefined {
-
-		if(gameData.expected_release_year) {
-
-			return dateUtils.dateStringFromYearMonthDay(gameData.expected_release_year, gameData.expected_release_month, gameData.expected_release_day);
-		}
-		else if(gameData.original_release_date) {
-
-			return gameData.original_release_date;
-		}
-		else {
-
-			return undefined;
-		}
 	}
 }
 
@@ -71,9 +71,36 @@ class VideogameExternalDetailsServiceMapper extends ModelMapper<CatalogVideogame
 	protected convertToInternal(source: GiantBombDetailsResponse): CatalogVideogameInternal {
 		
 		return {
-			developer: stringUtils.join(source.results.developers, ', ', undefined, [ 'name' ]),
-			name: source.results.name
+
+			name: source.results.name,
+			genres: miscUtils.extractFilterAndSortFieldValues(source.results.genres, 'name'),
+			description: source.results.deck,
+			releaseDate: getReleaseDate(source.results),
+			imageUrl: this.getImageUrl(source.results.image),
+			developers: miscUtils.extractFilterAndSortFieldValues(source.results.developers, 'name'),
+			publishers: miscUtils.extractFilterAndSortFieldValues(source.results.publishers, 'name'),
+			platforms: miscUtils.extractFilterAndSortFieldValues(source.results.platforms, 'name')
 		};
+	}
+
+	/**
+	 * Helper to get the image URL
+	 */
+	private getImageUrl(result: GiantBombImage | undefined): string | undefined {
+		
+		if(result) {
+
+			if(result.screen_url) {
+
+				return result.screen_url;
+			}
+			else if(result.medium_url) {
+
+				return result.medium_url;
+			}
+		}
+
+		return undefined;
 	}
 }
 
