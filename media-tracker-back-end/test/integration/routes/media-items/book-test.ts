@@ -1,4 +1,7 @@
 import { bookEntityController } from 'app/controllers/entities/media-items/book';
+import { IdentifiedGroup } from 'app/models/api/group';
+import { IdentifiedBook } from 'app/models/api/media-items/book';
+import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
 import { BookInternal } from 'app/models/internal/media-items/book';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
@@ -151,6 +154,68 @@ describe('Book API Tests', () => {
 			expect(response.catalogBook, 'API did not return a valid catalog details result').not.to.be.undefined;
 			expect(response.catalogBook.name, 'API did not return a valid catalog details result').to.be.equal('Mock Book 1');
 			expect(response.catalogBook.authors, 'API did not return a valid catalog details result').to.be.eql([ 'Some Author' ]);
+		});
+
+		it('Should save and then retrieve ALL fields', async() => {
+
+			// Add group
+			const sourceGroup: Required<IdentifiedGroup> = {
+				uid: '',
+				name: randomName('Group')
+			};
+			const { uid: groupId } = await await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/groups`, {
+				newGroup: sourceGroup
+			});
+
+			// Add own platform
+			const sourceOwnPlatform: Required<IdentifiedOwnPlatform> = {
+				uid: '',
+				name: randomName('OwnPlatform'),
+				color: '#00ff00'
+			};
+			const { uid: ownPlatformId } = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/own-platforms`, {
+				newOwnPlatform: sourceOwnPlatform
+			});
+
+			// Add media item
+			const sourceBook: Required<IdentifiedBook> = {
+				uid: '',
+				name: randomName('Name'),
+				active: true,
+				catalogId: randomName('Catalog'),
+				completedAt: [ '2011-12-25T10:32:27.240Z', '2015-04-01T10:32:27.240Z', '2017-05-17T10:32:27.240Z' ],
+				description: randomName('Description'),
+				genres: [ randomName('Genre1') ],
+				group: {
+					groupId: groupId,
+					orderInGroup: 4
+				},
+				imageUrl: 'http://test.com',
+				importance: 56,
+				ownPlatform: {
+					ownPlatformId: ownPlatformId
+				},
+				releaseDate: '2010-01-01T10:32:27.240Z',
+				userComment: randomName('SomeComment'),
+				authors: [ randomName('Author1'), randomName('Author2') ],
+				pagesNumber: 123
+			};
+			await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, {
+				newBook: sourceBook
+			});
+
+			// Get media item
+			const response = await callHelper('GET', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`);
+
+			// "Fix" source entities
+			sourceBook.uid = response.books[0].uid;
+			sourceGroup.uid = groupId;
+			sourceOwnPlatform.uid = ownPlatformId;
+			sourceBook.group.groupData = sourceGroup;
+			sourceBook.ownPlatform.ownPlatformData = sourceOwnPlatform;
+
+			// Check media item
+			expect(response.books[0], 'API either did not save or did not retrieve ALL fields').to.eql(sourceBook);
 		});
 	});
 });

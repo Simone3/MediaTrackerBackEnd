@@ -1,4 +1,5 @@
 import { groupController } from 'app/controllers/entities/group';
+import { IdentifiedGroup } from 'app/models/api/group';
 import { GroupInternal } from 'app/models/internal/group';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
@@ -90,6 +91,23 @@ describe('Group API Tests', () => {
 			await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/groups`, {
 				newGroup: {}
 			}, 500);
+		});
+
+		it('Should save and then retrieve ALL fields', async() => {
+
+			const sourceGroup: Required<IdentifiedGroup> = {
+				uid: '',
+				name: randomName()
+			};
+
+			await await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/groups`, {
+				newGroup: sourceGroup
+			});
+
+			const response = await callHelper('GET', `/users/${firstUC.user}/categories/${firstUC.category}/groups`);
+
+			sourceGroup.uid = response.groups[0].uid;
+			expect(response.groups[0], 'API either did not save or did not retrieve ALL fields').to.eql(sourceGroup);
 		});
 	});
 });

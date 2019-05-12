@@ -1,4 +1,7 @@
 import { tvShowEntityController } from 'app/controllers/entities/media-items/tv-show';
+import { IdentifiedGroup } from 'app/models/api/group';
+import { IdentifiedTvShow } from 'app/models/api/media-items/tv-show';
+import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
 import { TvShowInternal } from 'app/models/internal/media-items/tv-show';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
@@ -151,6 +154,72 @@ describe('TV show API Tests', () => {
 			expect(response.catalogTvShow, 'API did not return a valid catalog details result').not.to.be.undefined;
 			expect(response.catalogTvShow.name, 'API did not return a valid catalog details result').to.be.equal('Mock TV Show 1');
 			expect(response.catalogTvShow.creators, 'API did not return a valid catalog details result').to.be.eql([ 'First Creator', 'Second Creator' ]);
+		});
+
+		it('Should save and then retrieve ALL fields', async() => {
+
+			// Add group
+			const sourceGroup: Required<IdentifiedGroup> = {
+				uid: '',
+				name: randomName('Group')
+			};
+			const { uid: groupId } = await await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/groups`, {
+				newGroup: sourceGroup
+			});
+
+			// Add own platform
+			const sourceOwnPlatform: Required<IdentifiedOwnPlatform> = {
+				uid: '',
+				name: randomName('OwnPlatform'),
+				color: '#00ff00'
+			};
+			const { uid: ownPlatformId } = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/own-platforms`, {
+				newOwnPlatform: sourceOwnPlatform
+			});
+
+			// Add media item
+			const sourceTvShow: Required<IdentifiedTvShow> = {
+				uid: '',
+				name: randomName('Name'),
+				active: true,
+				catalogId: randomName('Catalog'),
+				completedAt: [ '2011-12-25T10:32:27.240Z', '2015-04-01T10:32:27.240Z', '2017-05-17T10:32:27.240Z' ],
+				description: randomName('Description'),
+				genres: [ randomName('Genre1') ],
+				group: {
+					groupId: groupId,
+					orderInGroup: 4
+				},
+				imageUrl: 'http://test.com',
+				importance: 56,
+				ownPlatform: {
+					ownPlatformId: ownPlatformId
+				},
+				releaseDate: '2010-01-01T10:32:27.240Z',
+				userComment: randomName('SomeComment'),
+				averageEpisodeRuntimeMinutes: 61,
+				creators: [ randomName('Creator1'), randomName('Creator2') ],
+				episodesNumber: 56,
+				inProduction: true,
+				nextEpisodeAirDate: '2018-02-28T10:32:27.240Z',
+				seasonsNumber: 2
+			};
+			await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows`, {
+				newTvShow: sourceTvShow
+			});
+
+			// Get media item
+			const response = await callHelper('GET', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows`);
+
+			// "Fix" source entities
+			sourceTvShow.uid = response.tvShows[0].uid;
+			sourceGroup.uid = groupId;
+			sourceOwnPlatform.uid = ownPlatformId;
+			sourceTvShow.group.groupData = sourceGroup;
+			sourceTvShow.ownPlatform.ownPlatformData = sourceOwnPlatform;
+
+			// Check media item
+			expect(response.tvShows[0], 'API either did not save or did not retrieve ALL fields').to.eql(sourceTvShow);
 		});
 	});
 });

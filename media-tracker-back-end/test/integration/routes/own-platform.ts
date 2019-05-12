@@ -1,4 +1,5 @@
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
+import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
 import { OwnPlatformInternal } from 'app/models/internal/own-platform';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
@@ -129,6 +130,24 @@ describe('OwnPlatform API Tests', () => {
 					color: 'sdfdcxcvxcvxcv'
 				}
 			}, 500);
+		});
+
+		it('Should save and then retrieve ALL fields', async() => {
+
+			const sourcePlatform: Required<IdentifiedOwnPlatform> = {
+				uid: '',
+				name: randomName(),
+				color: '#00ff00'
+			};
+
+			await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, {
+				newOwnPlatform: sourcePlatform
+			});
+
+			const response = await callHelper('GET', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`);
+			
+			sourcePlatform.uid = response.ownPlatforms[0].uid;
+			expect(response.ownPlatforms[0], 'API either did not save or did not retrieve ALL fields').to.eql(sourcePlatform);
 		});
 	});
 });

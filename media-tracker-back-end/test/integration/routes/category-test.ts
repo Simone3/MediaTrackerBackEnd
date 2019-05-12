@@ -1,4 +1,5 @@
 import { categoryController } from 'app/controllers/entities/category';
+import { IdentifiedCategory } from 'app/models/api/category';
 import { CategoryInternal } from 'app/models/internal/category';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
@@ -108,6 +109,25 @@ describe('Category API Tests', () => {
 					mediaType: 'MOVE'
 				}
 			}, 500);
+		});
+
+		it('Should save and then retrieve ALL fields', async() => {
+
+			const sourceCategory: Required<IdentifiedCategory> = {
+				uid: '',
+				name: randomName(),
+				mediaType: 'VIDEOGAME',
+				color: '#00ff00'
+			};
+
+			await callHelper('POST', `/users/${firstU.user}/categories`, {
+				newCategory: sourceCategory
+			});
+
+			const response = await callHelper('GET', `/users/${firstU.user}/categories`);
+
+			sourceCategory.uid = response.categories[0].uid;
+			expect(response.categories[0], 'API either did not save or did not retrieve ALL fields').to.eql(sourceCategory);
 		});
 	});
 });

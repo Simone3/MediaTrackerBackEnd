@@ -1,4 +1,7 @@
 import { videogameEntityController } from 'app/controllers/entities/media-items/videogame';
+import { IdentifiedGroup } from 'app/models/api/group';
+import { IdentifiedVideogame } from 'app/models/api/media-items/videogame';
+import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
 import { VideogameInternal } from 'app/models/internal/media-items/videogame';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
@@ -151,6 +154,70 @@ describe('Videogame API Tests', () => {
 			expect(response.catalogVideogame, 'API did not return a valid catalog details result').not.to.be.undefined;
 			expect(response.catalogVideogame.name, 'API did not return a valid catalog details result').to.be.equal('Mock Videogame 1');
 			expect(response.catalogVideogame.developers, 'API did not return a valid catalog details result').to.be.eql([ 'First Dev', 'Second Dev' ]);
+		});
+
+		it('Should save and then retrieve ALL fields', async() => {
+
+			// Add group
+			const sourceGroup: Required<IdentifiedGroup> = {
+				uid: '',
+				name: randomName('Group')
+			};
+			const { uid: groupId } = await await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/groups`, {
+				newGroup: sourceGroup
+			});
+
+			// Add own platform
+			const sourceOwnPlatform: Required<IdentifiedOwnPlatform> = {
+				uid: '',
+				name: randomName('OwnPlatform'),
+				color: '#00ff00'
+			};
+			const { uid: ownPlatformId } = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/own-platforms`, {
+				newOwnPlatform: sourceOwnPlatform
+			});
+
+			// Add media item
+			const sourceVideogame: Required<IdentifiedVideogame> = {
+				uid: '',
+				name: randomName('Name'),
+				active: true,
+				catalogId: randomName('Catalog'),
+				completedAt: [ '2011-12-25T10:32:27.240Z', '2015-04-01T10:32:27.240Z', '2017-05-17T10:32:27.240Z' ],
+				description: randomName('Description'),
+				genres: [ randomName('Genre1') ],
+				group: {
+					groupId: groupId,
+					orderInGroup: 4
+				},
+				imageUrl: 'http://test.com',
+				importance: 56,
+				ownPlatform: {
+					ownPlatformId: ownPlatformId
+				},
+				releaseDate: '2010-01-01T10:32:27.240Z',
+				userComment: randomName('SomeComment'),
+				averageLengthHours: 84,
+				developers: [ randomName('Developer1'), randomName('Developer2') ],
+				platforms: [ randomName('Platform1'), randomName('Platform2'), randomName('Platform3') ],
+				publishers: [ randomName('Publisher1') ]
+			};
+			await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames`, {
+				newVideogame: sourceVideogame
+			});
+
+			// Get media item
+			const response = await callHelper('GET', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames`);
+
+			// "Fix" source entities
+			sourceVideogame.uid = response.videogames[0].uid;
+			sourceGroup.uid = groupId;
+			sourceOwnPlatform.uid = ownPlatformId;
+			sourceVideogame.group.groupData = sourceGroup;
+			sourceVideogame.ownPlatform.ownPlatformData = sourceOwnPlatform;
+
+			// Check media item
+			expect(response.videogames[0], 'API either did not save or did not retrieve ALL fields').to.eql(sourceVideogame);
 		});
 	});
 });
