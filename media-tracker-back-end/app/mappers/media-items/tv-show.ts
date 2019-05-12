@@ -2,6 +2,7 @@ import { MediaItemCatalogDetailsMapper, MediaItemCatalogSearchMapper, MediaItemF
 import { CatalogTvShow, IdentifiedTvShow, SearchTvShowCatalogResult, TvShowFilter, TvShowSortBy, TvShowSortField } from 'app/models/api/media-items/tv-show';
 import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal, TvShowFilterInternal, TvShowInternal, TvShowSortByInternal, TvShowSortFieldInternal } from 'app/models/internal/media-items/tv-show';
 import { dateUtils } from 'app/utilities/date-utils';
+import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
  * Mapper for TV shows
@@ -20,7 +21,7 @@ class TvShowMapper extends MediaItemMapper<TvShowInternal, IdentifiedTvShow> {
 			averageEpisodeRuntimeMinutes: source.averageEpisodeRuntimeMinutes,
 			episodesNumber: source.episodesNumber,
 			seasonsNumber: source.seasonsNumber,
-			inProduction: source.inProduction,
+			inProduction: miscUtils.parseBoolean(source.inProduction),
 			nextEpisodeAirDate: dateUtils.toString(source.nextEpisodeAirDate)
 		};
 	}
@@ -37,7 +38,7 @@ class TvShowMapper extends MediaItemMapper<TvShowInternal, IdentifiedTvShow> {
 			averageEpisodeRuntimeMinutes: source.averageEpisodeRuntimeMinutes,
 			episodesNumber: source.episodesNumber,
 			seasonsNumber: source.seasonsNumber,
-			inProduction: source.inProduction,
+			inProduction: miscUtils.parseBoolean(source.inProduction),
 			nextEpisodeAirDate: dateUtils.toDate(source.nextEpisodeAirDate)
 		};
 	}

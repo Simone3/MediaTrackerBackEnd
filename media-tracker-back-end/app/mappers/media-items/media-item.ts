@@ -3,6 +3,8 @@ import { CatalogMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaIte
 import { AppError } from 'app/models/error/error';
 import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
 import { dateUtils } from 'app/utilities/date-utils';
+import { miscUtils } from 'app/utilities/misc-utils';
+import { groupMapper } from '../group';
 import { ownPlatformMapper } from '../own-platform';
 
 /**
@@ -31,7 +33,7 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			userComment: source.userComment,
 			completedAt: dateUtils.toStringList(source.completedAt),
 			releaseDate: dateUtils.toString(source.releaseDate),
-			active: source.active,
+			active: miscUtils.parseBoolean(source.active),
 			catalogId: source.catalogId,
 			imageUrl: source.imageUrl
 		};
@@ -40,9 +42,7 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 
 			target.group = {
 				groupId: String(source.group._id),
-				groupData: {
-					name: source.group.name
-				},
+				groupData: groupMapper.toExternal(source.group),
 				orderInGroup: source.orderInGroup
 			};
 		}
@@ -81,7 +81,7 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			userComment: source.userComment,
 			completedAt: dateUtils.toDateList(source.completedAt),
 			releaseDate: dateUtils.toDate(source.releaseDate),
-			active: source.active,
+			active: miscUtils.parseBoolean(source.active),
 			catalogId: source.catalogId,
 			imageUrl: source.imageUrl
 		};
