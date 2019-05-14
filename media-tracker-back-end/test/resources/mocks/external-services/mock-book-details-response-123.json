@@ -11,7 +11,7 @@
         ],
         "publisher": "HarperCollins",
         "publishedDate": "2002",
-        "description": "<p>Large print hardback edition of the first volume of J.R.R. Tolkien's epic adventure, The Lord of the Rings, complete with fold-out map.</p> Sauron, the Dark Lord, has gathered to him all the Rings of Power - the means by which he intends to rule Middle-earth. All he lacks in his plans for dominion is the One Ring - the ring that rules them all - which has fallen into the hands of the hobbit, Bilbo Baggins.<br> In a sleepy village in the Shire, young Frodo Baggins finds himself faced with an immense task, as his elderly cousin Bilbo entrusts the Ring to his care. Frodo must leave his home and make a perilous journey across Middle-earth to the Cracks of Doom, there to destroy the Ring and foil the Dark Lord in his evil purpose.<br> Now available in large print and impossible to describe in a few words, JRR Tolkien's great work of imaginative fiction has been labelled both a heroic romance and a classic fantasy fiction. By turns comic and homely, epic and diabolic, the narrative moves through countless changes of scene and character in an imaginary world which is totally convincing in its detail.",
+        "description": "This is some description.",
         "industryIdentifiers": [
             {
                 "type": "ISBN_10",
@@ -21,7 +21,8 @@
                 "type": "ISBN_13",
                 "identifier": "9780007136636"
             }
-        ],
+		],
+		"categories": ["Genre1", "Genre2", "Genre3"],
         "readingModes": {
             "text": false,
             "image": false

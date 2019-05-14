@@ -1,6 +1,6 @@
 import { videogameEntityController } from 'app/controllers/entities/media-items/videogame';
 import { IdentifiedGroup } from 'app/models/api/group';
-import { IdentifiedVideogame } from 'app/models/api/media-items/videogame';
+import { CatalogVideogame, IdentifiedVideogame } from 'app/models/api/media-items/videogame';
 import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
 import { VideogameInternal } from 'app/models/internal/media-items/videogame';
 import chai from 'chai';
@@ -149,11 +149,20 @@ describe('Videogame API Tests', () => {
 
 		it('Should get videogame details from the catalog', async() => {
 
+			const expectedResult: Required<CatalogVideogame> = {
+				name: 'Mock Videogame 1',
+				description: 'The game description',
+				developers: [ 'First Dev', 'Second Dev' ],
+				genres: [ 'Action-Adventure', 'Role-Playing' ],
+				imageUrl: 'https://www.giantbomb.com/api/image/screen_medium/2558589-w1clean.jpg',
+				platforms: [ 'Mac', 'PC' ],
+				publishers: [ 'Publisher1' ],
+				releaseDate: '2007-10-30T00:00:00.000Z'
+			};
+
 			const response = await callHelper('GET', `/catalog/videogames/123`);
 			
-			expect(response.catalogVideogame, 'API did not return a valid catalog details result').not.to.be.undefined;
-			expect(response.catalogVideogame.name, 'API did not return a valid catalog details result').to.be.equal('Mock Videogame 1');
-			expect(response.catalogVideogame.developers, 'API did not return a valid catalog details result').to.be.eql([ 'First Dev', 'Second Dev' ]);
+			expect(response.catalogVideogame, 'API did not return the correct catalog details').to.be.eql(expectedResult);
 		});
 
 		it('Should save and then retrieve ALL fields', async() => {

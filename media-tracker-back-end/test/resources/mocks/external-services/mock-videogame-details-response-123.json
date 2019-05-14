@@ -6,7 +6,7 @@
     "number_of_total_results": 1,
     "status_code": 1,
     "results": {
-        "deck": "The Witcher is an Action Role Playing Game developed by CD Projekt RED and is based on the book \"The Last Wish\" by Polish author Andrzej Sapkowski. An Enhanced Edition was released in September, 2008. A director's cut version was released for North America on July 31, 2009.",
+        "deck": "The game description",
         "expected_release_day": null,
         "expected_release_month": null,
         "expected_release_year": null,
@@ -24,7 +24,7 @@
             "image_tags": "All Images,Box Art"
         },
         "name": "Mock Videogame 1",
-        "original_release_date": "2007-10-30 00:00:00",
+        "original_release_date": "2007-10-30T00:00:00.000Z",
         "platforms": [
             {
                 "api_detail_url": "https://www.giantbomb.com/api/platform/3045-17/",
@@ -73,7 +73,7 @@
             {
                 "api_detail_url": "https://www.giantbomb.com/api/publisher/3010-548/",
                 "id": 548,
-                "name": "Atari SA",
+                "name": "Publisher1",
                 "site_detail_url": "https://www.giantbomb.com/atari-sa/3010-548/"
             }
         ]

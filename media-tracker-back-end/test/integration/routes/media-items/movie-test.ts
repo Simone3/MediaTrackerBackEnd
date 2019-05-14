@@ -1,6 +1,6 @@
 import { movieEntityController } from 'app/controllers/entities/media-items/movie';
 import { IdentifiedGroup } from 'app/models/api/group';
-import { IdentifiedMovie } from 'app/models/api/media-items/movie';
+import { CatalogMovie, IdentifiedMovie } from 'app/models/api/media-items/movie';
 import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
 import { MovieInternal } from 'app/models/internal/media-items/movie';
 import chai from 'chai';
@@ -149,11 +149,19 @@ describe('Movie API Tests', () => {
 
 		it('Should get movie details from the catalog', async() => {
 
+			const expectedResult: Required<CatalogMovie> = {
+				name: 'Mock Movie 1',
+				description: 'Some description',
+				directors: [ 'Some Director' ],
+				durationMinutes: 178,
+				genres: [ 'Action', 'Adventure', 'Fantasy' ],
+				imageUrl: 'http://myimage.png',
+				releaseDate: '2001-12-18T00:00:00.000Z'
+			};
+
 			const response = await callHelper('GET', `/catalog/movies/123`);
 			
-			expect(response.catalogMovie, 'API did not return a valid catalog details result').not.to.be.undefined;
-			expect(response.catalogMovie.name, 'API did not return a valid catalog details result').to.be.equal('Mock Movie 1');
-			expect(response.catalogMovie.directors, 'API did not return a valid catalog details result').to.be.eql([ 'Some Director' ]);
+			expect(response.catalogMovie, 'API did not return the correct catalog details').to.be.eql(expectedResult);
 		});
 
 		it('Should save and then retrieve ALL fields', async() => {

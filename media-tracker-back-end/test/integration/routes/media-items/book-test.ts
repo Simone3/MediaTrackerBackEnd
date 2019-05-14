@@ -1,6 +1,6 @@
 import { bookEntityController } from 'app/controllers/entities/media-items/book';
 import { IdentifiedGroup } from 'app/models/api/group';
-import { IdentifiedBook } from 'app/models/api/media-items/book';
+import { CatalogBook, IdentifiedBook } from 'app/models/api/media-items/book';
 import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
 import { BookInternal } from 'app/models/internal/media-items/book';
 import chai from 'chai';
@@ -149,11 +149,19 @@ describe('Book API Tests', () => {
 
 		it('Should get book details from the catalog', async() => {
 
-			const response = await callHelper('GET', `/catalog/books/123`);
+			const expectedResult: Required<CatalogBook> = {
+				name: 'Mock Book 1',
+				authors: [ 'Some Author' ],
+				description: 'This is some description.',
+				genres: [ 'Genre1', 'Genre2', 'Genre3' ],
+				imageUrl: 'http://books.google.com/books/content?id=YTqqPwAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72OZGhUPTW_1_RnTs98DY6qjQKQg0A_Fh_rT_JFmdA6roIHhLVbAKRSdEaXqaGMP-GYPNFbOl4l-sBEwj5_hz9zrdS-3u9A_Pp16jwYMENYJgcacJLp_Cr3ZwGxB3VFnngrShS_&source=gbs_api',
+				pagesNumber: 513,
+				releaseDate: '2002-01-01T00:00:00.000Z'
+			};
 			
-			expect(response.catalogBook, 'API did not return a valid catalog details result').not.to.be.undefined;
-			expect(response.catalogBook.name, 'API did not return a valid catalog details result').to.be.equal('Mock Book 1');
-			expect(response.catalogBook.authors, 'API did not return a valid catalog details result').to.be.eql([ 'Some Author' ]);
+			const response = await callHelper('GET', `/catalog/books/123`);
+
+			expect(response.catalogBook, 'API did not return the correct catalog details').to.be.eql(expectedResult);
 		});
 
 		it('Should save and then retrieve ALL fields', async() => {

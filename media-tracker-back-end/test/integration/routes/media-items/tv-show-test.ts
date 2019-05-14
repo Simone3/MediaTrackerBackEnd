@@ -1,6 +1,6 @@
 import { tvShowEntityController } from 'app/controllers/entities/media-items/tv-show';
 import { IdentifiedGroup } from 'app/models/api/group';
-import { IdentifiedTvShow } from 'app/models/api/media-items/tv-show';
+import { CatalogTvShow, IdentifiedTvShow } from 'app/models/api/media-items/tv-show';
 import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
 import { TvShowInternal } from 'app/models/internal/media-items/tv-show';
 import chai from 'chai';
@@ -148,12 +148,24 @@ describe('TV show API Tests', () => {
 		});
 
 		it('Should get TV show details from the catalog', async() => {
+			
+			const expectedResult: Required<CatalogTvShow> = {
+				name: 'Mock TV Show 1',
+				description: 'This is the description!',
+				averageEpisodeRuntimeMinutes: 60,
+				creators: [ 'First Creator', 'Second Creator' ],
+				episodesNumber: 73,
+				genres: [ 'Action & Adventure', 'Drama', 'Sci-Fi & Fantasy' ],
+				imageUrl: '/qsD5OHqW7DSnaQ2afwz8Ptht1Xb.jpg',
+				inProduction: true,
+				nextEpisodeAirDate: '2090-05-19T00:00:00.000Z',
+				releaseDate: '2011-04-17T00:00:00.000Z',
+				seasonsNumber: 8
+			};
 
 			const response = await callHelper('GET', `/catalog/tv-shows/123`);
 			
-			expect(response.catalogTvShow, 'API did not return a valid catalog details result').not.to.be.undefined;
-			expect(response.catalogTvShow.name, 'API did not return a valid catalog details result').to.be.equal('Mock TV Show 1');
-			expect(response.catalogTvShow.creators, 'API did not return a valid catalog details result').to.be.eql([ 'First Creator', 'Second Creator' ]);
+			expect(response.catalogTvShow, 'API did not return the correct catalog details').to.be.eql(expectedResult);
 		});
 
 		it('Should save and then retrieve ALL fields', async() => {
