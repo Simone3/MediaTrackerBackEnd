@@ -142,7 +142,8 @@ class BookCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<CatalogBook
 
 		return {
 			...this.commonToExternal(source),
-			authors: source.authors
+			authors: source.authors,
+			pagesNumber: source.pagesNumber
 		};
 	}
 	
@@ -153,7 +154,8 @@ class BookCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<CatalogBook
 
 		return {
 			...this.commonToInternal(source),
-			authors: source.authors
+			authors: source.authors,
+			pagesNumber: source.pagesNumber
 		};
 	}
 }

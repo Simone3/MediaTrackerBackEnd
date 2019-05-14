@@ -153,6 +153,10 @@ class TvShowCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<CatalogTv
 		return {
 			...this.commonToExternal(source),
 			creators: source.creators,
+			averageEpisodeRuntimeMinutes: source.averageEpisodeRuntimeMinutes,
+			episodesNumber: source.episodesNumber,
+			seasonsNumber: source.seasonsNumber,
+			inProduction: miscUtils.parseBoolean(source.inProduction),
 			nextEpisodeAirDate: dateUtils.toString(source.nextEpisodeAirDate)
 		};
 	}
@@ -165,6 +169,10 @@ class TvShowCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<CatalogTv
 		return {
 			...this.commonToInternal(source),
 			creators: source.creators,
+			averageEpisodeRuntimeMinutes: source.averageEpisodeRuntimeMinutes,
+			episodesNumber: source.episodesNumber,
+			seasonsNumber: source.seasonsNumber,
+			inProduction: miscUtils.parseBoolean(source.inProduction),
 			nextEpisodeAirDate: dateUtils.toDate(source.nextEpisodeAirDate)
 		};
 	}

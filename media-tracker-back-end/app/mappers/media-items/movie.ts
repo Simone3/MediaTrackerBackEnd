@@ -142,7 +142,8 @@ class MovieCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<CatalogMov
 
 		return {
 			...this.commonToExternal(source),
-			directors: source.directors
+			directors: source.directors,
+			durationMinutes: source.durationMinutes
 		};
 	}
 	
@@ -153,7 +154,8 @@ class MovieCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<CatalogMov
 
 		return {
 			...this.commonToInternal(source),
-			directors: source.directors
+			directors: source.directors,
+			durationMinutes: source.durationMinutes
 		};
 	}
 }

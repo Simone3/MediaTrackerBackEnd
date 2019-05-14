@@ -146,7 +146,9 @@ class VideogameCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<Catalo
 
 		return {
 			...this.commonToExternal(source),
-			developers: source.developers
+			developers: source.developers,
+			publishers: source.publishers,
+			platforms: source.platforms
 		};
 	}
 	
@@ -157,7 +159,9 @@ class VideogameCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<Catalo
 
 		return {
 			...this.commonToInternal(source),
-			developers: source.developers
+			developers: source.developers,
+			publishers: source.publishers,
+			platforms: source.platforms
 		};
 	}
 }

@@ -222,13 +222,6 @@ export class CatalogVideogame extends CatalogMediaItem {
 	@IsDefined({ each: true })
 	@IsString({ each: true })
 	public platforms?: string[];
-	
-	/**
-	 * The average game length in hours
-	 */
-	@IsOptional()
-	@IsInt()
-	public averageLengthHours?: number;
 }
 
 /**
