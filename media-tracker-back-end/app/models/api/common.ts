@@ -1,4 +1,5 @@
 import { AppError } from 'app/models/error/error';
+import { IsDefined, IsOptional, IsString } from 'class-validator';
 
 /**
  * Type shared by all API requests
@@ -15,6 +16,8 @@ export class CommonResponse {
 	/**
 	 * A generic message for easy response reading, should never be displayed to the user
 	 */
+	@IsOptional()
+	@IsString()
 	public message?: string;
 }
 
@@ -26,17 +29,23 @@ export class ErrorResponse extends CommonResponse {
 	/**
 	 * A unique error code, should never be displayed to the user
 	 */
+	@IsOptional()
+	@IsString()
 	public errorCode: string;
 
 	/**
 	 * An error description, should never be displayed to the user
 	 */
+	@IsOptional()
+	@IsString()
 	public errorDescription: string;
 
 	/**
 	 * Optional details for the error, should never be displayed to the user
 	 */
-	public errorDetails?: string | AppError;
+	@IsOptional()
+	@IsString()
+	public errorDetails?: string;
 	
 	/**
 	 * Constructor
@@ -50,7 +59,7 @@ export class ErrorResponse extends CommonResponse {
 		
 		this.errorCode = sourceError.errorCode;
 		this.errorDescription = sourceError.errorDescription;
-		this.errorDetails = sourceError.errorDetails;
+		this.errorDetails = sourceError.errorDetails as string;
 	}
 
 	/**
@@ -84,5 +93,7 @@ export class CommonAddResponse extends CommonResponse {
 	/**
 	 * The new element unique ID
 	 */
+	@IsDefined()
+	@IsString()
 	public uid!: string;
 }

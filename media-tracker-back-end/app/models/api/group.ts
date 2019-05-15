@@ -63,6 +63,12 @@ export class DeleteGroupResponse extends CommonResponse {
  */
 export class GetAllGroupsResponse extends CommonResponse {
 
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedGroup;
+	})
+	@ValidateNested()
 	public groups: IdentifiedGroup[] = [];
 }
 

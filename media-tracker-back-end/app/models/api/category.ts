@@ -88,7 +88,13 @@ export class DeleteCategoryResponse extends CommonResponse {
  * Response for the 'get all categories' API
  */
 export class GetAllCategoriesResponse extends CommonResponse {
-
+	
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedCategory;
+	})
+	@ValidateNested()
 	public categories: IdentifiedCategory[] = [];
 }
 

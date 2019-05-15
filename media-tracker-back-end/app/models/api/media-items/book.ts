@@ -94,6 +94,12 @@ export class GetAllBooksResponse extends GetAllMediaItemsResponse {
 	/**
 	 * The retrieved books
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedBook;
+	})
+	@ValidateNested()
 	public books: IdentifiedBook[] = [];
 }
 
@@ -148,6 +154,12 @@ export class FilterBooksResponse extends FilterMediaItemsResponse {
 	/**
 	 * The retrieved books
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedBook;
+	})
+	@ValidateNested()
 	public books: IdentifiedBook[] = [];
 }
 
@@ -175,6 +187,12 @@ export class SearchBooksResponse extends SearchMediaItemsResponse {
 	/**
 	 * The retrieved books
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedBook;
+	})
+	@ValidateNested()
 	public books: IdentifiedBook[] = [];
 }
 
@@ -221,5 +239,10 @@ export class GetBookFromCatalogResponse extends GetMediaItemFromCatalogResponse 
 	/**
 	 * The book details
 	 */
+	@IsDefined()
+	@Type(() => {
+		return CatalogBook;
+	})
+	@ValidateNested()
 	public catalogBook: CatalogBook = new CatalogBook();
 }

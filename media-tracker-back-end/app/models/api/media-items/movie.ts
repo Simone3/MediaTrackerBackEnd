@@ -94,6 +94,12 @@ export class GetAllMoviesResponse extends GetAllMediaItemsResponse {
 	/**
 	 * The retrieved movies
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedMovie;
+	})
+	@ValidateNested()
 	public movies: IdentifiedMovie[] = [];
 }
 
@@ -148,6 +154,12 @@ export class FilterMoviesResponse extends FilterMediaItemsResponse {
 	/**
 	 * The retrieved movies
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedMovie;
+	})
+	@ValidateNested()
 	public movies: IdentifiedMovie[] = [];
 }
 
@@ -175,6 +187,12 @@ export class SearchMoviesResponse extends SearchMediaItemsResponse {
 	/**
 	 * The retrieved movies
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedMovie;
+	})
+	@ValidateNested()
 	public movies: IdentifiedMovie[] = [];
 }
 
@@ -221,5 +239,10 @@ export class GetMovieFromCatalogResponse extends GetMediaItemFromCatalogResponse
 	/**
 	 * The movie details
 	 */
+	@IsDefined()
+	@Type(() => {
+		return CatalogMovie;
+	})
+	@ValidateNested()
 	public catalogMovie: CatalogMovie = new CatalogMovie();
 }

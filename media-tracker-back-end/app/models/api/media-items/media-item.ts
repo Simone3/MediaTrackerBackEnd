@@ -305,8 +305,16 @@ export abstract class CatalogMediaItem extends CoreMediaItemData {
  */
 export abstract class SearchMediaItemCatalogResult {
 
+	@IsNotEmpty()
+	@IsString()
 	public catalogId: string = '';
+	
+	@IsNotEmpty()
+	@IsString()
 	public name: string = '';
+
+	@IsOptional()
+	@IsDateString()
 	public releaseDate?: string;
 }
 
@@ -318,6 +326,12 @@ export abstract class SearchMediaItemCatalogResponse extends CommonResponse {
 	/**
 	 * The search results
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return SearchMediaItemCatalogResult;
+	})
+	@ValidateNested()
 	public searchResults: SearchMediaItemCatalogResult[] = [];
 }
 

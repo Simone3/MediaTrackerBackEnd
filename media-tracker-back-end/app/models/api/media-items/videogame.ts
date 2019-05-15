@@ -110,6 +110,12 @@ export class GetAllVideogamesResponse extends GetAllMediaItemsResponse {
 	/**
 	 * The retrieved videogames
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedVideogame;
+	})
+	@ValidateNested()
 	public videogames: IdentifiedVideogame[] = [];
 }
 
@@ -164,6 +170,12 @@ export class FilterVideogamesResponse extends FilterMediaItemsResponse {
 	/**
 	 * The retrieved videogames
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedVideogame;
+	})
+	@ValidateNested()
 	public videogames: IdentifiedVideogame[] = [];
 }
 
@@ -191,6 +203,12 @@ export class SearchVideogamesResponse extends SearchMediaItemsResponse {
 	/**
 	 * The retrieved videogames
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedVideogame;
+	})
+	@ValidateNested()
 	public videogames: IdentifiedVideogame[] = [];
 }
 
@@ -246,5 +264,10 @@ export class GetVideogameFromCatalogResponse extends GetMediaItemFromCatalogResp
 	/**
 	 * The videogame details
 	 */
+	@IsDefined()
+	@Type(() => {
+		return CatalogVideogame;
+	})
+	@ValidateNested()
 	public catalogVideogame: CatalogVideogame = new CatalogVideogame();
 }

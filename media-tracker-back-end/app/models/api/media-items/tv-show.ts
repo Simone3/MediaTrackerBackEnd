@@ -122,6 +122,12 @@ export class GetAllTvShowsResponse extends GetAllMediaItemsResponse {
 	/**
 	 * The retrieved TV shows
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedTvShow;
+	})
+	@ValidateNested()
 	public tvShows: IdentifiedTvShow[] = [];
 }
 
@@ -176,6 +182,12 @@ export class FilterTvShowsResponse extends FilterMediaItemsResponse {
 	/**
 	 * The retrieved TV shows
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedTvShow;
+	})
+	@ValidateNested()
 	public tvShows: IdentifiedTvShow[] = [];
 }
 
@@ -203,6 +215,12 @@ export class SearchTvShowsResponse extends SearchMediaItemsResponse {
 	/**
 	 * The retrieved TV shows
 	 */
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedTvShow;
+	})
+	@ValidateNested()
 	public tvShows: IdentifiedTvShow[] = [];
 }
 
@@ -277,5 +295,10 @@ export class GetTvShowFromCatalogResponse extends GetMediaItemFromCatalogRespons
 	/**
 	 * The TV show details
 	 */
+	@IsDefined()
+	@Type(() => {
+		return CatalogTvShow;
+	})
+	@ValidateNested()
 	public catalogTvShow: CatalogTvShow = new CatalogTvShow();
 }

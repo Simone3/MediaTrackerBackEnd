@@ -70,6 +70,12 @@ export class DeleteOwnPlatformResponse extends CommonResponse {
  */
 export class GetAllOwnPlatformsResponse extends CommonResponse {
 
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedOwnPlatform;
+	})
+	@ValidateNested()
 	public ownPlatforms: IdentifiedOwnPlatform[] = [];
 }
 
