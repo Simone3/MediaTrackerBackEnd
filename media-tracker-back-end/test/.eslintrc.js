@@ -21,7 +21,12 @@ module.exports = {
 		'no-console': ['off'],
 
 		// "any" is OK for tests
-		'@typescript-eslint/no-explicit-any': ['off']
+		'@typescript-eslint/no-explicit-any': ['off'],
+
+		// For JSON sources
+		'import/extensions': [ 2, {
+			'json': 'off'
+		} ]
 	}
 };
 

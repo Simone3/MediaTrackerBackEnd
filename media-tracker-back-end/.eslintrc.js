@@ -9,14 +9,22 @@ module.exports = {
 		'ecmaVersion': 6
 	},
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint', 'jsdoc'],
-	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+	plugins: [
+		'@typescript-eslint',
+		'jsdoc',
+		'import'
+	],
+	extends: [
+		'eslint:recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:import/typescript'
+	],
 	settings: {
         jsdoc: {
             allowOverrideWithoutParam: true,
             allowImplementsWithoutParam: true,
             allowAugmentsExtendsWithoutParam: true
-        }
+		}
     },
 	rules: {
 
@@ -353,7 +361,56 @@ module.exports = {
         'jsdoc/require-returns-check': 2,
         'jsdoc/require-returns-description': 2,
         // 'jsdoc/require-returns-type': 2,
-        'jsdoc/valid-types': 2
+		'jsdoc/valid-types': 2,
+		
+		/* ************* eslint-plugin-import ************* */
+		
+		'import/no-unresolved': 'off',
+		'import/named': 'off',
+		'import/default': 2,
+		'import/namespace': 2,
+		'import/no-restricted-paths': 2,
+		'import/no-absolute-path': 'off',
+		'import/no-dynamic-require': 2,
+		'import/no-internal-modules': [ 2, {
+			"allow": [ "request-promise-native/errors" ]
+		} ],
+		'import/no-webpack-loader-syntax': 'off',
+		'import/no-self-import': 'off',
+		'import/no-cycle': 'off',
+		'import/no-useless-path-segments': 'off',
+		'import/no-relative-parent-imports': 2,
+		'import/no-unused-modules': 2,
+		
+		'import/export': 2,
+		'import/no-named-as-default': 2,
+		'import/no-named-as-default-member': 2,
+		'import/no-deprecated': 2,
+		'import/no-extraneous-dependencies': 2,
+		'import/no-mutable-exports': 2,
+		'import/no-unused-modules': 2,
+		
+		'import/unambiguous': 2,
+		'import/no-commonjs': 'off',
+		'import/no-amd': 'off',
+		'import/no-nodejs-modules': 'off',
+		
+		'import/first': 2,
+		'import/exports-last': 'off',
+		'import/no-duplicates': 2,
+		'import/no-namespace': 2,
+		'import/extensions': 2,
+		'import/order': 2,
+		'import/newline-after-import': 2,
+		'import/prefer-default-export': 'off',
+		'import/max-dependencies': 'off',
+		'import/no-unassigned-import': 2,
+		'import/no-named-default': 2,
+		'import/no-default-export': 2,
+		'import/no-named-export': 'off',
+		'import/no-anonymous-default-export': 2,
+		'import/group-exports': 'off',
+		'import/dynamic-import-chunkname': 'off'
 	}
 };
 
