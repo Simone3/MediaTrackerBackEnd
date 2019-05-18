@@ -2,6 +2,7 @@ import { Populatable, Queryable, QueryHelper, Sortable, SortDirection } from 'ap
 import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
+import { ownPlatformController } from 'app/controllers/entities/own-platform';
 import { logger } from 'app/loggers/logger';
 import { AppError } from 'app/models/error/error';
 import { CategoryInternal, MediaTypeInternal } from 'app/models/internal/category';
@@ -12,7 +13,6 @@ import { OwnPlatformInternal } from 'app/models/internal/own-platform';
 import { UserInternal } from 'app/models/internal/user';
 import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model } from 'mongoose';
-import { ownPlatformController } from '../own-platform';
 
 /**
  * Abstract controller for media item entities
@@ -26,6 +26,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 	/**
 	 * Constructor
+	 * @param model the source DB model
 	 */
 	protected constructor(model: Model<TMediaItemInternal & Document>) {
 
@@ -53,6 +54,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * Gets all saved media items for the given user and category, as a promise
 	 * @param userId user ID
 	 * @param categoryId category ID
+	 * @returns the retrieved media items, as a promise
 	 */
 	public getAllMediaItems(userId: string, categoryId: string): Promise<TMediaItemInternal[]> {
 
@@ -102,7 +104,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param userId user ID
 	 * @param categoryId category ID
 	 * @param filterBy filter options
-	 * @param orderBy sort otions
+	 * @param sortBy sort otions
 	 */
 	public filterAndOrderMediaItems(userId: string, categoryId: string, filterBy?: TMediaItemFilterInternal, sortBy?: TMediaItemSortByInternal[]): Promise<TMediaItemInternal[]> {
 
@@ -159,8 +161,9 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Saves a new or an existing media item, returning it back as a promise
+	 * Saves a new or an existing media item
 	 * @param mediaItem the media item to insert or update
+	 * @returns the saved media item, as a promise
 	 */
 	public async saveMediaItem(mediaItem: TMediaItemInternal): Promise<TMediaItemInternal> {
 
@@ -177,10 +180,11 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Deletes a media item with the given ID, returning a void promise
+	 * Deletes a media item with the given ID
 	 * @param userId the user ID
 	 * @param categoryId the category ID
 	 * @param mediaItemId the media item ID
+	 * @returns the number of deleted media items, as a promise
 	 */
 	public async deleteMediaItem(userId: string, categoryId: string, mediaItemId: string): Promise<number> {
 
@@ -197,7 +201,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Delets all saved media items for the given group, returning the number of deleted elements as a promise
+	 * Delets all saved media items for the given group
 	 * @param groupId the group ID
 	 */
 	public deleteAllMediaItemsInGroup(groupId: string): Promise<number> {
@@ -209,7 +213,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Deletes all media items for the given category, returning the number of deleted elements as a promise
+	 * Deletes all media items for the given category
 	 * @param categoryId category ID
 	 */
 	public deleteAllMediaItemsInCategory(categoryId: string): Promise<number> {
@@ -221,7 +225,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Deletes all media items for the given user, returning the number of deleted elements as a promise
+	 * Deletes all media items for the given user
 	 * @param userId user ID
 	 */
 	public deleteAllMediaItemsForUser(userId: string): Promise<number> {
@@ -331,7 +335,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 	/**
 	 * Helper to get the "populate" options for linked entities
-	 * @retuns the "populate" options
+	 * @returns the "populate" options
 	 */
 	protected getPopulateAll(): Populatable<TMediaItemInternal> {
 
@@ -343,6 +347,8 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 	/**
 	 * Helper to set the query conditions based on the given filters
+	 * @param conditions the target conditions
+	 * @param filterBy the optional source filters
 	 */
 	private setConditionsFromFilter(conditions: Queryable<TMediaItemInternal>, filterBy?: TMediaItemFilterInternal): void {
 		
@@ -371,7 +377,9 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param user the user
 	 * @param category the category
 	 * @param group the group (optional)
+	 * @param ownPlatform the own platform (optional)
 	 * @param mediaItemId the media item ID (optional to use this method for new inserts)
+	 * @returns a void promise that resolves if all preconditions are OK
 	 */
 	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, group?: string | GroupInternal, ownPlatform?: string | OwnPlatformInternal, mediaItemId?: string): Promise<void> {
 

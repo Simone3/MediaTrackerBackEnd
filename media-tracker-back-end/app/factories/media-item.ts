@@ -18,9 +18,13 @@ import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, M
  */
 class ResolverHelper {
 
-	public constructor(public entityController: EntityController, public catalogController: CatalogController) {
+	public readonly entityController: EntityController;
+	public readonly catalogController: CatalogController;
 
-		// Just for parameter properties
+	public constructor(entityController: EntityController, catalogController: CatalogController) {
+
+		this.entityController = entityController;
+		this.catalogController = catalogController;
 	}
 }
 
@@ -116,7 +120,12 @@ class MediaItemFactory {
 	}
 
 	/**
-	 * Internal helper to retrieve a category from the database and resole its media item controller
+	 * Internal helper to retrieve a category from the database and resolve its media item controller
+	 * @param userId the user ID
+	 * @param categoryId the category ID
+	 * @param resolver the helper callback to produce the T instance given the retrieved category media type
+	 * @returns a promise that resolves with the correct instance of T
+	 * @template T the class of the result to be retrieved
 	 */
 	private internalFromCategoryId<T>(userId: string, categoryId: string, resolver: (mediaType: MediaTypeInternal) => T): Promise<T> {
 
@@ -142,6 +151,8 @@ class MediaItemFactory {
 
 	/**
 	 * Internal helper to link a media type to the media item controllers
+	 * @param mediaType the media type
+	 * @returns the container for the resolved controllers
 	 */
 	private internalFromMediaType(mediaType: MediaTypeInternal): ResolverHelper {
 

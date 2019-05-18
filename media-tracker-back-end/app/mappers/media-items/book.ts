@@ -85,6 +85,8 @@ class BookSortMapper extends MediaItemSortMapper<BookSortByInternal, BookSortBy>
 	
 	/**
 	 * Helper to translate the sort field enumeration
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected toExternalField(source: BookSortFieldInternal): string {
 
@@ -97,6 +99,8 @@ class BookSortMapper extends MediaItemSortMapper<BookSortByInternal, BookSortBy>
 	
 	/**
 	 * Helper to translate the sort field enumeration
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected toInternalField(source: string): BookSortFieldInternal {
 

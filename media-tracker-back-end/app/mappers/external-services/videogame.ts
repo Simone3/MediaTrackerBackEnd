@@ -85,6 +85,8 @@ class VideogameExternalDetailsServiceMapper extends ModelMapper<CatalogVideogame
 
 	/**
 	 * Helper to get the image URL
+	 * @param result the source data
+	 * @returns the possibly undefined extracted image URL
 	 */
 	private getImageUrl(result: GiantBombImage | undefined): string | undefined {
 		

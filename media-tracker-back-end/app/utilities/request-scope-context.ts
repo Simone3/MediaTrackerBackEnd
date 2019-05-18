@@ -9,6 +9,7 @@ class RequestScopeContext {
 
 	/**
 	 * The current correlation ID
+	 * @returns current correlation ID
 	 */
 	public get correlationId(): string | undefined {
 

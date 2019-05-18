@@ -9,7 +9,7 @@ class StringUtils {
 	 * @param separator the separator
 	 * @param defaultIfEmpty the default value to return if the join produces an empty result
 	 * @param properties optional object properties to evaluate: e.g. if ['name', 'description'] the method will append array[i].name if defined,
-	 *				   array[i].description if defined otherwise, or will skip the element if none is defined
+	 * array[i].description if defined otherwise, or will skip the element if none is defined
 	 * @returns the joined string or defaultIfEmpty if nothing to join
 	 * @template T the array values
 	 * @template R the value to return if nothing to join

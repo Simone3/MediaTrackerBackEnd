@@ -63,6 +63,8 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 
 	/**
 	 * Helper to get the director(s)
+	 * @param credits the source data
+	 * @returns the list of directors or undefined if none
 	 */
 	private getDirectors(credits: TmdbMovieCredits | undefined): string[] | undefined {
 

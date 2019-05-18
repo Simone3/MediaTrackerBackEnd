@@ -95,6 +95,8 @@ class TvShowSortMapper extends MediaItemSortMapper<TvShowSortByInternal, TvShowS
 	
 	/**
 	 * Helper to translate the sort field enumeration
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected toExternalField(source: TvShowSortFieldInternal): string {
 
@@ -107,6 +109,8 @@ class TvShowSortMapper extends MediaItemSortMapper<TvShowSortByInternal, TvShowS
 	
 	/**
 	 * Helper to translate the sort field enumeration
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected toInternalField(source: string): TvShowSortFieldInternal {
 

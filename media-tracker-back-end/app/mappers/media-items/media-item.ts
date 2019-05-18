@@ -17,11 +17,15 @@ export type MediaItemMapperParams = {
 
 /**
  * Abstract mapper for media items
+ * @template TMediaItemInternal the class of the internal media item entity
+ * @template TMediaItem the class of the API media item entity
  */
 export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemInternal, TMediaItem extends MediaItem> extends ModelMapper<TMediaItemInternal, TMediaItem, MediaItemMapperParams> {
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToExternal(source: MediaItemInternal): MediaItem {
 		
@@ -60,6 +64,9 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @param extraParams the required extra params
+	 * @returns the mapping target
 	 */
 	protected commonToInternal(source: MediaItem, extraParams?: MediaItemMapperParams): MediaItemInternal {
 
@@ -90,11 +97,15 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 
 /**
  * Abstract mapper for media item filters
+ * @template TMediaItemFilterInternal the class of the internal media item entity
+ * @template TMediaItemFilter the class of the API media item entity
  */
 export abstract class MediaItemFilterMapper<TMediaItemFilterInternal extends MediaItemFilterInternal, TMediaItemFilter extends MediaItemFilter> extends ModelMapper<TMediaItemFilterInternal, TMediaItemFilter, never> {
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToExternal(source: MediaItemFilterInternal): MediaItemFilter {
 
@@ -107,6 +118,8 @@ export abstract class MediaItemFilterMapper<TMediaItemFilterInternal extends Med
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToInternal(source: MediaItemFilter): MediaItemFilterInternal {
 
@@ -120,11 +133,15 @@ export abstract class MediaItemFilterMapper<TMediaItemFilterInternal extends Med
 
 /**
  * Abstract mapper for media item sort options
+ * @template TMediaItemSortByInternal the class of the internal media item entity
+ * @template TMediaItemSortBy the class of the API media item entity
  */
 export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends MediaItemSortByInternal, TMediaItemSortBy extends MediaItemSortBy> extends ModelMapper<TMediaItemSortByInternal, TMediaItemSortBy, never> {
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToExternal(source: MediaItemSortByInternal): MediaItemSortBy {
 
@@ -135,6 +152,8 @@ export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends Media
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToInternal(source: MediaItemSortBy): MediaItemSortByInternal {
 		
@@ -145,6 +164,8 @@ export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends Media
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToExternalField(source: MediaItemSortFieldInternal): string {
 
@@ -160,6 +181,8 @@ export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends Media
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToInternalField(source: MediaItemSortField): MediaItemSortFieldInternal {
 
@@ -176,11 +199,15 @@ export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends Media
 
 /**
  * Abstract mapper for media item catalog search results
+ * @template TSearchMediaItemCatalogResultInternal the class of the internal media item entity
+ * @template TSearchMediaItemCatalogResult the class of the API media item entity
  */
 export abstract class MediaItemCatalogSearchMapper<TSearchMediaItemCatalogResultInternal extends SearchMediaItemCatalogResultInternal, TSearchMediaItemCatalogResult extends SearchMediaItemCatalogResult> extends ModelMapper<TSearchMediaItemCatalogResultInternal, TSearchMediaItemCatalogResult, never> {
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToExternal(source: SearchMediaItemCatalogResultInternal): SearchMediaItemCatalogResult {
 
@@ -193,6 +220,8 @@ export abstract class MediaItemCatalogSearchMapper<TSearchMediaItemCatalogResult
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToInternal(source: SearchMediaItemCatalogResult): SearchMediaItemCatalogResultInternal {
 		
@@ -206,11 +235,15 @@ export abstract class MediaItemCatalogSearchMapper<TSearchMediaItemCatalogResult
 
 /**
  * Abstract mapper for media item catalog details
+ * @template TCatalogMediaItemInternal the class of the internal media item entity
+ * @template TCatalogMediaItem the class of the API media item entity
  */
 export abstract class MediaItemCatalogDetailsMapper<TCatalogMediaItemInternal extends CatalogMediaItemInternal, TCatalogMediaItem extends CatalogMediaItem> extends ModelMapper<TCatalogMediaItemInternal, TCatalogMediaItem, never> {
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToExternal(source: CatalogMediaItemInternal): CatalogMediaItem {
 
@@ -225,6 +258,8 @@ export abstract class MediaItemCatalogDetailsMapper<TCatalogMediaItemInternal ex
 	
 	/**
 	 * Common mapping helper for implementations
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected commonToInternal(source: CatalogMediaItem): CatalogMediaItemInternal {
 		

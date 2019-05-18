@@ -12,16 +12,21 @@ const COLLATION: CollationOptions = {
 
 /**
  * Helper controller that contains util methods for database manipulation
+ * @template TPersistedEntity the entity class
+ * @template TDocument the MongoDB document class
+ * @template TModel the MongoDB document class
  */
 export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocument extends Document & TPersistedEntity, TModel extends Model<TDocument>> {
+
+	private readonly databaseModel: TModel;
 
 	/**
 	 * Constructor
 	 * @param databaseModel the database model
 	 */
-	public constructor(private databaseModel: TModel) {
-
-		// Just for parameter property
+	public constructor(databaseModel: TModel) {
+		
+		this.databaseModel = databaseModel;
 	}
 
 	/**
@@ -29,7 +34,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	 * @param conditions optional query conditions
 	 * @param sortBy optional sort conditions
 	 * @param populate list of 'joined' columns to populate
-	 * @return a promise that will eventually contain the list of all internal model representations of the persisted elements
+	 * @returns a promise that will eventually contain the list of all internal model representations of the persisted elements
 	 */
 	public find(conditions?: Queryable<TPersistedEntity>, sortBy?: Sortable<TPersistedEntity>, populate?: Populatable<TPersistedEntity>): Promise<TPersistedEntity[]> {
 
@@ -68,7 +73,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	 * Helper to get from the database a single element of a model. If more than one element matches the conditions, an error is thrown.
 	 * @param conditions optional query conditions
 	 * @param populate list of 'joined' columns to populate
-	 * @return a promise that will eventually contain the internal model representation of the persisted element, or undefined if not found
+	 * @returns a promise that will eventually contain the internal model representation of the persisted element, or undefined if not found
 	 */
 	public findOne(conditions: Queryable<TPersistedEntity>, populate?: Populatable<TPersistedEntity>): Promise<TPersistedEntity | undefined> {
 
@@ -102,6 +107,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	 * @param internalModel the internal model that works as the data source
 	 * @param emptyDocument the empty document that will get all 'internalModel' data and will then be saved to the DB
 	 * @param uniquenessConditions if existing documents match these conditions, the new document won't be saved and an error will be thrown
+	 * @returns the persisted entity, as a promise
 	 */
 	public checkUniquenessAndSave(internalModel: TPersistedEntity, emptyDocument: TDocument, uniquenessConditions: Queryable<TPersistedEntity>): Promise<TPersistedEntity> {
 

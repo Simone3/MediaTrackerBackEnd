@@ -6,13 +6,13 @@ import { AppError } from 'app/models/error/error';
 class DateUtils {
 
 	/**
-     * Builds a possibly partial date from single numeric values. If some are missing, the last day of the month/day is taken.
+	 * Builds a possibly partial date from single numeric values. If some are missing, the last day of the month/day is taken.
 	 * Input and output are all in UTC.
-     * @param year the year
-     * @param month the optional month (1-12)
-     * @param day the optional day
+	 * @param year the year
+	 * @param month the optional month (1-12)
+	 * @param day the optional day
 	 * @returns the date
-     */
+	 */
 	public dateFromYearMonthDay(year: number, month?: number, day?: number): Date {
 		
 		if(month && (month <= 0 || month > 12)) {
@@ -53,13 +53,13 @@ class DateUtils {
 	}
 
 	/**
-     * Formats a possibly partial date-string from single numeric values. If some are missing, the last day of the month/day is taken.
+	 * Formats a possibly partial date-string from single numeric values. If some are missing, the last day of the month/day is taken.
 	 * Input and output are all in UTC.
-     * @param year the year
-     * @param month the optional month (1-12)
-     * @param day the optional day
+	 * @param year the year
+	 * @param month the optional month (1-12)
+	 * @param day the optional day
 	 * @returns the date-string
-     */
+	 */
 	public dateStringFromYearMonthDay(year: number, month?: number, day?: number): string {
 		
 		const date = this.dateFromYearMonthDay(year, month, day);
@@ -114,7 +114,7 @@ class DateUtils {
 	}
 
 	/**
-	 *  Helper to parse UTC dates with a null check
+	 * Helper to parse UTC dates with a null check
 	 * @param dateStrings the optionally undefined date strings array
 	 * @returns undefined if dateStrings is undefined, the array of parsed dates otherwise
 	 */

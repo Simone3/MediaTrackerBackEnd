@@ -64,6 +64,8 @@ export class ErrorResponse extends CommonResponse {
 
 	/**
 	 * Helper to extract the source error from the stack of AppErrors
+	 * @param error the final error
+	 * @returns the first error of the nested chain
 	 */
 	private getSourceAppError(error: AppError): AppError {
 

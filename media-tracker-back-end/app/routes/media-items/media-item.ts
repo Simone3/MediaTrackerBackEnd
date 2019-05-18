@@ -41,14 +41,20 @@ abstract class AbstractRouterBuilder {
  */
 export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemInternal, TMediaItemSortByInternal extends MediaItemSortByInternal, TMediaItemFilterInternal extends MediaItemFilterInternal> extends AbstractRouterBuilder {
 
+	private readonly mediaItemPathName: string;
+	private readonly mediaItemController: MediaItemEntityController<TMediaItemInternal, TMediaItemSortByInternal, TMediaItemFilterInternal>;
+	
 	/**
 	 * Constructor
 	 * @param mediaItemPathName the media item name to use in the API paths
 	 * @param mediaItemController the controller implementation
 	 */
-	public constructor(private mediaItemPathName: string, private mediaItemController: MediaItemEntityController<TMediaItemInternal, TMediaItemSortByInternal, TMediaItemFilterInternal>) {
+	public constructor(mediaItemPathName: string, mediaItemController: MediaItemEntityController<TMediaItemInternal, TMediaItemSortByInternal, TMediaItemFilterInternal>) {
 		
 		super();
+
+		this.mediaItemPathName = mediaItemPathName;
+		this.mediaItemController = mediaItemController;
 	}
 	
 	/**
@@ -305,14 +311,20 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
  */
 export class MediaItemCatalogRouterBuilder<TSearchMediaItemCatalogResultInternal extends SearchMediaItemCatalogResultInternal, TCatalogMediaItemInternal extends CatalogMediaItemInternal> extends AbstractRouterBuilder {
 
+	private readonly mediaItemPathName: string;
+	private readonly mediaItemCatalogController: MediaItemCatalogController<TSearchMediaItemCatalogResultInternal, TCatalogMediaItemInternal>;
+
 	/**
 	 * Constructor
 	 * @param mediaItemPathName the media item name to use in the API paths
 	 * @param mediaItemCatalogController the controller implementation
 	 */
-	public constructor(private mediaItemPathName: string, private mediaItemCatalogController: MediaItemCatalogController<TSearchMediaItemCatalogResultInternal, TCatalogMediaItemInternal>) {
+	public constructor(mediaItemPathName: string, mediaItemCatalogController: MediaItemCatalogController<TSearchMediaItemCatalogResultInternal, TCatalogMediaItemInternal>) {
 		
 		super();
+
+		this.mediaItemPathName = mediaItemPathName;
+		this.mediaItemCatalogController = mediaItemCatalogController;
 	}
 
 	/**

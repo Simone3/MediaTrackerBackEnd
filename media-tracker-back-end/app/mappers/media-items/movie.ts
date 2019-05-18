@@ -85,6 +85,8 @@ class MovieSortMapper extends MediaItemSortMapper<MovieSortByInternal, MovieSort
 	
 	/**
 	 * Helper to translate the sort field enumeration
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected toExternalField(source: MovieSortFieldInternal): string {
 
@@ -97,6 +99,8 @@ class MovieSortMapper extends MediaItemSortMapper<MovieSortByInternal, MovieSort
 	
 	/**
 	 * Helper to translate the sort field enumeration
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected toInternalField(source: string): MovieSortFieldInternal {
 

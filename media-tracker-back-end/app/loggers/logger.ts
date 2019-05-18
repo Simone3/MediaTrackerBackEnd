@@ -56,7 +56,9 @@ class MediaTrackerLogger {
 	}
 
 	/**
-	 * Writes a debug message if debug is enabled, with optional %s arguments
+	 * Writes a debug message if debug is enabled
+	 * @param message the log message, with optional %s placeholders
+	 * @param args the optional arguments for the placeholders
 	 */
 	public debug(message: string, ...args: unknown[]): void {
 		
@@ -67,7 +69,9 @@ class MediaTrackerLogger {
 	}
 	
 	/**
-	 * Writes an info message if info is enabled, with optional %s arguments
+	 * Writes an info message if info is enabled
+	 * @param message the log message, with optional %s placeholders
+	 * @param args the optional arguments for the placeholders
 	 */
 	public info(message: string, ...args: unknown[]): void {
 
@@ -78,7 +82,9 @@ class MediaTrackerLogger {
 	}
 
 	/**
-	 * Writes an error message if error is enabled, with optional %s arguments
+	 * Writes an error message if error is enabled
+	 * @param message the log message, with optional %s placeholders
+	 * @param args the optional arguments for the placeholders
 	 */
 	public error(message: string, ...args: unknown[]): void{
 		
@@ -111,6 +117,8 @@ class MediaTrackerLogger {
 
 	/**
 	 * Internal helper to write objects as JSON strings
+	 * @param args the arguments for the placeholders
+	 * @returns the resulting array of string values
 	 */
 	private stringify(args: unknown[]): string[] {
 

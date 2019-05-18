@@ -89,6 +89,8 @@ class VideogameSortMapper extends MediaItemSortMapper<VideogameSortByInternal, V
 	
 	/**
 	 * Helper to translate the sort field enumeration
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected toExternalField(source: VideogameSortFieldInternal): string {
 
@@ -101,6 +103,8 @@ class VideogameSortMapper extends MediaItemSortMapper<VideogameSortByInternal, V
 	
 	/**
 	 * Helper to translate the sort field enumeration
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	protected toInternalField(source: string): VideogameSortFieldInternal {
 

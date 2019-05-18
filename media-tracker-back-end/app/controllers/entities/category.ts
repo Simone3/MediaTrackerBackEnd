@@ -83,6 +83,7 @@ class CategoryController extends AbstractEntityController {
 	/**
 	 * Saves a new or an existing category, returning it back as a promise
 	 * @param category the category to insert or update
+	 * @returns the saved category, as a promise
 	 */
 	public async saveCategory(category: CategoryInternal): Promise<CategoryInternal> {
 		
@@ -100,6 +101,7 @@ class CategoryController extends AbstractEntityController {
 	 * Deletes a category with the given ID, returning a promise with the number of deleted elements
 	 * @param userId the user ID
 	 * @param categoryId the category ID
+	 * @returns the number of deleted categories, as a promise
 	 */
 	public async deleteCategory(userId: string, categoryId: string): Promise<number> {
 
@@ -134,6 +136,8 @@ class CategoryController extends AbstractEntityController {
 	 * @param errorToThow error to throw if the preconditions fail
 	 * @param user the user
 	 * @param categoryId the category ID (optional to use this method for new inserts)
+	 * @param newCategoryData the new data that will be saved if preconditions are OK (optional to use this method for deletes)
+	 * @returns a void promise that resolves if all preconditions are OK
 	 */
 	private async checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, categoryId?: string, newCategoryData?: CategoryInternal): Promise<void> {
 

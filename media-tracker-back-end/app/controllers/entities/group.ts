@@ -85,6 +85,7 @@ class GroupController extends AbstractEntityController {
 	/**
 	 * Saves a new or an existing group, returning it back as a promise
 	 * @param group the group to insert or update
+	 * @returns the saved group, as a promise
 	 */
 	public async saveGroup(group: GroupInternal): Promise<GroupInternal> {
 
@@ -151,6 +152,7 @@ class GroupController extends AbstractEntityController {
 	 * @param user the user
 	 * @param category the category
 	 * @param groupId the group ID (optional to use this method for new inserts)
+	 * @returns a promise that resolves if all preconditions are OK
 	 */
 	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, groupId?: string): Promise<void> {
 

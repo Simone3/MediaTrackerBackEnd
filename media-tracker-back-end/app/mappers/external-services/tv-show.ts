@@ -74,6 +74,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 	/**
 	 * Helper to get the next episode air date
 	 * @param currentSeasonData the current season data
+	 * @returns the possibly undefined extracted air date
 	 */
 	private getNextEpisodeAirDate(currentSeasonData?: TmdbTvShowSeasonDataResponse): Date | undefined {
 
@@ -108,6 +109,8 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 
 	/**
 	 * Helper to get the average episode runtime
+	 * @param runtimes all source runtimes
+	 * @returns the possibly undefined average runtime
 	 */
 	private getAverageEpisodeRuntime(runtimes: number[] | undefined): number | undefined {
 

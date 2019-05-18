@@ -8,6 +8,11 @@ const expect = chai.expect;
 
 /**
  * Helper to call an API with basic response assertions
+ * @param method the HTTP method
+ * @param path the endpoint
+ * @param request the optional request body
+ * @param extectedStatus the expected status (defaults to 200)
+ * @returns a promise containing the response body, as an object
  */
 export const callHelper = async(method: HttpMethod, path: string, request?: object, extectedStatus?: number): Promise<any> => {
 

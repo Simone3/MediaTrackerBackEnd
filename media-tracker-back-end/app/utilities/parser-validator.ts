@@ -10,6 +10,7 @@ class ParserValidator {
 	 * @param classType the class containing the object fields, with optional validation annotations
 	 * @param source the source raw object
 	 * @returns the parsed object, as a promise
+	 * @template T the class to parse
 	 */
 	public parseAndValidate<T extends object>(classType: ClassType<T>, source: object): Promise<T> {
 
@@ -17,7 +18,8 @@ class ParserValidator {
 	}
 
 	/**
-	 * Helper to get the transfor-validation options
+	 * Helper to get the transform-validation options
+	 * @returns the transform-validation options
 	 */
 	private getDefaultTransformValidationOptions(): TransformValidationOptions {
 

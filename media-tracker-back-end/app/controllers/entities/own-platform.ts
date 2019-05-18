@@ -85,6 +85,7 @@ class OwnPlatformController extends AbstractEntityController {
 	/**
 	 * Saves a new or an existing own platform, returning it back as a promise
 	 * @param ownPlatform the own platform to insert or update
+	 * @returns the saved own platform, as a promise
 	 */
 	public async saveOwnPlatform(ownPlatform: OwnPlatformInternal): Promise<OwnPlatformInternal> {
 
@@ -198,6 +199,7 @@ class OwnPlatformController extends AbstractEntityController {
 	 * @param user the user
 	 * @param category the category
 	 * @param ownPlatformId the own platform ID (optional to use this method for new inserts)
+	 * @returns a promise that resolves if all preconditions are OK
 	 */
 	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, ownPlatformId?: string): Promise<void> {
 

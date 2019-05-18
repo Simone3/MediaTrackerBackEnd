@@ -48,6 +48,8 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 
 	/**
 	 * Helper to translate the media type enumeration
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	private toExternalMediaType(source: MediaTypeInternal): MediaType {
 
@@ -63,6 +65,8 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 
 	/**
 	 * Helper to translate the media type enumeration
+	 * @param source the mapping source
+	 * @returns the mapping target
 	 */
 	private toInternalMediaType(source: MediaType): MediaTypeInternal {
 

@@ -15,10 +15,9 @@ export class RestJsonInvoker {
 
 	/**
 	 * Invokes a JSON-based GET external service
-	 * @param url the endpoint
-	 * @param responseBodyClass the response class, with validators defined as annotations
-	 * @param queryParams optional query parameters
+	 * @param parameters the method parameters container
 	 * @returns a promise that will eventually contain the parsed response body
+	 * @template TResponse the response class
 	 */
 	public invokeGet<TResponse extends object>(parameters: InvocationParamsWithoutBody<TResponse>): Promise<TResponse> {
 
@@ -30,11 +29,10 @@ export class RestJsonInvoker {
 
 	/**
 	 * Invokes a JSON-based POST external service
-	 * @param url the endpoint
-	 * @param requestBody the request body
-	 * @param responseBodyClass the response class, with validators defined as annotations
-	 * @param queryParams optional query parameters
+	 * @param parameters the method parameters container
 	 * @returns a promise that will eventually contain the parsed response body
+	 * @template TRequest the request class
+	 * @template TResponse the response class
 	 */
 	public invokePost<TRequest extends object, TResponse extends object>(parameters: InvocationParamsWithBody<TRequest, TResponse>): Promise<TResponse> {
 
@@ -46,6 +44,10 @@ export class RestJsonInvoker {
 
 	/**
 	 * Internal helper
+	 * @param parameters the method parameters container
+	 * @returns the 200 service response, as a promise
+	 * @template TRequest the request class
+	 * @template TResponse the response class
 	 */
 	private invokeHelper<TRequest extends object, TResponse extends object>(parameters: InternalInvocationParams<TRequest, TResponse>): Promise<TResponse> {
 
@@ -93,6 +95,9 @@ export class RestJsonInvoker {
 	
 	/**
 	 * Helper to transform a request() error into an AppError
+	 * @param requestOptions the invocation data
+	 * @param error any error that occurs
+	 * @returns an AppError that wraps the given error
 	 */
 	private invocationErrorToAppError(requestOptions: UrlOptions & RequestPromiseOptions, error: unknown): AppError {
 
@@ -115,6 +120,7 @@ export class RestJsonInvoker {
 
 	/**
 	 * Helper to log the invocation request
+	 * @param requestOptions the invocation data
 	 */
 	private logRequest(requestOptions: UrlOptions & RequestPromiseOptions): void {
 
@@ -126,6 +132,8 @@ export class RestJsonInvoker {
 
 	/**
 	 * Helper to log the invocation response
+	 * @param requestOptions the invocation data
+	 * @param response the servive response
 	 */
 	private logResponse(requestOptions: UrlOptions & RequestPromiseOptions, response: unknown): void {
 

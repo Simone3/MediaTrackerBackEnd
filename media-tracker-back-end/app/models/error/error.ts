@@ -32,6 +32,7 @@ export class AppError extends Error {
 
 	/**
 	 * The error code
+	 * @returns the error code
 	 */
 	public get errorCode(): string {
 
@@ -40,6 +41,7 @@ export class AppError extends Error {
 
 	/**
 	 * The error description
+	 * @returns the error description
 	 */
 	public get errorDescription(): string {
 
@@ -48,6 +50,7 @@ export class AppError extends Error {
 
 	/**
 	 * The optional error details
+	 * @returns the optional error details
 	 */
 	public get errorDetails(): string | AppError | undefined {
 
@@ -56,8 +59,10 @@ export class AppError extends Error {
 
 	/**
 	 * Adds details to an error constant
+	 * @param errorDetails the error details
+	 * @returns a new AppError with the given details
 	 */
-	public withDetails(errorDetails?: unknown): AppError {
+	public withDetails(errorDetails: unknown): AppError {
 
 		let convertedErrorDetails: string | AppError;
 		if(errorDetails) {

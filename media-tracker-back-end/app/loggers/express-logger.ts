@@ -6,6 +6,9 @@ import uuid from 'uuid';
 
 /**
  * Express middleware to set request-scoped context information
+ * @param _ unused
+ * @param __ unused
+ * @param next the next callback
  */
 export const logCorrelationMiddleware: RequestHandler = (_, __, next): void => {
 	
@@ -15,6 +18,9 @@ export const logCorrelationMiddleware: RequestHandler = (_, __, next): void => {
 
 /**
  * Express middleware to log API requests
+ * @param req the Extress request
+ * @param _ unused
+ * @param next the next callback
  */
 export const requestLoggerMiddleware: RequestHandler = (req, _, next): void => {
 	

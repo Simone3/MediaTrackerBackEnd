@@ -27,6 +27,7 @@ export const setupTestServer = (): void => {
 
 /**
  * Getter for the current test server
+ * @returns the test server instance
  */
 export const getTestServer = (): any => {
 

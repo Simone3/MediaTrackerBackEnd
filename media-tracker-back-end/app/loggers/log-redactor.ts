@@ -20,6 +20,8 @@ class LogRedactor {
 
 	/**
 	 * Takes a value and transforms it into a string, removing defined redacted values
+	 * @param value the value of any type to transform
+	 * @returns the resulting string
 	 */
 	public processAndStringify(value: unknown): string {
 		

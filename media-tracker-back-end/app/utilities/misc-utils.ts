@@ -12,6 +12,8 @@ class MiscUtils {
 
 	/**
 	 * Helper to RegExp-escape a string
+	 * @param string the source string, optionally containing RegExp characters
+	 * @returns the sanitized string
 	 */
 	public escapeRegExp(string: string): string {
 
@@ -22,6 +24,7 @@ class MiscUtils {
 	 * Helper to build a URL
 	 * @param urlParts list of URL parts to be appended in order
 	 * @param pathParams optional path params to replace in the full URL (the URL string must contain them in the ':' notation, e.g. http://mywebsite.com/:myPathParam/mypage)
+	 * @returns the final URL
 	 */
 	public buildUrl(urlParts: string[], pathParams?: PathParams): string {
 
@@ -67,6 +70,8 @@ class MiscUtils {
 
 	/**
 	 * Parses a boolean from a value of any type (e.g. the string 'false' maps to the boolean false)
+	 * @param value any value
+	 * @returns the corresponding boolean value
 	 */
 	public parseBoolean(value: unknown): boolean {
 

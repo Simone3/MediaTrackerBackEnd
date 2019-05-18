@@ -10,6 +10,8 @@ class DatabaseManager {
 
 	/**
 	 * Initializes the database connection
+	 * @param databaseUrl the database URL
+	 * @returns a void promise that resolves when connection is ready
 	 */
 	public initConnection(databaseUrl: string): Promise<void> {
 		
@@ -49,6 +51,7 @@ class DatabaseManager {
 
 	/**
 	 * Closes the database connection
+	 * @returns a void promise that resolves when connection is closed
 	 */
 	public closeConnection(): Promise<void> {
 

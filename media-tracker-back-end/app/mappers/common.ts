@@ -11,6 +11,9 @@ export abstract class ModelMapper<TInternal, TExternal, TParams> {
 
 	/**
 	 * Transforms a list of internal models into a list of external models
+	 * @param sources the mapping sources
+	 * @param extraParams the optional additional mapping parameters
+	 * @returns the mapping targets
 	 */
 	public toExternalList(sources: TInternal[], extraParams?: TParams): TExternal[] {
 
@@ -22,6 +25,9 @@ export abstract class ModelMapper<TInternal, TExternal, TParams> {
 
 	/**
 	 * Transforms a list of external models into a list of internal models
+	 * @param sources the mapping sources
+	 * @param extraParams the optional additional mapping parameters
+	 * @returns the mapping targets
 	 */
 	public toInternalList(sources: TExternal[], extraParams?: TParams): TInternal[] {
 
@@ -33,6 +39,9 @@ export abstract class ModelMapper<TInternal, TExternal, TParams> {
 
 	/**
 	 * Transforms a an internal model into an external model
+	 * @param source the mapping source
+	 * @param extraParams the optional additional mapping parameters
+	 * @returns the mapping target
 	 */
 	public toExternal(source: TInternal, extraParams?: TParams): TExternal {
 
@@ -43,6 +52,9 @@ export abstract class ModelMapper<TInternal, TExternal, TParams> {
 
 	/**
 	 * Transforms a an external model into an internal model
+	 * @param source the mapping source
+	 * @param extraParams the optional additional mapping parameters
+	 * @returns the mapping target
 	 */
 	public toInternal(source: TExternal, extraParams?: TParams): TInternal {
 
@@ -53,16 +65,24 @@ export abstract class ModelMapper<TInternal, TExternal, TParams> {
 
 	/**
 	 * For subclasses, to actually implement the internal to external conversion
+	 * @param source the mapping source
+	 * @param extraParams the optional additional mapping parameters
+	 * @returns the mapping target
 	 */
 	protected abstract convertToExternal(source: TInternal, extraParams?: TParams): TExternal;
 
 	/**
 	 * For subclasses, to actually implement the external to internal conversion
+	 * @param source the mapping source
+	 * @param extraParams the optional additional mapping parameters
+	 * @returns the mapping target
 	 */
 	protected abstract convertToInternal(source: TExternal, extraParams?: TParams): TInternal;
 
 	/**
 	 * Helper to log source and target of a mapping
+	 * @param source the mapping source
+	 * @param target the mapping target
 	 */
 	private logMapping(source: unknown, target: unknown): void {
 

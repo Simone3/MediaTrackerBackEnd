@@ -62,6 +62,8 @@ class BookExternalDetailsServiceMapper extends ModelMapper<CatalogBookInternal, 
 
 	/**
 	 * Helper to get the image URL
+	 * @param volumeInfo the source volue info
+	 * @returns the possibly undefined extracted image URL
 	 */
 	private getImageUrl(volumeInfo: GoogleBooksVolumeFull): string | undefined {
 		
