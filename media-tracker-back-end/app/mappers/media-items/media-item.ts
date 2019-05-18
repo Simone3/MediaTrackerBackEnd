@@ -1,11 +1,11 @@
 import { ModelMapper } from 'app/mappers/common';
+import { groupMapper } from 'app/mappers/group';
+import { ownPlatformMapper } from 'app/mappers/own-platform';
 import { CatalogMediaItem, MediaItem, MediaItemFilter, MediaItemSortBy, MediaItemSortField, SearchMediaItemCatalogResult } from 'app/models/api/media-items/media-item';
 import { AppError } from 'app/models/error/error';
 import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
 import { dateUtils } from 'app/utilities/date-utils';
 import { miscUtils } from 'app/utilities/misc-utils';
-import { groupMapper } from '../group';
-import { ownPlatformMapper } from '../own-platform';
 
 /**
  * Helper type

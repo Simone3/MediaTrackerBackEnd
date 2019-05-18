@@ -1,4 +1,4 @@
-import { Config } from 'app/config/config-type';
+import { Config } from 'app/config/type-config';
 
 /**
  * Configuration for automatic testing (unit and integration)

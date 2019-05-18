@@ -1,8 +1,8 @@
 import { CommonAddResponse, CommonRequest, CommonResponse, CommonSaveRequest } from 'app/models/api/common';
+import { Group } from 'app/models/api/group';
+import { OwnPlatform } from 'app/models/api/own-platform';
 import { Type } from 'class-transformer';
 import { IsBoolean, IsDateString, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
-import { Group } from '../group';
-import { OwnPlatform } from '../own-platform';
 
 /**
  * Util class to extract common fields to both media item entities and catalog entries

@@ -2,9 +2,9 @@
 import { config } from 'app/config/config';
 import { databaseManager } from 'app/controllers/database/database-manager';
 import { finalizeAndCloseAllLoggers, logger } from 'app/loggers/logger';
+import { AppError } from 'app/models/error/error';
 import { server } from 'app/server/server';
 import exitHook from 'exit-hook';
-import { AppError } from './models/error/error';
 
 /**
  * Initializes the application

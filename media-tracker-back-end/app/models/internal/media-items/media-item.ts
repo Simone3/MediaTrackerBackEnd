@@ -1,8 +1,8 @@
 import { CategoryInternal } from 'app/models/internal/category';
 import { PersistedEntityInternal } from 'app/models/internal/common';
 import { GroupInternal } from 'app/models/internal/group';
+import { OwnPlatformInternal } from 'app/models/internal/own-platform';
 import { UserInternal } from 'app/models/internal/user';
-import { OwnPlatformInternal } from '../own-platform';
 
 /**
  * Util type to extract common fields to both media item entities and catalog entries
