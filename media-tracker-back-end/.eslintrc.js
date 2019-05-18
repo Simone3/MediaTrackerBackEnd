@@ -9,8 +9,15 @@ module.exports = {
 		'ecmaVersion': 6
 	},
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint'],
+	plugins: ['@typescript-eslint', 'jsdoc'],
 	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+	settings: {
+        jsdoc: {
+            allowOverrideWithoutParam: true,
+            allowImplementsWithoutParam: true,
+            allowAugmentsExtendsWithoutParam: true
+        }
+    },
 	rules: {
 
 		/* ************* @typescript-eslint ************* */
@@ -320,7 +327,33 @@ module.exports = {
 		// }],
 		'symbol-description': 2,
 		'template-curly-spacing': [ 2, 'never' ],
-		'yield-star-spacing': [ 2, { before: true, after: true }]
+		'yield-star-spacing': [ 2, { before: true, after: true }],
+
+
+		/* ************* eslint-plugin-jsdoc ************* */
+
+		'jsdoc/check-alignment': 2,
+        'jsdoc/check-examples': 2,
+        'jsdoc/check-indentation': 2,
+        'jsdoc/check-param-names': 2,
+        'jsdoc/check-syntax': 2,
+        'jsdoc/check-tag-names': 2,
+        'jsdoc/check-types': 2,
+        'jsdoc/newline-after-description': [2, 'never'],
+        'jsdoc/no-undefined-types': 2,
+        // 'jsdoc/require-description': 2,
+        // 'jsdoc/require-description-complete-sentence': 2,
+        // 'jsdoc/require-example': 2,
+        'jsdoc/require-hyphen-before-param-description': [2, 'never'],
+        'jsdoc/require-param': 2,
+        'jsdoc/require-param-description': 2,
+        'jsdoc/require-param-name': 2,
+        // 'jsdoc/require-param-type': 2,
+        'jsdoc/require-returns': 2,
+        'jsdoc/require-returns-check': 2,
+        'jsdoc/require-returns-description': 2,
+        // 'jsdoc/require-returns-type': 2,
+        'jsdoc/valid-types': 2
 	}
 };
 
