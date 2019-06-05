@@ -1,9 +1,9 @@
 
 import { categoryController } from 'app/controllers/entities/category';
+import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
 import { categoryMapper } from 'app/mappers/category';
 import { AddCategoryRequest, AddCategoryResponse, DeleteCategoryResponse, GetAllCategoriesResponse, UpdateCategoryRequest, UpdateCategoryResponse } from 'app/models/api/category';
-import { ErrorResponse } from 'app/models/api/common';
 import { AppError } from 'app/models/error/error';
 import { parserValidator } from 'app/utilities/parser-validator';
 import express, { Router } from 'express';
@@ -29,7 +29,7 @@ router.get('/users/:userId/categories', (request, response) => {
 		.catch((error) => {
 
 			logger.error('Get categories generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 		});
 });
 
@@ -57,13 +57,13 @@ router.post('/users/:userId/categories', (request, response) => {
 				.catch((error) => {
 
 					logger.error('Add category generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Add category request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -91,13 +91,13 @@ router.put('/users/:userId/categories/:id', (request, response) => {
 				.catch((error) => {
 
 					logger.error('Update category generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Update category request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -121,7 +121,7 @@ router.delete('/users/:userId/categories/:id', (request, response) => {
 		.catch((error) => {
 
 			logger.error('Delete category generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 		});
 });
 

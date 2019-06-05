@@ -1,7 +1,7 @@
 import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
+import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
-import { ErrorResponse } from 'app/models/api/common';
 import { AddMediaItemRequest, AddMediaItemResponse, DeleteMediaItemResponse, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, SearchMediaItemCatalogResponse, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest, UpdateMediaItemResponse } from 'app/models/api/media-items/media-item';
 import { AppError } from 'app/models/error/error';
 import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
@@ -82,7 +82,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 				.catch((error) => {
 
 					logger.error('Get media items generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		});
 	}
@@ -125,13 +125,13 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 						.catch((error) => {
 
 							logger.error('Filter media items generic error: %s', error);
-							response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+							response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 						});
 				})
 				.catch((error) => {
 
 					logger.error('Filter media items request error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 				});
 		});
 	}
@@ -172,13 +172,13 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 						.catch((error) => {
 
 							logger.error('Search media items generic error: %s', error);
-							response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+							response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 						});
 				})
 				.catch((error) => {
 
 					logger.error('Search media items request error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 				});
 		});
 	}
@@ -218,13 +218,13 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 						.catch((error) => {
 
 							logger.error('Add media item generic error: %s', error);
-							response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+							response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 						});
 				})
 				.catch((error) => {
 
 					logger.error('Add media item request error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 				});
 		});
 	}
@@ -264,13 +264,13 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 						.catch((error) => {
 							
 							logger.error('Update media item generic error: %s', error);
-							response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+							response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 						});
 				})
 				.catch((error) => {
 
 					logger.error('Update media item request error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 				});
 		});
 	}
@@ -298,7 +298,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 				.catch((error) => {
 
 					logger.error('Delete media item generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		});
 	}
@@ -351,7 +351,7 @@ export class MediaItemCatalogRouterBuilder<TSearchMediaItemCatalogResultInternal
 				.catch((error) => {
 
 					logger.error('Media item catalog search generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		});
 	}
@@ -380,7 +380,7 @@ export class MediaItemCatalogRouterBuilder<TSearchMediaItemCatalogResultInternal
 				.catch((error) => {
 
 					logger.error('Media item catalog details generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		});
 	}

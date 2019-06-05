@@ -1,8 +1,8 @@
 
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
+import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
 import { ownPlatformMapper } from 'app/mappers/own-platform';
-import { ErrorResponse } from 'app/models/api/common';
 import { AddOwnPlatformRequest, AddOwnPlatformResponse, DeleteOwnPlatformResponse, GetAllOwnPlatformsResponse, MergeOwnPlatformsRequest, MergeOwnPlatformsResponse, UpdateOwnPlatformRequest, UpdateOwnPlatformResponse } from 'app/models/api/own-platform';
 import { AppError } from 'app/models/error/error';
 import { parserValidator } from 'app/utilities/parser-validator';
@@ -30,7 +30,7 @@ router.get('/users/:userId/categories/:categoryId/own-platforms', (request, resp
 		.catch((error) => {
 
 			logger.error('Get own platforms generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 		});
 });
 
@@ -59,13 +59,13 @@ router.post('/users/:userId/categories/:categoryId/own-platforms', (request, res
 				.catch((error) => {
 
 					logger.error('Add own platform generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Add own platform request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -93,13 +93,13 @@ router.put('/users/:userId/categories/:categoryId/own-platforms/merge', (request
 				.catch((error) => {
 
 					logger.error('Merge own platforms generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Merge own platforms request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -128,13 +128,13 @@ router.put('/users/:userId/categories/:categoryId/own-platforms/:id', (request, 
 				.catch((error) => {
 
 					logger.error('Update own platform generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Update own platform request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -159,7 +159,7 @@ router.delete('/users/:userId/categories/:categoryId/own-platforms/:id', (reques
 		.catch((error) => {
 
 			logger.error('Delete own platform generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 		});
 });
 

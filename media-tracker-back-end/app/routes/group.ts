@@ -1,8 +1,8 @@
 
 import { groupController } from 'app/controllers/entities/group';
+import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
 import { groupMapper } from 'app/mappers/group';
-import { ErrorResponse } from 'app/models/api/common';
 import { AddGroupRequest, AddGroupResponse, DeleteGroupResponse, GetAllGroupsResponse, UpdateGroupRequest, UpdateGroupResponse } from 'app/models/api/group';
 import { AppError } from 'app/models/error/error';
 import { parserValidator } from 'app/utilities/parser-validator';
@@ -30,7 +30,7 @@ router.get('/users/:userId/categories/:categoryId/groups', (request, response) =
 		.catch((error) => {
 
 			logger.error('Get groups generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 		});
 });
 
@@ -59,13 +59,13 @@ router.post('/users/:userId/categories/:categoryId/groups', (request, response) 
 				.catch((error) => {
 
 					logger.error('Add group generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Add group request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -94,13 +94,13 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
 				.catch((error) => {
 
 					logger.error('Update group generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Update group request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -125,7 +125,7 @@ router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, resp
 		.catch((error) => {
 
 			logger.error('Delete group generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 		});
 });
 

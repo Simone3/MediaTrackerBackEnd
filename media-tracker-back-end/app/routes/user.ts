@@ -1,8 +1,8 @@
 
 import { userController } from 'app/controllers/entities/user';
+import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
 import { userMapper } from 'app/mappers/user';
-import { ErrorResponse } from 'app/models/api/common';
 import { AddUserRequest, AddUserResponse, DeleteUserResponse, UpdateUserRequest, UpdateUserResponse } from 'app/models/api/user';
 import { AppError } from 'app/models/error/error';
 import { parserValidator } from 'app/utilities/parser-validator';
@@ -32,13 +32,13 @@ router.post('/users', (request, response) => {
 				.catch((error) => {
 
 					logger.error('Add user generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Add user request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -65,13 +65,13 @@ router.put('/users/:id', (request, response) => {
 				.catch((error) => {
 
 					logger.error('Update user generic error: %s', error);
-					response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 				});
 		})
 		.catch((error) => {
 
 			logger.error('Update user request error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.INVALID_REQUEST.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 
@@ -94,7 +94,7 @@ router.delete('/users/:id', (request, response) => {
 		.catch((error) => {
 
 			logger.error('Delete user generic error: %s', error);
-			response.status(500).json(new ErrorResponse(AppError.GENERIC.withDetails(error)));
+			response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
 		});
 });
 

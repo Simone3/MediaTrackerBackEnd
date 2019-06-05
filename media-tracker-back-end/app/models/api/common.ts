@@ -1,4 +1,3 @@
-import { AppError } from 'app/models/error/error';
 import { IsDefined, IsOptional, IsString } from 'class-validator';
 
 /**
@@ -49,34 +48,17 @@ export class ErrorResponse extends CommonResponse {
 	
 	/**
 	 * Constructor
-	 * @param error the source error object
+	 * @param errorCode source code
+	 * @param errorDescription source description
+	 * @param errorDetails source details
 	 */
-	public constructor(error: AppError) {
+	public constructor(errorCode: string, errorDescription: string, errorDetails?: string) {
 
 		super();
 
-		const sourceError = this.getSourceAppError(error);
-		
-		this.errorCode = sourceError.errorCode;
-		this.errorDescription = sourceError.errorDescription;
-		this.errorDetails = sourceError.errorDetails as string;
-	}
-
-	/**
-	 * Helper to extract the source error from the stack of AppErrors
-	 * @param error the final error
-	 * @returns the first error of the nested chain
-	 */
-	private getSourceAppError(error: AppError): AppError {
-
-		let currentError: AppError = error;
-
-		while(currentError.errorDetails && currentError.errorDetails instanceof AppError) {
-
-			currentError = currentError.errorDetails as AppError;
-		}
-
-		return currentError;
+		this.errorCode = errorCode;
+		this.errorDescription = errorDescription;
+		this.errorDetails = errorDetails;
 	}
 }
 
