@@ -71,7 +71,7 @@
     "express-http-context": "^1.2.2",
     "express-mung": "^0.5.1",
     "log4js": "^4.1.0",
-    "mongoose": "^5.5.5",
+    "mongoose": "^5.7.5",
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
