@@ -1,11 +1,11 @@
 import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query-helper';
 import { categoryController } from 'app/controllers/entities/category';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
+import { AppError } from 'app/data/models/error/error';
+import { CategoryInternal } from 'app/data/models/internal/category';
+import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
+import { UserInternal } from 'app/data/models/internal/user';
 import { mediaItemFactory } from 'app/factories/media-item';
-import { AppError } from 'app/models/error/error';
-import { CategoryInternal } from 'app/models/internal/category';
-import { OwnPlatformInternal } from 'app/models/internal/own-platform';
-import { UserInternal } from 'app/models/internal/user';
 import { OwnPlatformSchema, OWN_PLATFORM_COLLECTION_NAME } from 'app/schemas/own-platform';
 import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model, model } from 'mongoose';

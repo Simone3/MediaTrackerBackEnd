@@ -1,6 +1,6 @@
+import { AppError } from 'app/data/models/error/error';
 import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
-import { AppError } from 'app/models/error/error';
 import express, { Response, Router } from 'express';
 
 const router: Router = express.Router();

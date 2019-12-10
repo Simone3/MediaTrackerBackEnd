@@ -1,5 +1,5 @@
-import { ErrorResponse } from 'app/models/api/common';
-import { AppError } from 'app/models/error/error';
+import { ErrorResponse } from 'app/data/models/api/common';
+import { AppError } from 'app/data/models/error/error';
 
 /**
  * Helper factory to build an ErrorResponse object. A factory was chosen instead of a constructor to keep the model class

@@ -1,15 +1,15 @@
 import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
 import { userController } from 'app/controllers/entities/user';
-import { CategoryInternal, MediaTypeInternal } from 'app/models/internal/category';
-import { GroupInternal } from 'app/models/internal/group';
-import { BookInternal } from 'app/models/internal/media-items/book';
-import { MediaItemInternal } from 'app/models/internal/media-items/media-item';
-import { MovieInternal } from 'app/models/internal/media-items/movie';
-import { TvShowInternal } from 'app/models/internal/media-items/tv-show';
-import { VideogameInternal } from 'app/models/internal/media-items/videogame';
-import { OwnPlatformInternal } from 'app/models/internal/own-platform';
-import { UserInternal } from 'app/models/internal/user';
+import { CategoryInternal, MediaTypeInternal } from 'app/data/models/internal/category';
+import { GroupInternal } from 'app/data/models/internal/group';
+import { BookInternal } from 'app/data/models/internal/media-items/book';
+import { MediaItemInternal } from 'app/data/models/internal/media-items/media-item';
+import { MovieInternal } from 'app/data/models/internal/media-items/movie';
+import { TvShowInternal } from 'app/data/models/internal/media-items/tv-show';
+import { VideogameInternal } from 'app/data/models/internal/media-items/videogame';
+import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
+import { UserInternal } from 'app/data/models/internal/user';
 import { randomName } from 'test/helpers/test-misc-helper';
 
 export type TestU = {

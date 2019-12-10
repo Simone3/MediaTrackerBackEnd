@@ -1,10 +1,10 @@
 
 import { userController } from 'app/controllers/entities/user';
+import { userMapper } from 'app/data/mappers/user';
+import { AddUserRequest, AddUserResponse, DeleteUserResponse, UpdateUserRequest, UpdateUserResponse } from 'app/data/models/api/user';
+import { AppError } from 'app/data/models/error/error';
 import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
-import { userMapper } from 'app/mappers/user';
-import { AddUserRequest, AddUserResponse, DeleteUserResponse, UpdateUserRequest, UpdateUserResponse } from 'app/models/api/user';
-import { AppError } from 'app/models/error/error';
 import { parserValidator } from 'app/utilities/parser-validator';
 import express, { Router } from 'express';
 

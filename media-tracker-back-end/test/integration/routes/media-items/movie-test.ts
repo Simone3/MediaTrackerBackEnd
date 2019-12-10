@@ -1,8 +1,8 @@
 import { movieEntityController } from 'app/controllers/entities/media-items/movie';
-import { IdentifiedGroup } from 'app/models/api/group';
-import { CatalogMovie, IdentifiedMovie } from 'app/models/api/media-items/movie';
-import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
-import { MovieInternal } from 'app/models/internal/media-items/movie';
+import { IdentifiedGroup } from 'app/data/models/api/group';
+import { CatalogMovie, IdentifiedMovie } from 'app/data/models/api/media-items/movie';
+import { IdentifiedOwnPlatform } from 'app/data/models/api/own-platform';
+import { MovieInternal } from 'app/data/models/internal/media-items/movie';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';

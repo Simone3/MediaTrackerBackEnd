@@ -1,10 +1,10 @@
 
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
+import { ownPlatformMapper } from 'app/data/mappers/own-platform';
+import { AddOwnPlatformRequest, AddOwnPlatformResponse, DeleteOwnPlatformResponse, GetAllOwnPlatformsResponse, MergeOwnPlatformsRequest, MergeOwnPlatformsResponse, UpdateOwnPlatformRequest, UpdateOwnPlatformResponse } from 'app/data/models/api/own-platform';
+import { AppError } from 'app/data/models/error/error';
 import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
-import { ownPlatformMapper } from 'app/mappers/own-platform';
-import { AddOwnPlatformRequest, AddOwnPlatformResponse, DeleteOwnPlatformResponse, GetAllOwnPlatformsResponse, MergeOwnPlatformsRequest, MergeOwnPlatformsResponse, UpdateOwnPlatformRequest, UpdateOwnPlatformResponse } from 'app/models/api/own-platform';
-import { AppError } from 'app/models/error/error';
 import { parserValidator } from 'app/utilities/parser-validator';
 import express, { Router } from 'express';
 

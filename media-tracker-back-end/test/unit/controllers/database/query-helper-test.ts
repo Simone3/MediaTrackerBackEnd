@@ -1,5 +1,5 @@
 import { QueryHelper } from 'app/controllers/database/query-helper';
-import { PersistedEntityInternal } from 'app/models/internal/common';
+import { PersistedEntityInternal } from 'app/data/models/internal/common';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { Document, model, Model, Schema } from 'mongoose';

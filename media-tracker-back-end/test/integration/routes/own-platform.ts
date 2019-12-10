@@ -1,6 +1,6 @@
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
-import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
-import { OwnPlatformInternal } from 'app/models/internal/own-platform';
+import { IdentifiedOwnPlatform } from 'app/data/models/api/own-platform';
+import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';

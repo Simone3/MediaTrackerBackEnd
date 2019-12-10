@@ -1,6 +1,6 @@
 import { categoryController } from 'app/controllers/entities/category';
-import { IdentifiedCategory } from 'app/models/api/category';
-import { CategoryInternal } from 'app/models/internal/category';
+import { IdentifiedCategory } from 'app/data/models/api/category';
+import { CategoryInternal } from 'app/data/models/internal/category';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';

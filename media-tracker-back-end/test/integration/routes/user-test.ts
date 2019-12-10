@@ -1,5 +1,5 @@
 import { userController } from 'app/controllers/entities/user';
-import { UserInternal } from 'app/models/internal/user';
+import { UserInternal } from 'app/data/models/internal/user';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';

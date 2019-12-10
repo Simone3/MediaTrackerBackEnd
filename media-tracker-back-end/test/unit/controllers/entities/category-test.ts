@@ -1,7 +1,7 @@
 import { categoryController } from 'app/controllers/entities/category';
 import { movieEntityController } from 'app/controllers/entities/media-items/movie';
 import { userController } from 'app/controllers/entities/user';
-import { CategoryInternal } from 'app/models/internal/category';
+import { CategoryInternal } from 'app/data/models/internal/category';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestCategory, getTestMovie, initTestUHelper, TestU } from 'helpers/entities-builder-helper';

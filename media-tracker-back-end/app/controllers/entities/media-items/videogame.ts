@@ -1,7 +1,7 @@
 import { Queryable, Sortable, SortDirection } from 'app/controllers/database/query-helper';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
-import { MediaTypeInternal } from 'app/models/internal/category';
-import { VideogameFilterInternal, VideogameInternal, VideogameSortByInternal } from 'app/models/internal/media-items/videogame';
+import { MediaTypeInternal } from 'app/data/models/internal/category';
+import { VideogameFilterInternal, VideogameInternal, VideogameSortByInternal } from 'app/data/models/internal/media-items/videogame';
 import { VideogameSchema, VIDEOGAME_COLLECTION_NAME } from 'app/schemas/media-items/videogame';
 import { Document, Model, model } from 'mongoose';
 

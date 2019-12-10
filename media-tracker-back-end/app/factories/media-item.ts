@@ -9,9 +9,9 @@ import { MediaItemEntityController } from 'app/controllers/entities/media-items/
 import { movieEntityController } from 'app/controllers/entities/media-items/movie';
 import { tvShowEntityController } from 'app/controllers/entities/media-items/tv-show';
 import { videogameEntityController } from 'app/controllers/entities/media-items/videogame';
-import { AppError } from 'app/models/error/error';
-import { CategoryInternal, INTERNAL_MEDIA_TYPES, MediaTypeInternal } from 'app/models/internal/category';
-import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal } from 'app/models/internal/media-items/media-item';
+import { AppError } from 'app/data/models/error/error';
+import { CategoryInternal, INTERNAL_MEDIA_TYPES, MediaTypeInternal } from 'app/data/models/internal/category';
+import { CatalogMediaItemInternal, MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, SearchMediaItemCatalogResultInternal } from 'app/data/models/internal/media-items/media-item';
 
 /**
  * Helper class to avoid multiple switch statements

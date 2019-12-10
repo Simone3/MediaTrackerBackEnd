@@ -1,6 +1,6 @@
 import { config } from 'app/config/config';
+import { AppError } from 'app/data/models/error/error';
 import { externalInvocationsInputOutputLogger, logger } from 'app/loggers/logger';
-import { AppError } from 'app/models/error/error';
 import { HttpMethod } from 'app/utilities/misc-utils';
 import { parserValidator } from 'app/utilities/parser-validator';
 import { ClassType } from 'class-transformer-validator';

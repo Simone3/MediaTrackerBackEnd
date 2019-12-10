@@ -1,7 +1,7 @@
 import { Queryable, Sortable, SortDirection } from 'app/controllers/database/query-helper';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
-import { MediaTypeInternal } from 'app/models/internal/category';
-import { TvShowFilterInternal, TvShowInternal, TvShowSortByInternal } from 'app/models/internal/media-items/tv-show';
+import { MediaTypeInternal } from 'app/data/models/internal/category';
+import { TvShowFilterInternal, TvShowInternal, TvShowSortByInternal } from 'app/data/models/internal/media-items/tv-show';
 import { TvShowSchema, TV_SHOW_COLLECTION_NAME } from 'app/schemas/media-items/tv-show';
 import { Document, Model, model } from 'mongoose';
 

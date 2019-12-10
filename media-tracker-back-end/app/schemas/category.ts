@@ -1,4 +1,4 @@
-import { INTERNAL_MEDIA_TYPES } from 'app/models/internal/category';
+import { INTERNAL_MEDIA_TYPES } from 'app/data/models/internal/category';
 import { USER_COLLECTION_NAME } from 'app/schemas/user';
 import { Schema } from 'mongoose';
 

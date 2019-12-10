@@ -1,7 +1,7 @@
 import { devConfig } from 'app/config/config-dev';
 import { testConfig } from 'app/config/config-test';
 import { Config } from 'app/config/type-config';
-import { AppError } from 'app/models/error/error';
+import { AppError } from 'app/data/models/error/error';
 
 /**
  * The application expects to find several configuration files:

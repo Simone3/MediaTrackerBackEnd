@@ -1,8 +1,8 @@
 import { bookEntityController } from 'app/controllers/entities/media-items/book';
-import { IdentifiedGroup } from 'app/models/api/group';
-import { CatalogBook, IdentifiedBook } from 'app/models/api/media-items/book';
-import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
-import { BookInternal } from 'app/models/internal/media-items/book';
+import { IdentifiedGroup } from 'app/data/models/api/group';
+import { CatalogBook, IdentifiedBook } from 'app/data/models/api/media-items/book';
+import { IdentifiedOwnPlatform } from 'app/data/models/api/own-platform';
+import { BookInternal } from 'app/data/models/internal/media-items/book';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';

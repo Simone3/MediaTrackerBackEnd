@@ -1,8 +1,8 @@
 import { videogameEntityController } from 'app/controllers/entities/media-items/videogame';
-import { IdentifiedGroup } from 'app/models/api/group';
-import { CatalogVideogame, IdentifiedVideogame } from 'app/models/api/media-items/videogame';
-import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
-import { VideogameInternal } from 'app/models/internal/media-items/videogame';
+import { IdentifiedGroup } from 'app/data/models/api/group';
+import { CatalogVideogame, IdentifiedVideogame } from 'app/data/models/api/media-items/videogame';
+import { IdentifiedOwnPlatform } from 'app/data/models/api/own-platform';
+import { VideogameInternal } from 'app/data/models/internal/media-items/videogame';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';

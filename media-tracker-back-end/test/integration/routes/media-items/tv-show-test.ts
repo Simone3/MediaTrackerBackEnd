@@ -1,8 +1,8 @@
 import { tvShowEntityController } from 'app/controllers/entities/media-items/tv-show';
-import { IdentifiedGroup } from 'app/models/api/group';
-import { CatalogTvShow, IdentifiedTvShow } from 'app/models/api/media-items/tv-show';
-import { IdentifiedOwnPlatform } from 'app/models/api/own-platform';
-import { TvShowInternal } from 'app/models/internal/media-items/tv-show';
+import { IdentifiedGroup } from 'app/data/models/api/group';
+import { CatalogTvShow, IdentifiedTvShow } from 'app/data/models/api/media-items/tv-show';
+import { IdentifiedOwnPlatform } from 'app/data/models/api/own-platform';
+import { TvShowInternal } from 'app/data/models/internal/media-items/tv-show';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';

@@ -1,10 +1,10 @@
 
 import { groupController } from 'app/controllers/entities/group';
+import { groupMapper } from 'app/data/mappers/group';
+import { AddGroupRequest, AddGroupResponse, DeleteGroupResponse, GetAllGroupsResponse, UpdateGroupRequest, UpdateGroupResponse } from 'app/data/models/api/group';
+import { AppError } from 'app/data/models/error/error';
 import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
-import { groupMapper } from 'app/mappers/group';
-import { AddGroupRequest, AddGroupResponse, DeleteGroupResponse, GetAllGroupsResponse, UpdateGroupRequest, UpdateGroupResponse } from 'app/models/api/group';
-import { AppError } from 'app/models/error/error';
 import { parserValidator } from 'app/utilities/parser-validator';
 import express, { Router } from 'express';
 

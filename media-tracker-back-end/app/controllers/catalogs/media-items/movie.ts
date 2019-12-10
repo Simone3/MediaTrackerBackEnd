@@ -1,11 +1,11 @@
 import { config } from 'app/config/config';
 import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 import { restJsonInvoker } from 'app/controllers/external-services/rest-json-invoker';
+import { movieExternalDetailsServiceMapper, movieExternalSearchServiceMapper } from 'app/data/mappers/external-services/movie';
+import { AppError } from 'app/data/models/error/error';
+import { TmdbMovieDetailsResponse, TmdbMovieSearchResponse } from 'app/data/models/external-services/media-items/movie';
+import { CatalogMovieInternal, SearchMovieCatalogResultInternal } from 'app/data/models/internal/media-items/movie';
 import { logger } from 'app/loggers/logger';
-import { movieExternalDetailsServiceMapper, movieExternalSearchServiceMapper } from 'app/mappers/external-services/movie';
-import { AppError } from 'app/models/error/error';
-import { TmdbMovieDetailsResponse, TmdbMovieSearchResponse } from 'app/models/external-services/media-items/movie';
-import { CatalogMovieInternal, SearchMovieCatalogResultInternal } from 'app/models/internal/media-items/movie';
 import { miscUtils } from 'app/utilities/misc-utils';
 
 /**

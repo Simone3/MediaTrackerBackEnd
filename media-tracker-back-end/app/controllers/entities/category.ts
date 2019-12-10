@@ -2,11 +2,11 @@ import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query
 import { groupController } from 'app/controllers/entities/group';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { userController } from 'app/controllers/entities/user';
+import { AppError } from 'app/data/models/error/error';
+import { CategoryInternal } from 'app/data/models/internal/category';
+import { MediaItemInternal } from 'app/data/models/internal/media-items/media-item';
+import { UserInternal } from 'app/data/models/internal/user';
 import { mediaItemFactory } from 'app/factories/media-item';
-import { AppError } from 'app/models/error/error';
-import { CategoryInternal } from 'app/models/internal/category';
-import { MediaItemInternal } from 'app/models/internal/media-items/media-item';
-import { UserInternal } from 'app/models/internal/user';
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from 'app/schemas/category';
 import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model, model } from 'mongoose';

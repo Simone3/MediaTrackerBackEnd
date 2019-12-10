@@ -1,6 +1,6 @@
 import { config } from 'app/config/config';
+import { AppError } from 'app/data/models/error/error';
 import { databaseLogger, logger } from 'app/loggers/logger';
-import { AppError } from 'app/models/error/error';
 import mongoose, { ConnectionOptions } from 'mongoose';
 
 /**

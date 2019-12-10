@@ -1,4 +1,4 @@
-import { AppError } from 'app/models/error/error';
+import { AppError } from 'app/data/models/error/error';
 import { dateUtils } from 'app/utilities/date-utils';
 import chai from 'chai';
 

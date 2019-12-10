@@ -1,6 +1,6 @@
+import { AppError } from 'app/data/models/error/error';
+import { PersistedEntityInternal } from 'app/data/models/internal/common';
 import { logger } from 'app/loggers/logger';
-import { AppError } from 'app/models/error/error';
-import { PersistedEntityInternal } from 'app/models/internal/common';
 import { CollationOptions, Document, Model } from 'mongoose';
 
 /**

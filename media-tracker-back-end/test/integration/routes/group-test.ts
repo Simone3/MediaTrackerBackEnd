@@ -1,6 +1,6 @@
 import { groupController } from 'app/controllers/entities/group';
-import { IdentifiedGroup } from 'app/models/api/group';
-import { GroupInternal } from 'app/models/internal/group';
+import { IdentifiedGroup } from 'app/data/models/api/group';
+import { GroupInternal } from 'app/data/models/internal/group';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';

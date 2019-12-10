@@ -1,7 +1,7 @@
 import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
 import { userController } from 'app/controllers/entities/user';
-import { GroupInternal } from 'app/models/internal/group';
+import { GroupInternal } from 'app/data/models/internal/group';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestGroup, initTestUCHelper, TestUC } from 'helpers/entities-builder-helper';

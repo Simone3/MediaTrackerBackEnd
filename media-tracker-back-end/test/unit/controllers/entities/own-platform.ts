@@ -1,7 +1,7 @@
 import { categoryController } from 'app/controllers/entities/category';
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
 import { userController } from 'app/controllers/entities/user';
-import { OwnPlatformInternal } from 'app/models/internal/own-platform';
+import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
 import { getTestOwnPlatform, initTestUCHelper, TestUC } from 'helpers/entities-builder-helper';

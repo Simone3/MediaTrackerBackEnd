@@ -1,10 +1,10 @@
 
 import { categoryController } from 'app/controllers/entities/category';
+import { categoryMapper } from 'app/data/mappers/category';
+import { AddCategoryRequest, AddCategoryResponse, DeleteCategoryResponse, GetAllCategoriesResponse, UpdateCategoryRequest, UpdateCategoryResponse } from 'app/data/models/api/category';
+import { AppError } from 'app/data/models/error/error';
 import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
-import { categoryMapper } from 'app/mappers/category';
-import { AddCategoryRequest, AddCategoryResponse, DeleteCategoryResponse, GetAllCategoriesResponse, UpdateCategoryRequest, UpdateCategoryResponse } from 'app/models/api/category';
-import { AppError } from 'app/models/error/error';
 import { parserValidator } from 'app/utilities/parser-validator';
 import express, { Router } from 'express';
 
