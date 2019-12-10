@@ -16,7 +16,7 @@
         {
 			"label": "Test Build",
             "type": "typescript",
-            "tsconfig": "test\\tsconfig.json",
+            "tsconfig": "test/tsconfig.json",
             "problemMatcher": [
                 "$tsc"
             ],
