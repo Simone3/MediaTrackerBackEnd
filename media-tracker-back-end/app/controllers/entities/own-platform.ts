@@ -47,10 +47,11 @@ class OwnPlatformController extends AbstractEntityController {
 	}
 
 	/**
-	 * Gets a single own platform, or undefined if not found
+	 * Gets a single own platform
 	 * @param userId user ID
 	 * @param categoryId category ID
 	 * @param ownPlatformId gorup ID
+	 * @returns the own platform or undefined if not found, as a promise
 	 */
 	public getOwnPlatform(userId: string, categoryId: string, ownPlatformId: string): Promise<OwnPlatformInternal | undefined> {
 
@@ -64,9 +65,10 @@ class OwnPlatformController extends AbstractEntityController {
 	}
 	
 	/**
-	 * Gets all saved own platforms for the given user and category, as a promise
+	 * Gets all saved own platforms for the given user and category
 	 * @param userId user ID
 	 * @param categoryId category ID
+	 * @returns the own platforms, as a promise
 	 */
 	public getAllOwnPlatforms(userId: string, categoryId: string): Promise<OwnPlatformInternal[]> {
 
@@ -166,9 +168,10 @@ class OwnPlatformController extends AbstractEntityController {
 	}
 
 	/**
-	 * Deletes all own platforms for the given category, returning the number of deleted elements as a promise
+	 * Deletes all own platforms for the given category
 	 * This method does NOT cascade delete all media items in the own platforms
 	 * @param categoryId category ID
+	 * @returns the number of deleted elements as a promise
 	 */
 	public deleteAllOwnPlatformsInCategory(categoryId: string): Promise<number> {
 
@@ -180,9 +183,10 @@ class OwnPlatformController extends AbstractEntityController {
 	}
 
 	/**
-	 * Deletes all own platforms for the given user, returning the number of deleted elements as a promise
+	 * Deletes all own platforms for the given user
 	 * This method does NOT cascade delete all media items in the own platforms
 	 * @param userId user ID
+	 * @returns the number of deleted elements as a promise
 	 */
 	public deleteAllOwnPlatformsForUser(userId: string): Promise<number> {
 

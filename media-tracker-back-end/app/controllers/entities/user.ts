@@ -41,8 +41,9 @@ class UserController extends AbstractEntityController {
 	}
 
 	/**
-	 * Gets a single user, or undefined if not found
+	 * Gets a single user
 	 * @param userId user ID
+	 * @returns the user or undefined if not found, as a promise
 	 */
 	public getUser(userId: string): Promise<UserInternal | undefined> {
 
@@ -54,8 +55,9 @@ class UserController extends AbstractEntityController {
 	}
 
 	/**
-	 * Saves a new or an existing user, returning it back as a promise
+	 * Saves a new or an existing user
 	 * @param user the user to insert or update
+	 * @returns the saved user
 	 */
 	public saveUser(user: UserInternal): Promise<UserInternal> {
 
@@ -66,8 +68,9 @@ class UserController extends AbstractEntityController {
 	}
 
 	/**
-	 * Deletes a user with the given ID, returning a promise with the number of deleted elements
+	 * Deletes a user with the given ID
 	 * @param id the user ID
+	 * @returns the number of deleted elements as a promise
 	 */
 	public deleteUser(id: string): Promise<number> {
 		

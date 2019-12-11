@@ -115,6 +115,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 	 * Helper to call the external API for a single season data
 	 * @param catalogItemId the TV show catalog ID
 	 * @param seasonNumber the season to query
+	 * @returns the parsed API response
 	 */
 	private getSeasonData(catalogItemId: string, seasonNumber: number): Promise<TmdbTvShowSeasonDataResponse> {
 

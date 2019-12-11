@@ -47,10 +47,11 @@ class GroupController extends AbstractEntityController {
 	}
 
 	/**
-	 * Gets a single group, or undefined if not found
+	 * Gets a single group
 	 * @param userId user ID
 	 * @param categoryId category ID
 	 * @param groupId gorup ID
+	 * @returns the group or undefined if not found, as a promise
 	 */
 	public getGroup(userId: string, categoryId: string, groupId: string): Promise<GroupInternal | undefined> {
 
@@ -64,9 +65,10 @@ class GroupController extends AbstractEntityController {
 	}
 	
 	/**
-	 * Gets all saved groups for the given user and category, as a promise
+	 * Gets all saved groups for the given user and category
 	 * @param userId user ID
 	 * @param categoryId category ID
+	 * @returns the groups, as a promise
 	 */
 	public getAllGroups(userId: string, categoryId: string): Promise<GroupInternal[]> {
 
@@ -119,9 +121,10 @@ class GroupController extends AbstractEntityController {
 	}
 
 	/**
-	 * Deletes all groups for the given category, returning the number of deleted elements as a promise
+	 * Deletes all groups for the given category
 	 * This method does NOT cascade delete all media items in the groups
 	 * @param categoryId category ID
+	 * @returns the number of deleted elements as a promise
 	 */
 	public deleteAllGroupsInCategory(categoryId: string): Promise<number> {
 
@@ -136,6 +139,7 @@ class GroupController extends AbstractEntityController {
 	 * Deletes all groups for the given user, returning the number of deleted elements as a promise
 	 * This method does NOT cascade delete all media items in the groups
 	 * @param userId user ID
+	 * @returns the number of deleted elements as a promise
 	 */
 	public deleteAllGroupsForUser(userId: string): Promise<number> {
 

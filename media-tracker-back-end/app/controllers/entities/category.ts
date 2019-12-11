@@ -1,6 +1,7 @@
 import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query-helper';
 import { groupController } from 'app/controllers/entities/group';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
+import { ownPlatformController } from 'app/controllers/entities/own-platform';
 import { userController } from 'app/controllers/entities/user';
 import { AppError } from 'app/data/models/error/error';
 import { CategoryInternal } from 'app/data/models/internal/category';
@@ -10,7 +11,6 @@ import { mediaItemFactory } from 'app/factories/media-item';
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from 'app/schemas/category';
 import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model, model } from 'mongoose';
-import { ownPlatformController } from './own-platform';
 
 /**
  * Mongoose document for categories
@@ -49,9 +49,10 @@ class CategoryController extends AbstractEntityController {
 	}
 
 	/**
-	 * Gets a single category, or undefined if not found
+	 * Gets a single category
 	 * @param userId user ID
 	 * @param categoryId category ID
+	 * @returns the category or undefined if not found, as a promise
 	 */
 	public getCategory(userId: string, categoryId: string): Promise<CategoryInternal | undefined> {
 
@@ -64,8 +65,9 @@ class CategoryController extends AbstractEntityController {
 	}
 
 	/**
-	 * Gets all saved categories for the given user, as a promise
+	 * Gets all saved categories for the given user
 	 * @param userId user ID
+	 * @returns the categories, as a promise
 	 */
 	public getAllCategories(userId: string): Promise<CategoryInternal[]> {
 
@@ -118,9 +120,10 @@ class CategoryController extends AbstractEntityController {
 	}
 
 	/**
-	 * Deletes all categories for the given user, returning the number of deleted elements as a promise
+	 * Deletes all categories for the given user
 	 * This method does NOT cascade delete all media items/groups in the categories
 	 * @param userId user ID
+	 * @returns the number of deleted elements, as a promise
 	 */
 	public deleteAllCategoriesForUser(userId: string): Promise<number> {
 

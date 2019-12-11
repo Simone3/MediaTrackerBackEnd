@@ -35,10 +35,11 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Gets a single media item, or undefined if not found
+	 * Gets a single media item
 	 * @param userId user ID
 	 * @param categoryId category ID
 	 * @param mediaItemId media item ID
+	 * @returns the media item or undefined if not found, as a promise
 	 */
 	public getMediaItem(userId: string, categoryId: string, mediaItemId: string): Promise<TMediaItemInternal | undefined> {
 
@@ -51,7 +52,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Gets all saved media items for the given user and category, as a promise
+	 * Gets all saved media items for the given user and category
 	 * @param userId user ID
 	 * @param categoryId category ID
 	 * @returns the retrieved media items, as a promise
@@ -64,8 +65,9 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Gets all saved media items for the given group, as a promise
+	 * Gets all saved media items for the given group
 	 * @param groupId the group ID
+	 * @returns the media items, as a promise
 	 */
 	public getAllMediaItemsInGroup(groupId: string): Promise<TMediaItemInternal[]> {
 
@@ -76,8 +78,9 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Gets all saved media items linked to the given own platform, as a promise
+	 * Gets all saved media items linked to the given own platform
 	 * @param ownPlatformId the own platform ID
+	 * @returns the media items, as a promise
 	 */
 	public getAllMediaItemsInOwnPlatform(ownPlatformId: string): Promise<TMediaItemInternal[]> {
 
@@ -88,8 +91,9 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Gets all saved media items for the given category, as a promise
+	 * Gets all saved media items for the given category
 	 * @param categoryId the category ID
+	 * @returns the media items, as a promise
 	 */
 	public getAllMediaItemsInCategory(categoryId: string): Promise<TMediaItemInternal[]> {
 
@@ -100,11 +104,12 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	}
 
 	/**
-	 * Gets all media items matching the given filter and ordered with the given ordering options, as a promise
+	 * Gets all media items matching the given filter and ordered with the given ordering options
 	 * @param userId user ID
 	 * @param categoryId category ID
 	 * @param filterBy filter options
 	 * @param sortBy sort otions
+	 * @returns the media items, as a promise
 	 */
 	public filterAndOrderMediaItems(userId: string, categoryId: string, filterBy?: TMediaItemFilterInternal, sortBy?: TMediaItemSortByInternal[]): Promise<TMediaItemInternal[]> {
 
@@ -132,6 +137,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param categoryId category ID
 	 * @param term the search term
 	 * @param filterBy the optional filters
+	 * @returns the media items, as a promise
 	 */
 	public searchMediaItems(userId: string, categoryId: string, term: string, filterBy?: TMediaItemFilterInternal): Promise<TMediaItemInternal[]> {
 
@@ -203,6 +209,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	/**
 	 * Delets all saved media items for the given group
 	 * @param groupId the group ID
+	 * @returns the number of deleted elements as a promise
 	 */
 	public deleteAllMediaItemsInGroup(groupId: string): Promise<number> {
 
@@ -215,6 +222,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	/**
 	 * Deletes all media items for the given category
 	 * @param categoryId category ID
+	 * @returns the number of deleted elements as a promise
 	 */
 	public deleteAllMediaItemsInCategory(categoryId: string): Promise<number> {
 
@@ -227,6 +235,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	/**
 	 * Deletes all media items for the given user
 	 * @param userId user ID
+	 * @returns the number of deleted elements as a promise
 	 */
 	public deleteAllMediaItemsForUser(userId: string): Promise<number> {
 

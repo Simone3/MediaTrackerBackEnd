@@ -23,7 +23,8 @@ module.exports = {
         jsdoc: {
             allowOverrideWithoutParam: true,
             allowImplementsWithoutParam: true,
-            allowAugmentsExtendsWithoutParam: true
+            allowAugmentsExtendsWithoutParam: true,
+            mode: 'typescript'
 		}
     },
 	rules: {
@@ -139,7 +140,7 @@ module.exports = {
 		'no-useless-escape': 2,
 		'no-useless-return': 2,
 		'no-void': 2,
-		'no-warning-comments': 2,
+		'no-warning-comments': 1,
 		'no-with': 2,
 		radix: 2,
 		'vars-on-top': 2,
@@ -209,6 +210,7 @@ module.exports = {
 		'keyword-spacing': [ 2, { before: true, after: false, 'overrides': {
 			'else': { 'after': true },
 			'import': { 'after': true },
+			'export': { 'after': true },
 			'from': { 'after': true },
 			'return': { 'after': true },
 			'case': { 'after': true },
@@ -388,7 +390,6 @@ module.exports = {
 		'import/no-deprecated': 2,
 		'import/no-extraneous-dependencies': 2,
 		'import/no-mutable-exports': 2,
-		'import/no-unused-modules': 2,
 		
 		'import/unambiguous': 2,
 		'import/no-commonjs': 'off',

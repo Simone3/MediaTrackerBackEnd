@@ -1,9 +1,9 @@
-
 import { config } from 'app/config/config';
 import { databaseManager } from 'app/controllers/database/database-manager';
 import { AppError } from 'app/data/models/error/error';
 import { finalizeAndCloseAllLoggers, logger } from 'app/loggers/logger';
 import { server } from 'app/server/server';
+// eslint-disable-next-line import/default
 import exitHook from 'exit-hook';
 
 /**
