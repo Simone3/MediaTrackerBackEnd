@@ -197,8 +197,6 @@ describe('OwnPlatformController Tests', () => {
 
 		it('Deleting a user should also delete all its own platforms', async function() {
 
-			this.timeout(4000);
-
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));

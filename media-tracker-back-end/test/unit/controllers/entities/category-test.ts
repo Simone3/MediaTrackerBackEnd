@@ -141,8 +141,6 @@ describe('CategoryController Tests', () => {
 		
 		it('GetCategory after DeleteCategory should return undefined', async function() {
 			
-			this.timeout(4000);
-
 			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
 			const categoryId = category._id;
 
@@ -153,8 +151,6 @@ describe('CategoryController Tests', () => {
 		});
 
 		it('Deleting a user should also delete all its categories', async function() {
-
-			this.timeout(4000);
 
 			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
 			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));

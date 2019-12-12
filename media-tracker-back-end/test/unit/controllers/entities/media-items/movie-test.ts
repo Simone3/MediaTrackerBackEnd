@@ -381,8 +381,6 @@ describe('MovieController Tests', () => {
 
 		it('Deleting a user should also delete all its movies', async function() {
 
-			this.timeout(4000);
-
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));

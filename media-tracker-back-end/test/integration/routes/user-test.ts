@@ -57,8 +57,6 @@ describe('User API Tests', () => {
 
 		it('Should delete an existing user', async function() {
 
-			this.timeout(4000);
-
 			const user = await userController.saveUser(getTestUser(undefined));
 			const userId: string = String(user._id);
 

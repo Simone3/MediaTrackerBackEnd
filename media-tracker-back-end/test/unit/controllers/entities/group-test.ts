@@ -179,8 +179,6 @@ describe('GroupController Tests', () => {
 
 		it('Deleting a user should also delete all its groups', async function() {
 
-			this.timeout(4000);
-
 			await groupController.saveGroup(getTestGroup(undefined, firstUC));
 			await groupController.saveGroup(getTestGroup(undefined, firstUC));
 			await groupController.saveGroup(getTestGroup(undefined, firstUC));

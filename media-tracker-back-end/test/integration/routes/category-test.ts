@@ -81,8 +81,6 @@ describe('Category API Tests', () => {
 
 		it('Should delete an existing category', async function() {
 
-			this.timeout(4000);
-
 			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
 			const categoryId: string = String(category._id);
 

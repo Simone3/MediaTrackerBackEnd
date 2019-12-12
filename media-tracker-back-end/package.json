@@ -33,6 +33,9 @@
     ],
     "all": true
   },
+  "mocha": {
+	  "timeout": 10000
+  },
   "devDependencies": {
     "@types/chai": "^4.2.7",
     "@types/cls-hooked": "^4.3.0",

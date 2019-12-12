@@ -80,8 +80,6 @@ describe('UserController Tests', () => {
 
 		it('GetUser after DeleteUser should return undefined', async function() {
 			
-			this.timeout(4000);
-			
 			const user = await userController.saveUser(getTestUser(undefined));
 			const userId = user._id;
 
