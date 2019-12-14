@@ -32,11 +32,13 @@ describe('OwnPlatform API Tests', () => {
 
 			const name = randomName();
 			const color = '#0000FF';
+			const icon = 'theicon';
 
 			const response = await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, {
 				newOwnPlatform: {
 					name: name,
-					color: color
+					color: color,
+					icon: icon
 				}
 			});
 			
@@ -48,6 +50,7 @@ describe('OwnPlatform API Tests', () => {
 			foundOwnPlatform = foundOwnPlatform as OwnPlatformInternal;
 			expect(foundOwnPlatform.name, 'GetOwnPlatform returned the wrong name').to.equal(name);
 			expect(foundOwnPlatform.color, 'GetOwnPlatform returned the wrong color').to.equal(color);
+			expect(foundOwnPlatform.icon, 'GetOwnPlatform returned the wrong icon').to.equal(icon);
 		});
 
 		it('Should update an existing own platform', async() => {
@@ -56,11 +59,13 @@ describe('OwnPlatform API Tests', () => {
 			const ownPlatformId = String(ownPlatform._id);
 			const newName = randomName('Changed');
 			const color = '#0000FF';
+			const icon = 'theicon';
 
 			await callHelper('PUT', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/${ownPlatformId}`, {
 				ownPlatform: {
 					name: newName,
-					color: color
+					color: color,
+					icon: icon
 				}
 			});
 			
@@ -77,12 +82,14 @@ describe('OwnPlatform API Tests', () => {
 
 			const mergedName = randomName('TheMergedName');
 			const color = '#0000FF';
+			const icon = 'theicon';
 
 			await callHelper('PUT', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/merge`, {
 				ownPlatformIds: [ ownPlatformId1, ownPlatformId2 ],
 				mergedOwnPlatform: {
 					name: mergedName,
-					color: color
+					color: color,
+					icon: icon
 				}
 			});
 			
@@ -132,7 +139,8 @@ describe('OwnPlatform API Tests', () => {
 
 			await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, {
 				newOwnPlatform: {
-					color: '#0000FF'
+					color: '#0000FF',
+					icon: 'something'
 				}
 			}, 500);
 		});
@@ -142,7 +150,8 @@ describe('OwnPlatform API Tests', () => {
 			await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, {
 				newOwnPlatform: {
 					name: randomName(),
-					color: 'sdfdcxcvxcvxcv'
+					color: 'sdfdcxcvxcvxcv',
+					icon: 'something'
 				}
 			}, 500);
 		});
@@ -152,7 +161,8 @@ describe('OwnPlatform API Tests', () => {
 			const sourcePlatform: Required<IdentifiedOwnPlatform> = {
 				uid: '',
 				name: randomName(),
-				color: '#00ff00'
+				color: '#00ff00',
+				icon: 'theicon'
 			};
 
 			await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, {

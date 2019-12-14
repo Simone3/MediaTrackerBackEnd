@@ -99,6 +99,7 @@ export const getTestOwnPlatform = (_id: unknown, data: TestUC, name?: string): O
 		_id: _id,
 		owner: data.user,
 		category: data.category,
+		icon: 'something',
 		name: name ? name : randomName(),
 		color: '#0000FF'
 	};

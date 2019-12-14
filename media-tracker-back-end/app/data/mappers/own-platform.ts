@@ -24,7 +24,8 @@ class OwnPlatformMapper extends ModelMapper<OwnPlatformInternal, IdentifiedOwnPl
 		return {
 			uid: source._id,
 			name: source.name,
-			color: source.color
+			color: source.color,
+			icon: source.icon
 		};
 	}
 		
@@ -41,6 +42,7 @@ class OwnPlatformMapper extends ModelMapper<OwnPlatformInternal, IdentifiedOwnPl
 			_id: source.uid ? source.uid : null,
 			name: source.name,
 			color: source.color,
+			icon: source.icon,
 			owner: extraParams.userId,
 			category: extraParams.categoryId
 		};

@@ -20,6 +20,13 @@ export class OwnPlatform {
 	@IsNotEmpty()
 	@IsHexColor()
 	public color!: string;
+
+	/**
+	 * The platform icon
+	 */
+	@IsNotEmpty()
+	@IsString()
+	public icon!: string;
 }
 
 /**

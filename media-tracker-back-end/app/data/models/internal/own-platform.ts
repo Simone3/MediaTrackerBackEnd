@@ -9,6 +9,7 @@ export type OwnPlatformInternal = PersistedEntityInternal & {
 
 	name: string;
 	color: string;
+	icon: string;
 	owner: UserInternal | string;
 	category: CategoryInternal | string;
 }

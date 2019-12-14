@@ -179,7 +179,8 @@ describe('Movie API Tests', () => {
 			const sourceOwnPlatform: Required<IdentifiedOwnPlatform> = {
 				uid: '',
 				name: randomName('OwnPlatform'),
-				color: '#00ff00'
+				color: '#00ff00',
+				icon: 'something'
 			};
 			const { uid: ownPlatformId } = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/own-platforms`, {
 				newOwnPlatform: sourceOwnPlatform
