@@ -89,6 +89,27 @@ describe('CategoryController Tests', () => {
 			expect(extractAsString(foundsecondUCategories, '_id'), 'GetAllCategories did not return the correct results for second user').to.have.members(extractAsString(secondUCategories, '_id'));
 		});
 
+		it('FilterCategories should return all matching categories for the given user', async() => {
+
+			const firstUCategories: CategoryInternal[] = [];
+			const secondUCategories: CategoryInternal[] = [];
+
+			firstUCategories.push(await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, 'AAAA')));
+			secondUCategories.push(await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', secondU, 'AAAA')));
+			firstUCategories.push(await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, 'aAaa')));
+			firstUCategories.push(await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, 'Bbbb')));
+			firstUCategories.push(await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, 'Aaaa1')));
+			firstUCategories.push(await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, '1Aaaa')));
+
+			const foundFirstUCategories = await categoryController.filterCategories(firstU.user, { name: 'Aaaa' });
+			expect(foundFirstUCategories, 'FilterCategories did not return the correct number of results').to.have.lengthOf(2);
+			expect(extractAsString(foundFirstUCategories, 'name'), 'FilterCategories did not return the correct results').to.have.members([ 'AAAA', 'aAaa' ]);
+
+			const foundSecondUCategories = await categoryController.filterCategories(secondU.user, { name: 'Aaaa' });
+			expect(foundSecondUCategories, 'FilterCategories did not return the correct number of results').to.have.lengthOf(1);
+			expect(extractAsString(foundSecondUCategories, 'name'), 'FilterCategories did not return the correct results').to.have.members([ 'AAAA' ]);
+		});
+
 		it('SaveCategory (update) not allow to change media type if the category is not empty', async() => {
 
 			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));

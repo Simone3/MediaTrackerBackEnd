@@ -1,7 +1,7 @@
-import { CommonAddResponse, CommonResponse, CommonSaveRequest } from 'app/data/models/api/common';
+import { CommonAddResponse, CommonRequest, CommonResponse, CommonSaveRequest } from 'app/data/models/api/common';
 import { ValuesOf } from 'app/utilities/helper-types';
 import { Type } from 'class-transformer';
-import { IsDefined, IsHexColor, IsIn, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { IsDefined, IsHexColor, IsIn, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Array of all media types, publicly exposed via API
@@ -89,6 +89,49 @@ export class DeleteCategoryResponse extends CommonResponse {
  */
 export class GetAllCategoriesResponse extends CommonResponse {
 	
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedCategory;
+	})
+	@ValidateNested()
+	public categories: IdentifiedCategory[] = [];
+}
+
+/**
+ * Category filtering options, publicly exposed via API
+ */
+export class CategoryFilter {
+
+	/**
+	 * Filter for name (case-insensitive exact match)
+	 */
+	@IsOptional()
+	@IsString()
+	public name?: string;
+}
+
+/**
+ * Request for the 'filter categories' API
+ */
+export class FilterCategoriesRequest extends CommonRequest {
+
+	/**
+	 * Filtering options
+	 */
+	@IsOptional()
+	@Type(() => {
+		return CategoryFilter;
+	})
+	@ValidateNested()
+	public filter?: CategoryFilter;
+}
+
+/**
+ * Response for the 'filter movies' API
+ */
+export class FilterCategoriesResponse extends CommonResponse {
+
 	@IsDefined()
 	@IsDefined({ each: true })
 	@Type(() => {

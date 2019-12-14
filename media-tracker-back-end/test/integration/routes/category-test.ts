@@ -79,6 +79,21 @@ describe('Category API Tests', () => {
 			expect(extract(response.categories, 'name'), 'API did not return the correct categories').to.eql([ 'Bbb', 'Rrr', 'Zzz' ]);
 		});
 
+		it('Should return all user categories that match the filter', async() => {
+
+			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, 'Rrr'));
+			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, 'Bbb'));
+			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU, 'Zzz'));
+			
+			const response = await callHelper('POST', `/users/${firstU.user}/categories/filter`, {
+				filter: {
+					name: 'bbB'
+				}
+			});
+			expect(response.categories, 'API did not return the correct number of categories').to.have.lengthOf(1);
+			expect(extract(response.categories, 'name'), 'API did not return the correct categories').to.eql([ 'Bbb' ]);
+		});
+
 		it('Should delete an existing category', async function() {
 
 			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));

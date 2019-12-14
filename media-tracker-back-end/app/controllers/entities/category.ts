@@ -4,7 +4,7 @@ import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
 import { userController } from 'app/controllers/entities/user';
 import { AppError } from 'app/data/models/error/error';
-import { CategoryInternal } from 'app/data/models/internal/category';
+import { CategoryFilterInternal, CategoryInternal } from 'app/data/models/internal/category';
 import { MediaItemInternal } from 'app/data/models/internal/media-items/media-item';
 import { UserInternal } from 'app/data/models/internal/user';
 import { mediaItemFactory } from 'app/factories/media-item';
@@ -71,9 +71,26 @@ class CategoryController extends AbstractEntityController {
 	 */
 	public getAllCategories(userId: string): Promise<CategoryInternal[]> {
 
+		return this.filterCategories(userId);
+	}
+
+	/**
+	 * Gets all categories matching the given filter for the given user
+	 * @param userId user ID
+	 * @param filter the filter
+	 * @returns the categories, as a promise
+	 */
+	public filterCategories(userId: string, filter?: CategoryFilterInternal): Promise<CategoryInternal[]> {
+
 		const conditions: QueryConditions = {
 			owner: userId
 		};
+
+		if(filter && filter.name) {
+			
+			// Case insensitive exact match
+			conditions.name = new RegExp(`^${filter.name}$`, 'i');
+		}
 
 		const sortBy: OrderBy = {
 			name: 'asc'

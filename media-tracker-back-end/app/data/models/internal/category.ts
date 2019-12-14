@@ -22,3 +22,11 @@ export type CategoryInternal = PersistedEntityInternal & {
 	color: string;
 	owner: UserInternal | string;
 }
+
+/**
+ * Category filtering options, internal type NOT to be exposed via API
+ */
+export type CategoryFilterInternal = {
+
+	name?: string;
+}

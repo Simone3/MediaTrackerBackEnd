@@ -1,7 +1,7 @@
 
 import { categoryController } from 'app/controllers/entities/category';
-import { categoryMapper } from 'app/data/mappers/category';
-import { AddCategoryRequest, AddCategoryResponse, DeleteCategoryResponse, GetAllCategoriesResponse, UpdateCategoryRequest, UpdateCategoryResponse } from 'app/data/models/api/category';
+import { categoryFilterMapper, categoryMapper } from 'app/data/mappers/category';
+import { AddCategoryRequest, AddCategoryResponse, DeleteCategoryResponse, FilterCategoriesRequest, FilterCategoriesResponse, GetAllCategoriesResponse, UpdateCategoryRequest, UpdateCategoryResponse } from 'app/data/models/api/category';
 import { AppError } from 'app/data/models/error/error';
 import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
@@ -30,6 +30,39 @@ router.get('/users/:userId/categories', (request, response) => {
 
 			logger.error('Get categories generic error: %s', error);
 			response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
+		});
+});
+
+/**
+ * Route to get all saved categories matching some filter
+ */
+router.post('/users/:userId/categories/filter', (request, response) => {
+
+	const userId: string = request.params.userId;
+
+	parserValidator.parseAndValidate(FilterCategoriesRequest, request.body)
+		.then((parsedRequest) => {
+
+			const filterBy = parsedRequest.filter ? categoryFilterMapper.toInternal(parsedRequest.filter) : undefined;
+			categoryController.filterCategories(userId, filterBy)
+				.then((categories) => {
+		
+					const responseBody: FilterCategoriesResponse = {
+						categories: categoryMapper.toExternalList(categories)
+					};
+					
+					response.json(responseBody);
+				})
+				.catch((error) => {
+		
+					logger.error('Filter categories generic error: %s', error);
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
+				});
+		})
+		.catch((error) => {
+
+			logger.error('Filter category request error: %s', error);
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 

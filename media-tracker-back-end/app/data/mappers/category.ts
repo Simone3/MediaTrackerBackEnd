@@ -1,7 +1,7 @@
 import { ModelMapper } from 'app/data/mappers/common';
-import { IdentifiedCategory, MediaType } from 'app/data/models/api/category';
+import { CategoryFilter, IdentifiedCategory, MediaType } from 'app/data/models/api/category';
 import { AppError } from 'app/data/models/error/error';
-import { CategoryInternal, MediaTypeInternal } from 'app/data/models/internal/category';
+import { CategoryFilterInternal, CategoryInternal, MediaTypeInternal } from 'app/data/models/internal/category';
 
 /**
  * Helper type
@@ -82,7 +82,38 @@ class CategoryMapper extends ModelMapper<CategoryInternal, IdentifiedCategory, C
 }
 
 /**
+ * Mapper for category filters
+ */
+class CategoryFilterMapper extends ModelMapper<CategoryFilterInternal, CategoryFilter, never> {
+		
+	/**
+	 * @override
+	 */
+	protected convertToExternal(source: CategoryFilterInternal): CategoryFilter {
+		
+		return {
+			name: source.name
+		};
+	}
+	
+	/**
+	 * @override
+	 */
+	protected convertToInternal(source: CategoryFilter): CategoryFilterInternal {
+		
+		return {
+			name: source.name
+		};
+	}
+}
+
+/**
  * Singleton instance of the categories mapper
  */
 export const categoryMapper = new CategoryMapper();
+
+/**
+ * Singleton instance of the category filter mapper
+ */
+export const categoryFilterMapper = new CategoryFilterMapper();
 
