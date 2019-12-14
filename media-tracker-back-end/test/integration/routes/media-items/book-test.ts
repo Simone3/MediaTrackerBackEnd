@@ -54,7 +54,7 @@ describe('Book API Tests', () => {
 		it('Should update an existing book', async() => {
 
 			const book = await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG));
-			const bookId: string = String(book._id);
+			const bookId = String(book._id);
 			const newName = randomName('Changed');
 
 			await callHelper('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/${bookId}`, {
@@ -112,7 +112,7 @@ describe('Book API Tests', () => {
 		it('Should delete an existing book', async() => {
 
 			const book = await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG));
-			const bookId: string = String(book._id);
+			const bookId = String(book._id);
 
 			await callHelper('DELETE', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/${bookId}`);
 			

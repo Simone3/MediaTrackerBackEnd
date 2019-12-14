@@ -54,7 +54,7 @@ describe('TV show API Tests', () => {
 		it('Should update an existing TV show', async() => {
 
 			const tvShow = await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG));
-			const tvShowId: string = String(tvShow._id);
+			const tvShowId = String(tvShow._id);
 			const newName = randomName('Changed');
 
 			await callHelper('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows/${tvShowId}`, {
@@ -112,7 +112,7 @@ describe('TV show API Tests', () => {
 		it('Should delete an existing TV show', async() => {
 
 			const tvShow = await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG));
-			const tvShowId: string = String(tvShow._id);
+			const tvShowId = String(tvShow._id);
 
 			await callHelper('DELETE', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows/${tvShowId}`);
 			

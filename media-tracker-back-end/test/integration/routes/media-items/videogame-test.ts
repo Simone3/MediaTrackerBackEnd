@@ -54,7 +54,7 @@ describe('Videogame API Tests', () => {
 		it('Should update an existing videogame', async() => {
 
 			const videogame = await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG));
-			const videogameId: string = String(videogame._id);
+			const videogameId = String(videogame._id);
 			const newName = randomName('Changed');
 
 			await callHelper('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames/${videogameId}`, {
@@ -112,7 +112,7 @@ describe('Videogame API Tests', () => {
 		it('Should delete an existing videogame', async() => {
 
 			const videogame = await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG));
-			const videogameId: string = String(videogame._id);
+			const videogameId = String(videogame._id);
 
 			await callHelper('DELETE', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames/${videogameId}`);
 			

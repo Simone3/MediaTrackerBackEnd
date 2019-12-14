@@ -49,7 +49,7 @@ describe('Group API Tests', () => {
 		it('Should update an existing group', async() => {
 
 			const group = await groupController.saveGroup(getTestGroup(undefined, firstUC));
-			const groupId: string = String(group._id);
+			const groupId = String(group._id);
 			const newName = randomName('Changed');
 
 			await callHelper('PUT', `/users/${firstUC.user}/categories/${firstUC.category}/groups/${groupId}`, {
@@ -78,7 +78,7 @@ describe('Group API Tests', () => {
 		it('Should delete an existing group', async() => {
 
 			const group = await groupController.saveGroup(getTestGroup(undefined, firstUC));
-			const groupId: string = String(group._id);
+			const groupId = String(group._id);
 
 			await callHelper('DELETE', `/users/${firstUC.user}/categories/${firstUC.category}/groups/${groupId}`);
 			

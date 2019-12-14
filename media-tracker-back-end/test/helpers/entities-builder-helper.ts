@@ -281,6 +281,7 @@ export const initTestUCHelper = async(categoryMediaType: MediaTypeInternal, targ
 	const insertedUser = await userController.saveUser(getTestUser(undefined, randomName(`${namePrefix}User`)));
 	target.user = insertedUser._id;
 	const insertedCategory = await categoryController.saveCategory(getTestCategory(undefined, categoryMediaType, target, randomName(`${namePrefix}Category`)));
+	// eslint-disable-next-line require-atomic-updates
 	target.category = insertedCategory._id;
 };
 	
@@ -305,9 +306,11 @@ export const initTestUCGHelper = async(categoryMediaType: MediaTypeInternal, tar
 	}
 
 	const insertedCategory = await categoryController.saveCategory(getTestCategory(undefined, categoryMediaType, target, randomName(`${namePrefix}Category`)));
+	// eslint-disable-next-line require-atomic-updates
 	target.category = insertedCategory._id;
 	
 	const insertedGroup = await groupController.saveGroup(getTestGroup(undefined, target, randomName(`${namePrefix}Group`)));
+	// eslint-disable-next-line require-atomic-updates
 	target.group = insertedGroup._id;
 };
 

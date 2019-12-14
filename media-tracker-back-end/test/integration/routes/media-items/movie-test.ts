@@ -54,7 +54,7 @@ describe('Movie API Tests', () => {
 		it('Should update an existing movie', async() => {
 
 			const movie = await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
-			const movieId: string = String(movie._id);
+			const movieId = String(movie._id);
 			const newName = randomName('Changed');
 
 			await callHelper('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies/${movieId}`, {
@@ -112,7 +112,7 @@ describe('Movie API Tests', () => {
 		it('Should delete an existing movie', async() => {
 
 			const movie = await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
-			const movieId: string = String(movie._id);
+			const movieId = String(movie._id);
 
 			await callHelper('DELETE', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies/${movieId}`);
 			

@@ -40,7 +40,7 @@ describe('User API Tests', () => {
 		it('Should update an existing user', async() => {
 
 			const user = await userController.saveUser(getTestUser(undefined));
-			const userId: string = String(user._id);
+			const userId = String(user._id);
 			const newName = randomName('Changed');
 
 			await callHelper('PUT', `/users/${userId}`, {
@@ -58,7 +58,7 @@ describe('User API Tests', () => {
 		it('Should delete an existing user', async function() {
 
 			const user = await userController.saveUser(getTestUser(undefined));
-			const userId: string = String(user._id);
+			const userId = String(user._id);
 
 			await callHelper('DELETE', `/users/${userId}`);
 			

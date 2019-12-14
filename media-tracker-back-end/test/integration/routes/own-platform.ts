@@ -53,7 +53,7 @@ describe('OwnPlatform API Tests', () => {
 		it('Should update an existing own platform', async() => {
 
 			const ownPlatform = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
-			const ownPlatformId: string = String(ownPlatform._id);
+			const ownPlatformId = String(ownPlatform._id);
 			const newName = randomName('Changed');
 			const color = '#0000FF';
 
@@ -105,7 +105,7 @@ describe('OwnPlatform API Tests', () => {
 		it('Should delete an existing own platform', async() => {
 
 			const ownPlatform = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
-			const ownPlatformId: string = String(ownPlatform._id);
+			const ownPlatformId = String(ownPlatform._id);
 
 			await callHelper('DELETE', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/${ownPlatformId}`);
 			

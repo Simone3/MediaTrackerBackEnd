@@ -92,7 +92,7 @@ describe('CategoryController Tests', () => {
 		it('SaveCategory (update) not allow to change media type if the category is not empty', async() => {
 
 			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
-			const categoryId: string = String(category._id);
+			const categoryId = String(category._id);
 
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, { user: firstU.user, category: categoryId }));
 			

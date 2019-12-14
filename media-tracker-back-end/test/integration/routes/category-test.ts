@@ -51,7 +51,7 @@ describe('Category API Tests', () => {
 		it('Should update an existing category', async() => {
 
 			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
-			const categoryId: string = String(category._id);
+			const categoryId = String(category._id);
 			const newName = randomName('Changed');
 
 			await callHelper('PUT', `/users/${firstU.user}/categories/${categoryId}`, {
@@ -82,7 +82,7 @@ describe('Category API Tests', () => {
 		it('Should delete an existing category', async function() {
 
 			const category = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
-			const categoryId: string = String(category._id);
+			const categoryId = String(category._id);
 
 			await callHelper('DELETE', `/users/${firstU.user}/categories/${categoryId}`);
 			
