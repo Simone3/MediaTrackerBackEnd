@@ -3,7 +3,7 @@ import { categoryController } from 'app/controllers/entities/category';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { AppError } from 'app/data/models/error/error';
 import { CategoryInternal } from 'app/data/models/internal/category';
-import { GroupInternal } from 'app/data/models/internal/group';
+import { GroupFilterInternal, GroupInternal } from 'app/data/models/internal/group';
 import { UserInternal } from 'app/data/models/internal/user';
 import { mediaItemFactory } from 'app/factories/media-item';
 import { GroupSchema, GROUP_COLLECTION_NAME } from 'app/schemas/group';
@@ -72,10 +72,28 @@ class GroupController extends AbstractEntityController {
 	 */
 	public getAllGroups(userId: string, categoryId: string): Promise<GroupInternal[]> {
 
+		return this.filterGroups(userId, categoryId);
+	}
+
+	/**
+	 * Gets all groups matching the given filter for the given user and category
+	 * @param userId user ID
+	 * @param categoryId category ID
+	 * @param filter the filter
+	 * @returns the groups, as a promise
+	 */
+	public filterGroups(userId: string, categoryId: string, filter?: GroupFilterInternal): Promise<GroupInternal[]> {
+
 		const conditions: QueryConditions = {
 			owner: userId,
 			category: categoryId
 		};
+
+		if(filter && filter.name) {
+			
+			// Case insensitive exact match
+			conditions.name = new RegExp(`^${filter.name}$`, 'i');
+		}
 
 		const sortBy: OrderBy = {
 			name: 'asc'

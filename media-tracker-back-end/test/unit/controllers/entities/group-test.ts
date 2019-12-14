@@ -104,6 +104,27 @@ describe('GroupController Tests', () => {
 			expect(foundWrongMatchGroups, 'GetAllGroups did not return the correct number of results for non-existing user-category pair').to.have.lengthOf(0);
 		});
 
+		it('FilterGroups should return all matching groups for the given user', async() => {
+
+			const firstUCGroups: GroupInternal[] = [];
+			const secondUCGroups: GroupInternal[] = [];
+
+			firstUCGroups.push(await groupController.saveGroup(getTestGroup(undefined, firstUC, 'AAAA')));
+			secondUCGroups.push(await groupController.saveGroup(getTestGroup(undefined, secondUC, 'AAAA')));
+			firstUCGroups.push(await groupController.saveGroup(getTestGroup(undefined, firstUC, 'aAaa')));
+			firstUCGroups.push(await groupController.saveGroup(getTestGroup(undefined, firstUC, 'Bbbb')));
+			firstUCGroups.push(await groupController.saveGroup(getTestGroup(undefined, firstUC, 'Aaaa1')));
+			firstUCGroups.push(await groupController.saveGroup(getTestGroup(undefined, firstUC, '1Aaaa')));
+
+			const foundFirstUGroups = await groupController.filterGroups(firstUC.user, firstUC.category, { name: 'Aaaa' });
+			expect(foundFirstUGroups, 'FilterGroups did not return the correct number of results').to.have.lengthOf(2);
+			expect(extractAsString(foundFirstUGroups, 'name'), 'FilterGroups did not return the correct results').to.have.members([ 'AAAA', 'aAaa' ]);
+
+			const foundSecondUGroups = await groupController.filterGroups(secondUC.user, secondUC.category, { name: 'Aaaa' });
+			expect(foundSecondUGroups, 'FilterGroups did not return the correct number of results').to.have.lengthOf(1);
+			expect(extractAsString(foundSecondUGroups, 'name'), 'FilterGroups did not return the correct results').to.have.members([ 'AAAA' ]);
+		});
+
 		it('SaveGroup (insert) should not accept an invalid user', async() => {
 
 			try {

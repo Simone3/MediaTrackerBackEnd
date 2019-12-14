@@ -11,3 +11,11 @@ export type GroupInternal = PersistedEntityInternal & {
 	owner: UserInternal | string;
 	category: CategoryInternal | string;
 }
+
+/**
+ * Group filtering options, internal type NOT to be exposed via API
+ */
+export type GroupFilterInternal = {
+
+	name?: string;
+}

@@ -1,7 +1,7 @@
 import { ModelMapper } from 'app/data/mappers/common';
-import { IdentifiedGroup } from 'app/data/models/api/group';
+import { GroupFilter, IdentifiedGroup } from 'app/data/models/api/group';
 import { AppError } from 'app/data/models/error/error';
-import { GroupInternal } from 'app/data/models/internal/group';
+import { GroupFilterInternal, GroupInternal } from 'app/data/models/internal/group';
 
 /**
  * Helper type
@@ -46,7 +46,38 @@ class GroupMapper extends ModelMapper<GroupInternal, IdentifiedGroup, GroupMappe
 }
 
 /**
+ * Mapper for group filters
+ */
+class GroupFilterMapper extends ModelMapper<GroupFilterInternal, GroupFilter, never> {
+		
+	/**
+	 * @override
+	 */
+	protected convertToExternal(source: GroupFilterInternal): GroupFilter {
+		
+		return {
+			name: source.name
+		};
+	}
+	
+	/**
+	 * @override
+	 */
+	protected convertToInternal(source: GroupFilter): GroupFilterInternal {
+		
+		return {
+			name: source.name
+		};
+	}
+}
+
+/**
  * Singleton instance of the groups mapper
  */
 export const groupMapper = new GroupMapper();
+
+/**
+ * Singleton instance of the group filter mapper
+ */
+export const groupFilterMapper = new GroupFilterMapper();
 

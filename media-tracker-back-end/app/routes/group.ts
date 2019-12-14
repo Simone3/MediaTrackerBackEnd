@@ -1,7 +1,7 @@
 
 import { groupController } from 'app/controllers/entities/group';
-import { groupMapper } from 'app/data/mappers/group';
-import { AddGroupRequest, AddGroupResponse, DeleteGroupResponse, GetAllGroupsResponse, UpdateGroupRequest, UpdateGroupResponse } from 'app/data/models/api/group';
+import { groupFilterMapper, groupMapper } from 'app/data/mappers/group';
+import { AddGroupRequest, AddGroupResponse, DeleteGroupResponse, FilterGroupsRequest, FilterGroupsResponse, GetAllGroupsResponse, UpdateGroupRequest, UpdateGroupResponse } from 'app/data/models/api/group';
 import { AppError } from 'app/data/models/error/error';
 import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
@@ -31,6 +31,40 @@ router.get('/users/:userId/categories/:categoryId/groups', (request, response) =
 
 			logger.error('Get groups generic error: %s', error);
 			response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
+		});
+});
+
+/**
+ * Route to get all saved groups matching some filter
+ */
+router.post('/users/:userId/categories/:categoryId/groups/filter', (request, response) => {
+
+	const userId: string = request.params.userId;
+	const categoryId: string = request.params.categoryId;
+
+	parserValidator.parseAndValidate(FilterGroupsRequest, request.body)
+		.then((parsedRequest) => {
+
+			const filterBy = parsedRequest.filter ? groupFilterMapper.toInternal(parsedRequest.filter) : undefined;
+			groupController.filterGroups(userId, categoryId, filterBy)
+				.then((groups) => {
+		
+					const responseBody: FilterGroupsResponse = {
+						groups: groupMapper.toExternalList(groups)
+					};
+					
+					response.json(responseBody);
+				})
+				.catch((error) => {
+		
+					logger.error('Filter groups generic error: %s', error);
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
+				});
+		})
+		.catch((error) => {
+
+			logger.error('Filter groups request error: %s', error);
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 

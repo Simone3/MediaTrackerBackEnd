@@ -75,6 +75,21 @@ describe('Group API Tests', () => {
 			expect(extract(response.groups, 'name'), 'API did not return the correct groups').to.eql([ 'Bbb', 'Rrr', 'Zzz' ]);
 		});
 
+		it('Should return all user groups that match the filter', async() => {
+
+			await groupController.saveGroup(getTestGroup(undefined, firstUC, 'Rrr'));
+			await groupController.saveGroup(getTestGroup(undefined, firstUC, 'Bbb'));
+			await groupController.saveGroup(getTestGroup(undefined, firstUC, 'Zzz'));
+			
+			const response = await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/groups/filter`, {
+				filter: {
+					name: 'bbB'
+				}
+			});
+			expect(response.groups, 'API did not return the correct number of groups').to.have.lengthOf(1);
+			expect(extract(response.groups, 'name'), 'API did not return the correct groups').to.eql([ 'Bbb' ]);
+		});
+
 		it('Should delete an existing group', async() => {
 
 			const group = await groupController.saveGroup(getTestGroup(undefined, firstUC));

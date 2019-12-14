@@ -1,6 +1,6 @@
-import { CommonAddResponse, CommonResponse, CommonSaveRequest } from 'app/data/models/api/common';
+import { CommonAddResponse, CommonRequest, CommonResponse, CommonSaveRequest } from 'app/data/models/api/common';
 import { Type } from 'class-transformer';
-import { IsDefined, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { IsDefined, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Model for a group, publicly exposed via API
@@ -62,6 +62,49 @@ export class DeleteGroupResponse extends CommonResponse {
  * Response for the 'get all groups' API
  */
 export class GetAllGroupsResponse extends CommonResponse {
+
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedGroup;
+	})
+	@ValidateNested()
+	public groups: IdentifiedGroup[] = [];
+}
+
+/**
+ * Group filtering options, publicly exposed via API
+ */
+export class GroupFilter {
+
+	/**
+	 * Filter for name (case-insensitive exact match)
+	 */
+	@IsOptional()
+	@IsString()
+	public name?: string;
+}
+
+/**
+ * Request for the 'filter groups' API
+ */
+export class FilterGroupsRequest extends CommonRequest {
+
+	/**
+	 * Filtering options
+	 */
+	@IsOptional()
+	@Type(() => {
+		return GroupFilter;
+	})
+	@ValidateNested()
+	public filter?: GroupFilter;
+}
+
+/**
+ * Response for the 'filter groups' API
+ */
+export class FilterGroupsResponse extends CommonResponse {
 
 	@IsDefined()
 	@IsDefined({ each: true })
