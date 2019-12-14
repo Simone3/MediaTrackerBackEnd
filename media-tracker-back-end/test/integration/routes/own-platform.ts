@@ -102,6 +102,21 @@ describe('OwnPlatform API Tests', () => {
 			expect(extract(response.ownPlatforms, 'name'), 'API did not return the correct own platforms').to.eql([ 'Bbb', 'Rrr', 'Zzz' ]);
 		});
 
+		it('Should return all user own platforms that match the filter', async() => {
+
+			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'Rrr'));
+			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'Bbb'));
+			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'Zzz'));
+			
+			const response = await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/filter`, {
+				filter: {
+					name: 'bbB'
+				}
+			});
+			expect(response.ownPlatforms, 'API did not return the correct number of own platforms').to.have.lengthOf(1);
+			expect(extract(response.ownPlatforms, 'name'), 'API did not return the correct own platforms').to.eql([ 'Bbb' ]);
+		});
+
 		it('Should delete an existing own platform', async() => {
 
 			const ownPlatform = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));

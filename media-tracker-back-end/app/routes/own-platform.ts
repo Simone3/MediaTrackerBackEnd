@@ -1,7 +1,7 @@
 
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
-import { ownPlatformMapper } from 'app/data/mappers/own-platform';
-import { AddOwnPlatformRequest, AddOwnPlatformResponse, DeleteOwnPlatformResponse, GetAllOwnPlatformsResponse, MergeOwnPlatformsRequest, MergeOwnPlatformsResponse, UpdateOwnPlatformRequest, UpdateOwnPlatformResponse } from 'app/data/models/api/own-platform';
+import { ownPlatformFilterMapper, ownPlatformMapper } from 'app/data/mappers/own-platform';
+import { AddOwnPlatformRequest, AddOwnPlatformResponse, DeleteOwnPlatformResponse, FilterOwnPlatformsRequest, FilterOwnPlatformsResponse, GetAllOwnPlatformsResponse, MergeOwnPlatformsRequest, MergeOwnPlatformsResponse, UpdateOwnPlatformRequest, UpdateOwnPlatformResponse } from 'app/data/models/api/own-platform';
 import { AppError } from 'app/data/models/error/error';
 import { errorResponseFactory } from 'app/factories/error';
 import { logger } from 'app/loggers/logger';
@@ -31,6 +31,40 @@ router.get('/users/:userId/categories/:categoryId/own-platforms', (request, resp
 
 			logger.error('Get own platforms generic error: %s', error);
 			response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
+		});
+});
+
+/**
+ * Route to get all saved own platforms matching some filter
+ */
+router.post('/users/:userId/categories/:categoryId/own-platforms/filter', (request, response) => {
+
+	const userId: string = request.params.userId;
+	const categoryId: string = request.params.categoryId;
+
+	parserValidator.parseAndValidate(FilterOwnPlatformsRequest, request.body)
+		.then((parsedRequest) => {
+
+			const filterBy = parsedRequest.filter ? ownPlatformFilterMapper.toInternal(parsedRequest.filter) : undefined;
+			ownPlatformController.filterOwnPlatforms(userId, categoryId, filterBy)
+				.then((ownPlatforms) => {
+		
+					const responseBody: FilterOwnPlatformsResponse = {
+						ownPlatforms: ownPlatformMapper.toExternalList(ownPlatforms)
+					};
+					
+					response.json(responseBody);
+				})
+				.catch((error) => {
+		
+					logger.error('Filter own platforms generic error: %s', error);
+					response.status(500).json(errorResponseFactory.from(AppError.GENERIC.withDetails(error)));
+				});
+		})
+		.catch((error) => {
+
+			logger.error('Filter own platforms request error: %s', error);
+			response.status(500).json(errorResponseFactory.from(AppError.INVALID_REQUEST.withDetails(error)));
 		});
 });
 

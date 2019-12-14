@@ -3,7 +3,7 @@ import { categoryController } from 'app/controllers/entities/category';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { AppError } from 'app/data/models/error/error';
 import { CategoryInternal } from 'app/data/models/internal/category';
-import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
+import { OwnPlatformFilterInternal, OwnPlatformInternal } from 'app/data/models/internal/own-platform';
 import { UserInternal } from 'app/data/models/internal/user';
 import { mediaItemFactory } from 'app/factories/media-item';
 import { OwnPlatformSchema, OWN_PLATFORM_COLLECTION_NAME } from 'app/schemas/own-platform';
@@ -72,10 +72,28 @@ class OwnPlatformController extends AbstractEntityController {
 	 */
 	public getAllOwnPlatforms(userId: string, categoryId: string): Promise<OwnPlatformInternal[]> {
 
+		return this.filterOwnPlatforms(userId, categoryId);
+	}
+
+	/**
+	 * Gets all own platforms matching the given filter for the given user and category
+	 * @param userId user ID
+	 * @param categoryId category ID
+	 * @param filter the filter
+	 * @returns the own platforms, as a promise
+	 */
+	public filterOwnPlatforms(userId: string, categoryId: string, filter?: OwnPlatformFilterInternal): Promise<OwnPlatformInternal[]> {
+
 		const conditions: QueryConditions = {
 			owner: userId,
 			category: categoryId
 		};
+
+		if(filter && filter.name) {
+			
+			// Case insensitive exact match
+			conditions.name = new RegExp(`^${filter.name}$`, 'i');
+		}
 
 		const sortBy: OrderBy = {
 			name: 'asc'

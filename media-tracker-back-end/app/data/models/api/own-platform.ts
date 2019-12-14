@@ -1,6 +1,6 @@
 import { CommonAddResponse, CommonRequest, CommonResponse, CommonSaveRequest } from 'app/data/models/api/common';
 import { Type } from 'class-transformer';
-import { ArrayMinSize, IsDefined, IsHexColor, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { ArrayMinSize, IsDefined, IsHexColor, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Model for a platform where some user owns some media items, publicly exposed via API
@@ -69,6 +69,49 @@ export class DeleteOwnPlatformResponse extends CommonResponse {
  * Response for the 'get all own platforms' API
  */
 export class GetAllOwnPlatformsResponse extends CommonResponse {
+
+	@IsDefined()
+	@IsDefined({ each: true })
+	@Type(() => {
+		return IdentifiedOwnPlatform;
+	})
+	@ValidateNested()
+	public ownPlatforms: IdentifiedOwnPlatform[] = [];
+}
+
+/**
+ * Own platform filtering options, publicly exposed via API
+ */
+export class OwnPlatformFilter {
+
+	/**
+	 * Filter for name (case-insensitive exact match)
+	 */
+	@IsOptional()
+	@IsString()
+	public name?: string;
+}
+
+/**
+ * Request for the 'filter own platforms' API
+ */
+export class FilterOwnPlatformsRequest extends CommonRequest {
+
+	/**
+	 * Filtering options
+	 */
+	@IsOptional()
+	@Type(() => {
+		return OwnPlatformFilter;
+	})
+	@ValidateNested()
+	public filter?: OwnPlatformFilter;
+}
+
+/**
+ * Response for the 'filter own platforms' API
+ */
+export class FilterOwnPlatformsResponse extends CommonResponse {
 
 	@IsDefined()
 	@IsDefined({ each: true })

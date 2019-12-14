@@ -1,7 +1,7 @@
 import { ModelMapper } from 'app/data/mappers/common';
-import { IdentifiedOwnPlatform } from 'app/data/models/api/own-platform';
+import { IdentifiedOwnPlatform, OwnPlatformFilter } from 'app/data/models/api/own-platform';
 import { AppError } from 'app/data/models/error/error';
-import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
+import { OwnPlatformFilterInternal, OwnPlatformInternal } from 'app/data/models/internal/own-platform';
 
 /**
  * Helper type
@@ -48,7 +48,38 @@ class OwnPlatformMapper extends ModelMapper<OwnPlatformInternal, IdentifiedOwnPl
 }
 
 /**
+ * Mapper for own platform filters
+ */
+class OwnPlatformFilterMapper extends ModelMapper<OwnPlatformFilterInternal, OwnPlatformFilter, never> {
+		
+	/**
+	 * @override
+	 */
+	protected convertToExternal(source: OwnPlatformFilterInternal): OwnPlatformFilter {
+		
+		return {
+			name: source.name
+		};
+	}
+	
+	/**
+	 * @override
+	 */
+	protected convertToInternal(source: OwnPlatformFilter): OwnPlatformFilterInternal {
+		
+		return {
+			name: source.name
+		};
+	}
+}
+
+/**
  * Singleton instance of the own platforms mapper
  */
 export const ownPlatformMapper = new OwnPlatformMapper();
+
+/**
+ * Singleton instance of the own platform filter mapper
+ */
+export const ownPlatformFilterMapper = new OwnPlatformFilterMapper();
 

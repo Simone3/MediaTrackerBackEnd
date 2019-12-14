@@ -12,3 +12,11 @@ export type OwnPlatformInternal = PersistedEntityInternal & {
 	owner: UserInternal | string;
 	category: CategoryInternal | string;
 }
+
+/**
+ * OwnPlatform filtering options, internal type NOT to be exposed via API
+ */
+export type OwnPlatformFilterInternal = {
+
+	name?: string;
+}

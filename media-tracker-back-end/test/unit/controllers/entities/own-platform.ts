@@ -104,6 +104,27 @@ describe('OwnPlatformController Tests', () => {
 			expect(foundWrongMatchOwnPlatforms, 'GetAllOwnPlatforms did not return the correct number of results for non-existing user-category pair').to.have.lengthOf(0);
 		});
 
+		it('FilterOwnPlatforms should return all matching own platforms for the given user', async() => {
+
+			const firstUCOwnPlatforms: OwnPlatformInternal[] = [];
+			const secondUCOwnPlatforms: OwnPlatformInternal[] = [];
+
+			firstUCOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'AAAA')));
+			secondUCOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, secondUC, 'AAAA')));
+			firstUCOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'aAaa')));
+			firstUCOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'Bbbb')));
+			firstUCOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'Aaaa1')));
+			firstUCOwnPlatforms.push(await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, '1Aaaa')));
+
+			const foundFirstUOwnPlatforms = await ownPlatformController.filterOwnPlatforms(firstUC.user, firstUC.category, { name: 'Aaaa' });
+			expect(foundFirstUOwnPlatforms, 'FilterOwnPlatforms did not return the correct number of results').to.have.lengthOf(2);
+			expect(extractAsString(foundFirstUOwnPlatforms, 'name'), 'FilterOwnPlatforms did not return the correct results').to.have.members([ 'AAAA', 'aAaa' ]);
+
+			const foundSecondUOwnPlatforms = await ownPlatformController.filterOwnPlatforms(secondUC.user, secondUC.category, { name: 'Aaaa' });
+			expect(foundSecondUOwnPlatforms, 'FilterOwnPlatforms did not return the correct number of results').to.have.lengthOf(1);
+			expect(extractAsString(foundSecondUOwnPlatforms, 'name'), 'FilterOwnPlatforms did not return the correct results').to.have.members([ 'AAAA' ]);
+		});
+
 		it('MergeOwnPlatforms should merge own platforms', async() => {
 
 			const mergedName = randomName('TheMergedName');
