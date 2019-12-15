@@ -28,8 +28,9 @@ export type MediaItemInternal = PersistedEntityInternal & CoreMediaItemDataInter
 	owner: UserInternal | string;
 	importance: number;
 	userComment?: string;
-	completedAt?: Date[];
+	completedOn?: Date[];
 	active?: boolean;
+	markedAsRedo?: boolean;
 	catalogId?: string;
 };
 

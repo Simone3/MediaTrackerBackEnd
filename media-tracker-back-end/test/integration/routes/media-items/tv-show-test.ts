@@ -195,8 +195,9 @@ describe('TV show API Tests', () => {
 				uid: '',
 				name: randomName('Name'),
 				active: true,
+				markedAsRedo: true,
 				catalogId: randomName('Catalog'),
-				completedAt: [ '2011-12-25T10:32:27.240Z', '2015-04-01T10:32:27.240Z', '2017-05-17T10:32:27.240Z' ],
+				completedOn: [ '2011-12-25T10:32:27.240Z', '2015-04-01T10:32:27.240Z', '2017-05-17T10:32:27.240Z' ],
 				description: randomName('Description'),
 				genres: [ randomName('Genre1') ],
 				group: {

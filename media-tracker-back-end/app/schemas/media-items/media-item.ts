@@ -18,9 +18,10 @@ export const commonMediaItemSchemaDefinition: SchemaDefinition = {
 	genres: { type: [ String ], required: false },
 	description: { type: String, required: false },
 	userComment: { type: String, required: false },
-	completedAt: { type: [ Date ], required: false },
+	completedOn: { type: [ Date ], required: false },
 	releaseDate: { type: Date, required: false },
 	active: { type: String, required: false },
+	markedAsRedo: { type: String, required: false },
 	catalogId: { type: String, required: false },
 	imageUrl: { type: String, required: false }
 };

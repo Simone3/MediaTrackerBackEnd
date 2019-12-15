@@ -35,9 +35,10 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			genres: source.genres,
 			description: source.description,
 			userComment: source.userComment,
-			completedAt: dateUtils.toStringList(source.completedAt),
+			completedOn: dateUtils.toStringList(source.completedOn),
 			releaseDate: dateUtils.toString(source.releaseDate),
 			active: miscUtils.parseBoolean(source.active),
+			markedAsRedo: miscUtils.parseBoolean(source.markedAsRedo),
 			catalogId: source.catalogId,
 			imageUrl: source.imageUrl
 		};
@@ -86,9 +87,10 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			genres: source.genres,
 			description: source.description,
 			userComment: source.userComment,
-			completedAt: dateUtils.toDateList(source.completedAt),
+			completedOn: dateUtils.toDateList(source.completedOn),
 			releaseDate: dateUtils.toDate(source.releaseDate),
 			active: miscUtils.parseBoolean(source.active),
+			markedAsRedo: miscUtils.parseBoolean(source.markedAsRedo),
 			catalogId: source.catalogId,
 			imageUrl: source.imageUrl
 		};

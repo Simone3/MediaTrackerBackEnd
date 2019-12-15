@@ -144,7 +144,7 @@ export abstract class MediaItem extends CoreMediaItemData {
 	@IsOptional()
 	@IsDefined({ each: true })
 	@IsDateString({ each: true })
-	public completedAt?: string[];
+	public completedOn?: string[];
 
 	/**
 	 * If the user marked the media item as currently active (e.g. currently reading)
@@ -152,6 +152,13 @@ export abstract class MediaItem extends CoreMediaItemData {
 	@IsOptional()
 	@IsBoolean()
 	public active?: boolean;
+
+	/**
+	 * If the user marked the media item as "redoing" (i.e. was completed in the past but the user moved it back to the "current" list to e.g. rewatch it)
+	 */
+	@IsOptional()
+	@IsBoolean()
+	public markedAsRedo?: boolean;
 
 	/**
 	 * The data source catalog reference
