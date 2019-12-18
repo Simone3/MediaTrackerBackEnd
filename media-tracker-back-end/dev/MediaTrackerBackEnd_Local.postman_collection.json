@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newUser\": {\n    \t\"name\": \"TestMe\"\n    }\n}"
+							"raw": "{\n    \"newUser\": {\n    \t\"name\": \"werfg\"\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users",
@@ -74,10 +74,6 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd",
 							"protocol": "http",
@@ -103,12 +99,8 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories",
+							"raw": "http://localhost:3000/users/5cf3c42d8ec0aa33a8738f7f/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -116,8 +108,46 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ccebae360830e3ae0069ae4",
+								"5cf3c42d8ec0aa33a8738f7f",
 								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FilterCategories",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"filter\": {\n\t\t\"name\": \"A12341243123\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/5cf3c42d8ec0aa33a8738f7f/categories/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"5cf3c42d8ec0aa33a8738f7f",
+								"categories",
+								"filter"
 							]
 						}
 					},
@@ -137,10 +167,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newCategory\": {\n    \t\"name\": \"TestCat\",\n    \t\"mediaType\": \"MOVIE\"\n    }\n}"
+							"raw": "{\n    \"newCategory\": {\n    \t\"name\": \"My Shows\",\n    \t\"mediaType\": \"TV_SHOW\",\n    \t\"color\": \"#0000FF\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories",
+							"raw": "http://localhost:3000/users/5cf3c42d8ec0aa33a8738f7f/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -148,7 +178,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ccebae360830e3ae0069ae4",
+								"5cf3c42d8ec0aa33a8738f7f",
 								"categories"
 							]
 						}
@@ -193,10 +223,6 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73",
 							"protocol": "http",
@@ -224,10 +250,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups",
 							"protocol": "http",
@@ -320,10 +342,6 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups/5cb1d542a513dd2854833c77",
 							"protocol": "http",
@@ -353,10 +371,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms",
 							"protocol": "http",
@@ -484,10 +498,6 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms/5ccebc2360830e3ae0069ae9",
 							"protocol": "http",
@@ -517,12 +527,8 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
-							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26ea895c281b54b6737f/movies",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/movies",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -530,9 +536,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5cbec5f6afbc9c1f2cfec0ae",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5cbf26ea895c281b54b6737f",
+								"5ccebb3b60830e3ae0069ae5",
 								"movies"
 							]
 						}
@@ -553,7 +559,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"newMovie\": {\n        \"name\": \"NEWAFTEREDIT\",\n        \"director\": \"Another\",\n        \"importance\": 10\n    }\n}"
+							"raw": "{\n    \"newMovie\": {\n        \"name\": \"Marked\",\n        \"director\": \"Another\",\n        \"importance\": 10,\n\t\t\"genres\": [\"FirstG\", \"SecondG\"],\n\t\t\"description\": \"Some description\",\n\t\t\"userComment\": \"Some comment\",\n\t\t\"completedOn\": [\"2018-05-05T10:32:27.240\", \"2019-05-05T10:32:27.240\"],\n\t\t\"releaseDate\": \"2010-05-05T10:32:27.240\",\n\t\t\"markedAsRedo\": true,\n\t\t\"catalogId\": \"123\",\n\t\t\"imageUrl\": \"http//image.url\",\n\t\t\"group\": {\n\t\t\t\"groupId\": \"5ccebb8060830e3ae0069ae7\",\n\t\t\t\"orderInGroup\": 12\n\t\t}\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/movies",
@@ -650,10 +656,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"filter\": {\n        \"importance\": 100\n    },\n    \"sortBy\": [\n        {\n            \"field\": \"GROUP\",\n            \"ascending\": true\n        },\n        {\n            \"field\": \"DIRECTOR\",\n            \"ascending\": true\n        }\n    ]\n}"
+							"raw": "{\n    \"filter\": {\n        \"importanceLevels\": [ 10 ],\n        \"complete\": true\n    },\n    \"sortBy\": [\n        {\n            \"field\": \"GROUP\",\n            \"ascending\": true\n        },\n        {\n            \"field\": \"DIRECTOR\",\n            \"ascending\": true\n        }\n    ]\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5cbdcd1129d7e425c8b891d0/categories/5cbddb30f782142eac088f63/movies/filter",
+							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/movies/filter",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -661,9 +667,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5cbdcd1129d7e425c8b891d0",
+								"5ccebae360830e3ae0069ae4",
 								"categories",
-								"5cbddb30f782142eac088f63",
+								"5ccebb3b60830e3ae0069ae5",
 								"movies",
 								"filter"
 							]
@@ -711,10 +717,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/catalog/movies/search/The Lord of Rings",
 							"protocol": "http",
@@ -737,10 +739,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/catalog/movies/120",
 							"protocol": "http",
@@ -767,10 +765,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows",
 							"protocol": "http",
@@ -961,10 +955,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/catalog/tv-shows/search/Breaking Bad",
 							"protocol": "http",
@@ -987,10 +977,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/catalog/tv-shows/1399",
 							"protocol": "http",
@@ -1017,10 +1003,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books",
 							"protocol": "http",
@@ -1211,10 +1193,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/catalog/books/search/Lord of the Rings",
 							"protocol": "http",
@@ -1237,10 +1215,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/catalog/books/YTqqPwAACAAJ",
 							"protocol": "http",
@@ -1267,10 +1241,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames",
 							"protocol": "http",
@@ -1461,10 +1431,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/catalog/videogames/search/The Witcher",
 							"protocol": "http",
@@ -1487,10 +1453,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3000/catalog/videogames/10473",
 							"protocol": "http",
