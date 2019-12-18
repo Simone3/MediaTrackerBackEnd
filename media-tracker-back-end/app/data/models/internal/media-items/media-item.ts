@@ -35,13 +35,35 @@ export type MediaItemInternal = PersistedEntityInternal & CoreMediaItemDataInter
 };
 
 /**
+ * Media items groups filtering options, internal type NOT to be exposed via API
+ */
+export type MediaItemGroupFilterInternal = {
+	
+	anyGroup?: boolean;
+	noGroup?: boolean;
+	groupIds?: string[];
+}
+
+/**
+ * Media items own platforms filtering options, internal type NOT to be exposed via API
+ */
+export type MediaItemOwnPlatformFilterInternal = {
+	
+	anyOwnPlatform?: boolean;
+	noOwnPlatform?: boolean;
+	ownPlatformIds?: string[];
+}
+
+/**
  * Model for a media item filtering options, internal type NOT to be exposed via API
  */
 export type MediaItemFilterInternal = {
 	
-	importance?: number;
-	groupId?: string;
-	ownPlatformId?: string;
+	importanceLevels?: number[];
+	groups?: MediaItemGroupFilterInternal;
+	ownPlatforms?: MediaItemOwnPlatformFilterInternal;
+	complete?: boolean;
+	name?: string;
 };
 
 /**

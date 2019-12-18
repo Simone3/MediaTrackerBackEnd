@@ -19,7 +19,7 @@ const MovieModel: Model<MovieDocument> = model<MovieDocument>(MOVIE_COLLECTION_N
  * Controller for movie entities
  */
 class MovieEntityController extends MediaItemEntityController<MovieInternal, MovieSortByInternal, MovieFilterInternal> {
-	
+		
 	/**
 	 * Constructor
 	 */
@@ -45,6 +45,14 @@ class MovieEntityController extends MediaItemEntityController<MovieInternal, Mov
 			field: 'NAME',
 			ascending: true
 		}];
+	}
+
+	/**
+	 * @override
+	 */
+	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<MovieInternal>[], filterBy?: MovieFilterInternal): void {
+		
+		this.addCommonConditionsFromFilter(userId, categoryId, andConditions, filterBy);
 	}
 	
 	/**

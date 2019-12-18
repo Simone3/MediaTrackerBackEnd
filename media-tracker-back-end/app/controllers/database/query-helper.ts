@@ -297,11 +297,15 @@ export type Sortable<T> = {
 export type SortDirection = 'asc' | 'desc';
 
 /**
- * Helper type to make all properties in T optional, possibily regular expressions and possibly with nested OR conditions
+ * Helper type to make all properties in T optional, possibily regular expressions and possibly with nested OR/AND conditions
  */
 export type Queryable<T> = {
-	[P in keyof T]?: T[P] | RegExp | { $in: T[P][] };
-} & {$or?: Queryable<T>[]};
+	[P in keyof T]?: T[P] | RegExp | { $in: T[P][] } | { $ne: T[P] };
+} | {
+	$or: Queryable<T>[];
+} | {
+	$and: Queryable<T>[];
+};
 
 /**
  * Helper type to make all properties in T be optionally true or false

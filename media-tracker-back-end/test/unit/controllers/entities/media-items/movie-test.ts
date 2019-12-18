@@ -102,7 +102,7 @@ describe('MovieController Tests', () => {
 			expect(foundMovie.name, 'GetMediaItem returned wrong name').to.equal(newName);
 		});
 
-		it('FilterAndOrder should return the correct results', async() => {
+		it('FilterAndOrder should filter by importance', async() => {
 
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt' }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Aaa' }));
@@ -110,12 +110,69 @@ describe('MovieController Tests', () => {
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz' }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Ddd', importance: 123 }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Mmm' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Nnn' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Lll', importance: 321 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rrr', importance: 12 }));
 
-			helperCompareResults([ 'Bbb' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
-				importance: 123
-			}), true);
+			helperCompareResults([ 'Bbb', 'Lll' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				importanceLevels: [ 123, 321 ]
+			}));
+
+			helperCompareResults([], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				importanceLevels: [ 65465321 ]
+			}));
+		});
+
+		it('FilterAndOrder should filter by name', async() => {
+
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Aaa' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Ddd' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'bbB' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rrr' }));
+
+			helperCompareResults([ 'Bbb', 'bbB' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				name: 'BBB'
+			}));
+
+			helperCompareResults([], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				name: 'Bb'
+			}));
+		});
+
+		it('FilterAndOrder should filter by completion', async() => {
+
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', active: true }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', completedOn: [ new Date() ] }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz', completedOn: [ new Date() ], markedAsRedo: true }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc', completedOn: [ new Date(), new Date() ] }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rrr' }));
+
+			helperCompareResults([ 'Ttt', 'Bbb', 'Zzz', 'Ccc', 'Rrr' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				complete: undefined
+			}));
+
+			helperCompareResults([ 'Bbb', 'Ccc' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				complete: true
+			}));
+
+			helperCompareResults([ 'Ttt', 'Zzz', 'Rrr' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				complete: false
+			}));
+		});
+
+		it('FilterAndOrder should return the results in the correct order', async() => {
+
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: 1 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Aaa', importance: 2 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 8 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz', importance: 3 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Ddd', importance: 7 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc', importance: 4 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Mmm', importance: 6 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Nnn', importance: 5 }));
 
 			helperCompareResults([ 'Bbb', 'Ccc', 'Ttt', 'Zzz' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, undefined, [{
 				field: 'NAME',
@@ -127,30 +184,65 @@ describe('MovieController Tests', () => {
 				ascending: false
 			}]), true);
 
-			helperCompareResults([], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
-				importance: 65465321
-			}), true);
+			helperCompareResults([ 'Ttt', 'Zzz', 'Ccc', 'Bbb' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, undefined, [{
+				field: 'IMPORTANCE',
+				ascending: true
+			}]), true);
 		});
 
-		it('SearchMediaIterm should return the correct results', async() => {
+		it('FilterAndOrder should filter by group', async() => {
 
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'SomeRandomString' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'ThisIsTheMediaItemName' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'SomeOtherRandomString' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'SomeOtherRandomString' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'AnotherMediaItem', importance: 345 }));
+			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 2, { name: 'Aaa' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 345 }));
+			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 1, { name: 'Ccc' }));
+			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 3, { name: 'Ddd', importance: 345 }));
 
-			helperCompareResults([ 'SomeOtherRandomString', 'AnotherMediaItem' ], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'other'));
-
-			helperCompareResults([ 'AnotherMediaItem' ], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'other', {
-				importance: 345
+			helperCompareResults([ 'Aaa', 'Ccc', 'Ddd' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				groups: {
+					anyGroup: true
+				}
 			}));
 
-			helperCompareResults([], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'wontfind'));
+			helperCompareResults([ 'Bbb' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				groups: {
+					noGroup: true
+				}
+			}));
 
-			helperCompareResults([], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, '.*'));
-			
-			helperCompareResults([ 'SomeRandomString' ], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'somerand'));
+			helperCompareResults([ 'Aaa', 'Ccc', 'Ddd' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				groups: {
+					groupIds: [ firstUCG.group ? firstUCG.group : '' ]
+				}
+			}));
+		});
+
+		it('FilterAndOrder should filter by own platform', async() => {
+
+			const { _id: ownPlatformId1 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUCG));
+			const { _id: ownPlatformId2 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUCG));
+
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Aaa', ownPlatform: ownPlatformId1 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 345 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc', ownPlatform: ownPlatformId1 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ddd', importance: 345, ownPlatform: ownPlatformId2 }));
+
+			helperCompareResults([ 'Aaa', 'Ccc', 'Ddd' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				ownPlatforms: {
+					anyOwnPlatform: true
+				}
+			}));
+
+			helperCompareResults([ 'Bbb' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				ownPlatforms: {
+					noOwnPlatform: true
+				}
+			}));
+
+			helperCompareResults([ 'Aaa', 'Ccc' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+				ownPlatforms: {
+					ownPlatformIds: [ ownPlatformId1 ]
+				}
+			}));
 		});
 		
 		it('FilterAndOrder result should contain group data', async() => {
@@ -163,21 +255,6 @@ describe('MovieController Tests', () => {
 			const groupData = foundMovies[0].group as GroupInternal;
 			expect(String(groupData._id), 'GetMediaItem returned an invalid group ID').to.equal(String(firstUCG.group));
 			expect(groupData.name, 'GetMediaItem returned an invalid group name').not.to.be.undefined;
-		});
-
-		it('FilterAndOrder should filter by group', async() => {
-
-			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 2, { name: 'Aaa' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 345 }));
-			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 1, { name: 'Ccc' }));
-			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 3, { name: 'Ddd', importance: 345 }));
-
-			helperCompareResults([ 'Ccc', 'Aaa', 'Ddd' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
-				groupId: firstUCG.group
-			}, [{
-				field: 'GROUP',
-				ascending: true
-			}]), true);
 		});
 		
 		it('FilterAndOrder result should contain platform data', async() => {
@@ -195,19 +272,25 @@ describe('MovieController Tests', () => {
 			expect(ownPlatformData.name, 'GetMediaItem returned an invalid own platform name').to.equal(ownPlatformName);
 		});
 
-		it('FilterAndOrder should filter by own platform', async() => {
+		it('SearchMediaIterm should return the correct results', async() => {
 
-			const { _id: ownPlatformId1 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUCG));
-			const { _id: ownPlatformId2 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUCG));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'SomeRandomString' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'ThisIsTheMediaItemName' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'SomeOtherRandomString' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'SomeOtherRandomString' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'AnotherMediaItem', importance: 345 }));
 
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Aaa', ownPlatform: ownPlatformId1 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 345 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc', ownPlatform: ownPlatformId1 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ddd', importance: 345, ownPlatform: ownPlatformId2 }));
+			helperCompareResults([ 'SomeOtherRandomString', 'AnotherMediaItem' ], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'other'));
 
-			helperCompareResults([ 'Aaa', 'Ccc' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
-				ownPlatformId: ownPlatformId1
+			helperCompareResults([ 'AnotherMediaItem' ], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'other', {
+				importanceLevels: [ 345 ]
 			}));
+
+			helperCompareResults([], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'wontfind'));
+
+			helperCompareResults([], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, '.*'));
+			
+			helperCompareResults([ 'SomeRandomString' ], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'somerand'));
 		});
 
 		it('SaveMediaItem (insert) should not accept an invalid user', async() => {

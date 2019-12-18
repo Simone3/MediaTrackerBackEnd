@@ -169,30 +169,107 @@ export abstract class MediaItem extends CoreMediaItemData {
 }
 
 /**
+ * Media items groups filtering options, publicly exposed via API
+ */
+export class MediaItemGroupFilter {
+	
+	/**
+	 * If true, the result will include all media items with a group (i.e. group is not null)
+	 */
+	@IsOptional()
+	@IsBoolean()
+	public anyGroup?: boolean;
+
+	/**
+	 * If true, the result will include all media items without a group (i.e. group is null)
+	 */
+	@IsOptional()
+	@IsBoolean()
+	public noGroup?: boolean;
+
+	/**
+	 * Group IDs to filter
+	 */
+	@IsOptional()
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public groupIds?: string[];
+}
+
+/**
+ * Media items own platforms filtering options, publicly exposed via API
+ */
+export class MediaItemOwnPlatformFilter {
+	
+	/**
+	 * If true, the result will include all media items with an own platform (i.e. own platform is not null)
+	 */
+	@IsOptional()
+	@IsBoolean()
+	public anyOwnPlatform?: boolean;
+
+	/**
+	 * If true, the result will include all media items without an own platform (i.e. own platform is null)
+	 */
+	@IsOptional()
+	@IsBoolean()
+	public noOwnPlatform?: boolean;
+
+	/**
+	 * Own platform IDs to filter
+	 */
+	@IsOptional()
+	@IsDefined({ each: true })
+	@IsString({ each: true })
+	public ownPlatformIds?: string[];
+}
+
+/**
  * Abstract media items filtering options, publicly exposed via API
  */
 export abstract class MediaItemFilter {
 
 	/**
-	 * Importance level to filter
+	 * Importance level(s) to filter
 	 */
 	@IsOptional()
-	@IsInt()
-	public importance?: number;
+	@IsDefined({ each: true })
+	@IsInt({ each: true })
+	public importanceLevels?: number[];
 
 	/**
-	 * Group to filter
+	 * Filter for groups
+	 */
+	@IsOptional()
+	@Type(() => {
+		return MediaItemGroupFilter;
+	})
+	@ValidateNested()
+	public groups?: MediaItemGroupFilter;
+
+	/**
+	 * Filter for own platforms
+	 */
+	@IsOptional()
+	@Type(() => {
+		return MediaItemOwnPlatformFilter;
+	})
+	@ValidateNested()
+	public ownPlatforms?: MediaItemOwnPlatformFilter;
+	
+	/**
+	 * Filter for completed but not marked as redo media items
+	 */
+	@IsOptional()
+	@IsBoolean()
+	public complete?: boolean;
+	
+	/**
+	 * Filter for name (case-insensitive exact match)
 	 */
 	@IsOptional()
 	@IsString()
-	public groupId?: string;
-
-	/**
-	 * Own platform to filter
-	 */
-	@IsOptional()
-	@IsString()
-	public ownPlatformId?: string;
+	public name?: string;
 }
 
 /**

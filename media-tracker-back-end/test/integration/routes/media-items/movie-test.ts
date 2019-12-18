@@ -80,7 +80,7 @@ describe('Movie API Tests', () => {
 			
 			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies/filter`, {
 				filter: {
-					importance: 85
+					importanceLevels: [ 85 ]
 				},
 				sortBy: [{
 					field: 'NAME',
@@ -101,7 +101,7 @@ describe('Movie API Tests', () => {
 			
 			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies/search`, {
 				filter: {
-					importance: 85
+					importanceLevels: [ 85 ]
 				},
 				searchTerm: 'test'
 			});

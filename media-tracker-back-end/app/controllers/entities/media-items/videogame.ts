@@ -46,6 +46,14 @@ class VideogameEntityController extends MediaItemEntityController<VideogameInter
 			ascending: true
 		}];
 	}
+
+	/**
+	 * @override
+	 */
+	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<VideogameInternal>[], filterBy?: VideogameFilterInternal): void {
+		
+		this.addCommonConditionsFromFilter(userId, categoryId, andConditions, filterBy);
+	}
 	
 	/**
 	 * @override

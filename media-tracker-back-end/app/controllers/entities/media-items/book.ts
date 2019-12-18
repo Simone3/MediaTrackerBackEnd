@@ -46,6 +46,14 @@ class BookEntityController extends MediaItemEntityController<BookInternal, BookS
 			ascending: true
 		}];
 	}
+
+	/**
+	 * @override
+	 */
+	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<BookInternal>[], filterBy?: BookFilterInternal): void {
+		
+		this.addCommonConditionsFromFilter(userId, categoryId, andConditions, filterBy);
+	}
 	
 	/**
 	 * @override

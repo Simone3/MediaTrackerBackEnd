@@ -113,10 +113,11 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	public filterAndOrderMediaItems(userId: string, categoryId: string, filterBy?: TMediaItemFilterInternal, sortBy?: TMediaItemSortByInternal[]): Promise<TMediaItemInternal[]> {
 
-		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions.owner = userId;
-		conditions.category = categoryId;
-		this.setConditionsFromFilter(conditions, filterBy);
+		const andConditions: Queryable<TMediaItemInternal>[] = [];
+		this.addConditionsFromFilter(userId, categoryId, andConditions, filterBy);
+		const conditions: Queryable<TMediaItemInternal> = {
+			$and: andConditions
+		};
 
 		const sortConditions: Sortable<TMediaItemInternal> = {};
 		if(sortBy) {
@@ -151,13 +152,16 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 		// Specific search conditions
 		this.setSearchByTermConditions(term, termRegExp, searchConditions);
-
-		// Complete query conditions
-		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions.owner = userId;
-		conditions.category = categoryId;
-		conditions.$or = searchConditions;
-		this.setConditionsFromFilter(conditions, filterBy);
+		
+		// Complete query conditions, with active filter
+		const andConditions: Queryable<TMediaItemInternal>[] = [];
+		this.addConditionsFromFilter(userId, categoryId, andConditions, filterBy);
+		andConditions.push({
+			$or: searchConditions
+		});
+		const conditions: Queryable<TMediaItemInternal> = {
+			$and: andConditions
+		};
 
 		// Sort
 		const sortBy: Sortable<TMediaItemInternal> = {};
@@ -296,6 +300,16 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	protected abstract setSortConditions(sortBy: TMediaItemSortByInternal, sortDirection: SortDirection, sortConditions: Sortable<TMediaItemInternal>): void;
 
 	/**
+	 * Must be implemented by subclasses to add search conditions for the 'filter media item' API. Implementations can call addCommonConditionsFromFilter()
+	 * to handle the filter values common to all media items.
+	 * @param userId the user ID
+	 * @param categoryId the category ID
+	 * @param andConditions the target array of AND conditions
+	 * @param filterBy the optional source filters
+	 */
+	protected abstract addConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<TMediaItemInternal>[], filterBy?: TMediaItemFilterInternal): void;
+
+	/**
 	 * Must be implemented by subclasses to (possibly) add more search conditions for the 'search media item' API
 	 * @param term the search term
 	 * @param termRegExp the pre-computed RegExp of the search term
@@ -308,6 +322,128 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @returns the linked media type
 	 */
 	protected abstract getLinkedMediaType(): MediaTypeInternal;
+
+	/**
+	 * Helper for subclasses that can be called during addConditionsFromFilter() to handle the filter values common to all media items.
+	 * @param userId the user ID
+	 * @param categoryId the category ID
+	 * @param andConditions the target array of AND conditions
+	 * @param filterBy the optional source filters
+	 */
+	protected addCommonConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<MediaItemInternal>[], filterBy?: MediaItemFilterInternal): void {
+		
+		andConditions.push({
+			owner: userId,
+			category: categoryId
+		});
+
+		if(filterBy) {
+			
+			if(filterBy.importanceLevels && filterBy.importanceLevels.length > 0) {
+
+				andConditions.push({
+					importance: {
+						$in: filterBy.importanceLevels
+					}
+				});
+			}
+
+			if(filterBy.complete !== undefined && filterBy.complete !== null) {
+
+				if(filterBy.complete) {
+
+					andConditions.push({
+						completedOn: {
+							$ne: undefined
+						},
+						markedAsRedo: {
+							$ne: true
+						}
+					});
+				}
+				else {
+
+					andConditions.push({
+						$or: [{
+							completedOn: undefined
+						}, {
+							markedAsRedo: true
+						}]
+					});
+				}
+			}
+
+			if(filterBy.name) {
+
+				// Case insensitive exact match
+				andConditions.push({
+					name: new RegExp(`^${filterBy.name}$`, 'i')
+				});
+			}
+
+			if(filterBy.groups) {
+
+				if(filterBy.groups.groupIds && filterBy.groups.groupIds.length > 0) {
+
+					andConditions.push({
+						group: {
+							$in: filterBy.groups.groupIds
+						}
+					});
+				}
+				else {
+
+					const any = filterBy.groups.anyGroup;
+					const no = filterBy.groups.noGroup;
+					if(any && !no) {
+						
+						andConditions.push({
+							group: {
+								$ne: undefined
+							}
+						});
+					}
+					else if(!any && no) {
+
+						andConditions.push({
+							group: undefined
+						});
+					}
+				}
+			}
+
+			if(filterBy.ownPlatforms) {
+
+				if(filterBy.ownPlatforms.ownPlatformIds && filterBy.ownPlatforms.ownPlatformIds.length > 0) {
+
+					andConditions.push({
+						ownPlatform: {
+							$in: filterBy.ownPlatforms.ownPlatformIds
+						}
+					});
+				}
+				else {
+
+					const any = filterBy.ownPlatforms.anyOwnPlatform;
+					const no = filterBy.ownPlatforms.noOwnPlatform;
+					if(any && !no) {
+						
+						andConditions.push({
+							ownPlatform: {
+								$ne: undefined
+							}
+						});
+					}
+					else if(!any && no) {
+
+						andConditions.push({
+							ownPlatform: undefined
+						});
+					}
+				}
+			}
+		}
+	}
 
 	/**
 	 * Helper for subclasses that can be called during setSortConditions() to handle the sortBy values common to all media items.
@@ -352,32 +488,6 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 		populate.group = true;
 		populate.ownPlatform = true;
 		return populate;
-	}
-
-	/**
-	 * Helper to set the query conditions based on the given filters
-	 * @param conditions the target conditions
-	 * @param filterBy the optional source filters
-	 */
-	private setConditionsFromFilter(conditions: Queryable<TMediaItemInternal>, filterBy?: TMediaItemFilterInternal): void {
-		
-		if(filterBy) {
-			
-			if(filterBy.importance) {
-
-				conditions.importance = filterBy.importance;
-			}
-
-			if(filterBy.groupId) {
-
-				conditions.group = filterBy.groupId;
-			}
-
-			if(filterBy.ownPlatformId) {
-				
-				conditions.ownPlatform = filterBy.ownPlatformId;
-			}
-		}
 	}
 
 	/**

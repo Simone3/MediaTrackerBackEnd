@@ -111,11 +111,31 @@ export abstract class MediaItemFilterMapper<TMediaItemFilterInternal extends Med
 	 */
 	protected commonToExternal(source: MediaItemFilterInternal): MediaItemFilter {
 
-		return {
-			importance: source.importance,
-			groupId: source.groupId,
-			ownPlatformId: source.ownPlatformId
+		const target: MediaItemFilter = {
+			importanceLevels: source.importanceLevels,
+			complete: source.complete,
+			name: source.name
 		};
+
+		if(source.groups) {
+
+			target.groups = {
+				anyGroup: source.groups.anyGroup,
+				noGroup: source.groups.noGroup,
+				groupIds: source.groups.groupIds
+			};
+		}
+
+		if(source.ownPlatforms) {
+
+			target.ownPlatforms = {
+				anyOwnPlatform: source.ownPlatforms.anyOwnPlatform,
+				noOwnPlatform: source.ownPlatforms.noOwnPlatform,
+				ownPlatformIds: source.ownPlatforms.ownPlatformIds
+			};
+		}
+
+		return target;
 	}
 	
 	/**
@@ -125,11 +145,31 @@ export abstract class MediaItemFilterMapper<TMediaItemFilterInternal extends Med
 	 */
 	protected commonToInternal(source: MediaItemFilter): MediaItemFilterInternal {
 
-		return {
-			importance: source.importance,
-			groupId: source.groupId,
-			ownPlatformId: source.ownPlatformId
+		const target: MediaItemFilterInternal = {
+			importanceLevels: source.importanceLevels,
+			complete: source.complete,
+			name: source.name
 		};
+
+		if(source.groups) {
+
+			target.groups = {
+				anyGroup: source.groups.anyGroup,
+				noGroup: source.groups.noGroup,
+				groupIds: source.groups.groupIds
+			};
+		}
+
+		if(source.ownPlatforms) {
+
+			target.ownPlatforms = {
+				anyOwnPlatform: source.ownPlatforms.anyOwnPlatform,
+				noOwnPlatform: source.ownPlatforms.noOwnPlatform,
+				ownPlatformIds: source.ownPlatforms.ownPlatformIds
+			};
+		}
+
+		return target;
 	}
 }
 

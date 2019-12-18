@@ -46,6 +46,14 @@ class TvShowEntityController extends MediaItemEntityController<TvShowInternal, T
 			ascending: true
 		}];
 	}
+
+	/**
+	 * @override
+	 */
+	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<TvShowInternal>[], filterBy?: TvShowFilterInternal): void {
+		
+		this.addCommonConditionsFromFilter(userId, categoryId, andConditions, filterBy);
+	}
 	
 	/**
 	 * @override

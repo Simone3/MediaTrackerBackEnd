@@ -80,7 +80,7 @@ describe('TV show API Tests', () => {
 			
 			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows/filter`, {
 				filter: {
-					importance: 85
+					importanceLevels: [ 85 ]
 				},
 				sortBy: [{
 					field: 'NAME',
@@ -101,7 +101,7 @@ describe('TV show API Tests', () => {
 			
 			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows/search`, {
 				filter: {
-					importance: 85
+					importanceLevels: [ 85 ]
 				},
 				searchTerm: 'test'
 			});
