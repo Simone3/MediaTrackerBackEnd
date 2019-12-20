@@ -75,6 +75,17 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			throw AppError.GENERIC.withDetails('convertToInternal.extraParams cannot be undefined');
 		}
 
+		let targetCompletedOn = dateUtils.toDateList(source.completedOn);
+		let targetCompletedLastOn;
+		if(targetCompletedOn && targetCompletedOn.length > 0) {
+
+			targetCompletedOn = targetCompletedOn.sort((date1, date2) => {
+				return date1.getTime() - date2.getTime();
+			});
+
+			targetCompletedLastOn = targetCompletedOn[targetCompletedOn.length - 1];
+		}
+
 		return {
 			_id: null,
 			name: source.name,
@@ -87,7 +98,8 @@ export abstract class MediaItemMapper<TMediaItemInternal extends MediaItemIntern
 			genres: source.genres,
 			description: source.description,
 			userComment: source.userComment,
-			completedOn: dateUtils.toDateList(source.completedOn),
+			completedOn: targetCompletedOn,
+			completedLastOn: targetCompletedLastOn,
 			releaseDate: dateUtils.toDate(source.releaseDate),
 			active: miscUtils.parseBoolean(source.active),
 			markedAsRedo: miscUtils.parseBoolean(source.markedAsRedo),
@@ -217,6 +229,9 @@ export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends Media
 			case 'NAME': return MediaItemSortField.NAME;
 			case 'GROUP': return MediaItemSortField.GROUP;
 			case 'OWN_PLATFORM': return MediaItemSortField.OWN_PLATFORM;
+			case 'COMPLETION_DATE': return MediaItemSortField.COMPLETION_DATE;
+			case 'ACTIVE': return MediaItemSortField.ACTIVE;
+			case 'RELEASE_DATE': return MediaItemSortField.RELEASE_DATE;
 			default: throw AppError.GENERIC.withDetails(`Cannot map ${source}`);
 		}
 	}
@@ -234,6 +249,9 @@ export abstract class MediaItemSortMapper<TMediaItemSortByInternal extends Media
 			case MediaItemSortField.NAME: return 'NAME';
 			case MediaItemSortField.GROUP: return 'GROUP';
 			case MediaItemSortField.OWN_PLATFORM: return 'OWN_PLATFORM';
+			case MediaItemSortField.COMPLETION_DATE: return 'COMPLETION_DATE';
+			case MediaItemSortField.ACTIVE: return 'ACTIVE';
+			case MediaItemSortField.RELEASE_DATE: return 'RELEASE_DATE';
 			default: throw AppError.GENERIC.withDetails(`Cannot map ${source}`);
 		}
 	}

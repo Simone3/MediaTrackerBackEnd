@@ -165,14 +165,14 @@ describe('MovieController Tests', () => {
 
 		it('FilterAndOrder should return the results in the correct order', async() => {
 
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: 1 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Aaa', importance: 2 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 8 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz', importance: 3 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Ddd', importance: 7 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc', importance: 4 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Mmm', importance: 6 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Nnn', importance: 5 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: 1, releaseDate: new Date('2004-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Aaa', importance: 2, releaseDate: new Date('2003-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 1, releaseDate: new Date('2005-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz', importance: 1, releaseDate: new Date('2000-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Ddd', importance: 7, releaseDate: new Date('2006-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc', importance: 2, releaseDate: new Date('2002-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Mmm', importance: 6, releaseDate: new Date('2001-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Nnn', importance: 5, releaseDate: new Date('2006-01-02') }));
 
 			helperCompareResults([ 'Bbb', 'Ccc', 'Ttt', 'Zzz' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, undefined, [{
 				field: 'NAME',
@@ -184,8 +184,16 @@ describe('MovieController Tests', () => {
 				ascending: false
 			}]), true);
 
-			helperCompareResults([ 'Ttt', 'Zzz', 'Ccc', 'Bbb' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, undefined, [{
+			helperCompareResults([ 'Zzz', 'Ccc', 'Ttt', 'Bbb' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, undefined, [{
+				field: 'RELEASE_DATE',
+				ascending: true
+			}]), true);
+
+			helperCompareResults([ 'Ccc', 'Zzz', 'Ttt', 'Bbb' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, undefined, [{
 				field: 'IMPORTANCE',
+				ascending: false
+			}, {
+				field: 'RELEASE_DATE',
 				ascending: true
 			}]), true);
 		});

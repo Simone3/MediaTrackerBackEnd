@@ -29,6 +29,7 @@ export type MediaItemInternal = PersistedEntityInternal & CoreMediaItemDataInter
 	importance: number;
 	userComment?: string;
 	completedOn?: Date[];
+	completedLastOn?: Date;
 	active?: boolean;
 	markedAsRedo?: boolean;
 	catalogId?: string;
@@ -69,7 +70,7 @@ export type MediaItemFilterInternal = {
 /**
  * Values for ordering options, internal type NOT to be exposed via API
  */
-export type MediaItemSortFieldInternal = 'IMPORTANCE' | 'NAME' | 'GROUP' | 'OWN_PLATFORM';
+export type MediaItemSortFieldInternal = 'IMPORTANCE' | 'NAME' | 'GROUP' | 'OWN_PLATFORM' | 'COMPLETION_DATE' | 'ACTIVE' | 'RELEASE_DATE';
 
 /**
  * Media items sort by options, internal type NOT to be exposed via API

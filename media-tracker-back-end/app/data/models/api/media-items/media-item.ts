@@ -281,10 +281,13 @@ export abstract class MediaItemSortField {
 	public static readonly NAME: string = 'NAME';
 	public static readonly GROUP: string = 'GROUP';
 	public static readonly OWN_PLATFORM: string = 'OWN_PLATFORM';
+	public static readonly COMPLETION_DATE: string = 'COMPLETION_DATE';
+	public static readonly ACTIVE: string = 'ACTIVE';
+	public static readonly RELEASE_DATE: string = 'RELEASE_DATE';
 	
 	public static commonValues(): string[] {
 
-		return [ this.IMPORTANCE, this.NAME, this.GROUP, this.OWN_PLATFORM ];
+		return [ this.IMPORTANCE, this.NAME, this.GROUP, this.OWN_PLATFORM, this.COMPLETION_DATE, this.ACTIVE, this.RELEASE_DATE ];
 	}
 }
 
@@ -396,7 +399,7 @@ export abstract class SearchMediaItemCatalogResult {
 	@IsNotEmpty()
 	@IsString()
 	public name = '';
-	
+
 	@IsOptional()
 	@IsDateString()
 	public releaseDate?: string;

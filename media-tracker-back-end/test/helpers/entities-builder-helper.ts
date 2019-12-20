@@ -112,6 +112,7 @@ type OptionalMediaItemTestData = {
 	name?: string;
 	importance?: number;
 	ownPlatform?: string;
+	releaseDate?: Date;
 	completedOn?: Date[];
 	active?: boolean;
 	markedAsRedo?: boolean;
@@ -138,7 +139,8 @@ const getTestMediaItem = (_id: unknown, data: TestUCG, orderInGroup: number, opt
 		name: optionalData && optionalData.name ? optionalData.name : randomName(),
 		importance: optionalData && optionalData.importance ? optionalData.importance : 10,
 		ownPlatform: optionalData && optionalData.ownPlatform ? optionalData.ownPlatform : undefined,
-		completedOn: optionalData?.completedOn,
+		completedOn: optionalData ? optionalData.completedOn : undefined,
+		releaseDate: optionalData ? optionalData.releaseDate : undefined,
 		active: optionalData?.active,
 		markedAsRedo: optionalData?.markedAsRedo
 	};

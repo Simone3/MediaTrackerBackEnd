@@ -472,6 +472,18 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 				sortConditions.ownPlatform = sortDirection;
 				break;
 
+			case 'COMPLETION_DATE':
+				sortConditions.completedLastOn = sortDirection;
+				break;
+
+			case 'ACTIVE':
+				sortConditions.active = sortDirection;
+				break;
+
+			case 'RELEASE_DATE':
+				sortConditions.releaseDate = sortDirection;
+				break;
+
 			default:
 				logger.error('Unexpected order by value: %s', sortByField);
 				throw AppError.GENERIC.withDetails('Unhandled orderBy value');

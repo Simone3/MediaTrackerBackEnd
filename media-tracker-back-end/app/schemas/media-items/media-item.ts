@@ -19,6 +19,7 @@ export const commonMediaItemSchemaDefinition: SchemaDefinition = {
 	description: { type: String, required: false },
 	userComment: { type: String, required: false },
 	completedOn: { type: [ Date ], required: false },
+	completedLastOn: { type: Date, required: false },
 	releaseDate: { type: Date, required: false },
 	active: { type: String, required: false },
 	markedAsRedo: { type: String, required: false },
