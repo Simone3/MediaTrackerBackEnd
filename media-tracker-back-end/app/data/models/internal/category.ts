@@ -1,5 +1,4 @@
 import { PersistedEntityInternal } from 'app/data/models/internal/common';
-import { UserInternal } from 'app/data/models/internal/user';
 import { ValuesOf } from 'app/utilities/helper-types';
 
 /**
@@ -20,7 +19,7 @@ export type CategoryInternal = PersistedEntityInternal & {
 	name: string;
 	mediaType: MediaTypeInternal;
 	color: string;
-	owner: UserInternal | string;
+	owner: string;
 }
 
 /**

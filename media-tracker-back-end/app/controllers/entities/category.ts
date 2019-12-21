@@ -2,11 +2,9 @@ import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query
 import { groupController } from 'app/controllers/entities/group';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
-import { userController } from 'app/controllers/entities/user';
 import { AppError } from 'app/data/models/error/error';
 import { CategoryFilterInternal, CategoryInternal } from 'app/data/models/internal/category';
 import { MediaItemInternal } from 'app/data/models/internal/media-items/media-item';
-import { UserInternal } from 'app/data/models/internal/user';
 import { mediaItemFactory } from 'app/factories/media-item';
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from 'app/schemas/category';
 import { miscUtils } from 'app/utilities/misc-utils';
@@ -154,16 +152,14 @@ class CategoryController extends AbstractEntityController {
 	/**
 	 * Helper to check preconditions on a insert/update/delete method
 	 * @param errorToThow error to throw if the preconditions fail
-	 * @param user the user
+	 * @param userId the user
 	 * @param categoryId the category ID (optional to use this method for new inserts)
 	 * @param newCategoryData the new data that will be saved if preconditions are OK (optional to use this method for deletes)
 	 * @returns a void promise that resolves if all preconditions are OK
 	 */
-	private async checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, categoryId?: string, newCategoryData?: CategoryInternal): Promise<void> {
-
-		const userId = this.getEntityStringId(user);
-
-		// Preconditions are different when it's a new category or an existing one
+	private async checkWritePreconditions(errorToThow: AppError, userId: string, categoryId?: string, newCategoryData?: CategoryInternal): Promise<void> {
+		
+		// Preconditions only if it's an existing category
 		if(categoryId) {
 
 			// First check that the category exists
@@ -183,13 +179,6 @@ class CategoryController extends AbstractEntityController {
 					throw AppError.DATABASE_SAVE.withDetails('Cannot change category media type if it contains media items');
 				}
 			}
-		}
-		else {
-
-			// Make sure the user exists
-			await this.checkExistencePreconditionsHelper(errorToThow, () => {
-				return userController.getUser(userId);
-			});
 		}
 	}
 }

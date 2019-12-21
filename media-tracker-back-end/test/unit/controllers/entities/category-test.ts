@@ -1,6 +1,5 @@
 import { categoryController } from 'app/controllers/entities/category';
 import { movieEntityController } from 'app/controllers/entities/media-items/movie';
-import { userController } from 'app/controllers/entities/user';
 import { CategoryInternal } from 'app/data/models/internal/category';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
@@ -129,20 +128,6 @@ describe('CategoryController Tests', () => {
 			throw 'SaveCategory should have returned an error';
 		});
 
-		it('SaveCategory (insert) should not accept an invalid user', async() => {
-
-			try {
-
-				await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', { user: '5cbf26ea895c281b54b6737f' }));
-			}
-			catch(error) {
-
-				return;
-			}
-
-			throw 'SaveCategory should have returned an error';
-		});
-
 		it('SaveCategory (update) should not accept an invalid user', async() => {
 
 			const insertedCategory = await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
@@ -169,18 +154,6 @@ describe('CategoryController Tests', () => {
 
 			const foundCategory = await categoryController.getCategory(firstU.user, categoryId);
 			expect(foundCategory, 'GetCategory returned a defined result').to.be.undefined;
-		});
-
-		it('Deleting a user should also delete all its categories', async function() {
-
-			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
-			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
-			await categoryController.saveCategory(getTestCategory(undefined, 'MOVIE', firstU));
-
-			await userController.deleteUser(firstU.user);
-
-			const foundCategories = await categoryController.getAllCategories(firstU.user);
-			expect(foundCategories, 'GetAllCategories did not return the correct number of results').to.have.lengthOf(0);
 		});
 	});
 });

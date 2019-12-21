@@ -1,6 +1,5 @@
 import { categoryController } from 'app/controllers/entities/category';
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
-import { userController } from 'app/controllers/entities/user';
 import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
@@ -62,7 +61,7 @@ describe('OwnPlatformController Tests', () => {
 			let foundOwnPlatform = await ownPlatformController.getOwnPlatform(firstUC.user, firstUC.category, firstId);
 			expect(foundOwnPlatform, 'GetOwnPlatform returned an undefined result').not.to.be.undefined;
 
-			foundOwnPlatform = await ownPlatformController.getOwnPlatform(firstUC.user, secondUC.user, firstId);
+			foundOwnPlatform = await ownPlatformController.getOwnPlatform(firstUC.user, secondUC.category, firstId);
 			expect(foundOwnPlatform, 'GetOwnPlatform returned an defined result').to.be.undefined;
 		});
 
@@ -214,18 +213,6 @@ describe('OwnPlatformController Tests', () => {
 
 			const foundOwnPlatform = await ownPlatformController.getOwnPlatform(firstUC.user, firstUC.category, ownPlatformId);
 			expect(foundOwnPlatform, 'GetOwnPlatform returned a defined result').to.be.undefined;
-		});
-
-		it('Deleting a user should also delete all its own platforms', async function() {
-
-			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
-			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
-			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
-
-			await userController.deleteUser(firstUC.user);
-
-			const foundOwnPlatforms = await ownPlatformController.getAllOwnPlatforms(firstUC.user, firstUC.category);
-			expect(foundOwnPlatforms, 'GetAllOwnPlatforms did not return the correct number of results').to.have.lengthOf(0);
 		});
 
 		it('Deleting a category should also delete all its own platforms', async function() {

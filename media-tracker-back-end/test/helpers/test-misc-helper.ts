@@ -7,7 +7,7 @@
 export const randomName = (prefix?: string): string => {
 
 	prefix = prefix ? `${prefix}-` : '';
-	return `${prefix}MyTest-${Math.floor(Math.random() * 100000)}`;
+	return `${prefix}MyTest-${Math.floor(Math.random() * 10000000)}`;
 };
 
 /**

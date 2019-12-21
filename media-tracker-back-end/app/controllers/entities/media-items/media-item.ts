@@ -9,7 +9,6 @@ import { PersistedEntityInternal } from 'app/data/models/internal/common';
 import { GroupInternal } from 'app/data/models/internal/group';
 import { MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, MediaItemSortFieldInternal } from 'app/data/models/internal/media-items/media-item';
 import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
-import { UserInternal } from 'app/data/models/internal/user';
 import { logger } from 'app/loggers/logger';
 import { miscUtils } from 'app/utilities/misc-utils';
 import { Document, Model } from 'mongoose';
@@ -505,20 +504,19 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	/**
 	 * Helper to check preconditions on a insert/update/delete method
 	 * @param errorToThow error to throw if the preconditions fail
-	 * @param user the user
+	 * @param userId the user
 	 * @param category the category
 	 * @param group the group (optional)
 	 * @param ownPlatform the own platform (optional)
 	 * @param mediaItemId the media item ID (optional to use this method for new inserts)
 	 * @returns a void promise that resolves if all preconditions are OK
 	 */
-	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, group?: string | GroupInternal, ownPlatform?: string | OwnPlatformInternal, mediaItemId?: string): Promise<void> {
+	private checkWritePreconditions(errorToThow: AppError, userId: string, category: string | CategoryInternal, group?: string | GroupInternal, ownPlatform?: string | OwnPlatformInternal, mediaItemId?: string): Promise<void> {
 
 		return new Promise((resolve, reject): void => {
 
 			this.checkExistencePreconditionsHelper(errorToThow, () => {
 
-				const userId = this.getEntityStringId(user);
 				const categoryId = this.getEntityStringId(category);
 				const groupId = group ? this.getEntityStringId(group) : undefined;
 				const ownPlatformId = ownPlatform ? this.getEntityStringId(ownPlatform) : undefined;

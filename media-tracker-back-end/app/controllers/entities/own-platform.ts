@@ -4,7 +4,6 @@ import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { AppError } from 'app/data/models/error/error';
 import { CategoryInternal } from 'app/data/models/internal/category';
 import { OwnPlatformFilterInternal, OwnPlatformInternal } from 'app/data/models/internal/own-platform';
-import { UserInternal } from 'app/data/models/internal/user';
 import { mediaItemFactory } from 'app/factories/media-item';
 import { OwnPlatformSchema, OWN_PLATFORM_COLLECTION_NAME } from 'app/schemas/own-platform';
 import { miscUtils } from 'app/utilities/misc-utils';
@@ -218,16 +217,15 @@ class OwnPlatformController extends AbstractEntityController {
 	/**
 	 * Helper to check preconditions on a insert/update/delete method
 	 * @param errorToThow error to throw if the preconditions fail
-	 * @param user the user
+	 * @param userId the user
 	 * @param category the category
 	 * @param ownPlatformId the own platform ID (optional to use this method for new inserts)
 	 * @returns a promise that resolves if all preconditions are OK
 	 */
-	private checkWritePreconditions(errorToThow: AppError, user: string | UserInternal, category: string | CategoryInternal, ownPlatformId?: string): Promise<void> {
+	private checkWritePreconditions(errorToThow: AppError, userId: string, category: string | CategoryInternal, ownPlatformId?: string): Promise<void> {
 
 		return this.checkExistencePreconditionsHelper(errorToThow, () => {
 
-			const userId = typeof user === 'string' ? user : user._id;
 			const categoryId = typeof category === 'string' ? category : category._id;
 
 			if(ownPlatformId) {

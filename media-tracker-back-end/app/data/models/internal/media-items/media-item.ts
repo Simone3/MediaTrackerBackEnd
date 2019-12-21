@@ -2,7 +2,6 @@ import { CategoryInternal } from 'app/data/models/internal/category';
 import { PersistedEntityInternal } from 'app/data/models/internal/common';
 import { GroupInternal } from 'app/data/models/internal/group';
 import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
-import { UserInternal } from 'app/data/models/internal/user';
 
 /**
  * Util type to extract common fields to both media item entities and catalog entries
@@ -25,7 +24,7 @@ export type MediaItemInternal = PersistedEntityInternal & CoreMediaItemDataInter
 	group?: GroupInternal | string;
 	orderInGroup?: number;
 	ownPlatform?: OwnPlatformInternal | string;
-	owner: UserInternal | string;
+	owner: string;
 	importance: number;
 	userComment?: string;
 	completedOn?: Date[];

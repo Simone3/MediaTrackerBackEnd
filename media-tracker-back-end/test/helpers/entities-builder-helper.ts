@@ -1,6 +1,5 @@
 import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
-import { userController } from 'app/controllers/entities/user';
 import { CategoryInternal, MediaTypeInternal } from 'app/data/models/internal/category';
 import { GroupInternal } from 'app/data/models/internal/group';
 import { BookInternal } from 'app/data/models/internal/media-items/book';
@@ -9,7 +8,6 @@ import { MovieInternal } from 'app/data/models/internal/media-items/movie';
 import { TvShowInternal } from 'app/data/models/internal/media-items/tv-show';
 import { VideogameInternal } from 'app/data/models/internal/media-items/videogame';
 import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
-import { UserInternal } from 'app/data/models/internal/user';
 import { randomName } from 'test/helpers/test-misc-helper';
 
 export type TestU = {
@@ -26,20 +24,6 @@ export type TestUCG = TestUC & {
 
 export type TestP = {
 	ownPlatform: string;
-};
-
-/**
- * Helper to build a test users
- * @param _id the ID (undefined means a new entity)
- * @param name the optional name, defaults to a random string
- * @returns a test user entity
- */
-export const getTestUser = (_id: unknown, name?: string): UserInternal => {
-	
-	return {
-		_id: _id,
-		name: name ? name : randomName()
-	};
 };
 
 /**
@@ -274,8 +258,7 @@ export const getTestBook = (_id: unknown, data: TestUC, optionalData?: OptionalM
  */
 export const initTestUHelper = async(target: TestU, namePrefix: string): Promise<void> => {
 
-	const insertedUser = await userController.saveUser(getTestUser(undefined, randomName(`${namePrefix}User`)));
-	target.user = insertedUser._id;
+	target.user = randomName(`${namePrefix}User`);
 };
 
 /**
@@ -287,8 +270,7 @@ export const initTestUHelper = async(target: TestU, namePrefix: string): Promise
  */
 export const initTestUCHelper = async(categoryMediaType: MediaTypeInternal, target: TestUC, namePrefix: string): Promise<void> => {
 
-	const insertedUser = await userController.saveUser(getTestUser(undefined, randomName(`${namePrefix}User`)));
-	target.user = insertedUser._id;
+	target.user = randomName(`${namePrefix}User`);
 	const insertedCategory = await categoryController.saveCategory(getTestCategory(undefined, categoryMediaType, target, randomName(`${namePrefix}Category`)));
 	// eslint-disable-next-line require-atomic-updates
 	target.category = insertedCategory._id;
@@ -309,9 +291,8 @@ export const initTestUCGHelper = async(categoryMediaType: MediaTypeInternal, tar
 		target.user = user;
 	}
 	else {
-
-		const insertedUser = await userController.saveUser(getTestUser(undefined, randomName(`${namePrefix}User`)));
-		target.user = insertedUser._id;
+		
+		target.user = randomName(`${namePrefix}User`);
 	}
 
 	const insertedCategory = await categoryController.saveCategory(getTestCategory(undefined, categoryMediaType, target, randomName(`${namePrefix}Category`)));

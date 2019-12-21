@@ -1,6 +1,5 @@
 import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
-import { userController } from 'app/controllers/entities/user';
 import { GroupInternal } from 'app/data/models/internal/group';
 import chai from 'chai';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
@@ -62,7 +61,7 @@ describe('GroupController Tests', () => {
 			let foundGroup = await groupController.getGroup(firstUC.user, firstUC.category, firstId);
 			expect(foundGroup, 'GetGroup returned an undefined result').not.to.be.undefined;
 
-			foundGroup = await groupController.getGroup(firstUC.user, secondUC.user, firstId);
+			foundGroup = await groupController.getGroup(firstUC.user, secondUC.category, firstId);
 			expect(foundGroup, 'GetGroup returned an defined result').to.be.undefined;
 		});
 
@@ -196,18 +195,6 @@ describe('GroupController Tests', () => {
 
 			const foundGroup = await groupController.getGroup(firstUC.user, firstUC.category, groupId);
 			expect(foundGroup, 'GetGroup returned a defined result').to.be.undefined;
-		});
-
-		it('Deleting a user should also delete all its groups', async function() {
-
-			await groupController.saveGroup(getTestGroup(undefined, firstUC));
-			await groupController.saveGroup(getTestGroup(undefined, firstUC));
-			await groupController.saveGroup(getTestGroup(undefined, firstUC));
-
-			await userController.deleteUser(firstUC.user);
-
-			const foundGroups = await groupController.getAllGroups(firstUC.user, firstUC.category);
-			expect(foundGroups, 'GetAllGroups did not return the correct number of results').to.have.lengthOf(0);
 		});
 
 		it('Deleting a category should also delete all its groups', async function() {

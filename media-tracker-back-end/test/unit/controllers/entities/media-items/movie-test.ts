@@ -1,7 +1,6 @@
 import { categoryController } from 'app/controllers/entities/category';
 import { movieEntityController } from 'app/controllers/entities/media-items/movie';
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
-import { userController } from 'app/controllers/entities/user';
 import { GroupInternal } from 'app/data/models/internal/group';
 import { MovieInternal } from 'app/data/models/internal/media-items/movie';
 import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
@@ -83,7 +82,7 @@ describe('MovieController Tests', () => {
 			let foundMovie = await movieEntityController.getMediaItem(firstUCG.user, firstUCG.category, firstId);
 			expect(foundMovie, 'GetMediaItem returned an undefined result').not.to.be.undefined;
 
-			foundMovie = await movieEntityController.getMediaItem(firstUCG.user, secondUCG.user, firstId);
+			foundMovie = await movieEntityController.getMediaItem(firstUCG.user, secondUCG.category, firstId);
 			expect(foundMovie, 'GetMediaItem returned an defined result').to.be.undefined;
 		});
 
@@ -468,18 +467,6 @@ describe('MovieController Tests', () => {
 
 			const foundMovie = await movieEntityController.getMediaItem(firstUCG.user, firstUCG.category, movieId);
 			expect(foundMovie, 'GetMediaItem returned a defined result').to.be.undefined;
-		});
-
-		it('Deleting a user should also delete all its movies', async function() {
-
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG));
-
-			await userController.deleteUser(firstUCG.user);
-
-			const foundMovies = await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category);
-			expect(foundMovies, 'FilterAndOrder did not return the correct number of results').to.have.lengthOf(0);
 		});
 
 		it('Deleting a category should also delete all its media items', async function() {
