@@ -1,4 +1,5 @@
 
+import { userResourceAuthorizationMiddleware } from 'app/auth/authorization';
 import { categoryController } from 'app/controllers/entities/category';
 import { categoryFilterMapper, categoryMapper } from 'app/data/mappers/category';
 import { AddCategoryRequest, AddCategoryResponse, DeleteCategoryResponse, FilterCategoriesRequest, FilterCategoriesResponse, GetAllCategoriesResponse, UpdateCategoryRequest, UpdateCategoryResponse } from 'app/data/models/api/category';
@@ -13,7 +14,7 @@ const router: Router = express.Router();
 /**
  * Route to get all saved categories
  */
-router.get('/users/:userId/categories', (request, response) => {
+router.get('/users/:userId/categories', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 
@@ -36,7 +37,7 @@ router.get('/users/:userId/categories', (request, response) => {
 /**
  * Route to get all saved categories matching some filter
  */
-router.post('/users/:userId/categories/filter', (request, response) => {
+router.post('/users/:userId/categories/filter', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 
@@ -69,7 +70,7 @@ router.post('/users/:userId/categories/filter', (request, response) => {
 /**
  * Route to add a new category
  */
-router.post('/users/:userId/categories', (request, response) => {
+router.post('/users/:userId/categories', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 
@@ -103,7 +104,7 @@ router.post('/users/:userId/categories', (request, response) => {
 /**
  * Route to update an existing category
  */
-router.put('/users/:userId/categories/:id', (request, response) => {
+router.put('/users/:userId/categories/:id', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const id: string = request.params.id;
@@ -137,7 +138,7 @@ router.put('/users/:userId/categories/:id', (request, response) => {
 /**
  * Route to delete a category
  */
-router.delete('/users/:userId/categories/:id', (request, response) => {
+router.delete('/users/:userId/categories/:id', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const id: string = request.params.id;

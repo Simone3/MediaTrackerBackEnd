@@ -1,3 +1,4 @@
+import { userResourceAuthorizationMiddleware } from 'app/auth/authorization';
 import { MediaItemCatalogController } from 'app/controllers/catalogs/media-items/media-item';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
 import { AddMediaItemRequest, AddMediaItemResponse, DeleteMediaItemResponse, FilterMediaItemsRequest, FilterMediaItemsResponse, GetAllMediaItemsResponse, GetMediaItemFromCatalogResponse, SearchMediaItemCatalogResponse, SearchMediaItemsRequest, SearchMediaItemsResponse, UpdateMediaItemRequest, UpdateMediaItemResponse } from 'app/data/models/api/media-items/media-item';
@@ -67,7 +68,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 		responseBuilder: TWriteResponse<GetAllMediaItemsResponse, TMediaItemInternal[], TResponse>;
 	}): void {
 
-		this.router.get(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}`, (request, response): void => {
+		this.router.get(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}`, userResourceAuthorizationMiddleware, (request, response): void => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -104,7 +105,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 		responseBuilder: TWriteResponse<FilterMediaItemsResponse, TMediaItemInternal[], TResponse>;
 	}): void {
 
-		this.router.post(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/filter`, (request, response) => {
+		this.router.post(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/filter`, userResourceAuthorizationMiddleware, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -151,7 +152,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 		responseBuilder: TWriteResponse<SearchMediaItemsResponse, TMediaItemInternal[], TResponse>;
 	}): void {
 
-		this.router.post(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/search`, (request, response) => {
+		this.router.post(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/search`, userResourceAuthorizationMiddleware, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -195,7 +196,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 		mediaItemRequestReader: TReadRequestWithExtraData<TRequest, TMediaItemInternal>;
 	}): void {
 
-		this.router.post(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}`, (request, response) => {
+		this.router.post(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}`, userResourceAuthorizationMiddleware, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -241,7 +242,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 		mediaItemRequestReader: TReadRequestWithExtraData<TRequest, TMediaItemInternal>;
 	}): void {
 
-		this.router.put(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/:id`, (request, response) => {
+		this.router.put(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/:id`, userResourceAuthorizationMiddleware, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;
@@ -280,7 +281,7 @@ export class MediaItemEntityRouterBuilder<TMediaItemInternal extends MediaItemIn
 	 */
 	public delete(): void {
 
-		this.router.delete(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/:id`, (request, response) => {
+		this.router.delete(`/users/:userId/categories/:categoryId/${this.mediaItemPathName}/:id`, userResourceAuthorizationMiddleware, (request, response) => {
 
 			const userId: string = request.params.userId;
 			const categoryId: string = request.params.categoryId;

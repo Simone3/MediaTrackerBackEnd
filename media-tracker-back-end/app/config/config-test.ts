@@ -103,5 +103,11 @@ export const testConfig: Config = {
 		logApisInputOutput: true,
 		logExternalApisInputOutput: true,
 		logDatabaseQueries: true
+	},
+	firebase: {
+		databaseUrl: 'mocked',
+		serviceAccountKey: {
+			mocked: 'mocked'
+		}
 	}
 };

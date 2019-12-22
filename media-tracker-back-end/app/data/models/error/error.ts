@@ -4,6 +4,8 @@
 export class AppError extends Error {
 
 	public static GENERIC = new AppError('generic.application', 'Generic application error');
+	public static AUTHENTICATION = new AppError('generic.authentication', 'Authentication error');
+	public static AUTHORIZATION = new AppError('generic.authorization', 'Authorization error');
 	public static NOT_FOUND = new AppError('api.not.found', 'Cannot find the requested API');
 	public static INVALID_REQUEST = new AppError('request.invalid', 'Validation error on the API request');
 	public static DATABASE_INIT = new AppError('db.connection', 'Initial connection to the database cannot be established');

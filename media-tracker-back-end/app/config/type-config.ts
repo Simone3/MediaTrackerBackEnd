@@ -102,4 +102,8 @@ export type Config = {
 		logExternalApisInputOutput: boolean;
 		logDatabaseQueries: boolean;
 	};
+	firebase: {
+		databaseUrl: string;
+		serviceAccountKey: {[key: string]: string};
+	};
 }

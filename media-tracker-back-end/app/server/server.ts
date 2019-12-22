@@ -1,3 +1,4 @@
+import { authenticationMiddleware } from 'app/auth/authentication';
 import { config } from 'app/config/config';
 import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddleware } from 'app/loggers/express-logger';
 import { catchAllRouter } from 'app/routes/catch-all';
@@ -15,6 +16,7 @@ import express from 'express';
 const app = express();
 app.use(express.json());
 app.use(requestScopeContextMiddleware);
+app.use(authenticationMiddleware);
 
 // Logging
 app.use(logCorrelationMiddleware);

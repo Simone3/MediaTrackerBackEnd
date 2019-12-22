@@ -103,5 +103,11 @@ export const sampleConfig: Config = {
 		logApisInputOutput: true,
 		logExternalApisInputOutput: true,
 		logDatabaseQueries: true
+	},
+	firebase: {
+		databaseUrl: 'https://<your_project_here>.firebaseio.com',
+		serviceAccountKey: {
+			/* Your private key JSON (downloaded from Firebase console) contents here */
+		}
 	}
 };

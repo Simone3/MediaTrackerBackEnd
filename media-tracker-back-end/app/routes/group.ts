@@ -1,4 +1,5 @@
 
+import { userResourceAuthorizationMiddleware } from 'app/auth/authorization';
 import { groupController } from 'app/controllers/entities/group';
 import { groupFilterMapper, groupMapper } from 'app/data/mappers/group';
 import { AddGroupRequest, AddGroupResponse, DeleteGroupResponse, FilterGroupsRequest, FilterGroupsResponse, GetAllGroupsResponse, UpdateGroupRequest, UpdateGroupResponse } from 'app/data/models/api/group';
@@ -13,7 +14,7 @@ const router: Router = express.Router();
 /**
  * Route to get all saved groups
  */
-router.get('/users/:userId/categories/:categoryId/groups', (request, response) => {
+router.get('/users/:userId/categories/:categoryId/groups', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -37,7 +38,7 @@ router.get('/users/:userId/categories/:categoryId/groups', (request, response) =
 /**
  * Route to get all saved groups matching some filter
  */
-router.post('/users/:userId/categories/:categoryId/groups/filter', (request, response) => {
+router.post('/users/:userId/categories/:categoryId/groups/filter', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -71,7 +72,7 @@ router.post('/users/:userId/categories/:categoryId/groups/filter', (request, res
 /**
  * Route to add a new group
  */
-router.post('/users/:userId/categories/:categoryId/groups', (request, response) => {
+router.post('/users/:userId/categories/:categoryId/groups', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -106,7 +107,7 @@ router.post('/users/:userId/categories/:categoryId/groups', (request, response) 
 /**
  * Route to update an existing group
  */
-router.put('/users/:userId/categories/:categoryId/groups/:id', (request, response) => {
+router.put('/users/:userId/categories/:categoryId/groups/:id', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -141,7 +142,7 @@ router.put('/users/:userId/categories/:categoryId/groups/:id', (request, respons
 /**
  * Route to delete a group
  */
-router.delete('/users/:userId/categories/:categoryId/groups/:id', (request, response) => {
+router.delete('/users/:userId/categories/:categoryId/groups/:id', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;

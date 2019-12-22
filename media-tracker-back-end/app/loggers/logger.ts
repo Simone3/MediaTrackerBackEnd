@@ -10,11 +10,15 @@ import { configure, getLogger, Logger, PatternLayout, shutdown } from 'log4js';
  */
 const layout: PatternLayout = {
 	type: 'pattern',
-	pattern: '[%d] [%x{correlationId}] %p %c - %m',
+	pattern: '[%d] [%x{currentUserId}] [%x{correlationId}] %p %c - %m',
 	tokens: {
 		correlationId: () => {
 
 			return requestScopeContext.correlationId || 'NONE';
+		},
+		currentUserId: () => {
+
+			return requestScopeContext.currentUserId || 'NONE';
 		}
 	}
 };

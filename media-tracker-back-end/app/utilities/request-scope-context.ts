@@ -5,6 +5,7 @@ import httpContext from 'express-http-context';
  */
 class RequestScopeContext {
 
+	private readonly CURRENT_USER_ID = 'current-user-id';
 	private readonly CORRELATION_ID = 'correlation-id';
 
 	/**
@@ -19,6 +20,20 @@ class RequestScopeContext {
 	public set correlationId(value: string | undefined) {
 		
 		httpContext.set(this.CORRELATION_ID, value);
+	}
+
+	/**
+	 * The current user ID
+	 * @returns current user ID
+	 */
+	public get currentUserId(): string {
+
+		return httpContext.get(this.CURRENT_USER_ID);
+	}
+	
+	public set currentUserId(value: string) {
+		
+		httpContext.set(this.CURRENT_USER_ID, value);
 	}
 }
 

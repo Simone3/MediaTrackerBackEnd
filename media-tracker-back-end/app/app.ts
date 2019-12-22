@@ -4,6 +4,7 @@ import { AppError } from 'app/data/models/error/error';
 import { finalizeAndCloseAllLoggers, logger } from 'app/loggers/logger';
 import { server } from 'app/server/server';
 import exitHook from 'exit-hook';
+import { credential, initializeApp } from 'firebase-admin';
 
 /**
  * Initializes the application
@@ -12,6 +13,12 @@ export const init = (): void => {
 
 	logger.info('Starting application...');
 
+	// Start Firebase
+	initializeApp({
+		credential: credential.cert(config.firebase.serviceAccountKey),
+		databaseURL: config.firebase.databaseUrl
+	});
+	
 	// Start Express
 	const serverInstance = server.listen(config.server.port, () => {
 	

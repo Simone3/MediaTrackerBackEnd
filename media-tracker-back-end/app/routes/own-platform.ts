@@ -1,4 +1,5 @@
 
+import { userResourceAuthorizationMiddleware } from 'app/auth/authorization';
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
 import { ownPlatformFilterMapper, ownPlatformMapper } from 'app/data/mappers/own-platform';
 import { AddOwnPlatformRequest, AddOwnPlatformResponse, DeleteOwnPlatformResponse, FilterOwnPlatformsRequest, FilterOwnPlatformsResponse, GetAllOwnPlatformsResponse, MergeOwnPlatformsRequest, MergeOwnPlatformsResponse, UpdateOwnPlatformRequest, UpdateOwnPlatformResponse } from 'app/data/models/api/own-platform';
@@ -13,7 +14,7 @@ const router: Router = express.Router();
 /**
  * Route to get all saved own platforms
  */
-router.get('/users/:userId/categories/:categoryId/own-platforms', (request, response) => {
+router.get('/users/:userId/categories/:categoryId/own-platforms', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -37,7 +38,7 @@ router.get('/users/:userId/categories/:categoryId/own-platforms', (request, resp
 /**
  * Route to get all saved own platforms matching some filter
  */
-router.post('/users/:userId/categories/:categoryId/own-platforms/filter', (request, response) => {
+router.post('/users/:userId/categories/:categoryId/own-platforms/filter', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -71,7 +72,7 @@ router.post('/users/:userId/categories/:categoryId/own-platforms/filter', (reque
 /**
  * Route to add a new own platform
  */
-router.post('/users/:userId/categories/:categoryId/own-platforms', (request, response) => {
+router.post('/users/:userId/categories/:categoryId/own-platforms', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -106,7 +107,7 @@ router.post('/users/:userId/categories/:categoryId/own-platforms', (request, res
 /**
  * Route to merge two or more existing own platforms
  */
-router.put('/users/:userId/categories/:categoryId/own-platforms/merge', (request, response) => {
+router.put('/users/:userId/categories/:categoryId/own-platforms/merge', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -140,7 +141,7 @@ router.put('/users/:userId/categories/:categoryId/own-platforms/merge', (request
 /**
  * Route to update an existing own platform
  */
-router.put('/users/:userId/categories/:categoryId/own-platforms/:id', (request, response) => {
+router.put('/users/:userId/categories/:categoryId/own-platforms/:id', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
@@ -175,7 +176,7 @@ router.put('/users/:userId/categories/:categoryId/own-platforms/:id', (request, 
 /**
  * Route to delete a own platform
  */
-router.delete('/users/:userId/categories/:categoryId/own-platforms/:id', (request, response) => {
+router.delete('/users/:userId/categories/:categoryId/own-platforms/:id', userResourceAuthorizationMiddleware, (request, response) => {
 
 	const userId: string = request.params.userId;
 	const categoryId: string = request.params.categoryId;
