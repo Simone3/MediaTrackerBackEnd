@@ -9,7 +9,10 @@ export const setupTestDatabaseConnection = (): void => {
 	// Init connection on startup
 	before((done) => {
 
-		mongoose.connect(config.db.url, { useNewUrlParser: true });
+		mongoose.connect(config.db.url, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		});
 		const db = mongoose.connection;
 
 		db.on('error', (error) => {

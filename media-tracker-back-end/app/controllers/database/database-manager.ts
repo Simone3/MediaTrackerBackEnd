@@ -20,7 +20,8 @@ class DatabaseManager {
 			logger.info('Starting database connection...');
 
 			const options: ConnectionOptions = {
-				useNewUrlParser: true
+				useNewUrlParser: true,
+				useUnifiedTopology: true
 			};
 
 			if(config.log.logDatabaseQueries) {
