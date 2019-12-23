@@ -1,5 +1,5 @@
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
-import { IdentifiedOwnPlatform } from 'app/data/models/api/own-platform';
+import { AddOwnPlatformRequest, AddOwnPlatformResponse, DeleteOwnPlatformResponse, FilterOwnPlatformsRequest, FilterOwnPlatformsResponse, GetAllOwnPlatformsResponse, IdentifiedOwnPlatform, MergeOwnPlatformsRequest, MergeOwnPlatformsResponse, UpdateOwnPlatformRequest, UpdateOwnPlatformResponse } from 'app/data/models/api/own-platform';
 import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
@@ -21,11 +21,13 @@ describe('OwnPlatform API Tests', () => {
 	describe('OwnPlatform API Tests', () => {
 
 		const firstUC: TestUC = { user: '', category: '' };
+		const secondUC: TestUC = { user: '', category: '' };
 
 		// Create new users/categories for each test
 		beforeEach(async() => {
 
 			await initTestUCHelper('MOVIE', firstUC, 'First');
+			await initTestUCHelper('MOVIE', secondUC, 'Second');
 		});
 
 		it('Should create a new own platform', async() => {
@@ -34,7 +36,7 @@ describe('OwnPlatform API Tests', () => {
 			const color = '#0000FF';
 			const icon = 'theicon';
 
-			const response = await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, {
+			const response = await callHelper<AddOwnPlatformRequest, AddOwnPlatformResponse>('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, firstUC.user, {
 				newOwnPlatform: {
 					name: name,
 					color: color,
@@ -61,7 +63,7 @@ describe('OwnPlatform API Tests', () => {
 			const color = '#0000FF';
 			const icon = 'theicon';
 
-			await callHelper('PUT', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/${ownPlatformId}`, {
+			await callHelper<UpdateOwnPlatformRequest, UpdateOwnPlatformResponse>('PUT', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/${ownPlatformId}`, firstUC.user, {
 				ownPlatform: {
 					name: newName,
 					color: color,
@@ -75,7 +77,7 @@ describe('OwnPlatform API Tests', () => {
 			expect(foundOwnPlatform.name, 'GetOwnPlatform returned the wrong name').to.equal(newName);
 		});
 
-		it('Should update an existing own platform', async() => {
+		it('Should merge two existing own platforms', async() => {
 
 			const { _id: ownPlatformId1 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
 			const { _id: ownPlatformId2 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
@@ -84,7 +86,7 @@ describe('OwnPlatform API Tests', () => {
 			const color = '#0000FF';
 			const icon = 'theicon';
 
-			await callHelper('PUT', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/merge`, {
+			await callHelper<MergeOwnPlatformsRequest, MergeOwnPlatformsResponse>('PUT', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/merge`, firstUC.user, {
 				ownPlatformIds: [ ownPlatformId1, ownPlatformId2 ],
 				mergedOwnPlatform: {
 					name: mergedName,
@@ -104,7 +106,7 @@ describe('OwnPlatform API Tests', () => {
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'Bbb'));
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'Zzz'));
 			
-			const response = await callHelper('GET', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`);
+			const response = await callHelper<{}, GetAllOwnPlatformsResponse>('GET', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, firstUC.user);
 			expect(response.ownPlatforms, 'API did not return the correct number of own platforms').to.have.lengthOf(3);
 			expect(extract(response.ownPlatforms, 'name'), 'API did not return the correct own platforms').to.eql([ 'Bbb', 'Rrr', 'Zzz' ]);
 		});
@@ -115,7 +117,7 @@ describe('OwnPlatform API Tests', () => {
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'Bbb'));
 			await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC, 'Zzz'));
 			
-			const response = await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/filter`, {
+			const response = await callHelper<FilterOwnPlatformsRequest, FilterOwnPlatformsResponse>('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/filter`, firstUC.user, {
 				filter: {
 					name: 'bbB'
 				}
@@ -129,7 +131,7 @@ describe('OwnPlatform API Tests', () => {
 			const ownPlatform = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUC));
 			const ownPlatformId = String(ownPlatform._id);
 
-			await callHelper('DELETE', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/${ownPlatformId}`);
+			await callHelper<{}, DeleteOwnPlatformResponse>('DELETE', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/${ownPlatformId}`, firstUC.user);
 			
 			const foundOwnPlatform = await ownPlatformController.getOwnPlatform(firstUC.user, firstUC.category, ownPlatformId);
 			expect(foundOwnPlatform, 'GetOwnPlatform returned a defined result').to.be.undefined;
@@ -137,23 +139,27 @@ describe('OwnPlatform API Tests', () => {
 
 		it('Should check for name validity', async() => {
 
-			await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, {
+			await callHelper<{}, AddOwnPlatformResponse>('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, firstUC.user, {
 				newOwnPlatform: {
 					color: '#0000FF',
 					icon: 'something'
 				}
-			}, 500);
+			}, {
+				expectedStatus: 500
+			});
 		});
 
 		it('Should check for color validity', async() => {
 
-			await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, {
+			await callHelper<{}, AddOwnPlatformResponse>('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, firstUC.user, {
 				newOwnPlatform: {
 					name: randomName(),
 					color: 'sdfdcxcvxcvxcv',
 					icon: 'something'
 				}
-			}, 500);
+			}, {
+				expectedStatus: 500
+			});
 		});
 
 		it('Should save and then retrieve ALL fields', async() => {
@@ -165,14 +171,56 @@ describe('OwnPlatform API Tests', () => {
 				icon: 'theicon'
 			};
 
-			await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, {
+			await callHelper<AddOwnPlatformRequest, AddOwnPlatformResponse>('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, firstUC.user, {
 				newOwnPlatform: sourcePlatform
 			});
 
-			const response = await callHelper('GET', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`);
+			const response = await callHelper<{}, GetAllOwnPlatformsResponse>('GET', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, firstUC.user);
 			
 			sourcePlatform.uid = response.ownPlatforms[0].uid;
 			expect(response.ownPlatforms[0], 'API either did not save or did not retrieve ALL fields').to.eql(sourcePlatform);
+		});
+
+		it('Should not allow to add to another user\'s own platforms', async() => {
+
+			await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, secondUC.user, undefined, {
+				expectedStatus: 403
+			});
+		});
+
+		it('Should not allow to update another user\'s own platform', async() => {
+
+			await callHelper('PUT', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/someobjectid`, secondUC.user, undefined, {
+				expectedStatus: 403
+			});
+		});
+
+		it('Should not allow to merge another user\'s own platforms', async() => {
+
+			await callHelper('PUT', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/merge`, secondUC.user, undefined, {
+				expectedStatus: 403
+			});
+		});
+
+		it('Should not allow to delete another user\'s own platform', async() => {
+
+			await callHelper('DELETE', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/someobjectid`, secondUC.user, undefined, {
+				expectedStatus: 403
+			});
+		});
+
+		it('Should not allow to get another user\'s own platforms', async() => {
+
+			await callHelper('GET', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms`, secondUC.user, undefined, {
+				expectedStatus: 403
+			});
+		});
+
+		it('Should not allow to filter another user\'s own platforms', async() => {
+
+			await callHelper('POST', `/users/${firstUC.user}/categories/${firstUC.category}/own-platforms/filter`, secondUC.user, undefined, {
+				expectedStatus: 403
+			});
 		});
 	});
 });

@@ -1,7 +1,8 @@
 import { bookEntityController } from 'app/controllers/entities/media-items/book';
-import { IdentifiedGroup } from 'app/data/models/api/group';
-import { CatalogBook, IdentifiedBook } from 'app/data/models/api/media-items/book';
-import { IdentifiedOwnPlatform } from 'app/data/models/api/own-platform';
+import { AddGroupRequest, AddGroupResponse, IdentifiedGroup } from 'app/data/models/api/group';
+import { AddBookRequest, CatalogBook, FilterBooksRequest, FilterBooksResponse, GetAllBooksResponse, GetBookFromCatalogResponse, IdentifiedBook, SearchBookCatalogResponse, SearchBooksRequest, SearchBooksResponse, UpdateBookRequest } from 'app/data/models/api/media-items/book';
+import { AddMediaItemResponse, DeleteMediaItemResponse, UpdateMediaItemResponse } from 'app/data/models/api/media-items/media-item';
+import { AddOwnPlatformRequest, AddOwnPlatformResponse, IdentifiedOwnPlatform } from 'app/data/models/api/own-platform';
 import { BookInternal } from 'app/data/models/internal/media-items/book';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
@@ -25,17 +26,19 @@ describe('Book API Tests', () => {
 	describe('Book API Tests', () => {
 
 		const firstUCG: TestUCG = { user: '', category: '' };
+		const secondUCG: TestUCG = { user: '', category: '' };
 
 		// Create new users/categories/groups for each test
 		beforeEach(async() => {
 
 			await initTestUCGHelper('BOOK', firstUCG, 'First');
+			await initTestUCGHelper('BOOK', secondUCG, 'Second');
 		});
 
 		it('Should create a new book', async() => {
 
 			const name = randomName();
-			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, {
+			const response = await callHelper<AddBookRequest, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, firstUCG.user, {
 				newBook: {
 					name: name,
 					importance: 10
@@ -57,7 +60,7 @@ describe('Book API Tests', () => {
 			const bookId = String(book._id);
 			const newName = randomName('Changed');
 
-			await callHelper('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/${bookId}`, {
+			await callHelper<UpdateBookRequest, UpdateMediaItemResponse>('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/${bookId}`, firstUCG.user, {
 				book: {
 					name: newName,
 					importance: 10
@@ -78,7 +81,7 @@ describe('Book API Tests', () => {
 			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
 			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Aaa', importance: 85 }));
 			
-			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/filter`, {
+			const response = await callHelper<FilterBooksRequest, FilterBooksResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/filter`, firstUCG.user, {
 				filter: {
 					importanceLevels: [ 85 ]
 				},
@@ -99,7 +102,7 @@ describe('Book API Tests', () => {
 			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
 			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'testAaa', importance: 85 }));
 			
-			const response = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/search`, {
+			const response = await callHelper<SearchBooksRequest, SearchBooksResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/search`, firstUCG.user, {
 				filter: {
 					importanceLevels: [ 85 ]
 				},
@@ -114,7 +117,7 @@ describe('Book API Tests', () => {
 			const book = await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG));
 			const bookId = String(book._id);
 
-			await callHelper('DELETE', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/${bookId}`);
+			await callHelper<{}, DeleteMediaItemResponse>('DELETE', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/${bookId}`, firstUCG.user);
 			
 			const foundBook = await bookEntityController.getMediaItem(firstUCG.user, firstUCG.category, bookId);
 			expect(foundBook, 'GetBook returned a defined result').to.be.undefined;
@@ -122,25 +125,29 @@ describe('Book API Tests', () => {
 
 		it('Should check for name validity', async() => {
 
-			await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, {
+			await callHelper<{}, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, firstUCG.user, {
 				newBook: {
 					importance: 10
 				}
-			}, 500);
+			}, {
+				expectedStatus: 500
+			});
 		});
 
 		it('Should check for importance validity', async() => {
 
-			await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, {
+			await callHelper<{}, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, firstUCG.user, {
 				newBook: {
 					name: randomName()
 				}
-			}, 500);
+			}, {
+				expectedStatus: 500
+			});
 		});
 
 		it('Should search the books catalog', async() => {
 
-			const response = await callHelper('GET', `/catalog/books/search/Mock Book`);
+			const response = await callHelper<{}, SearchBookCatalogResponse>('GET', `/catalog/books/search/Mock Book`, firstUCG.user);
 			
 			expect(response.searchResults, 'API did not return the correct number of catalog books').to.have.lengthOf(2);
 			expect(extract(response.searchResults, 'name'), 'API did not return the correct catalog books').to.have.members([ 'Mock Book 1', 'Mock Book 2' ]);
@@ -159,7 +166,7 @@ describe('Book API Tests', () => {
 				releaseDate: '2002-01-01T00:00:00.000Z'
 			};
 			
-			const response = await callHelper('GET', `/catalog/books/123`);
+			const response = await callHelper<{}, GetBookFromCatalogResponse>('GET', `/catalog/books/123`, firstUCG.user);
 
 			expect(response.catalogBook, 'API did not return the correct catalog details').to.be.eql(expectedResult);
 		});
@@ -171,7 +178,7 @@ describe('Book API Tests', () => {
 				uid: '',
 				name: randomName('Group')
 			};
-			const { uid: groupId } = await await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/groups`, {
+			const { uid: groupId } = await await callHelper<AddGroupRequest, AddGroupResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/groups`, firstUCG.user, {
 				newGroup: sourceGroup
 			});
 
@@ -182,7 +189,7 @@ describe('Book API Tests', () => {
 				color: '#00ff00',
 				icon: 'something'
 			};
-			const { uid: ownPlatformId } = await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/own-platforms`, {
+			const { uid: ownPlatformId } = await callHelper<AddOwnPlatformRequest, AddOwnPlatformResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/own-platforms`, firstUCG.user, {
 				newOwnPlatform: sourceOwnPlatform
 			});
 
@@ -210,12 +217,12 @@ describe('Book API Tests', () => {
 				authors: [ randomName('Author1'), randomName('Author2') ],
 				pagesNumber: 123
 			};
-			await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, {
+			await callHelper<AddBookRequest, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, firstUCG.user, {
 				newBook: sourceBook
 			});
 
 			// Get media item
-			const response = await callHelper('GET', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`);
+			const response = await callHelper<{}, GetAllBooksResponse>('GET', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, firstUCG.user);
 
 			// "Fix" source entities
 			sourceBook.uid = response.books[0].uid;
@@ -226,6 +233,48 @@ describe('Book API Tests', () => {
 
 			// Check media item
 			expect(response.books[0], 'API either did not save or did not retrieve ALL fields').to.eql(sourceBook);
+		});
+
+		it('Should not allow to add to another user\'s books', async() => {
+
+			await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, secondUCG.user, undefined, {
+				expectedStatus: 403
+			});
+		});
+
+		it('Should not allow to update another user\'s book', async() => {
+
+			await callHelper('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/someobjectid`, secondUCG.user, undefined, {
+				expectedStatus: 403
+			});
+		});
+
+		it('Should not allow to delete another user\'s book', async() => {
+
+			await callHelper('DELETE', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/someobjectid`, secondUCG.user, undefined, {
+				expectedStatus: 403
+			});
+		});
+
+		it('Should not allow to get another user\'s books', async() => {
+
+			await callHelper('GET', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, secondUCG.user, undefined, {
+				expectedStatus: 403
+			});
+		});
+
+		it('Should not allow to filter another user\'s books', async() => {
+
+			await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/filter`, secondUCG.user, undefined, {
+				expectedStatus: 403
+			});
+		});
+
+		it('Should not allow to search another user\'s books', async() => {
+
+			await callHelper('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/search`, secondUCG.user, undefined, {
+				expectedStatus: 403
+			});
 		});
 	});
 });
