@@ -105,19 +105,19 @@ describe('MovieController Tests', () => {
 
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt' }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Aaa' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 123 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: '200' }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Ddd', importance: 123 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Ddd', importance: '200' }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Lll', importance: 321 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rrr', importance: 12 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Lll', importance: '300' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rrr', importance: '100' }));
 
 			helperCompareResults([ 'Bbb', 'Lll' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
-				importanceLevels: [ 123, 321 ]
+				importanceLevels: [ '200', '300' ]
 			}));
 
 			helperCompareResults([], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
-				importanceLevels: [ 65465321 ]
+				importanceLevels: [ '400' ]
 			}));
 		});
 
@@ -164,14 +164,14 @@ describe('MovieController Tests', () => {
 
 		it('FilterAndOrder should return the results in the correct order', async() => {
 
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: 1, releaseDate: new Date('2004-01-01') }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Aaa', importance: 2, releaseDate: new Date('2003-01-01') }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 1, releaseDate: new Date('2005-01-01') }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz', importance: 1, releaseDate: new Date('2000-01-01') }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Ddd', importance: 7, releaseDate: new Date('2006-01-01') }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc', importance: 2, releaseDate: new Date('2002-01-01') }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Mmm', importance: 6, releaseDate: new Date('2001-01-01') }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Nnn', importance: 5, releaseDate: new Date('2006-01-02') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: '100', releaseDate: new Date('2004-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Aaa', importance: '200', releaseDate: new Date('2003-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: '100', releaseDate: new Date('2005-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz', importance: '100', releaseDate: new Date('2000-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'Ddd', importance: '400', releaseDate: new Date('2006-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc', importance: '200', releaseDate: new Date('2002-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Mmm', importance: '400', releaseDate: new Date('2001-01-01') }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, thirdUCG, { name: 'Nnn', importance: '300', releaseDate: new Date('2006-01-02') }));
 
 			helperCompareResults([ 'Bbb', 'Ccc', 'Ttt', 'Zzz' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, undefined, [{
 				field: 'NAME',
@@ -200,9 +200,9 @@ describe('MovieController Tests', () => {
 		it('FilterAndOrder should filter by group', async() => {
 
 			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 2, { name: 'Aaa' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 345 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: '300' }));
 			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 1, { name: 'Ccc' }));
-			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 3, { name: 'Ddd', importance: 345 }));
+			await movieEntityController.saveMediaItem(getTestMovieInGroup(undefined, firstUCG, 3, { name: 'Ddd', importance: '300' }));
 
 			helperCompareResults([ 'Aaa', 'Ccc', 'Ddd' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
 				groups: {
@@ -229,9 +229,9 @@ describe('MovieController Tests', () => {
 			const { _id: ownPlatformId2 } = await ownPlatformController.saveOwnPlatform(getTestOwnPlatform(undefined, firstUCG));
 
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Aaa', ownPlatform: ownPlatformId1 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 345 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: '300' }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc', ownPlatform: ownPlatformId1 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ddd', importance: 345, ownPlatform: ownPlatformId2 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ddd', importance: '300', ownPlatform: ownPlatformId2 }));
 
 			helperCompareResults([ 'Aaa', 'Ccc', 'Ddd' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
 				ownPlatforms: {
@@ -285,12 +285,12 @@ describe('MovieController Tests', () => {
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'ThisIsTheMediaItemName' }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'SomeOtherRandomString' }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, secondUCG, { name: 'SomeOtherRandomString' }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'AnotherMediaItem', importance: 345 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'AnotherMediaItem', importance: '200' }));
 
 			helperCompareResults([ 'SomeOtherRandomString', 'AnotherMediaItem' ], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'other'));
 
 			helperCompareResults([ 'AnotherMediaItem' ], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'other', {
-				importanceLevels: [ 345 ]
+				importanceLevels: [ '200' ]
 			}));
 
 			helperCompareResults([], await movieEntityController.searchMediaItems(firstUCG.user, firstUCG.category, 'wontfind'));

@@ -41,7 +41,7 @@ describe('Movie API Tests', () => {
 			const response = await callHelper<AddMovieRequest, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies`, firstUCG.user, {
 				newMovie: {
 					name: name,
-					importance: 10
+					importance: '100'
 				}
 			});
 			
@@ -63,7 +63,7 @@ describe('Movie API Tests', () => {
 			await callHelper<UpdateMovieRequest, UpdateMediaItemResponse>('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies/${movieId}`, firstUCG.user, {
 				movie: {
 					name: newName,
-					importance: 10
+					importance: '100'
 				}
 			});
 			
@@ -75,15 +75,15 @@ describe('Movie API Tests', () => {
 
 		it('Should filter and sort movies', async() => {
 
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rrr', importance: 100 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz', importance: 85 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Aaa', importance: 85 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rrr', importance: '100' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: '200' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz', importance: '200' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: '100' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Aaa', importance: '200' }));
 			
 			const response = await callHelper<FilterMoviesRequest, FilterMoviesResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies/filter`, firstUCG.user, {
 				filter: {
-					importanceLevels: [ 85 ]
+					importanceLevels: [ '200' ]
 				},
 				sortBy: [{
 					field: 'NAME',
@@ -96,15 +96,15 @@ describe('Movie API Tests', () => {
 
 		it('Should search movies by term', async() => {
 
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rtestrr', importance: 100 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'ZzTESTz', importance: 85 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
-			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'testAaa', importance: 85 }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rtestrr', importance: '100' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', importance: '200' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'ZzTESTz', importance: '200' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ttt', importance: '100' }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'testAaa', importance: '200' }));
 			
 			const response = await callHelper<SearchMoviesRequest, SearchMoviesResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies/search`, firstUCG.user, {
 				filter: {
-					importanceLevels: [ 85 ]
+					importanceLevels: [ '200' ]
 				},
 				searchTerm: 'test'
 			});
@@ -127,7 +127,7 @@ describe('Movie API Tests', () => {
 
 			await callHelper<{}, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/movies`, firstUCG.user, {
 				newMovie: {
-					importance: 10
+					importance: '100'
 				}
 			}, {
 				expectedStatus: 500
@@ -208,7 +208,7 @@ describe('Movie API Tests', () => {
 					orderInGroup: 4
 				},
 				imageUrl: 'http://test.com',
-				importance: 56,
+				importance: '100',
 				ownPlatform: {
 					ownPlatformId: ownPlatformId
 				},

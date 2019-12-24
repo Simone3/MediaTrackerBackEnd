@@ -16,6 +16,11 @@ type CoreMediaItemDataInternal = {
 };
 
 /**
+ * The media item importance levels, internal type NOT to be exposed via API
+ */
+export type MediaItemImportanceInternal = '100' | '200' | '300' | '400';
+
+/**
  * Model for a media item with all properties, internal type NOT to be exposed via API
  */
 export type MediaItemInternal = PersistedEntityInternal & CoreMediaItemDataInternal & {
@@ -25,7 +30,7 @@ export type MediaItemInternal = PersistedEntityInternal & CoreMediaItemDataInter
 	orderInGroup?: number;
 	ownPlatform?: OwnPlatformInternal | string;
 	owner: string;
-	importance: number;
+	importance: MediaItemImportanceInternal;
 	userComment?: string;
 	completedOn?: Date[];
 	completedLastOn?: Date;
@@ -59,7 +64,7 @@ export type MediaItemOwnPlatformFilterInternal = {
  */
 export type MediaItemFilterInternal = {
 	
-	importanceLevels?: number[];
+	importanceLevels?: MediaItemImportanceInternal[];
 	groups?: MediaItemGroupFilterInternal;
 	ownPlatforms?: MediaItemOwnPlatformFilterInternal;
 	complete?: boolean;

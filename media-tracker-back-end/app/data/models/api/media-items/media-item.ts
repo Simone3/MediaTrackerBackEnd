@@ -1,8 +1,9 @@
 import { CommonAddResponse, CommonRequest, CommonResponse, CommonSaveRequest } from 'app/data/models/api/common';
 import { Group } from 'app/data/models/api/group';
 import { OwnPlatform } from 'app/data/models/api/own-platform';
+import { ValuesOf } from 'app/utilities/helper-types';
 import { Type } from 'class-transformer';
-import { IsBoolean, IsDateString, IsDefined, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsBoolean, IsDateString, IsDefined, IsIn, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
  * Util class to extract common fields to both media item entities and catalog entries
@@ -100,6 +101,16 @@ export class MediaItemOwnPlatform {
 }
 
 /**
+ * Array of all media item importance levels, publicly exposed via API
+ */
+export const MEDIA_ITEM_IMPORTANCE_VALUES: [ '100', '200', '300', '400' ] = [ '100', '200', '300', '400' ];
+
+/**
+ * The media item importance levels, publicly exposed via API
+ */
+export type MediaItemImportance = ValuesOf<typeof MEDIA_ITEM_IMPORTANCE_VALUES>;
+
+/**
  * Abstract model for a media item, publicly exposed via API
  */
 export abstract class MediaItem extends CoreMediaItemData {
@@ -108,8 +119,9 @@ export abstract class MediaItem extends CoreMediaItemData {
 	 * The media item importance level
 	 */
 	@IsNotEmpty()
-	@IsInt()
-	public importance!: number;
+	@IsString()
+	@IsIn(MEDIA_ITEM_IMPORTANCE_VALUES)
+	public importance!: MediaItemImportance;
 
 	/**
 	 * The media item group
@@ -233,9 +245,10 @@ export abstract class MediaItemFilter {
 	 * Importance level(s) to filter
 	 */
 	@IsOptional()
-	@IsDefined({ each: true })
-	@IsInt({ each: true })
-	public importanceLevels?: number[];
+	@IsNotEmpty({ each: true })
+	@IsString({ each: true })
+	@IsIn(MEDIA_ITEM_IMPORTANCE_VALUES, { each: true })
+	public importanceLevels?: MediaItemImportance[];
 
 	/**
 	 * Filter for groups

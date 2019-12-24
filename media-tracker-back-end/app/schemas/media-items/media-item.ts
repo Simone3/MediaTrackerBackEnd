@@ -13,7 +13,7 @@ export const commonMediaItemSchemaDefinition: SchemaDefinition = {
 	group: { type: Schema.Types.ObjectId, ref: GROUP_COLLECTION_NAME, required: false },
 	ownPlatform: { type: Schema.Types.ObjectId, ref: OWN_PLATFORM_COLLECTION_NAME, required: false },
 	orderInGroup: { type: Number, required: false },
-	importance: { type: Number, required: true },
+	importance: { type: String, required: true },
 	genres: { type: [ String ], required: false },
 	description: { type: String, required: false },
 	userComment: { type: String, required: false },

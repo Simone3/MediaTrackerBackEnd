@@ -3,7 +3,7 @@ import { groupController } from 'app/controllers/entities/group';
 import { CategoryInternal, MediaTypeInternal } from 'app/data/models/internal/category';
 import { GroupInternal } from 'app/data/models/internal/group';
 import { BookInternal } from 'app/data/models/internal/media-items/book';
-import { MediaItemInternal } from 'app/data/models/internal/media-items/media-item';
+import { MediaItemImportanceInternal, MediaItemInternal } from 'app/data/models/internal/media-items/media-item';
 import { MovieInternal } from 'app/data/models/internal/media-items/movie';
 import { TvShowInternal } from 'app/data/models/internal/media-items/tv-show';
 import { VideogameInternal } from 'app/data/models/internal/media-items/videogame';
@@ -94,7 +94,7 @@ export const getTestOwnPlatform = (_id: unknown, data: TestUC, name?: string): O
  */
 type OptionalMediaItemTestData = {
 	name?: string;
-	importance?: number;
+	importance?: MediaItemImportanceInternal;
 	ownPlatform?: string;
 	releaseDate?: Date;
 	completedOn?: Date[];
@@ -121,7 +121,7 @@ const getTestMediaItem = (_id: unknown, data: TestUCG, orderInGroup: number, opt
 		owner: data.user,
 		category: data.category,
 		name: optionalData && optionalData.name ? optionalData.name : randomName(),
-		importance: optionalData && optionalData.importance ? optionalData.importance : 10,
+		importance: optionalData && optionalData.importance ? optionalData.importance : '100',
 		ownPlatform: optionalData && optionalData.ownPlatform ? optionalData.ownPlatform : undefined,
 		completedOn: optionalData ? optionalData.completedOn : undefined,
 		releaseDate: optionalData ? optionalData.releaseDate : undefined,

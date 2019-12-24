@@ -41,7 +41,7 @@ describe('Videogame API Tests', () => {
 			const response = await callHelper<AddVideogameRequest, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames`, firstUCG.user, {
 				newVideogame: {
 					name: name,
-					importance: 10
+					importance: '100'
 				}
 			});
 			
@@ -63,7 +63,7 @@ describe('Videogame API Tests', () => {
 			await callHelper<UpdateVideogameRequest, UpdateMediaItemResponse>('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames/${videogameId}`, firstUCG.user, {
 				videogame: {
 					name: newName,
-					importance: 10
+					importance: '100'
 				}
 			});
 			
@@ -75,15 +75,15 @@ describe('Videogame API Tests', () => {
 
 		it('Should filter and sort videogames', async() => {
 
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Rrr', importance: 100 }));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Zzz', importance: 85 }));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Aaa', importance: 85 }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Rrr', importance: '100' }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Bbb', importance: '200' }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Zzz', importance: '200' }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Ttt', importance: '100' }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Aaa', importance: '200' }));
 			
 			const response = await callHelper<FilterVideogamesRequest, FilterVideogamesResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames/filter`, firstUCG.user, {
 				filter: {
-					importanceLevels: [ 85 ]
+					importanceLevels: [ '200' ]
 				},
 				sortBy: [{
 					field: 'NAME',
@@ -96,15 +96,15 @@ describe('Videogame API Tests', () => {
 
 		it('Should search videogames by term', async() => {
 
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Rtestrr', importance: 100 }));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'ZzTESTz', importance: 85 }));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
-			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'testAaa', importance: 85 }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Rtestrr', importance: '100' }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Bbb', importance: '200' }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'ZzTESTz', importance: '200' }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'Ttt', importance: '100' }));
+			await videogameEntityController.saveMediaItem(getTestVideogame(undefined, firstUCG, { name: 'testAaa', importance: '200' }));
 			
 			const response = await callHelper<SearchVideogamesRequest, SearchVideogamesResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames/search`, firstUCG.user, {
 				filter: {
-					importanceLevels: [ 85 ]
+					importanceLevels: [ '200' ]
 				},
 				searchTerm: 'test'
 			});
@@ -127,7 +127,7 @@ describe('Videogame API Tests', () => {
 
 			await callHelper<{}, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/videogames`, firstUCG.user, {
 				newVideogame: {
-					importance: 10
+					importance: '100'
 				}
 			}, {
 				expectedStatus: 500
@@ -209,7 +209,7 @@ describe('Videogame API Tests', () => {
 					orderInGroup: 4
 				},
 				imageUrl: 'http://test.com',
-				importance: 56,
+				importance: '100',
 				ownPlatform: {
 					ownPlatformId: ownPlatformId
 				},

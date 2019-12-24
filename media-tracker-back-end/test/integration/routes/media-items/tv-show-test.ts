@@ -41,7 +41,7 @@ describe('TV show API Tests', () => {
 			const response = await callHelper<AddTvShowRequest, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows`, firstUCG.user, {
 				newTvShow: {
 					name: name,
-					importance: 10
+					importance: '100'
 				}
 			});
 			
@@ -63,7 +63,7 @@ describe('TV show API Tests', () => {
 			await callHelper<UpdateTvShowRequest, UpdateMediaItemResponse>('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows/${tvShowId}`, firstUCG.user, {
 				tvShow: {
 					name: newName,
-					importance: 10
+					importance: '100'
 				}
 			});
 			
@@ -75,15 +75,15 @@ describe('TV show API Tests', () => {
 
 		it('Should filter and sort TV shows', async() => {
 
-			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Rrr', importance: 100 }));
-			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
-			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Zzz', importance: 85 }));
-			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
-			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Aaa', importance: 85 }));
+			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Rrr', importance: '100' }));
+			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Bbb', importance: '200' }));
+			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Zzz', importance: '200' }));
+			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Ttt', importance: '100' }));
+			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Aaa', importance: '200' }));
 			
 			const response = await callHelper<FilterTvShowsRequest, FilterTvShowsResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows/filter`, firstUCG.user, {
 				filter: {
-					importanceLevels: [ 85 ]
+					importanceLevels: [ '200' ]
 				},
 				sortBy: [{
 					field: 'NAME',
@@ -96,15 +96,15 @@ describe('TV show API Tests', () => {
 
 		it('Should search TV shows by term', async() => {
 
-			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Rtestrr', importance: 100 }));
-			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
-			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'ZzTESTz', importance: 85 }));
-			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
-			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'testAaa', importance: 85 }));
+			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Rtestrr', importance: '100' }));
+			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Bbb', importance: '200' }));
+			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'ZzTESTz', importance: '200' }));
+			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'Ttt', importance: '100' }));
+			await tvShowEntityController.saveMediaItem(getTestTvShow(undefined, firstUCG, { name: 'testAaa', importance: '200' }));
 			
 			const response = await callHelper<SearchTvShowsRequest, SearchTvShowsResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows/search`, firstUCG.user, {
 				filter: {
-					importanceLevels: [ 85 ]
+					importanceLevels: [ '200' ]
 				},
 				searchTerm: 'test'
 			});
@@ -127,7 +127,7 @@ describe('TV show API Tests', () => {
 
 			await callHelper<{}, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows`, firstUCG.user, {
 				newTvShow: {
-					importance: 10
+					importance: '100'
 				}
 			}, {
 				expectedStatus: 500
@@ -212,7 +212,7 @@ describe('TV show API Tests', () => {
 					orderInGroup: 4
 				},
 				imageUrl: 'http://test.com',
-				importance: 56,
+				importance: '100',
 				ownPlatform: {
 					ownPlatformId: ownPlatformId
 				},

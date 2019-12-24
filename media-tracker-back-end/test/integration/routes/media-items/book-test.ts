@@ -41,7 +41,7 @@ describe('Book API Tests', () => {
 			const response = await callHelper<AddBookRequest, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, firstUCG.user, {
 				newBook: {
 					name: name,
-					importance: 10
+					importance: '100'
 				}
 			});
 			
@@ -63,7 +63,7 @@ describe('Book API Tests', () => {
 			await callHelper<UpdateBookRequest, UpdateMediaItemResponse>('PUT', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/${bookId}`, firstUCG.user, {
 				book: {
 					name: newName,
-					importance: 10
+					importance: '100'
 				}
 			});
 			
@@ -75,15 +75,15 @@ describe('Book API Tests', () => {
 
 		it('Should filter and sort books', async() => {
 
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Rrr', importance: 100 }));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Zzz', importance: 85 }));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Aaa', importance: 85 }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Rrr', importance: '300' }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Bbb', importance: '200' }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Zzz', importance: '200' }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Ttt', importance: '100' }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Aaa', importance: '200' }));
 			
 			const response = await callHelper<FilterBooksRequest, FilterBooksResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/filter`, firstUCG.user, {
 				filter: {
-					importanceLevels: [ 85 ]
+					importanceLevels: [ '200' ]
 				},
 				sortBy: [{
 					field: 'NAME',
@@ -96,15 +96,15 @@ describe('Book API Tests', () => {
 
 		it('Should search books by term', async() => {
 
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Rtestrr', importance: 100 }));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Bbb', importance: 85 }));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'ZzTESTz', importance: 85 }));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Ttt', importance: 75 }));
-			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'testAaa', importance: 85 }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Rtestrr', importance: '300' }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Bbb', importance: '200' }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'ZzTESTz', importance: '200' }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'Ttt', importance: '100' }));
+			await bookEntityController.saveMediaItem(getTestBook(undefined, firstUCG, { name: 'testAaa', importance: '200' }));
 			
 			const response = await callHelper<SearchBooksRequest, SearchBooksResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books/search`, firstUCG.user, {
 				filter: {
-					importanceLevels: [ 85 ]
+					importanceLevels: [ '200' ]
 				},
 				searchTerm: 'test'
 			});
@@ -127,7 +127,7 @@ describe('Book API Tests', () => {
 
 			await callHelper<{}, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/books`, firstUCG.user, {
 				newBook: {
-					importance: 10
+					importance: '100'
 				}
 			}, {
 				expectedStatus: 500
@@ -208,7 +208,7 @@ describe('Book API Tests', () => {
 					orderInGroup: 4
 				},
 				imageUrl: 'http://test.com',
-				importance: 56,
+				importance: '100',
 				ownPlatform: {
 					ownPlatformId: ownPlatformId
 				},
