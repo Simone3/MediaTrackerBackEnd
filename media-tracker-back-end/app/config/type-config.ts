@@ -98,9 +98,17 @@ export type Config = {
 	log: {
 		level: 'debug' | 'info' | 'error' | 'off';
 		file: string;
-		logApisInputOutput: boolean;
-		logExternalApisInputOutput: boolean;
-		logDatabaseQueries: boolean;
+		apisInputOutput: {
+			active: boolean;
+			excludeRequestBodyRegExp: RegExp[];
+			excludeResponseBodyRegExp: RegExp[];
+		};
+		externalApisInputOutput: {
+			active: boolean;
+		};
+		databaseQueries: {
+			active: boolean;
+		};
 	};
 	firebase: {
 		databaseUrl: string;

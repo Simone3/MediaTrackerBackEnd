@@ -124,7 +124,7 @@ export class RestJsonInvoker {
 	 */
 	private logRequest(requestOptions: UrlOptions & RequestPromiseOptions): void {
 
-		if(config.log.logExternalApisInputOutput) {
+		if(config.log.externalApisInputOutput.active) {
 			
 			externalInvocationsInputOutputLogger.info('External Service %s %s %s - Sent Request: %s', requestOptions.method, requestOptions.url, requestOptions.qs, requestOptions.body);
 		}
@@ -137,7 +137,7 @@ export class RestJsonInvoker {
 	 */
 	private logResponse(requestOptions: UrlOptions & RequestPromiseOptions, response: unknown): void {
 
-		if(config.log.logExternalApisInputOutput) {
+		if(config.log.externalApisInputOutput.active) {
 
 			externalInvocationsInputOutputLogger.info('External Service %s %s - Received Response: %s', requestOptions.method, requestOptions.url, response);
 		}

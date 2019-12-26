@@ -100,9 +100,17 @@ export const sampleConfig: Config = {
 	log: {
 		level: 'debug',
 		file: '<your_path_here>/media-tracker.log',
-		logApisInputOutput: true,
-		logExternalApisInputOutput: true,
-		logDatabaseQueries: true
+		apisInputOutput: {
+			active: true,
+			excludeRequestBodyRegExp: [ new RegExp('^/users/[^/]+/import/old-app$') ],
+			excludeResponseBodyRegExp: []
+		},
+		externalApisInputOutput: {
+			active: true
+		},
+		databaseQueries: {
+			active: true
+		}
 	},
 	firebase: {
 		databaseUrl: 'https://<your_project_here>.firebaseio.com',

@@ -60,6 +60,25 @@ class StringUtils {
 			return defaultIfEmpty;
 		}
 	}
+
+	/**
+	 * Checks if a string matches at least one of the given RegExp
+	 * @param string the string to check
+	 * @param regularExpressions the array of regular expressions
+	 * @returns true if at least one of the regular expressions matches
+	 */
+	public matches(string: string, regularExpressions: RegExp[]): boolean {
+
+		for(const regExp of regularExpressions) {
+
+			if(regExp.test(string)) {
+
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
 
 /**

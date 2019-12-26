@@ -100,9 +100,17 @@ export const testConfig: Config = {
 	log: {
 		level: 'off',
 		file: 'C:/dev/MediaTracker/logs/media-tracker-tests.log',
-		logApisInputOutput: true,
-		logExternalApisInputOutput: true,
-		logDatabaseQueries: true
+		apisInputOutput: {
+			active: true,
+			excludeRequestBodyRegExp: [ new RegExp('^/users/[^/]+/import/old-app$') ],
+			excludeResponseBodyRegExp: []
+		},
+		externalApisInputOutput: {
+			active: true
+		},
+		databaseQueries: {
+			active: true
+		}
 	},
 	firebase: {
 		databaseUrl: 'mocked',

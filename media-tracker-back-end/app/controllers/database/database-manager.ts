@@ -24,7 +24,7 @@ class DatabaseManager {
 				useUnifiedTopology: true
 			};
 
-			if(config.log.logDatabaseQueries) {
+			if(config.log.databaseQueries.active) {
 
 				mongoose.set('debug', (collection: string, method: string, query: object, document: object): void => {
 					

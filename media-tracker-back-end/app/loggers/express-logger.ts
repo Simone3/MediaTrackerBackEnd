@@ -1,5 +1,7 @@
+import { config } from 'app/config/config';
 import { inputOutputLogger } from 'app/loggers/logger';
 import { requestScopeContext } from 'app/utilities/request-scope-context';
+import { stringUtils } from 'app/utilities/string-utils';
 import mung from 'express-mung';
 import { RequestHandler } from 'express-serve-static-core';
 import uuid from 'uuid';
@@ -24,7 +26,11 @@ export const logCorrelationMiddleware: RequestHandler = (_, __, next): void => {
  */
 export const requestLoggerMiddleware: RequestHandler = (req, _, next): void => {
 	
-	inputOutputLogger.info('API %s %s - Received Request: %s', req.method, req.originalUrl, req.body);
+	const logUrl = req.originalUrl;
+	const skipBodyRegExp = config.log.apisInputOutput.excludeRequestBodyRegExp;
+	const logBody = skipBodyRegExp.length === 0 || !stringUtils.matches(logUrl, skipBodyRegExp) ? req.body : '{body-log-skipped}';
+	inputOutputLogger.info('API %s %s - Received Request: %s', req.method, logUrl, logBody);
+
 	next();
 };
 
@@ -33,7 +39,10 @@ export const requestLoggerMiddleware: RequestHandler = (req, _, next): void => {
  */
 export const responseLoggerMiddleware: RequestHandler = mung.json((body, req, res) => {
    
-	inputOutputLogger.info('API %s %s - Sent Response: %s - %s', req.method, req.originalUrl, res.statusCode, body);
+	const logUrl = req.originalUrl;
+	const skipBodyRegExp = config.log.apisInputOutput.excludeResponseBodyRegExp;
+	const logBody = skipBodyRegExp.length === 0 || !stringUtils.matches(logUrl, skipBodyRegExp) ? body : '{body-log-skipped}';
+	inputOutputLogger.info('API %s %s - Sent Response: %s - %s', req.method, logUrl, res.statusCode, logBody);
 	return body;
 }, {
 	mungError: true

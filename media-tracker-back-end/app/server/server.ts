@@ -23,7 +23,7 @@ app.use(authenticationMiddleware);
 
 // Logging
 app.use(logCorrelationMiddleware);
-if(config.log.logApisInputOutput) {
+if(config.log.apisInputOutput.active) {
 
 	app.use(requestLoggerMiddleware);
 	app.use(responseLoggerMiddleware);
