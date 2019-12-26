@@ -104,16 +104,20 @@ class OwnPlatformController extends AbstractEntityController {
 	/**
 	 * Saves a new or an existing own platform, returning it back as a promise
 	 * @param ownPlatform the own platform to insert or update
+	 * @param skipCheckPreconditions if true, skips existance preconditions
 	 * @returns the saved own platform, as a promise
 	 */
-	public async saveOwnPlatform(ownPlatform: OwnPlatformInternal): Promise<OwnPlatformInternal> {
+	public async saveOwnPlatform(ownPlatform: OwnPlatformInternal, skipCheckPreconditions?: boolean): Promise<OwnPlatformInternal> {
 
-		await this.checkWritePreconditions(
-			AppError.DATABASE_SAVE.withDetails(ownPlatform._id ? 'Own platform does not exists for given user/category' : 'User or category does not exist'),
-			ownPlatform.owner,
-			ownPlatform.category,
-			ownPlatform._id
-		);
+		if(!skipCheckPreconditions) {
+			
+			await this.checkWritePreconditions(
+				AppError.DATABASE_SAVE.withDetails(ownPlatform._id ? 'Own platform does not exists for given user/category' : 'User or category does not exist'),
+				ownPlatform.owner,
+				ownPlatform.category,
+				ownPlatform._id
+			);
+		}
 
 		return this.queryHelper.save(ownPlatform, new OwnPlatformModel());
 	}

@@ -172,18 +172,22 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	/**
 	 * Saves a new or an existing media item
 	 * @param mediaItem the media item to insert or update
+	 * @param skipCheckPreconditions if true, skips existance preconditions
 	 * @returns the saved media item, as a promise
 	 */
-	public async saveMediaItem(mediaItem: TMediaItemInternal): Promise<TMediaItemInternal> {
+	public async saveMediaItem(mediaItem: TMediaItemInternal, skipCheckPreconditions?: boolean): Promise<TMediaItemInternal> {
 
-		await this.checkWritePreconditions(
-			AppError.DATABASE_SAVE.withDetails(mediaItem._id ? 'Media item or group does not exists for given user/category' : 'User or category or group does not exist'),
-			mediaItem.owner,
-			mediaItem.category,
-			mediaItem.group,
-			mediaItem.ownPlatform,
-			mediaItem._id
-		);
+		if(!skipCheckPreconditions) {
+			
+			await this.checkWritePreconditions(
+				AppError.DATABASE_SAVE.withDetails(mediaItem._id ? 'Media item or group or own platform does not exist for given user/category' : 'User or category or group or own platform does not exist'),
+				mediaItem.owner,
+				mediaItem.category,
+				mediaItem.group,
+				mediaItem.ownPlatform,
+				mediaItem._id
+			);
+		}
 		
 		return this.queryHelper.save(mediaItem, this.getNewEmptyDocument());
 	}

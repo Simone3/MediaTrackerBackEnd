@@ -104,16 +104,20 @@ class GroupController extends AbstractEntityController {
 	/**
 	 * Saves a new or an existing group, returning it back as a promise
 	 * @param group the group to insert or update
+	 * @param skipCheckPreconditions if true, skips existance preconditions
 	 * @returns the saved group, as a promise
 	 */
-	public async saveGroup(group: GroupInternal): Promise<GroupInternal> {
+	public async saveGroup(group: GroupInternal, skipCheckPreconditions?: boolean): Promise<GroupInternal> {
 
-		await this.checkWritePreconditions(
-			AppError.DATABASE_SAVE.withDetails(group._id ? 'Group does not exists for given user/category' : 'User or category does not exist'),
-			group.owner,
-			group.category,
-			group._id
-		);
+		if(!skipCheckPreconditions) {
+			
+			await this.checkWritePreconditions(
+				AppError.DATABASE_SAVE.withDetails(group._id ? 'Group does not exists for given user/category' : 'User or category does not exist'),
+				group.owner,
+				group.category,
+				group._id
+			);
+		}
 		
 		return this.queryHelper.save(group, new GroupModel());
 	}

@@ -100,16 +100,20 @@ class CategoryController extends AbstractEntityController {
 	/**
 	 * Saves a new or an existing category, returning it back as a promise
 	 * @param category the category to insert or update
+	 * @param skipCheckPreconditions if true, skips existance preconditions
 	 * @returns the saved category, as a promise
 	 */
-	public async saveCategory(category: CategoryInternal): Promise<CategoryInternal> {
+	public async saveCategory(category: CategoryInternal, skipCheckPreconditions?: boolean): Promise<CategoryInternal> {
 		
-		await this.checkWritePreconditions(
-			AppError.DATABASE_SAVE.withDetails(category._id ? 'Category does not exists for given user' : 'User does not exist'),
-			category.owner,
-			category._id,
-			category
-		);
+		if(!skipCheckPreconditions) {
+			
+			await this.checkWritePreconditions(
+				AppError.DATABASE_SAVE.withDetails(category._id ? 'Category does not exists for given user' : 'User does not exist'),
+				category.owner,
+				category._id,
+				category
+			);
+		}
 		
 		return this.queryHelper.save(category, new CategoryModel());
 	}
