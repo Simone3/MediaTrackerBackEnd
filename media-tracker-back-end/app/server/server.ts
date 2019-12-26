@@ -4,6 +4,7 @@ import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddle
 import { catchAllRouter } from 'app/routes/catch-all';
 import { categoryRouter } from 'app/routes/category';
 import { groupRouter } from 'app/routes/group';
+import { importRouter } from 'app/routes/import/old-app';
 import { bookCatalogRouter, bookEntityRouter } from 'app/routes/media-items/book';
 import { movieCatalogRouter, movieEntityRouter } from 'app/routes/media-items/movie';
 import { tvShowCatalogRouter, tvShowEntityRouter } from 'app/routes/media-items/tv-show';
@@ -14,7 +15,9 @@ import express from 'express';
 
 // Base setup
 const app = express();
-app.use(express.json());
+app.use(express.json({
+	limit: '10mb'
+}));
 app.use(requestScopeContextMiddleware);
 app.use(authenticationMiddleware);
 
@@ -40,6 +43,9 @@ app.use('/', bookEntityRouter);
 app.use('/', bookCatalogRouter);
 app.use('/', videogameEntityRouter);
 app.use('/', videogameCatalogRouter);
+
+// Bulk import routes
+app.use('/', importRouter);
 
 // Final catch-all route
 app.use(catchAllRouter);
