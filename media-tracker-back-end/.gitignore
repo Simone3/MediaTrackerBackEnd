@@ -431,9 +431,15 @@ MigrationBackup/
 
 ############### PROJECT-SPECIFIC
 
+# Configuration properties
 app/config/config-*.ts
 !app/config/config-test.ts
 !app/config/config-sample.ts
 
+# Build folders
 build
 test/build-test
+
+# Firebase tester config
+dev/FirebaseTester/firebaseConfig.js
+

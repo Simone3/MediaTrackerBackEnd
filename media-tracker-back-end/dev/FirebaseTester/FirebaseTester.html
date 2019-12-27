@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset=utf-8 />
+		<title>Firebase Tester</title>
+		
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+
+		<script src="firebaseConfig.js"></script>
+		<script>
+			if(typeof firebaseConfig === 'undefined') {
+			
+				alert('Please define the firebaseConfig.js with the Firebase parameters');
+			}
+			firebase.initializeApp(firebaseConfig);
+		</script>
+
+		<script type="text/javascript">
+
+			function toggleSignIn() {
+			
+				if(firebase.auth().currentUser) {
+				
+					firebase.auth().signOut();
+				}
+				else {
+				
+					var email = document.getElementById('email').value;
+					var password = document.getElementById('password').value;
+					
+					firebase.auth().signInWithEmailAndPassword(email, password)
+						.catch(function(error) {
+							
+							var errorCode = error.code;
+							var errorMessage = error.message;
+							
+							alert(errorCode + '-' + errorMessage);
+							console.log(error);
+							
+							document.getElementById('sign-in').disabled = false;
+						});
+				}
+				
+				document.getElementById('sign-in').disabled = true;
+			}
+
+			function signUp() {
+			
+				var email = document.getElementById('email').value;
+				var password = document.getElementById('password').value;
+
+				firebase.auth().createUserWithEmailAndPassword(email, password)
+					.catch(function(error) {
+				
+						var errorCode = error.code;
+						var errorMessage = error.message;
+						
+						alert(errorCode + '-' + errorMessage);
+						console.log(error);
+					});
+			}
+
+			function sendVerificationEmail() {
+				
+				firebase.auth().currentUser.sendVerificationEmail()
+					.then(function() {
+
+						alert('Verification email sent');
+					});
+			}
+
+			function sendPasswordReset() {
+				
+				var email = document.getElementById('email').value;
+				
+				firebase.auth().sendPasswordResetEmail(email)
+					.then(function() {
+					
+						alert('Reset email sent');
+					})
+					.catch(function(error) {
+					
+						var errorCode = error.code;
+						var errorMessage = error.message;
+						
+						alert(errorCode + '-' + errorMessage);
+						console.log(error);
+					});
+			}
+
+			function init() {
+
+				firebase.auth().onAuthStateChanged(function(user) {
+				
+					document.getElementById('verify-email').disabled = true;
+					
+					if(user) {
+					
+						var emailVerified = user.emailVerified;
+						var uid = user.uid;
+						user.getIdToken()
+							.then((accessToken) => {
+								
+								document.getElementById('sign-in').textContent = 'Sign out';
+								document.getElementById('user-full').textContent = JSON.stringify(user, null, '	');
+								document.getElementById('user-uid').textContent = uid;
+								document.getElementById('user-header').textContent = 'Authorization: Bearer ' + accessToken;
+								
+								if(!emailVerified) {
+								
+									document.getElementById('verify-email').disabled = false;
+								}
+							})
+							.catch(function(error) {
+							
+								var errorCode = error.code;
+								var errorMessage = error.message;
+								
+								alert(errorCode + '-' + errorMessage);
+								console.log(error);
+							});
+					}
+					else {
+					
+						document.getElementById('sign-in').textContent = 'Sign in';
+						document.getElementById('user-full').textContent = '/';
+						document.getElementById('user-uid').textContent = '/';
+						document.getElementById('user-header').textContent = '/';
+					}
+					
+					document.getElementById('sign-in').disabled = false;
+				});
+
+				document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
+				document.getElementById('sign-up').addEventListener('click', signUp, false);
+				document.getElementById('verify-email').addEventListener('click', sendVerificationEmail, false);
+				document.getElementById('password-reset').addEventListener('click', sendPasswordReset, false);
+			}
+
+			window.onload = function() {
+				
+				init();
+			};
+		
+		</script>
+	</head>
+	<body>
+		<div>
+			
+			<div style="margin-top: 20px;">
+				<input type="text" id="email" name="email" placeholder="Email"/>
+				<input type="password" id="password" name="password" placeholder="Password"/>
+			</div>
+			
+			<div style="margin-top: 20px;">
+				<button disabled id="sign-in" name="signin">Sign In</button>
+				<button id="sign-up" name="signup">Sign Up</button>
+				<button disabled id="verify-email" name="verify-email">Send Verification Email</button>
+				<button id="password-reset" name="verify-email">Send Reset Email</button>
+			</div>
+				
+			<div style="margin-top: 20px;">
+				<div>
+					<strong>UID</strong>: <span id="user-uid">/</span>
+				</div>
+				<div style="overflow: visible; margin-top: 20px;">
+					<strong>Header</strong>: <span id="user-header">/</span>
+				</div>
+				<div style="margin-top: 20px;">
+					<strong>User</strong>: <pre><code id="user-full">/</code></pre>
+				</div>
+			</div>
+
+		</div>
+	</body>
+</html>
