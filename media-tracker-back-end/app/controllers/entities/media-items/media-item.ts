@@ -356,7 +356,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 				if(filterBy.complete) {
 
 					andConditions.push({
-						completedOn: {
+						completedLastOn: {
 							$ne: undefined
 						},
 						markedAsRedo: {
@@ -368,7 +368,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 					andConditions.push({
 						$or: [{
-							completedOn: undefined
+							completedLastOn: undefined
 						}, {
 							markedAsRedo: true
 						}]

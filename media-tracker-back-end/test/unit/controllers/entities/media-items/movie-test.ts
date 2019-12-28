@@ -147,9 +147,10 @@ describe('MovieController Tests', () => {
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Bbb', completedOn: [ new Date() ] }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Zzz', completedOn: [ new Date() ], markedAsRedo: true }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Ccc', completedOn: [ new Date(), new Date() ] }));
+			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Qqq', completedOn: [], markedAsRedo: false }));
 			await movieEntityController.saveMediaItem(getTestMovie(undefined, firstUCG, { name: 'Rrr' }));
 
-			helperCompareResults([ 'Ttt', 'Bbb', 'Zzz', 'Ccc', 'Rrr' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+			helperCompareResults([ 'Ttt', 'Bbb', 'Zzz', 'Ccc', 'Qqq', 'Rrr' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
 				complete: undefined
 			}));
 
@@ -157,7 +158,7 @@ describe('MovieController Tests', () => {
 				complete: true
 			}));
 
-			helperCompareResults([ 'Ttt', 'Zzz', 'Rrr' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
+			helperCompareResults([ 'Ttt', 'Zzz', 'Qqq', 'Rrr' ], await movieEntityController.filterAndOrderMediaItems(firstUCG.user, firstUCG.category, {
 				complete: false
 			}));
 		});

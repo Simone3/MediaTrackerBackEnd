@@ -124,6 +124,7 @@ const getTestMediaItem = (_id: unknown, data: TestUCG, orderInGroup: number, opt
 		importance: optionalData && optionalData.importance ? optionalData.importance : '100',
 		ownPlatform: optionalData && optionalData.ownPlatform ? optionalData.ownPlatform : undefined,
 		completedOn: optionalData ? optionalData.completedOn : undefined,
+		completedLastOn: optionalData && optionalData.completedOn && optionalData.completedOn.length > 0 ? optionalData.completedOn[optionalData.completedOn.length - 1] : undefined,
 		releaseDate: optionalData ? optionalData.releaseDate : undefined,
 		active: optionalData?.active,
 		markedAsRedo: optionalData?.markedAsRedo
