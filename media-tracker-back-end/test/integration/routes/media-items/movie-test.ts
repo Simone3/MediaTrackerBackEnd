@@ -163,7 +163,8 @@ describe('Movie API Tests', () => {
 				durationMinutes: 178,
 				genres: [ 'Action', 'Adventure', 'Fantasy' ],
 				imageUrl: 'http://myimage.png',
-				releaseDate: '2001-12-18T00:00:00.000Z'
+				releaseDate: '2001-12-18T00:00:00.000Z',
+				catalogId: '123'
 			};
 
 			const response = await callHelper<{}, GetMovieFromCatalogResponse>('GET', `/catalog/movies/123`, firstUCG.user);

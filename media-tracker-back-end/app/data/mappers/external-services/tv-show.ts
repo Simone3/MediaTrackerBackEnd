@@ -57,6 +57,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 	protected convertToInternal(source: TmdbTvShowDetailsResponse, extraParams?: TvShowExternalDetailsServiceMapperParams): CatalogTvShowInternal {
 		
 		return {
+			catalogId: String(source.id),
 			name: source.name,
 			genres: miscUtils.extractFilterAndSortFieldValues(source.genres, 'name'),
 			description: source.overview,

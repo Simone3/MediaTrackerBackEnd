@@ -163,7 +163,8 @@ describe('Book API Tests', () => {
 				genres: [ 'Genre1', 'Genre2', 'Genre3' ],
 				imageUrl: 'http://books.google.com/books/content?id=YTqqPwAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72OZGhUPTW_1_RnTs98DY6qjQKQg0A_Fh_rT_JFmdA6roIHhLVbAKRSdEaXqaGMP-GYPNFbOl4l-sBEwj5_hz9zrdS-3u9A_Pp16jwYMENYJgcacJLp_Cr3ZwGxB3VFnngrShS_&source=gbs_api',
 				pagesNumber: 513,
-				releaseDate: '2002-01-01T00:00:00.000Z'
+				releaseDate: '2002-01-01T00:00:00.000Z',
+				catalogId: '123'
 			};
 			
 			const response = await callHelper<{}, GetBookFromCatalogResponse>('GET', `/catalog/books/123`, firstUCG.user);

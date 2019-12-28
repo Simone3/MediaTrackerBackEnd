@@ -45,6 +45,13 @@ class CoreMediaItemData {
 	@IsOptional()
 	@IsString()
 	public imageUrl?: string;
+
+	/**
+	 * The data source catalog reference
+	 */
+	@IsOptional()
+	@IsString()
+	public catalogId?: string;
 }
 
 /**
@@ -171,13 +178,6 @@ export abstract class MediaItem extends CoreMediaItemData {
 	@IsOptional()
 	@IsBoolean()
 	public markedAsRedo?: boolean;
-
-	/**
-	 * The data source catalog reference
-	 */
-	@IsOptional()
-	@IsString()
-	public catalogId?: string;
 }
 
 /**

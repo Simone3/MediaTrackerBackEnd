@@ -167,7 +167,8 @@ describe('TV show API Tests', () => {
 				inProduction: true,
 				nextEpisodeAirDate: '2090-05-19T00:00:00.000Z',
 				releaseDate: '2011-04-17T00:00:00.000Z',
-				seasonsNumber: 8
+				seasonsNumber: 8,
+				catalogId: '123'
 			};
 
 			const response = await callHelper<{}, GetTvShowFromCatalogResponse>('GET', `/catalog/tv-shows/123`, firstUCG.user);

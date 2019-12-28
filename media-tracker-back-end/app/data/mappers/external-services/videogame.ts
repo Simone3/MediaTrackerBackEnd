@@ -71,7 +71,7 @@ class VideogameExternalDetailsServiceMapper extends ModelMapper<CatalogVideogame
 	protected convertToInternal(source: GiantBombDetailsResponse): CatalogVideogameInternal {
 		
 		return {
-
+			catalogId: String(source.results.id),
 			name: source.results.name,
 			genres: miscUtils.extractFilterAndSortFieldValues(source.results.genres, 'name'),
 			description: source.results.deck,

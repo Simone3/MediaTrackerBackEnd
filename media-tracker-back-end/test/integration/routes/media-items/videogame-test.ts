@@ -164,7 +164,8 @@ describe('Videogame API Tests', () => {
 				imageUrl: 'https://www.giantbomb.com/api/image/screen_medium/2558589-w1clean.jpg',
 				platforms: [ 'Mac', 'PC' ],
 				publishers: [ 'Publisher1' ],
-				releaseDate: '2007-10-30T00:00:00.000Z'
+				releaseDate: '2007-10-30T00:00:00.000Z',
+				catalogId: '123'
 			};
 
 			const response = await callHelper<{}, GetVideogameFromCatalogResponse>('GET', `/catalog/videogames/123`, firstUCG.user);

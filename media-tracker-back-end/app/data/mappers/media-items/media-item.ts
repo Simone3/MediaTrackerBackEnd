@@ -312,7 +312,8 @@ export abstract class MediaItemCatalogDetailsMapper<TCatalogMediaItemInternal ex
 			genres: source.genres,
 			description: source.description,
 			releaseDate: dateUtils.toString(source.releaseDate),
-			imageUrl: source.imageUrl
+			imageUrl: source.imageUrl,
+			catalogId: source.catalogId
 		};
 	}
 	
@@ -328,7 +329,8 @@ export abstract class MediaItemCatalogDetailsMapper<TCatalogMediaItemInternal ex
 			genres: source.genres,
 			description: source.description,
 			releaseDate: dateUtils.toDate(source.releaseDate),
-			imageUrl: source.imageUrl
+			imageUrl: source.imageUrl,
+			catalogId: source.catalogId
 		};
 	}
 }

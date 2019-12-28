@@ -50,6 +50,7 @@ class BookExternalDetailsServiceMapper extends ModelMapper<CatalogBookInternal, 
 	protected convertToInternal(source: GoogleBooksDetailsResponse): CatalogBookInternal {
 		
 		return {
+			catalogId: source.id,
 			name: source.volumeInfo.title,
 			genres: miscUtils.filterAndSortValues(source.volumeInfo.categories),
 			description: source.volumeInfo.description,

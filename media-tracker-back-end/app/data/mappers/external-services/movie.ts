@@ -51,6 +51,7 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 	protected convertToInternal(source: TmdbMovieDetailsResponse): CatalogMovieInternal {
 		
 		return {
+			catalogId: String(source.id),
 			name: source.title,
 			genres: miscUtils.extractFilterAndSortFieldValues(source.genres, 'name'),
 			description: source.overview,
