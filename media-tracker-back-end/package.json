@@ -6,7 +6,8 @@
   "scripts": {
     "test": "nyc ts-mocha --paths --file test/global/global-init-tests.ts -p test/tsconfig.json test/**/*.ts",
     "start": "ts-node-dev -r tsconfig-paths/register index.ts",
-    "debug": "ts-node-dev -r tsconfig-paths/register --inspect --respawn index.ts"
+	"debug": "ts-node-dev -r tsconfig-paths/register --inspect --respawn index.ts",
+	"lint": "eslint app/**/*.ts test/**/*.ts"
   },
   "repository": {
     "type": "git",
