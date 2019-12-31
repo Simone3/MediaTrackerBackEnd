@@ -25,7 +25,7 @@ class MovieCatalogController extends MediaItemCatalogController<SearchMovieCatal
 				config.externalApis.theMovieDb.movies.search.relativePath
 			]);
 
-			const queryParams = Object.assign({}, config.externalApis.theMovieDb.movies.search.queryParams);
+			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.theMovieDb.movies.search.queryParams);
 			queryParams.query = searchTerm;
 			
 			const invocationParams = {
@@ -71,7 +71,7 @@ class MovieCatalogController extends MediaItemCatalogController<SearchMovieCatal
 				config.externalApis.theMovieDb.movies.details.relativePath
 			], pathParams);
 
-			const queryParams = Object.assign({}, config.externalApis.theMovieDb.movies.details.queryParams);
+			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.theMovieDb.movies.details.queryParams);
 
 			const invocationParams = {
 				url: url,

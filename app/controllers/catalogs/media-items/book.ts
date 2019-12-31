@@ -25,7 +25,7 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 				config.externalApis.googleBooks.search.relativePath
 			]);
 
-			const queryParams = Object.assign({}, config.externalApis.googleBooks.search.queryParams);
+			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.googleBooks.search.queryParams);
 			queryParams.q = searchTerm;
 			
 			const invocationParams = {
@@ -71,7 +71,7 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 				config.externalApis.googleBooks.details.relativePath
 			], pathParams);
 
-			const queryParams = Object.assign({}, config.externalApis.googleBooks.details.queryParams);
+			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.googleBooks.details.queryParams);
 
 			const invocationParams = {
 				url: url,

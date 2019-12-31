@@ -1,4 +1,4 @@
-import { ClassType, transformAndValidate, TransformValidationOptions } from 'class-transformer-validator';
+import { ClassType, transformAndValidate, transformAndValidateSync, TransformValidationOptions } from 'class-transformer-validator';
 
 /**
  * Common parser/validator that contains some util methods for extending classes
@@ -6,7 +6,7 @@ import { ClassType, transformAndValidate, TransformValidationOptions } from 'cla
 class ParserValidator {
 
 	/**
-	 * Helper to parse and validate the given object against the given class
+	 * Helper to parse and validate the given object against the given class (async)
 	 * @param classType the class containing the object fields, with optional validation annotations
 	 * @param source the source raw object
 	 * @returns the parsed object, as a promise
@@ -15,6 +15,18 @@ class ParserValidator {
 	public parseAndValidate<T extends object>(classType: ClassType<T>, source: object): Promise<T> {
 
 		return transformAndValidate(classType, source, this.getDefaultTransformValidationOptions());
+	}
+
+	/**
+	 * Helper to parse and validate the given object against the given class /sync)
+	 * @param classType the class containing the object fields, with optional validation annotations
+	 * @param source the source raw object
+	 * @returns the parsed object
+	 * @template T the class to parse
+	 */
+	public parseAndValidateSync<T extends object>(classType: ClassType<T>, source: object): T {
+
+		return transformAndValidateSync(classType, source, this.getDefaultTransformValidationOptions());
 	}
 
 	/**

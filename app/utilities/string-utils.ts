@@ -67,11 +67,12 @@ class StringUtils {
 	 * @param regularExpressions the array of regular expressions
 	 * @returns true if at least one of the regular expressions matches
 	 */
-	public matches(string: string, regularExpressions: RegExp[]): boolean {
+	public matches(string: string, regularExpressions: (RegExp | string)[]): boolean {
 
 		for(const regExp of regularExpressions) {
 
-			if(regExp.test(string)) {
+			const compiledRegExp = typeof regExp === 'string' ? new RegExp(regExp) : regExp;
+			if(compiledRegExp.test(string)) {
 
 				return true;
 			}

@@ -1,7 +1,8 @@
 import { Config } from 'app/config/type-config';
 
 /**
- * Sample configuration that can be used as a template for other files, see config.ts
+ * Sample configuration that can be used as a template for the MEDIA_TRACKER_BE_CONFIG environment variable (see config.ts)
+ * It must be trasformed into a valid JSON.
  */
 export const sampleConfig: Config = {
 	server: {
@@ -102,7 +103,7 @@ export const sampleConfig: Config = {
 		file: '<your_path_here>/media-tracker.log',
 		apisInputOutput: {
 			active: true,
-			excludeRequestBodyRegExp: [ new RegExp('^/users/[^/]+/import/old-app$') ],
+			excludeRequestBodyRegExp: [ '^/users/[^/]+/import/old-app$' ],
 			excludeResponseBodyRegExp: []
 		},
 		externalApisInputOutput: {

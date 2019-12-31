@@ -25,7 +25,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 				config.externalApis.theMovieDb.tvShows.search.relativePath
 			]);
 
-			const queryParams = Object.assign({}, config.externalApis.theMovieDb.tvShows.search.queryParams);
+			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.theMovieDb.tvShows.search.queryParams);
 			queryParams.query = searchTerm;
 
 			const invocationParams = {
@@ -71,7 +71,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 				config.externalApis.theMovieDb.tvShows.details.relativePath
 			], pathParams);
 
-			const queryParams = Object.assign({}, config.externalApis.theMovieDb.tvShows.details.queryParams);
+			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.theMovieDb.tvShows.details.queryParams);
 
 			const invocationParams = {
 				url: url,
@@ -129,7 +129,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 			config.externalApis.theMovieDb.tvShows.season.relativePath
 		], pathParams);
 
-		const queryParams = Object.assign({}, config.externalApis.theMovieDb.tvShows.season.queryParams);
+		const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.theMovieDb.tvShows.season.queryParams);
 
 		const invocationParams = {
 			url: url,

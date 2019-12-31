@@ -431,10 +431,8 @@ MigrationBackup/
 
 ############### PROJECT-SPECIFIC
 
-# Configuration properties
-app/config/config-*.ts
-!app/config/config-test.ts
-!app/config/config-sample.ts
+# Local configuration
+MEDIA_TRACKER_BE_CONFIG.json
 
 # Build folders
 build

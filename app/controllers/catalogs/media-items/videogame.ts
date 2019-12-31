@@ -25,7 +25,7 @@ class VideogameCatalogController extends MediaItemCatalogController<SearchVideog
 				config.externalApis.giantBomb.search.relativePath
 			]);
 
-			const queryParams = Object.assign({}, config.externalApis.giantBomb.search.queryParams);
+			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.giantBomb.search.queryParams);
 			queryParams.query = searchTerm;
 			
 			const invocationParams = {
@@ -71,7 +71,7 @@ class VideogameCatalogController extends MediaItemCatalogController<SearchVideog
 				config.externalApis.giantBomb.details.relativePath
 			], pathParams);
 
-			const queryParams = Object.assign({}, config.externalApis.giantBomb.details.queryParams);
+			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.giantBomb.details.queryParams);
 
 			const invocationParams = {
 				url: url,
