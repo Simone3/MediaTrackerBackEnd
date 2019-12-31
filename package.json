@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Back-End for the Media Tracker app",
   "main": "index.ts",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
     "test": "nyc ts-mocha --paths --file test/global/global-init-tests.ts -p test/tsconfig.json test/**/*.ts",
     "start": "ts-node-dev -r tsconfig-paths/register index.ts",
