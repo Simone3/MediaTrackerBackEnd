@@ -9,6 +9,7 @@ import { bookCatalogRouter, bookEntityRouter } from 'app/routes/media-items/book
 import { movieCatalogRouter, movieEntityRouter } from 'app/routes/media-items/movie';
 import { tvShowCatalogRouter, tvShowEntityRouter } from 'app/routes/media-items/tv-show';
 import { videogameCatalogRouter, videogameEntityRouter } from 'app/routes/media-items/videogame';
+import { miscRouter } from 'app/routes/misc';
 import { ownPlatformRouter } from 'app/routes/own-platform';
 import { requestScopeContextMiddleware } from 'app/utilities/request-scope-context';
 import express from 'express';
@@ -28,6 +29,9 @@ if(config.log.apisInputOutput.active) {
 	app.use(requestLoggerMiddleware);
 	app.use(responseLoggerMiddleware);
 }
+
+// Misc routes
+app.use('/', miscRouter);
 
 // User, category and group routes
 app.use('/', categoryRouter);
