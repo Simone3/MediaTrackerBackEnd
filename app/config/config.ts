@@ -27,7 +27,7 @@ else {
 	try {
 
 		// eslint-disable-next-line global-require
-		parsedConfigVar = require('MEDIA_TRACKER_BE_CONFIG.json');
+		parsedConfigVar = require('app/config/MEDIA_TRACKER_BE_CONFIG.json');
 	}
 	catch(error) {
 
