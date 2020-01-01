@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "nyc ts-mocha --paths --file test/global/global-init-tests.ts -p test/tsconfig.json test/**/*.ts",
-    "start": "ts-node-dev -r tsconfig-paths/register index.ts",
+    "start": "ts-node -r tsconfig-paths/register index.ts",
     "debug": "ts-node-dev -r tsconfig-paths/register --inspect --respawn index.ts",
     "lint": "eslint app/**/*.ts test/**/*.ts"
   },
@@ -65,7 +65,6 @@
     "nyc": "~15.0.0",
     "sinon": "~8.0.1",
     "ts-mocha": "~6.0.0",
-    "ts-node": "~8.5.4",
     "ts-node-dev": "~1.0.0-pre.44",
     "tsconfig-paths": "~3.9.0",
     "typescript": "~3.7.4"
@@ -84,6 +83,7 @@
     "reflect-metadata": "~0.1.13",
     "request": "~2.88.0",
     "request-promise-native": "~1.0.8",
+    "ts-node": "~8.5.4",
     "uuid": "~3.3.3"
   }
 }
