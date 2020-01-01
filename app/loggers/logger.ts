@@ -23,28 +23,46 @@ const layout: PatternLayout = {
 	}
 };
 
-/**
- * Global log4js configuration
- */
-configure({
-	appenders: {
-		file: {
-			type: 'dateFile',
-			filename: config.log.file,
-			layout: layout
+// Global log4js configuration
+if(config.log.file) {
+
+	configure({
+		appenders: {
+			file: {
+				type: 'dateFile',
+				filename: config.log.file,
+				layout: layout
+			},
+			console: {
+				type: 'console',
+				layout: layout
+			}
 		},
-		console: {
-			type: 'console',
-			layout: layout
+		categories: {
+			default: {
+				appenders: [ 'file', 'console' ],
+				level: 'debug'
+			}
 		}
-	},
-	categories: {
-		default: {
-			appenders: [ 'file', 'console' ],
-			level: 'debug'
+	});
+}
+else {
+
+	configure({
+		appenders: {
+			console: {
+				type: 'console',
+				layout: layout
+			}
+		},
+		categories: {
+			default: {
+				appenders: [ 'console' ],
+				level: 'debug'
+			}
 		}
-	}
-});
+	});
+}
 
 /**
  * Application logger
