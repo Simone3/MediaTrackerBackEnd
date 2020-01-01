@@ -2,12 +2,12 @@
 	"extends": "./tsconfig.common.json",
 	"compilerOptions": {
 		"outDir": "build",
-		"rootDir": "app",
+		"rootDir": "./",
 		"baseUrl": "./",
 		"paths" : {
 		  "app/*": ["./app/*"]
 		}
 	},
-	"include": ["./app/**/*"],
+	"include": ["./app/**/*", "index.ts"],
 	"exclude": ["node_modules", "./test/**/*"]
 }

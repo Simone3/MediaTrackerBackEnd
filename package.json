@@ -8,9 +8,11 @@
   },
   "scripts": {
     "test": "nyc ts-mocha --paths --file test/global/global-init-tests.ts -p test/tsconfig.json test/**/*.ts",
-    "start": "ts-node -r tsconfig-paths/register index.ts",
+    "start": "node build/index.js",
     "debug": "ts-node-dev -r tsconfig-paths/register --inspect --respawn index.ts",
-    "lint": "eslint app/**/*.ts test/**/*.ts"
+    "lint": "eslint app/**/*.ts test/**/*.ts",
+    "build": "tsc && tsc-alias -p tsconfig.json && copyfiles -u 2 \"./app/config/MEDIA_TRACKER_BE_CONFIG.json\" \"./build/app/config\"",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -58,6 +60,7 @@
     "@typescript-eslint/parser": "~2.13.0",
     "chai": "~4.2.0",
     "chai-http": "~4.3.0",
+    "copyfiles": "^2.1.1",
     "eslint": "~6.8.0",
     "eslint-plugin-jsdoc": "~18.6.2",
     "mocha": "~6.2.2",
@@ -65,8 +68,11 @@
     "nyc": "~15.0.0",
     "sinon": "~8.0.1",
     "ts-mocha": "~6.0.0",
+    "ts-node": "~8.5.4",
     "ts-node-dev": "~1.0.0-pre.44",
-    "tsconfig-paths": "~3.9.0"
+    "tsc-alias": "^1.1.1",
+    "tsconfig-paths": "~3.9.0",
+    "typescript": "~3.7.4"
   },
   "dependencies": {
     "class-transformer": "~0.2.3",
@@ -82,8 +88,6 @@
     "reflect-metadata": "~0.1.13",
     "request": "~2.88.0",
     "request-promise-native": "~1.0.8",
-    "ts-node": "~8.5.4",
-    "typescript": "~3.7.4",
     "uuid": "~3.3.3"
   }
 }
