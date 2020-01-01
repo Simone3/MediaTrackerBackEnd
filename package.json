@@ -66,8 +66,7 @@
     "sinon": "~8.0.1",
     "ts-mocha": "~6.0.0",
     "ts-node-dev": "~1.0.0-pre.44",
-    "tsconfig-paths": "~3.9.0",
-    "typescript": "~3.7.4"
+    "tsconfig-paths": "~3.9.0"
   },
   "dependencies": {
     "class-transformer": "~0.2.3",
@@ -84,6 +83,7 @@
     "request": "~2.88.0",
     "request-promise-native": "~1.0.8",
     "ts-node": "~8.5.4",
+    "typescript": "~3.7.4",
     "uuid": "~3.3.3"
   }
 }
