@@ -1,4 +1,5 @@
 import { logger } from 'app/loggers/logger';
+import { STATUS_ROUTE_PATH } from 'app/routes/misc';
 import { requestScopeContext } from 'app/utilities/request-scope-context';
 import { Request, RequestHandler, Response } from 'express-serve-static-core';
 import { auth } from 'firebase-admin';
@@ -44,6 +45,13 @@ const onAuthenticationError = (response: Response, error: unknown): void => {
  */
 export const authenticationMiddleware: RequestHandler = (request, response, next): void => {
 	
+	// Exception for simple status endpoint
+	if(request.path === STATUS_ROUTE_PATH) {
+		
+		next();
+		return;
+	}
+
 	const authToken = getAuthToken(request);
 
 	// Check auth header presence
