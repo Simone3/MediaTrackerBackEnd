@@ -2,14 +2,16 @@ import { Config } from 'app/config/type-config';
 import { AppError } from 'app/data/models/error/error';
 import { parserValidator } from 'app/utilities/parser-validator';
 
-// Get the configuration environment variable
 // eslint-disable-next-line no-process-env
-const configVar = process.env.MEDIA_TRACKER_BE_CONFIG;
+const envVars = process.env;
+
+// Get the main configuration environment variable
+const configVar = envVars.MEDIA_TRACKER_BE_CONFIG;
 
 let parsedConfigVar: object;
 if(configVar) {
 
-	// If the environment variable was found, parse it as a JSON
+	// If the main environment variable was found, parse it as a JSON
 	try {
 
 		parsedConfigVar = JSON.parse(configVar);
@@ -21,7 +23,7 @@ if(configVar) {
 }
 else {
 
-	// If the environment variable was not found, try to get a "MEDIA_TRACKER_BE_CONFIG.json" from the root directory
+	// If the main environment variable was not found, try to get a "MEDIA_TRACKER_BE_CONFIG.json" from the root directory
 	try {
 
 		// eslint-disable-next-line global-require
@@ -38,7 +40,7 @@ else {
 	}
 }
 
-// Validate the object as a "Config" instance
+// Validate the main config object as a "Config" instance
 try {
 
 	// eslint-disable-next-line no-sync
@@ -51,6 +53,12 @@ catch(error) {
 
 // The final result is not the parsed "Config" instance (constructor, etc. overhead) but the original object that can be safely cast to Config
 const envConfig = parsedConfigVar as Config;
+
+// Overwrite server port if environment variable is set
+if(envVars.PORT) {
+
+	envConfig.server.port = Number(envVars.PORT);
+}
 
 /**
  * The application centralized configuration properties, varies by environment and during automatic testing
