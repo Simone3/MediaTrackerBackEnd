@@ -11,8 +11,7 @@
     "start": "node build/index.js",
     "debug": "ts-node-dev -r tsconfig-paths/register --inspect --respawn index.ts",
     "lint": "eslint app/**/*.ts test/**/*.ts",
-    "build": "tsc && tsc-alias -p tsconfig.json && copyfiles -u 2 \"./app/config/MEDIA_TRACKER_BE_CONFIG.json\" \"./build/app/config\"",
-    "postinstall": "npm run build"
+    "build": "tsc && tsc-alias -p tsconfig.json && copyfiles -u 2 \"./app/config/MEDIA_TRACKER_BE_CONFIG.json\" \"./build/app/config\""
   },
   "repository": {
     "type": "git",
