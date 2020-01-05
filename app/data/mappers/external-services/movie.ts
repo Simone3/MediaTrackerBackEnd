@@ -56,10 +56,23 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 			genres: miscUtils.extractFilterAndSortFieldValues(source.genres, 'name'),
 			description: source.overview,
 			releaseDate: dateUtils.toDate(source.release_date),
-			imageUrl: source.backdropPath,
+			imageUrl: this.getFullImagePath(source.backdrop_path),
 			directors: this.getDirectors(source.credits),
 			durationMinutes: source.runtime
 		};
+	}
+
+	/**
+	 * Helper to build the full image path
+	 * @param backdropPath source field
+	 * @returns the image URL
+	 */
+	private getFullImagePath(backdropPath: string | undefined): string | undefined {
+
+		if(backdropPath) {
+
+			return config.externalApis.theMovieDb.movies.imageBasePath + backdropPath;
+		}
 	}
 
 	/**

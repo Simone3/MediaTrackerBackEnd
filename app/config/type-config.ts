@@ -69,6 +69,10 @@ class TheMovieDbMoviesDetailsConfig {
 class TheMovieDbMoviesConfig {
 
 	@IsDefined()
+	@IsString()
+	public imageBasePath!: string;
+
+	@IsDefined()
 	@Type(() => {
 		return TheMovieDbMoviesSearchConfig;
 	})
@@ -155,6 +159,10 @@ class TheMovieDbTvShowsSeasonsConfig {
 }
 
 class TheMovieDbTvShowsConfig {
+
+	@IsDefined()
+	@IsString()
+	public imageBasePath!: string;
 
 	@IsDefined()
 	@Type(() => {

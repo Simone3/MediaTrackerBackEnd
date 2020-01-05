@@ -113,5 +113,5 @@ export class TmdbMovieDetailsResponse {
 	
 	@IsOptional()
 	@IsString()
-	public backdropPath?: string;
+	public backdrop_path?: string;
 }

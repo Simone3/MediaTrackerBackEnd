@@ -17,6 +17,7 @@ export const sampleConfig: Config = {
 		theMovieDb: {
 			basePath: 'http://api.themoviedb.org/3',
 			movies: {
+				imageBasePath: 'http://image.tmdb.org/t/p/w780',
 				search: {
 					relativePath: '/search/movie/',
 					queryParams: {
@@ -34,6 +35,7 @@ export const sampleConfig: Config = {
 				directorJobName: 'Director'
 			},
 			tvShows: {
+				imageBasePath: 'http://image.tmdb.org/t/p/w780',
 				search: {
 					relativePath: '/search/tv/',
 					queryParams: {

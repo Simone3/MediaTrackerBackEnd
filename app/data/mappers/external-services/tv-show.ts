@@ -1,3 +1,4 @@
+import { config } from 'app/config/config';
 import { ModelMapper } from 'app/data/mappers/common';
 import { AppError } from 'app/data/models/error/error';
 import { TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeasonDataResponse } from 'app/data/models/external-services/media-items/tv-show';
@@ -62,7 +63,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 			genres: miscUtils.extractFilterAndSortFieldValues(source.genres, 'name'),
 			description: source.overview,
 			releaseDate: dateUtils.toDate(source.first_air_date),
-			imageUrl: source.backdrop_path,
+			imageUrl: this.getFullImagePath(source.backdrop_path),
 			creators: miscUtils.extractFilterAndSortFieldValues(source.created_by, 'name'),
 			averageEpisodeRuntimeMinutes: this.getAverageEpisodeRuntime(source.episode_run_time),
 			episodesNumber: source.number_of_episodes,
@@ -70,6 +71,19 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 			inProduction: source.in_production,
 			nextEpisodeAirDate: extraParams ? this.getNextEpisodeAirDate(extraParams.currentSeasonData) : undefined
 		};
+	}
+
+	/**
+	 * Helper to build the full image path
+	 * @param backdropPath source field
+	 * @returns the image URL
+	 */
+	private getFullImagePath(backdropPath: string | undefined): string | undefined {
+
+		if(backdropPath) {
+
+			return config.externalApis.theMovieDb.movies.imageBasePath + backdropPath;
+		}
 	}
 
 	/**
