@@ -1,0 +1,6 @@
+Simple HTTP tester for Firebase:
+- Define a new web app in the Firebase console
+- Download its configuration and place it in a firebaseConfig.js in this folder
+- Open FirebaseTester.html
+- Signup or login
+- Copy the Authorization header and UID and use it to invoke the APIs, e.g. via Postman
