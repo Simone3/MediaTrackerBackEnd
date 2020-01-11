@@ -3,9 +3,9 @@
     "tasks": [
         {
 			"label": "App Build",
-            "type": "typescript",
-            "tsconfig": "tsconfig.json",
-            "problemMatcher": [
+            "type": "npm",
+			"script": "build",
+			"problemMatcher": [
                 "$tsc"
             ],
             "group": {
