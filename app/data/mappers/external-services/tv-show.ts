@@ -82,7 +82,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 
 		if(backdropPath) {
 
-			return config.externalApis.theMovieDb.movies.imageBasePath + backdropPath;
+			return config.externalApis.theMovieDb.tvShows.imageBasePath + backdropPath;
 		}
 	}
 
