@@ -163,7 +163,7 @@ describe('TV show API Tests', () => {
 				creators: [ 'First Creator', 'Second Creator' ],
 				episodesNumber: 73,
 				genres: [ 'Action & Adventure', 'Drama', 'Sci-Fi & Fantasy' ],
-				imageUrl: '/qsD5OHqW7DSnaQ2afwz8Ptht1Xb.jpg',
+				imageUrl: 'http://tv-images/qsD5OHqW7DSnaQ2afwz8Ptht1Xb.jpg',
 				inProduction: true,
 				nextEpisodeAirDate: '2090-05-19T00:00:00.000Z',
 				releaseDate: '2011-04-17T00:00:00.000Z',

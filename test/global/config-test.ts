@@ -16,6 +16,7 @@ export const testConfig: Config = {
 		theMovieDb: {
 			basePath: 'http://mock-movie-api',
 			movies: {
+				imageBasePath: 'http://movie-images',
 				search: {
 					relativePath: '/search/movie/',
 					queryParams: {
@@ -33,6 +34,7 @@ export const testConfig: Config = {
 				directorJobName: 'Director'
 			},
 			tvShows: {
+				imageBasePath: 'http://tv-images',
 				search: {
 					relativePath: '/search/tv/',
 					queryParams: {

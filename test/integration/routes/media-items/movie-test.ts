@@ -162,7 +162,7 @@ describe('Movie API Tests', () => {
 				directors: [ 'Some Director' ],
 				durationMinutes: 178,
 				genres: [ 'Action', 'Adventure', 'Fantasy' ],
-				imageUrl: 'http://myimage.png',
+				imageUrl: 'http://movie-images/pIUvQ9Ed35wlWhY2oU6OmwEsmzG.jpg',
 				releaseDate: '2001-12-18T00:00:00.000Z',
 				catalogId: '123'
 			};
