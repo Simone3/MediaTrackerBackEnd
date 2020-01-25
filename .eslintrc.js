@@ -24,7 +24,10 @@ module.exports = {
             allowAugmentsExtendsWithoutParam: true,
             mode: 'typescript'
 		}
-    },
+	},
+	globals: {
+		'BigInt': true
+	},
 	rules: {
 
 		/* ************* @typescript-eslint ************* */

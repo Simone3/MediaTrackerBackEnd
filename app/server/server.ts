@@ -1,6 +1,6 @@
 import { authenticationMiddleware } from 'app/auth/authentication';
 import { config } from 'app/config/config';
-import { logCorrelationMiddleware, requestLoggerMiddleware, responseLoggerMiddleware } from 'app/loggers/express-logger';
+import { logCorrelationMiddleware, performanceLoggerMiddleware, requestLoggerMiddleware, responseLoggerMiddleware } from 'app/loggers/express-logger';
 import { catchAllRouter } from 'app/routes/catch-all';
 import { categoryRouter } from 'app/routes/category';
 import { groupRouter } from 'app/routes/group';
@@ -28,6 +28,10 @@ if(config.log.apisInputOutput.active) {
 
 	app.use(requestLoggerMiddleware);
 	app.use(responseLoggerMiddleware);
+}
+if(config.log.performance.active) {
+
+	app.use(performanceLoggerMiddleware);
 }
 
 // Misc routes

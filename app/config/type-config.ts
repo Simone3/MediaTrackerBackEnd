@@ -448,6 +448,13 @@ class LogDatabaseQueriesConfig {
 	public active!: boolean;
 }
 
+class LogPerformanceConfig {
+
+	@IsDefined()
+	@IsBoolean()
+	public active!: boolean;
+}
+
 class LogConfig {
 
 	@IsDefined()
@@ -479,6 +486,13 @@ class LogConfig {
 	})
 	@ValidateNested()
 	public databaseQueries!: LogDatabaseQueriesConfig;
+
+	@IsDefined()
+	@Type(() => {
+		return LogPerformanceConfig;
+	})
+	@ValidateNested()
+	public performance!: LogPerformanceConfig;
 }
 
 class FirebaseConfig {

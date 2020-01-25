@@ -1,6 +1,6 @@
 import { config } from 'app/config/config';
 import { AppError } from 'app/data/models/error/error';
-import { externalInvocationsInputOutputLogger, logger } from 'app/loggers/logger';
+import { externalInvocationsInputOutputLogger, logger, performanceLogger } from 'app/loggers/logger';
 import { HttpMethod } from 'app/utilities/misc-utils';
 import { parserValidator } from 'app/utilities/parser-validator';
 import { ClassType } from 'class-transformer-validator';
@@ -51,6 +51,8 @@ export class RestJsonInvoker {
 	 */
 	private invokeHelper<TRequest extends object, TResponse extends object>(parameters: InternalInvocationParams<TRequest, TResponse>): Promise<TResponse> {
 
+		const startNs = process.hrtime.bigint();
+
 		return new Promise((resolve, reject): void => {
 
 			const options: UrlOptions & RequestPromiseOptions = {
@@ -73,6 +75,7 @@ export class RestJsonInvoker {
 				.then((rawResponse) => {
 	
 					this.logResponse(options, rawResponse);
+					this.logPerformance(options, startNs);
 
 					parserValidator.parseAndValidate(parameters.responseBodyClass, rawResponse)
 						.then((parsedResponse) => {
@@ -140,6 +143,23 @@ export class RestJsonInvoker {
 		if(config.log.externalApisInputOutput.active) {
 
 			externalInvocationsInputOutputLogger.info('External Service %s %s - Received Response: %s', requestOptions.method, requestOptions.url, response);
+		}
+	}
+
+	/**
+	 * Helper to log the invocation performance
+	 * @param requestOptions the invocation data
+	 * @param startNs the invocation start
+	 */
+	private logPerformance(requestOptions: UrlOptions & RequestPromiseOptions, startNs: bigint): void {
+
+		if(config.log.performance.active) {
+
+			const endNs = process.hrtime.bigint();
+			const elapsedTimeNs = endNs - startNs;
+			const elapsedTimeMs = elapsedTimeNs / BigInt(1e6);
+			
+			performanceLogger.debug('External Service %s %s took %s ms [%s ns]', requestOptions.method, requestOptions.url, elapsedTimeMs, elapsedTimeNs);
 		}
 	}
 }

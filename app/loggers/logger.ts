@@ -179,6 +179,11 @@ export const externalInvocationsInputOutputLogger = new MediaTrackerLogger('Exte
 export const databaseLogger = new MediaTrackerLogger('Database');
 
 /**
+ * Logger for performance metrics
+ */
+export const performanceLogger = new MediaTrackerLogger('Performance');
+
+/**
  * Callback to gracefully close all loggers
  */
 export const finalizeAndCloseAllLoggers = (): void => {

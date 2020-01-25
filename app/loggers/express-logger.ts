@@ -1,5 +1,5 @@
 import { config } from 'app/config/config';
-import { inputOutputLogger } from 'app/loggers/logger';
+import { inputOutputLogger, performanceLogger } from 'app/loggers/logger';
 import { requestScopeContext } from 'app/utilities/request-scope-context';
 import { stringUtils } from 'app/utilities/string-utils';
 import mung from 'express-mung';
@@ -20,7 +20,7 @@ export const logCorrelationMiddleware: RequestHandler = (_, __, next): void => {
 
 /**
  * Express middleware to log API requests
- * @param req the Extress request
+ * @param req the Express request
  * @param _ unused
  * @param next the next callback
  */
@@ -47,4 +47,26 @@ export const responseLoggerMiddleware: RequestHandler = mung.json((body, req, re
 }, {
 	mungError: true
 });
+
+/**
+ * Express middleware to log a route performance
+ * @param req the Express request
+ * @param res the Express response
+ * @param next the next callback
+ */
+export const performanceLoggerMiddleware: RequestHandler = (req, res, next): void => {
+	
+	const startNs = process.hrtime.bigint();
+
+	res.on('finish', () => {
+
+		const endNs = process.hrtime.bigint();
+		const elapsedTimeNs = endNs - startNs;
+		const elapsedTimeMs = elapsedTimeNs / BigInt(1e6);
+		
+		performanceLogger.debug('API %s %s took %s ms [%s ns]', req.method, req.originalUrl, elapsedTimeMs, elapsedTimeNs);
+	});
+
+	next();
+};
 
