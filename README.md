@@ -29,7 +29,6 @@ Main components:
   - Create an account on [Firebase](https://firebase.google.com/).
   - Create a *dev* and/or a *prod* project.
   - For each project, activate the "Email/Password" sign-in method (Authentication -> Sign-in method).
-  - For each project, create an Android app with the `com.reactmediatracker` package (Project settings -> General -> Your apps).
 - Clone this repository via Git.
 - Define the current environment properties:
   - Open *app/config/config-sample.ts* to see a sample configuration file.
