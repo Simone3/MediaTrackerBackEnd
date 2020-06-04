@@ -1,157 +1,178 @@
 import { config } from 'app/config/config';
 import { AppError } from 'app/data/models/error/error';
 import { externalInvocationsInputOutputLogger, logger, performanceLogger } from 'app/loggers/logger';
-import { HttpMethod } from 'app/utilities/misc-utils';
+import { InvocationParams } from 'app/utilities/helper-types';
 import { parserValidator } from 'app/utilities/parser-validator';
-import { ClassType } from 'class-transformer-validator';
-import { UrlOptions } from 'request';
-import request, { RequestPromiseOptions } from 'request-promise-native';
-import { RequestError, StatusCodeError } from 'request-promise-native/errors';
+import axios, { AxiosError, AxiosRequestConfig, Cancel } from 'axios';
 
 /**
  * Helper controller to invoke external JSON-based REST services
  */
 export class RestJsonInvoker {
 
-	/**
-	 * Invokes a JSON-based GET external service
-	 * @param parameters the method parameters container
-	 * @returns a promise that will eventually contain the parsed response body
-	 * @template TResponse the response class
-	 */
-	public invokeGet<TResponse extends object>(parameters: InvocationParamsWithoutBody<TResponse>): Promise<TResponse> {
-
-		return this.invokeHelper({
-			...parameters,
-			method: 'GET'
-		});
-	}
+	private readonly TIMEOUT_CANCEL_MESSAGE = 'custom-timeout';
 
 	/**
-	 * Invokes a JSON-based POST external service
-	 * @param parameters the method parameters container
-	 * @returns a promise that will eventually contain the parsed response body
-	 * @template TRequest the request class
-	 * @template TResponse the response class
-	 */
-	public invokePost<TRequest extends object, TResponse extends object>(parameters: InvocationParamsWithBody<TRequest, TResponse>): Promise<TResponse> {
-
-		return this.invokeHelper({
-			...parameters,
-			method: 'POST'
-		});
-	}
-
-	/**
-	 * Internal helper
+	 * Invokes a JSON-based service
 	 * @param parameters the method parameters container
 	 * @returns the 200 service response, as a promise
 	 * @template TRequest the request class
 	 * @template TResponse the response class
 	 */
-	private invokeHelper<TRequest extends object, TResponse extends object>(parameters: InternalInvocationParams<TRequest, TResponse>): Promise<TResponse> {
+	public invoke<TRequest extends object | undefined, TResponse extends object>(parameters: InvocationParams<TRequest, TResponse>): Promise<TResponse> {
 
 		const startNs = process.hrtime.bigint();
 
 		return new Promise((resolve, reject): void => {
 
-			const options: UrlOptions & RequestPromiseOptions = {
+			// Build request options
+			const cancelTokenSource = axios.CancelToken.source();
+			const options: AxiosRequestConfig = {
 				url: parameters.url,
 				method: parameters.method,
-				qs: parameters.queryParams,
-				body: parameters.requestBody ? JSON.stringify(parameters.requestBody) : parameters.requestBody,
-				timeout: parameters.timeoutMilliseconds,
+				params: parameters.queryParams,
+				data: parameters.requestBody ? JSON.stringify(parameters.requestBody) : parameters.requestBody,
+				cancelToken: cancelTokenSource.token,
 				headers: {
+					...parameters.headers,
 					'Content-Type': 'application/json',
 					Accept: 'application/json',
 					'Accept-Charset': 'utf-8',
 					'User-Agent': config.externalApis.userAgent
 				}
 			};
-
 			this.logRequest(options);
-		
-			request(options)
-				.then((rawResponse) => {
+
+			// Custom timeout handling (timeout field in options only handles connection timeout)
+			const timeout = parameters.timeoutMilliseconds ? parameters.timeoutMilliseconds : config.externalApis.timeoutMilliseconds;
+			setTimeout(() => {
+				cancelTokenSource.cancel(this.TIMEOUT_CANCEL_MESSAGE);
+			}, timeout);
+
+			// Execute request via promises
+			axios.request(options)
+				.then((axiosResponse) => {
 	
-					this.logResponse(options, rawResponse);
+					const rawResponseBody = axiosResponse.data;
+					this.logSuccessfulResponse(options, rawResponseBody);
 					this.logPerformance(options, startNs);
 
-					parserValidator.parseAndValidate(parameters.responseBodyClass, rawResponse)
-						.then((parsedResponse) => {
-	
-							resolve(parsedResponse);
-						})
-						.catch((error) => {
-	
-							logger.error('External API response parse error: %s', error);
-							reject(AppError.EXTERNAL_API_PARSE.withDetails(error));
-						});
+					// Check if we "trust" the API response to be valid...
+					if(parameters.assumeWellFormedResponse) {
+
+						// Skip validation and return the raw response
+						resolve(rawResponseBody);
+					}
+					else {
+
+						// Parse and validate the raw response
+						parserValidator.parseAndValidate(parameters.responseBodyClass, rawResponseBody)
+							.then((parsedResponse) => {
+		
+								resolve(parsedResponse);
+							})
+							.catch((error) => {
+		
+								logger.error('External API response parse error: %s', error);
+								reject(AppError.EXTERNAL_API_PARSE.withDetails(error));
+							});
+					}
 				})
 				.catch((error) => {
 
 					logger.error('External API invocation error: %s', error);
-					reject(this.invocationErrorToAppError(options, error));
+
+					if(this.isTimeout(error)) {
+
+						reject(AppError.EXTERNAL_API_TIMEOUT.withDetails(error));
+					}
+					else {
+						
+						reject(AppError.EXTERNAL_API_GENERIC.withDetails(error));
+					}
 				});
 		});
 	}
-	
+
 	/**
-	 * Helper to transform a request() error into an AppError
-	 * @param requestOptions the invocation data
-	 * @param error any error that occurs
-	 * @returns an AppError that wraps the given error
+	 * Helper to determine if the back-end invocation timed out
+	 * @param error the generic error
+	 * @returns true if it's a timeout error
 	 */
-	private invocationErrorToAppError(requestOptions: UrlOptions & RequestPromiseOptions, error: unknown): AppError {
+	private isTimeout(error: unknown): boolean {
 
-		if(error instanceof StatusCodeError) {
+		if(this.isAxiosError(error)) {
 
-			this.logResponse(requestOptions, error.response);
-			return AppError.EXTERNAL_API_INVOKE.withDetails(error);
+			const axiosError = error as AxiosError;
+			return (axiosError.response && axiosError.response.status === 408) || axiosError.code === 'ECONNABORTED';
 		}
-		else if(error instanceof RequestError) {
-			
-			const code = error.error && error.error.code && typeof error.error.code === 'string' ? String(error.error.code) : '';
-			if(code.includes('TIMEDOUT')) {
-				
-				return AppError.EXTERNAL_API_TIMEOUT.withDetails(error);
-			}
-		}
-
-		return AppError.EXTERNAL_API_GENERIC.withDetails(error);
+		
+		return this.isCancelError(error);
 	}
 
 	/**
-	 * Helper to log the invocation request
-	 * @param requestOptions the invocation data
+	 * Helper to check if a generic error is an AxiosError
+	 * @param error the generic error
+	 * @returns true if it's an AxiosError
 	 */
-	private logRequest(requestOptions: UrlOptions & RequestPromiseOptions): void {
+	private isAxiosError(error: unknown): boolean {
 
+		if(error) {
+
+			const possiblyAxiosError = error as AxiosError;
+			return possiblyAxiosError.isAxiosError;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Helper to check if a generic error is the timeout cancel error
+	 * @param error the generic error
+	 * @returns true if it's the timeout cancel error
+	 */
+	private isCancelError(error: unknown): boolean {
+
+		if(error) {
+
+			const possiblyCancel = error as Cancel;
+			return possiblyCancel.message === this.TIMEOUT_CANCEL_MESSAGE;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Helper to log the request
+	 * @param options the request options
+	 */
+	private logRequest(options: AxiosRequestConfig): void {
+		
 		if(config.log.externalApisInputOutput.active) {
-			
-			externalInvocationsInputOutputLogger.info('External Service %s %s %s - Sent Request: %s', requestOptions.method, requestOptions.url, requestOptions.qs, requestOptions.body);
+
+			externalInvocationsInputOutputLogger.info('External Service %s %s %s - Sent Request: %s', options.method, options.url, options.params, options.data);
 		}
 	}
 
 	/**
-	 * Helper to log the invocation response
-	 * @param requestOptions the invocation data
-	 * @param response the servive response
+	 * Helper to log the successful response
+	 * @param options the request options
+	 * @param rawResponseBody the response body
 	 */
-	private logResponse(requestOptions: UrlOptions & RequestPromiseOptions, response: unknown): void {
-
+	private logSuccessfulResponse(options: AxiosRequestConfig, rawResponseBody: unknown): void {
+		
 		if(config.log.externalApisInputOutput.active) {
 
-			externalInvocationsInputOutputLogger.info('External Service %s %s - Received Response: %s', requestOptions.method, requestOptions.url, response);
+			externalInvocationsInputOutputLogger.info('External Service %s %s - Received Response: %s', options.method, options.url, rawResponseBody);
 		}
 	}
 
 	/**
 	 * Helper to log the invocation performance
-	 * @param requestOptions the invocation data
+	 * @param options the request options
 	 * @param startNs the invocation start
 	 */
-	private logPerformance(requestOptions: UrlOptions & RequestPromiseOptions, startNs: bigint): void {
+	private logPerformance(options: AxiosRequestConfig, startNs: bigint): void {
 
 		if(config.log.performance.active) {
 
@@ -159,7 +180,7 @@ export class RestJsonInvoker {
 			const elapsedTimeNs = endNs - startNs;
 			const elapsedTimeMs = elapsedTimeNs / BigInt(1e6);
 			
-			performanceLogger.debug('External Service %s %s took %s ms [%s ns]', requestOptions.method, requestOptions.url, elapsedTimeMs, elapsedTimeNs);
+			performanceLogger.debug('External Service %s %s took %s ms [%s ns]', options.method, options.url, elapsedTimeMs, elapsedTimeNs);
 		}
 	}
 }
@@ -168,35 +189,3 @@ export class RestJsonInvoker {
  * Singleton implementation of the JSON REST invoker
  */
 export const restJsonInvoker = new RestJsonInvoker();
-
-/**
- * Helper type for invocation parameters
- */
-export type InvocationParamsWithoutBody<TResponse> = {
-	url: string;
-	responseBodyClass: ClassType<TResponse>;
-	timeoutMilliseconds?: number;
-	queryParams?: QueryParams;
-};
-
-/**
- * Helper type for invocation parameters
- */
-export type InvocationParamsWithBody<TRequest, TResponse> = InvocationParamsWithoutBody<TResponse> & {
-	requestBody: TRequest;
-};
-
-/**
- * Internal helper type for invocation parameters
- */
-type InternalInvocationParams<TRequest, TResponse> = InvocationParamsWithoutBody<TResponse> & Partial<InvocationParamsWithBody<TRequest, TResponse>> & {
-	method: HttpMethod;
-}
-
-/**
- * Helper type for URL query params
- */
-export type QueryParams = {
-	[key: string]: string;
-};
-

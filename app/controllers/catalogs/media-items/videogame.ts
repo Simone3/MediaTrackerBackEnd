@@ -6,6 +6,7 @@ import { AppError } from 'app/data/models/error/error';
 import { GiantBombDetailsResponse, GiantBombSearchResponse } from 'app/data/models/external-services/media-items/videogame';
 import { CatalogVideogameInternal, SearchVideogameCatalogResultInternal } from 'app/data/models/internal/media-items/videogame';
 import { logger } from 'app/loggers/logger';
+import { InvocationParams } from 'app/utilities/helper-types';
 import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
@@ -28,14 +29,15 @@ class VideogameCatalogController extends MediaItemCatalogController<SearchVideog
 			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.giantBomb.search.queryParams);
 			queryParams.query = searchTerm;
 			
-			const invocationParams = {
+			const invocationParams: InvocationParams<undefined, GiantBombSearchResponse> = {
+				method: 'GET',
 				url: url,
 				responseBodyClass: GiantBombSearchResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
 			};
 
-			restJsonInvoker.invokeGet(invocationParams)
+			restJsonInvoker.invoke(invocationParams)
 				.then((response) => {
 
 					if(response.results) {
@@ -73,14 +75,15 @@ class VideogameCatalogController extends MediaItemCatalogController<SearchVideog
 
 			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.giantBomb.details.queryParams);
 
-			const invocationParams = {
+			const invocationParams: InvocationParams<undefined, GiantBombDetailsResponse> = {
+				method: 'GET',
 				url: url,
 				responseBodyClass: GiantBombDetailsResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
 			};
 
-			restJsonInvoker.invokeGet(invocationParams)
+			restJsonInvoker.invoke(invocationParams)
 				.then((response) => {
 
 					resolve(videogameExternalDetailsServiceMapper.toInternal(response));

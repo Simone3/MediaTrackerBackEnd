@@ -6,6 +6,7 @@ import { AppError } from 'app/data/models/error/error';
 import { TmdbTvShowDetailsResponse, TmdbTvShowSearchResponse, TmdbTvShowSeasonDataResponse } from 'app/data/models/external-services/media-items/tv-show';
 import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from 'app/data/models/internal/media-items/tv-show';
 import { logger } from 'app/loggers/logger';
+import { InvocationParams } from 'app/utilities/helper-types';
 import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
@@ -28,14 +29,15 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.theMovieDb.tvShows.search.queryParams);
 			queryParams.query = searchTerm;
 
-			const invocationParams = {
+			const invocationParams: InvocationParams<undefined, TmdbTvShowSearchResponse> = {
+				method: 'GET',
 				url: url,
 				responseBodyClass: TmdbTvShowSearchResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
 			};
 
-			restJsonInvoker.invokeGet(invocationParams)
+			restJsonInvoker.invoke(invocationParams)
 				.then((response) => {
 
 					if(response.results) {
@@ -73,7 +75,8 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 
 			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.theMovieDb.tvShows.details.queryParams);
 
-			const invocationParams = {
+			const invocationParams: InvocationParams<undefined, TmdbTvShowDetailsResponse> = {
+				method: 'GET',
 				url: url,
 				responseBodyClass: TmdbTvShowDetailsResponse,
 				queryParams: queryParams,
@@ -81,7 +84,7 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 			};
 
 			// First call the general details service
-			restJsonInvoker.invokeGet(invocationParams)
+			restJsonInvoker.invoke(invocationParams)
 				.then((detailsResponse) => {
 
 					if(detailsResponse.in_production && detailsResponse.number_of_seasons && detailsResponse.number_of_seasons > 0) {
@@ -131,14 +134,15 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 
 		const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.theMovieDb.tvShows.season.queryParams);
 
-		const invocationParams = {
+		const invocationParams: InvocationParams<undefined, TmdbTvShowSeasonDataResponse> = {
+			method: 'GET',
 			url: url,
 			responseBodyClass: TmdbTvShowSeasonDataResponse,
 			queryParams: queryParams,
 			timeoutMilliseconds: config.externalApis.timeoutMilliseconds
 		};
 
-		return restJsonInvoker.invokeGet(invocationParams);
+		return restJsonInvoker.invoke(invocationParams);
 	}
 }
 

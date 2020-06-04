@@ -11,7 +11,7 @@ export const testConfig: Config = {
 		url: 'mongodb://localhost/mediaTrackerBackEndTestDatabase'
 	},
 	externalApis: {
-		timeoutMilliseconds: 1,
+		timeoutMilliseconds: 5000,
 		userAgent: '',
 		theMovieDb: {
 			basePath: 'http://mock-movie-api',
@@ -111,6 +111,9 @@ export const testConfig: Config = {
 			active: true
 		},
 		databaseQueries: {
+			active: true
+		},
+		performance: {
 			active: true
 		}
 	},

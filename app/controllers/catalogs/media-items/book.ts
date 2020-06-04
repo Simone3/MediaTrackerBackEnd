@@ -6,6 +6,7 @@ import { AppError } from 'app/data/models/error/error';
 import { GoogleBooksDetailsResponse, GoogleBooksSearchResponse } from 'app/data/models/external-services/media-items/book';
 import { CatalogBookInternal, SearchBookCatalogResultInternal } from 'app/data/models/internal/media-items/book';
 import { logger } from 'app/loggers/logger';
+import { InvocationParams } from 'app/utilities/helper-types';
 import { miscUtils } from 'app/utilities/misc-utils';
 
 /**
@@ -28,14 +29,15 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.googleBooks.search.queryParams);
 			queryParams.q = searchTerm;
 			
-			const invocationParams = {
+			const invocationParams: InvocationParams<undefined, GoogleBooksSearchResponse> = {
+				method: 'GET',
 				url: url,
 				responseBodyClass: GoogleBooksSearchResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
 			};
 			
-			restJsonInvoker.invokeGet(invocationParams)
+			restJsonInvoker.invoke(invocationParams)
 				.then((response) => {
 
 					if(response.items) {
@@ -73,14 +75,15 @@ class BookCatalogController extends MediaItemCatalogController<SearchBookCatalog
 
 			const queryParams = miscUtils.objectToStringKeyValue(config.externalApis.googleBooks.details.queryParams);
 
-			const invocationParams = {
+			const invocationParams: InvocationParams<undefined, GoogleBooksDetailsResponse> = {
+				method: 'GET',
 				url: url,
 				responseBodyClass: GoogleBooksDetailsResponse,
 				queryParams: queryParams,
 				timeoutMilliseconds: config.externalApis.timeoutMilliseconds
 			};
 
-			restJsonInvoker.invokeGet(invocationParams)
+			restJsonInvoker.invoke(invocationParams)
 				.then((response) => {
 
 					resolve(bookExternalDetailsServiceMapper.toInternal(response));
