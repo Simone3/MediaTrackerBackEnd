@@ -1,9 +1,9 @@
-import { Queryable, Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { Sortable, SortDirection } from 'app/controllers/database/query-helper';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
 import { MediaTypeInternal } from 'app/data/models/internal/category';
 import { TvShowFilterInternal, TvShowInternal, TvShowSortByInternal } from 'app/data/models/internal/media-items/tv-show';
 import { TvShowSchema, TV_SHOW_COLLECTION_NAME } from 'app/schemas/media-items/tv-show';
-import { Document, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model } from 'mongoose';
 
 /**
  * TvShow document for Mongoose
@@ -14,6 +14,11 @@ interface TvShowDocument extends TvShowInternal, Document {}
  * Mongoose model for TV shows
  */
 const TvShowModel: Model<TvShowDocument> = model<TvShowDocument>(TV_SHOW_COLLECTION_NAME, TvShowSchema);
+
+/**
+ * Helper type for TV show query conditions
+ */
+type QueryConditions = FilterQuery<TvShowInternal>;
 
 /**
  * Controller for TV show entities
@@ -50,7 +55,7 @@ class TvShowEntityController extends MediaItemEntityController<TvShowInternal, T
 	/**
 	 * @override
 	 */
-	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<TvShowInternal>[], filterBy?: TvShowFilterInternal): void {
+	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: QueryConditions[], filterBy?: TvShowFilterInternal): void {
 		
 		this.addCommonConditionsFromFilter(userId, categoryId, andConditions, filterBy);
 	}
@@ -74,7 +79,7 @@ class TvShowEntityController extends MediaItemEntityController<TvShowInternal, T
 	/**
 	 * @override
 	 */
-	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: Queryable<TvShowInternal>[]): void {
+	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: QueryConditions[]): void {
 		
 		searchConditions.push({
 			creators: termRegExp

@@ -1,9 +1,9 @@
-import { Queryable, Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { Sortable, SortDirection } from 'app/controllers/database/query-helper';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
 import { MediaTypeInternal } from 'app/data/models/internal/category';
 import { BookFilterInternal, BookInternal, BookSortByInternal } from 'app/data/models/internal/media-items/book';
 import { BookSchema, BOOK_COLLECTION_NAME } from 'app/schemas/media-items/book';
-import { Document, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model } from 'mongoose';
 
 /**
  * Book document for Mongoose
@@ -14,6 +14,11 @@ interface BookDocument extends BookInternal, Document {}
  * Mongoose model for books
  */
 const BookModel: Model<BookDocument> = model<BookDocument>(BOOK_COLLECTION_NAME, BookSchema);
+
+/**
+ * Helper type for book query conditions
+ */
+type QueryConditions = FilterQuery<BookInternal>;
 
 /**
  * Controller for book entities
@@ -50,7 +55,7 @@ class BookEntityController extends MediaItemEntityController<BookInternal, BookS
 	/**
 	 * @override
 	 */
-	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<BookInternal>[], filterBy?: BookFilterInternal): void {
+	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: QueryConditions[], filterBy?: BookFilterInternal): void {
 		
 		this.addCommonConditionsFromFilter(userId, categoryId, andConditions, filterBy);
 	}
@@ -74,7 +79,7 @@ class BookEntityController extends MediaItemEntityController<BookInternal, BookS
 	/**
 	 * @override
 	 */
-	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: Queryable<BookInternal>[]): void {
+	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: QueryConditions[]): void {
 		
 		searchConditions.push({
 			authors: termRegExp

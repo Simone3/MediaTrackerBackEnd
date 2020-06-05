@@ -1,4 +1,4 @@
-import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query-helper';
+import { QueryHelper, Sortable } from 'app/controllers/database/query-helper';
 import { categoryController } from 'app/controllers/entities/category';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { AppError } from 'app/data/models/error/error';
@@ -7,7 +7,7 @@ import { GroupFilterInternal, GroupInternal } from 'app/data/models/internal/gro
 import { mediaItemFactory } from 'app/factories/media-item';
 import { GroupSchema, GROUP_COLLECTION_NAME } from 'app/schemas/group';
 import { miscUtils } from 'app/utilities/misc-utils';
-import { Document, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model } from 'mongoose';
 
 /**
  * Mongoose document for groups
@@ -22,7 +22,7 @@ const GroupModel: Model<GroupDocument> = model<GroupDocument>(GROUP_COLLECTION_N
 /**
  * Helper type for group query conditions
  */
-type QueryConditions = Queryable<GroupInternal>;
+type QueryConditions = FilterQuery<GroupInternal>;
 
 /**
  * Helper type for group sorting conditions

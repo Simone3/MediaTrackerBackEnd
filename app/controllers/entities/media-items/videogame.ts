@@ -1,9 +1,9 @@
-import { Queryable, Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { Sortable, SortDirection } from 'app/controllers/database/query-helper';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
 import { MediaTypeInternal } from 'app/data/models/internal/category';
 import { VideogameFilterInternal, VideogameInternal, VideogameSortByInternal } from 'app/data/models/internal/media-items/videogame';
 import { VideogameSchema, VIDEOGAME_COLLECTION_NAME } from 'app/schemas/media-items/videogame';
-import { Document, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model } from 'mongoose';
 
 /**
  * Videogame document for Mongoose
@@ -14,6 +14,11 @@ interface VideogameDocument extends VideogameInternal, Document {}
  * Mongoose model for videogames
  */
 const VideogameModel: Model<VideogameDocument> = model<VideogameDocument>(VIDEOGAME_COLLECTION_NAME, VideogameSchema);
+
+/**
+ * Helper type for videogame query conditions
+ */
+type QueryConditions = FilterQuery<VideogameInternal>;
 
 /**
  * Controller for videogame entities
@@ -50,7 +55,7 @@ class VideogameEntityController extends MediaItemEntityController<VideogameInter
 	/**
 	 * @override
 	 */
-	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<VideogameInternal>[], filterBy?: VideogameFilterInternal): void {
+	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: QueryConditions[], filterBy?: VideogameFilterInternal): void {
 		
 		this.addCommonConditionsFromFilter(userId, categoryId, andConditions, filterBy);
 	}
@@ -74,7 +79,7 @@ class VideogameEntityController extends MediaItemEntityController<VideogameInter
 	/**
 	 * @override
 	 */
-	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: Queryable<VideogameInternal>[]): void {
+	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: QueryConditions[]): void {
 		
 		searchConditions.push({
 			developers: termRegExp

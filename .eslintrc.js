@@ -1,12 +1,10 @@
-'use strict';
-
 module.exports = {
-	'env': {
-		'node': true,
-		'es6': true
+	env: {
+		node: true,
+		es6: true
 	},
-	'parserOptions': {
-		'ecmaVersion': 6
+	parserOptions: {
+		ecmaVersion: 6
 	},
 	parser: '@typescript-eslint/parser',
 	plugins: [
@@ -18,26 +16,26 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended'
 	],
 	settings: {
-        jsdoc: {
-            allowOverrideWithoutParam: true,
-            allowImplementsWithoutParam: true,
-            allowAugmentsExtendsWithoutParam: true,
-            mode: 'typescript'
+		jsdoc: {
+			allowOverrideWithoutParam: true,
+			allowImplementsWithoutParam: true,
+			allowAugmentsExtendsWithoutParam: true,
+			mode: 'typescript'
 		}
 	},
 	globals: {
-		'BigInt': true
+		BigInt: true
 	},
 	rules: {
 
 		/* ************* @typescript-eslint ************* */
 
-		'@typescript-eslint/indent': ['error', 'tab'],
-		'@typescript-eslint/prefer-interface': ['off'],
-		'@typescript-eslint/camelcase': ['off'],
-		'@typescript-eslint/no-parameter-properties': ['off'],
-		'@typescript-eslint/explicit-function-return-type': ['error', {'allowExpressions': true}],
-
+		'@typescript-eslint/indent': [ 'error', 'tab' ],
+		'@typescript-eslint/prefer-interface': [ 'off' ],
+		'@typescript-eslint/camelcase': [ 'off' ],
+		'@typescript-eslint/no-parameter-properties': [ 'off' ],
+		'@typescript-eslint/explicit-function-return-type': [ 'error', { allowExpressions: true }],
+		'@typescript-eslint/ban-types': 'off',
 		
 		/* ************* eslint ************* */
 
@@ -84,21 +82,17 @@ module.exports = {
 		'accessor-pairs': [ 2, { getWithoutSet: false, setWithoutGet: true }],
 		'array-callback-return': [ 2, { allowImplicit: true }],
 		'block-scoped-var': 2,
-		// 'class-methods-use-this': 2,
 		complexity: 0,
 		'consistent-return': 0,
 		curly: [ 2, 'all' ],
 		'default-case': 2,
-		// 'dot-location': [ 2, 'object' ],
 		'dot-notation': [ 2, { allowKeywords: true }],
 		eqeqeq: 2,
-		// 'guard-for-in': 2,
 		'no-alert': 2,
 		'no-caller': 2,
 		'no-case-declarations': 2,
 		'no-div-regex': 2,
-		// 'no-else-return': 2,
-		'no-empty-function': [ 2, { allow: [ 'methods' ]}],
+		'no-empty-function': [ 2, { allow: [ 'methods' ] }],
 		'no-eq-null': 2,
 		'no-eval': 2,
 		'no-extend-native': 2,
@@ -126,7 +120,6 @@ module.exports = {
 		'no-param-reassign': 0,
 		'no-proto': 2,
 		'no-redeclare': 2,
-		// 'no-restricted-properties': [ 2, {}],
 		'no-return-assign': [ 2, 'always' ],
 		'no-script-url': 2,
 		'no-self-assign': 2,
@@ -160,7 +153,6 @@ module.exports = {
 		'no-undefined': 0,
 		'no-unused-vars': [ 2, { vars: 'all', args: 'after-used' }],
 		'no-use-before-define': 2,
-		// 'callback-return': [ 2, [ 'callback', 'done', 'next' ]],
 		'global-require': 2,
 		'handle-callback-err': [ 2, 'err' ],
 		'no-buffer-constructor': 2,
@@ -180,9 +172,6 @@ module.exports = {
 		'array-element-newline': 0,
 		'block-spacing': [ 2, 'always' ],
 		'brace-style': [ 2, 'stroustrup', { allowSingleLine: false }],
-		// camelcase: [2, {'allow': [
-		// 	'api_key',
-		// ]}],
 		'comma-spacing': [ 2, { before: false, after: true }],
 		'comma-style': [ 2, 'last' ],
 		'computed-property-spacing': [ 2, 'never' ],
@@ -202,25 +191,24 @@ module.exports = {
 		}],
 		'id-match': 0,
 		'implicit-arrow-linebreak': 0,
-		// indent: [ 2, 2, {
-		//	SwitchCase: 1,
-		//	VariableDeclarator: { var: 2, let: 2, const: 3 }
-		// }],
 		'jsx-quotes': [ 2, 'prefer-single' ],
 		'key-spacing': [ 2, { beforeColon: false, afterColon: true, mode: 'strict' }],
-		'keyword-spacing': [ 2, { before: true, after: false, 'overrides': {
-			'else': { 'after': true },
-			'import': { 'after': true },
-			'export': { 'after': true },
-			'from': { 'after': true },
-			'return': { 'after': true },
-			'case': { 'after': true },
-			'try': { 'after': true },
-			'const': { 'after': true },
-			'throw': { 'after': true },
-		} } ],
+		'keyword-spacing': [ 2, {
+			before: true,
+			after: false,
+			overrides: {
+				else: { after: true },
+				import: { after: true },
+				export: { after: true },
+				from: { after: true },
+				return: { after: true },
+				case: { after: true },
+				try: { after: true },
+				const: { after: true },
+				throw: { after: true }
+			}
+		}],
 		'line-comment-position': [ 2, { position: 'above' }],
-		// 'linebreak-style': [ 2, 'unix' ],
 		'lines-around-comment': [ 2, {
 			beforeBlockComment: false,
 			afterBlockComment: false,
@@ -233,7 +221,7 @@ module.exports = {
 			allowArrayStart: true,
 			allowArrayEnd: true
 		}],
-		'lines-between-class-members': [ 2, 'always', { 'exceptAfterSingleLine': true } ],
+		'lines-between-class-members': [ 2, 'always', { exceptAfterSingleLine: true }],
 		'max-depth': 0,
 		'max-len': 0,
 		'max-nested-callbacks': 0,
@@ -242,13 +230,6 @@ module.exports = {
 		'max-statements-per-line': [ 2, { max: 1 }],
 		'multiline-comment-style': [ 2, 'separate-lines' ],
 		'multiline-ternary': [ 2, 'always-multiline' ],
-		// 'new-cap': [ 2, {
-		//	newIsCap: true,
-		//	capIsNew: true,
-		//	newIsCapExceptions: [],
-		//	capIsNewExceptions: [],
-		//	properties: true
-		// }],
 		'new-parens': 2,
 		'newline-per-chained-call': [ 2, { ignoreChainWithDepth: 4 }],
 		'no-array-constructor': 2,
@@ -268,7 +249,6 @@ module.exports = {
 			ignoreComments: false,
 			skipBlankLines: true
 		}],
-		// 'no-underscore-dangle': [2, {'allow': ['_id']}],
 		'no-unneeded-ternary': 2,
 		'no-whitespace-before-property': 2,
 		'object-curly-newline': [ 2, {
@@ -281,15 +261,6 @@ module.exports = {
 		'one-var-declaration-per-line': [ 2, 'always' ],
 		'operator-assignment': [ 2, 'always' ],
 		'operator-linebreak': [ 2, 'after' ],
-		// 'padded-blocks': [ 2, 'always' ],
-		// 'padding-line-between-statements': [
-		//	2,
-		//	{ blankLine: 'always', prev: '*', next: 'return' },
-		//	{ blankLine: 'always', prev: [ 'const', 'let', 'var' ], next: '*' },
-		//	{ blankLine: 'any', prev: [ 'const', 'let', 'var' ], next: [ 'const', 'let', 'var' ]},
-		//	{ blankLine: 'always', prev: 'directive', next: '*' },
-		//	{ blankLine: 'any', prev: 'directive', next: 'directive' }
-		// ],
 		'quote-props': [ 2, 'as-needed' ],
 		quotes: [ 2, 'single', { avoidEscape: false, allowTemplateLiterals: true }],
 		'require-jsdoc': 0,
@@ -299,7 +270,7 @@ module.exports = {
 		'sort-keys': [ 0 ],
 		'sort-vars': [ 2, { ignoreCase: true }],
 		'space-before-blocks': [ 2, 'always' ],
-		'space-before-function-paren': [ 2, 'never'],
+		'space-before-function-paren': [ 2, 'never' ],
 		'space-in-parens': [ 2, 'never' ],
 		'space-infix-ops': [ 2, { int32Hint: false }],
 		'space-unary-ops': [ 2, { words: true, nonwords: false }],
@@ -320,51 +291,37 @@ module.exports = {
 		'no-restricted-imports': 0,
 		'no-this-before-super': 2,
 		'no-useless-computed-key': 2,
-		// 'no-useless-constructor': 2,
 		'no-var': 2,
-		// 'object-shorthand': [ 2, 'always' ],
 		'prefer-arrow-callback': [ 2, { allowNamedFunctions: false, allowUnboundThis: true }],
 		'prefer-const': [ 2, { destructuring: 'any', ignoreReadBeforeAssign: true }],
 		'prefer-numeric-literals': 2,
-		'prefer-reflect': [ 2, { exceptions: []}],
+		'prefer-reflect': [ 2, { exceptions: [] }],
 		'prefer-rest-params': 2,
 		'prefer-spread': 2,
 		'prefer-template': 2,
 		'require-yield': 2,
-		// 'sort-imports': [ 2, {
-		//	ignoreCase: true,
-		//	ignoreMemberSort: false,
-		//	memberSyntaxSortOrder: [ 'single', 'multiple', 'all', 'none' ]
-		// }],
 		'symbol-description': 2,
 		'template-curly-spacing': [ 2, 'never' ],
 		'yield-star-spacing': [ 2, { before: true, after: true }],
 
-
 		/* ************* eslint-plugin-jsdoc ************* */
 
 		'jsdoc/check-alignment': 2,
-        'jsdoc/check-examples': 2,
-        'jsdoc/check-indentation': 2,
-        'jsdoc/check-param-names': 2,
-        'jsdoc/check-syntax': 2,
-        'jsdoc/check-tag-names': 2,
-        'jsdoc/check-types': 2,
-        'jsdoc/newline-after-description': [2, 'never'],
-        'jsdoc/no-undefined-types': 2,
-        // 'jsdoc/require-description': 2,
-        // 'jsdoc/require-description-complete-sentence': 2,
-        // 'jsdoc/require-example': 2,
-        'jsdoc/require-hyphen-before-param-description': [2, 'never'],
-        'jsdoc/require-param': 2,
-        'jsdoc/require-param-description': 2,
-        'jsdoc/require-param-name': 2,
-        // 'jsdoc/require-param-type': 2,
-        'jsdoc/require-returns': 2,
-        'jsdoc/require-returns-check': 2,
-        'jsdoc/require-returns-description': 2,
-        // 'jsdoc/require-returns-type': 2,
+		'jsdoc/check-examples': 2,
+		'jsdoc/check-indentation': 2,
+		'jsdoc/check-param-names': 2,
+		'jsdoc/check-syntax': 2,
+		'jsdoc/check-tag-names': 2,
+		'jsdoc/check-types': 2,
+		'jsdoc/newline-after-description': [ 2, 'never' ],
+		'jsdoc/no-undefined-types': 2,
+		'jsdoc/require-hyphen-before-param-description': [ 2, 'never' ],
+		'jsdoc/require-param': 2,
+		'jsdoc/require-param-description': 2,
+		'jsdoc/require-param-name': 2,
+		'jsdoc/require-returns': 2,
+		'jsdoc/require-returns-check': 2,
+		'jsdoc/require-returns-description': 2,
 		'jsdoc/valid-types': 2
 	}
 };
-

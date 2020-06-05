@@ -1,4 +1,4 @@
-import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query-helper';
+import { QueryHelper, Sortable } from 'app/controllers/database/query-helper';
 import { categoryController } from 'app/controllers/entities/category';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { AppError } from 'app/data/models/error/error';
@@ -7,7 +7,7 @@ import { OwnPlatformFilterInternal, OwnPlatformInternal } from 'app/data/models/
 import { mediaItemFactory } from 'app/factories/media-item';
 import { OwnPlatformSchema, OWN_PLATFORM_COLLECTION_NAME } from 'app/schemas/own-platform';
 import { miscUtils } from 'app/utilities/misc-utils';
-import { Document, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model } from 'mongoose';
 
 /**
  * Mongoose document for own platforms
@@ -22,7 +22,7 @@ const OwnPlatformModel: Model<OwnPlatformDocument> = model<OwnPlatformDocument>(
 /**
  * Helper type for own platform query conditions
  */
-type QueryConditions = Queryable<OwnPlatformInternal>;
+type QueryConditions = FilterQuery<OwnPlatformInternal>;
 
 /**
  * Helper type for own platform sorting conditions

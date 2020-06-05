@@ -4,7 +4,7 @@ import { requestScopeContext } from 'app/utilities/request-scope-context';
 import { stringUtils } from 'app/utilities/string-utils';
 import mung from 'express-mung';
 import { RequestHandler } from 'express-serve-static-core';
-import uuid from 'uuid';
+import { v4 as uuid4 } from 'uuid';
 
 /**
  * Express middleware to set request-scoped context information
@@ -14,7 +14,7 @@ import uuid from 'uuid';
  */
 export const logCorrelationMiddleware: RequestHandler = (_, __, next): void => {
 	
-	requestScopeContext.correlationId = uuid();
+	requestScopeContext.correlationId = uuid4();
 	next();
 };
 

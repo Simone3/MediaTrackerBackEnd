@@ -1,4 +1,4 @@
-import { Populatable, Queryable, QueryHelper, Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { Populatable, QueryHelper, Sortable, SortDirection } from 'app/controllers/database/query-helper';
 import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
@@ -11,7 +11,7 @@ import { MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, Me
 import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
 import { logger } from 'app/loggers/logger';
 import { miscUtils } from 'app/utilities/misc-utils';
-import { Document, Model } from 'mongoose';
+import { Document, FilterQuery, Model } from 'mongoose';
 
 /**
  * Abstract controller for media item entities
@@ -42,12 +42,13 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	public getMediaItem(userId: string, categoryId: string, mediaItemId: string): Promise<TMediaItemInternal | undefined> {
 
-		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions._id = mediaItemId;
-		conditions.category = categoryId;
-		conditions.owner = userId;
+		const conditions: FilterQuery<MediaItemInternal> = {
+			_id: mediaItemId,
+			category: categoryId,
+			owner: userId
+		};
 		
-		return this.queryHelper.findOne(conditions);
+		return this.queryHelper.findOne(this.cast(conditions));
 	}
 
 	/**
@@ -70,10 +71,11 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	public getAllMediaItemsInGroup(groupId: string): Promise<TMediaItemInternal[]> {
 
-		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions.group = groupId;
+		const conditions: FilterQuery<MediaItemInternal> = {
+			group: groupId
+		};
 
-		return this.queryHelper.find(conditions);
+		return this.queryHelper.find(this.cast(conditions));
 	}
 
 	/**
@@ -83,10 +85,11 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	public getAllMediaItemsInOwnPlatform(ownPlatformId: string): Promise<TMediaItemInternal[]> {
 
-		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions.ownPlatform = ownPlatformId;
+		const conditions: FilterQuery<MediaItemInternal> = {
+			ownPlatform: ownPlatformId
+		};
 
-		return this.queryHelper.find(conditions);
+		return this.queryHelper.find(this.cast(conditions));
 	}
 
 	/**
@@ -96,10 +99,11 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	public getAllMediaItemsInCategory(categoryId: string): Promise<TMediaItemInternal[]> {
 
-		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions.category = categoryId;
+		const conditions: FilterQuery<MediaItemInternal> = {
+			category: categoryId
+		};
 		
-		return this.queryHelper.find(conditions);
+		return this.queryHelper.find(this.cast(conditions));
 	}
 
 	/**
@@ -112,9 +116,9 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	public filterAndOrderMediaItems(userId: string, categoryId: string, filterBy?: TMediaItemFilterInternal, sortBy?: TMediaItemSortByInternal[]): Promise<TMediaItemInternal[]> {
 
-		const andConditions: Queryable<TMediaItemInternal>[] = [];
-		this.addConditionsFromFilter(userId, categoryId, andConditions, filterBy);
-		const conditions: Queryable<TMediaItemInternal> = {
+		const andConditions: FilterQuery<MediaItemInternal>[] = [];
+		this.addConditionsFromFilter(userId, categoryId, this.castArray(andConditions), filterBy);
+		const conditions: FilterQuery<MediaItemInternal> = {
 			$and: andConditions
 		};
 
@@ -128,7 +132,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 			}
 		}
 
-		return this.queryHelper.find(conditions, sortConditions, this.getPopulateAll());
+		return this.queryHelper.find(this.cast(conditions), sortConditions, this.getPopulateAll());
 	}
 
 	/**
@@ -144,21 +148,22 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 		const termRegExp = new RegExp(miscUtils.escapeRegExp(term), 'i');
 		
 		// Common search conditions
-		const searchConditions: Queryable<TMediaItemInternal>[] = [];
-		const nameCondition: Queryable<TMediaItemInternal> = {};
-		nameCondition.name = termRegExp;
+		const searchConditions: FilterQuery<MediaItemInternal>[] = [];
+		const nameCondition: FilterQuery<MediaItemInternal> = {
+			name: termRegExp
+		};
 		searchConditions.push(nameCondition);
 
 		// Specific search conditions
-		this.setSearchByTermConditions(term, termRegExp, searchConditions);
+		this.setSearchByTermConditions(term, termRegExp, this.castArray(searchConditions));
 		
 		// Complete query conditions, with active filter
-		const andConditions: Queryable<TMediaItemInternal>[] = [];
-		this.addConditionsFromFilter(userId, categoryId, andConditions, filterBy);
+		const andConditions: FilterQuery<MediaItemInternal>[] = [];
+		this.addConditionsFromFilter(userId, categoryId, this.castArray(andConditions), filterBy);
 		andConditions.push({
 			$or: searchConditions
 		});
-		const conditions: Queryable<TMediaItemInternal> = {
+		const conditions: FilterQuery<MediaItemInternal> = {
 			$and: andConditions
 		};
 
@@ -166,7 +171,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 		const sortBy: Sortable<TMediaItemInternal> = {};
 		sortBy.name = 'asc';
 
-		return this.queryHelper.find(conditions, sortBy, this.getPopulateAll());
+		return this.queryHelper.find(this.cast(conditions), sortBy, this.getPopulateAll());
 	}
 
 	/**
@@ -220,10 +225,11 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	public deleteAllMediaItemsInGroup(groupId: string): Promise<number> {
 
-		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions.group = groupId;
+		const conditions: FilterQuery<MediaItemInternal> = {
+			group: groupId
+		};
 
-		return this.queryHelper.delete(conditions);
+		return this.queryHelper.delete(this.cast(conditions));
 	}
 
 	/**
@@ -233,10 +239,11 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	public deleteAllMediaItemsInCategory(categoryId: string): Promise<number> {
 
-		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions.category = categoryId;
+		const conditions: FilterQuery<MediaItemInternal> = {
+			category: categoryId
+		};
 
-		return this.queryHelper.delete(conditions);
+		return this.queryHelper.delete(this.cast(conditions));
 	}
 
 	/**
@@ -246,10 +253,11 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 */
 	public deleteAllMediaItemsForUser(userId: string): Promise<number> {
 
-		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions.owner = userId;
+		const conditions: FilterQuery<MediaItemInternal> = {
+			owner: userId
+		};
 
-		return this.queryHelper.delete(conditions);
+		return this.queryHelper.delete(this.cast(conditions));
 	}
 
 	/**
@@ -265,9 +273,10 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 		const set: Partial<TMediaItemInternal> = {};
 		set.ownPlatform = newOwnPlatformId;
 
-		const conditions: Queryable<TMediaItemInternal> = {};
-		conditions.owner = userId;
-		conditions.category = categoryId;
+		const conditions: FilterQuery<MediaItemInternal> = {
+			owner: userId,
+			category: categoryId
+		};
 
 		if(oldOwnPlatformId instanceof Array) {
 
@@ -278,7 +287,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 			conditions.ownPlatform = oldOwnPlatformId;
 		}
 		
-		return this.queryHelper.updateSelectiveMany(set, conditions);
+		return this.queryHelper.updateSelectiveMany(set, this.cast(conditions));
 	}
 
 	/**
@@ -310,7 +319,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param andConditions the target array of AND conditions
 	 * @param filterBy the optional source filters
 	 */
-	protected abstract addConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<TMediaItemInternal>[], filterBy?: TMediaItemFilterInternal): void;
+	protected abstract addConditionsFromFilter(userId: string, categoryId: string, andConditions: FilterQuery<TMediaItemInternal>[], filterBy?: TMediaItemFilterInternal): void;
 
 	/**
 	 * Must be implemented by subclasses to (possibly) add more search conditions for the 'search media item' API
@@ -318,7 +327,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param termRegExp the pre-computed RegExp of the search term
 	 * @param searchConditions the common search conditions where the implementation can push other fields
 	 */
-	protected abstract setSearchByTermConditions(term: string, termRegExp: RegExp, searchConditions: Queryable<TMediaItemInternal>[]): void;
+	protected abstract setSearchByTermConditions(term: string, termRegExp: RegExp, searchConditions: FilterQuery<TMediaItemInternal>[]): void;
 
 	/**
 	 * Must be implemented by subclasses to define the linked media type
@@ -333,7 +342,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param andConditions the target array of AND conditions
 	 * @param filterBy the optional source filters
 	 */
-	protected addCommonConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<MediaItemInternal>[], filterBy?: MediaItemFilterInternal): void {
+	protected addCommonConditionsFromFilter(userId: string, categoryId: string, andConditions: FilterQuery<MediaItemInternal>[], filterBy?: MediaItemFilterInternal): void {
 		
 		andConditions.push({
 			owner: userId,
@@ -574,6 +583,22 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 					reject(error);
 				});
 		});
+	}
+
+	/**
+	 * As per https://github.com/DefinitelyTyped/DefinitelyTyped/issues/39358 FilterQuery does not work with generics, as intended.
+	 * Since here I know subclasses won't cause any problem, I can safely cast the object.
+	 * @param conditions source
+	 * @returns cast source
+	 */
+	private cast(conditions: FilterQuery<MediaItemInternal>): FilterQuery<TMediaItemInternal & Document> {
+
+		return conditions as FilterQuery<TMediaItemInternal & Document>;
+	}
+	
+	private castArray(conditions: FilterQuery<MediaItemInternal>[]): FilterQuery<TMediaItemInternal & Document>[] {
+
+		return conditions as FilterQuery<TMediaItemInternal & Document>[];
 	}
 }
 

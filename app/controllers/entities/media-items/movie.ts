@@ -1,9 +1,9 @@
-import { Queryable, Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { Sortable, SortDirection } from 'app/controllers/database/query-helper';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
 import { MediaTypeInternal } from 'app/data/models/internal/category';
 import { MovieFilterInternal, MovieInternal, MovieSortByInternal } from 'app/data/models/internal/media-items/movie';
 import { MovieSchema, MOVIE_COLLECTION_NAME } from 'app/schemas/media-items/movie';
-import { Document, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model } from 'mongoose';
 
 /**
  * Movie document for Mongoose
@@ -14,6 +14,11 @@ interface MovieDocument extends MovieInternal, Document {}
  * Mongoose model for movies
  */
 const MovieModel: Model<MovieDocument> = model<MovieDocument>(MOVIE_COLLECTION_NAME, MovieSchema);
+
+/**
+ * Helper type for movie query conditions
+ */
+type QueryConditions = FilterQuery<MovieInternal>;
 
 /**
  * Controller for movie entities
@@ -50,7 +55,7 @@ class MovieEntityController extends MediaItemEntityController<MovieInternal, Mov
 	/**
 	 * @override
 	 */
-	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: Queryable<MovieInternal>[], filterBy?: MovieFilterInternal): void {
+	protected addConditionsFromFilter(userId: string, categoryId: string, andConditions: QueryConditions[], filterBy?: MovieFilterInternal): void {
 		
 		this.addCommonConditionsFromFilter(userId, categoryId, andConditions, filterBy);
 	}
@@ -74,7 +79,7 @@ class MovieEntityController extends MediaItemEntityController<MovieInternal, Mov
 	/**
 	 * @override
 	 */
-	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: Queryable<MovieInternal>[]): void {
+	protected setSearchByTermConditions(_: string, termRegExp: RegExp, searchConditions: QueryConditions[]): void {
 		
 		searchConditions.push({
 			directors: termRegExp

@@ -1,4 +1,4 @@
-import { Queryable, QueryHelper, Sortable } from 'app/controllers/database/query-helper';
+import { QueryHelper, Sortable } from 'app/controllers/database/query-helper';
 import { groupController } from 'app/controllers/entities/group';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
 import { ownPlatformController } from 'app/controllers/entities/own-platform';
@@ -8,7 +8,7 @@ import { MediaItemInternal } from 'app/data/models/internal/media-items/media-it
 import { mediaItemFactory } from 'app/factories/media-item';
 import { CategorySchema, CATEGORY_COLLECTION_NAME } from 'app/schemas/category';
 import { miscUtils } from 'app/utilities/misc-utils';
-import { Document, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model } from 'mongoose';
 
 /**
  * Mongoose document for categories
@@ -23,7 +23,7 @@ const CategoryModel: Model<CategoryDocument> = model<CategoryDocument>(CATEGORY_
 /**
  * Helper type for category query conditions
  */
-type QueryConditions = Queryable<CategoryInternal>;
+type QueryConditions = FilterQuery<CategoryInternal>;
 
 /**
  * Helper type for category sorting conditions

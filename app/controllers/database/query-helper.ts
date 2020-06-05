@@ -2,7 +2,7 @@ import { config } from 'app/config/config';
 import { AppError } from 'app/data/models/error/error';
 import { PersistedEntityInternal } from 'app/data/models/internal/common';
 import { logger, performanceLogger } from 'app/loggers/logger';
-import { CollationOptions, Document, Model } from 'mongoose';
+import { CollationOptions, Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
 
 /**
  * Collation search options (for case insensitive ordering)
@@ -37,14 +37,14 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	 * @param populate list of 'joined' columns to populate
 	 * @returns a promise that will eventually contain the list of all internal model representations of the persisted elements
 	 */
-	public find(conditions?: Queryable<TPersistedEntity>, sortBy?: Sortable<TPersistedEntity>, populate?: Populatable<TPersistedEntity>): Promise<TPersistedEntity[]> {
+	public find(conditions?: FilterQuery<TDocument>, sortBy?: Sortable<TPersistedEntity>, populate?: Populatable<TPersistedEntity>): Promise<TPersistedEntity[]> {
 
 		const startNs = process.hrtime.bigint();
 
 		return new Promise((resolve, reject): void => {
 
 			const query = this.databaseModel
-				.find(conditions)
+				.find(conditions ? conditions : {})
 				.collation(COLLATION)
 				.sort(sortBy);
 
@@ -79,7 +79,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	 * @param populate list of 'joined' columns to populate
 	 * @returns a promise that will eventually contain the internal model representation of the persisted element, or undefined if not found
 	 */
-	public findOne(conditions: Queryable<TPersistedEntity>, populate?: Populatable<TPersistedEntity>): Promise<TPersistedEntity | undefined> {
+	public findOne(conditions: FilterQuery<TDocument>, populate?: Populatable<TPersistedEntity>): Promise<TPersistedEntity | undefined> {
 
 		const startNs = process.hrtime.bigint();
 		
@@ -120,7 +120,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	 * @param uniquenessConditions if existing documents match these conditions, the new document won't be saved and an error will be thrown
 	 * @returns the persisted entity, as a promise
 	 */
-	public checkUniquenessAndSave(internalModel: TPersistedEntity, emptyDocument: TDocument, uniquenessConditions: Queryable<TPersistedEntity>): Promise<TPersistedEntity> {
+	public checkUniquenessAndSave(internalModel: TPersistedEntity, emptyDocument: TDocument, uniquenessConditions: FilterQuery<TDocument>): Promise<TPersistedEntity> {
 
 		const startNs = process.hrtime.bigint();
 		
@@ -229,13 +229,13 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	 * @param conditions filter conditions
 	 * @returns the number of updated records, as a promise
 	 */
-	public updateSelectiveMany(set: Partial<TPersistedEntity>, conditions?: Queryable<TPersistedEntity>): Promise<number> {
+	public updateSelectiveMany(set: UpdateQuery<TPersistedEntity>, conditions?: FilterQuery<TDocument>): Promise<number> {
 		
 		const startNs = process.hrtime.bigint();
 		
 		return new Promise((resolve, reject): void => {
 
-			this.databaseModel.updateMany(conditions, set, (error, result) => {
+			this.databaseModel.updateMany(conditions ? conditions : {}, set, (error, result) => {
 				
 				if(error) {
 					
@@ -262,7 +262,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 		
 		return new Promise((resolve, reject): void => {
 
-			this.databaseModel.findOneAndDelete({ _id: id })
+			this.databaseModel.findOneAndDelete({ _id: id } as FilterQuery<TDocument>)
 				.then((deletedDocument) => {
 
 					if(deletedDocument) {
@@ -289,7 +289,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	 * @param conditions query conditions
 	 * @returns a promise with the number of deleted elements
 	 */
-	public delete(conditions: Queryable<TPersistedEntity>): Promise<number> {
+	public delete(conditions: FilterQuery<TDocument>): Promise<number> {
 
 		const startNs = process.hrtime.bigint();
 		
@@ -338,17 +338,6 @@ export type Sortable<T> = {
  * Helper type to describe the sort direction
  */
 export type SortDirection = 'asc' | 'desc';
-
-/**
- * Helper type to make all properties in T optional, possibily regular expressions and possibly with nested OR/AND conditions
- */
-export type Queryable<T> = {
-	[P in keyof T]?: T[P] | RegExp | { $in: T[P][] } | { $ne: T[P] };
-} | {
-	$or: Queryable<T>[];
-} | {
-	$and: Queryable<T>[];
-};
 
 /**
  * Helper type to make all properties in T be optionally true or false
