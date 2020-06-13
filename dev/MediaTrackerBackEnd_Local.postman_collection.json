@@ -1,96 +1,10 @@
 {
 	"info": {
-		"_postman_id": "18f5d0be-5d6e-4a0b-822e-e5db4a93fab5",
+		"_postman_id": "e02eea31-d8ee-405f-8c05-829f0991297d",
 		"name": "MediaTrackerBackEnd_Local",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "User",
-			"item": [
-				{
-					"name": "AddUser",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"newUser\": {\n    \t\"name\": \"werfg\"\n    }\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "UpdateUser",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"user\": {\n    \t\"name\": \"Del2\"\n    }\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3000/users/5ca8a325d583333354a84060",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"users",
-								"5ca8a325d583333354a84060"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DeleteUser",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/users/5c8e2a0e7fc1bd2e9c1fc5fd",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"users",
-								"5c8e2a0e7fc1bd2e9c1fc5fd"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
 		{
 			"name": "Category",
 			"item": [
@@ -100,7 +14,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/5cf3c42d8ec0aa33a8738f7f/categories",
+							"raw": "http://localhost:3000/users/i19JHoyYvLP3ebdmxKRoBhPsfYG2/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -108,7 +22,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5cf3c42d8ec0aa33a8738f7f",
+								"i19JHoyYvLP3ebdmxKRoBhPsfYG2",
 								"categories"
 							]
 						}
@@ -122,19 +36,13 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"filter\": {\n\t\t\"name\": \"A12341243123\"\n\t}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"filter\": {\n\t\t\"name\": \"A12341243123\"\n\t}\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/users/5cf3c42d8ec0aa33a8738f7f/categories/filter",
@@ -170,7 +78,7 @@
 							"raw": "{\n    \"newCategory\": {\n    \t\"name\": \"My Shows\",\n    \t\"mediaType\": \"TV_SHOW\",\n    \t\"color\": \"#0000FF\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5cf3c42d8ec0aa33a8738f7f/categories",
+							"raw": "http://localhost:3000/users/i19JHoyYvLP3ebdmxKRoBhPsfYG2/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -178,7 +86,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5cf3c42d8ec0aa33a8738f7f",
+								"i19JHoyYvLP3ebdmxKRoBhPsfYG2",
 								"categories"
 							]
 						}
@@ -251,7 +159,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups",
+							"raw": "http://localhost:3000/users/IB4EQhzDo4c2KICtcHIUTmG6XhX2/categories/5dfe30ba62e98a0b9c86c284/groups",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -259,9 +167,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ccebae360830e3ae0069ae4",
+								"IB4EQhzDo4c2KICtcHIUTmG6XhX2",
 								"categories",
-								"5ccebb3b60830e3ae0069ae5",
+								"5dfe30ba62e98a0b9c86c284",
 								"groups"
 							]
 						}
@@ -285,7 +193,7 @@
 							"raw": "{\n    \"newGroup\": {\n    \t\"name\": \"BGroup1\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups",
+							"raw": "http://localhost:3000/users/SecondUser-MyTest-7857628/categories/5dfe30ba62e98a0b9c86c284/groups",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -293,9 +201,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ccebae360830e3ae0069ae4",
+								"SecondUser-MyTest-7857628",
 								"categories",
-								"5ccebb3b60830e3ae0069ae5",
+								"5dfe30ba62e98a0b9c86c284",
 								"groups"
 							]
 						}
@@ -528,7 +436,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/movies",
+							"raw": "http://localhost:3000/users/jaSwveZfyxQ2yXKoJkoWESTL14h2/categories/5e046e60c9f38115a0afd410/movies",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -536,9 +444,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5ccebae360830e3ae0069ae4",
+								"jaSwveZfyxQ2yXKoJkoWESTL14h2",
 								"categories",
-								"5ccebb3b60830e3ae0069ae5",
+								"5e046e60c9f38115a0afd410",
 								"movies"
 							]
 						}
@@ -766,7 +674,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows",
+							"raw": "http://localhost:3000/users/jaSwveZfyxQ2yXKoJkoWESTL14h2/categories/5e046e60c9f38115a0afd413/tv-shows",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -774,9 +682,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5cbec5f6afbc9c1f2cfec0ae",
+								"jaSwveZfyxQ2yXKoJkoWESTL14h2",
 								"categories",
-								"5cbec5fcafbc9c1f2cfec0af",
+								"5e046e60c9f38115a0afd413",
 								"tv-shows"
 							]
 						}
@@ -1004,7 +912,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books",
+							"raw": "http://localhost:3000/users/jaSwveZfyxQ2yXKoJkoWESTL14h2/categories/5e046e60c9f38115a0afd40f/books",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1012,9 +920,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5cbec5f6afbc9c1f2cfec0ae",
+								"jaSwveZfyxQ2yXKoJkoWESTL14h2",
 								"categories",
-								"5cbf26fe895c281b54b67381",
+								"5e046e60c9f38115a0afd40f",
 								"books"
 							]
 						}
@@ -1242,7 +1150,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames",
+							"raw": "http://localhost:3000/users/jaSwveZfyxQ2yXKoJkoWESTL14h2/categories/5e046e60c9f38115a0afd411/videogames",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1250,9 +1158,9 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"5cbec5f6afbc9c1f2cfec0ae",
+								"jaSwveZfyxQ2yXKoJkoWESTL14h2",
 								"categories",
-								"5cbf42c8bb653c360cac66e6",
+								"5e046e60c9f38115a0afd411",
 								"videogames"
 							]
 						}
@@ -1470,6 +1378,92 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Import",
+			"item": [
+				{
+					"name": "ImportOldAppExport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"export\": {\n\t\t\n\t},\n    \"options\": {\n\t\t\"defaultOwnPlatform\": {\n\t\t\t\"name\": \"aaa\",\n\t\t\t\"color\": \"#aaaaaa\",\n\t\t\t\"icon\": \"aaa\"\n\t\t}\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/seEnlJssDRTysjTBsAUbUKly4oC2z/import/old-app",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"seEnlJssDRTysjTBsAUbUKly4oC2z",
+								"import",
+								"old-app"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Misc",
+			"item": [
+				{
+					"name": "Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e155d497-7b6f-4da4-86ab-ae0dd5df109b",
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({key: 'Authorization', value: pm.environment.get('authorization')})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c6301971-21ef-4a33-824f-2a10bdc3e567",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
