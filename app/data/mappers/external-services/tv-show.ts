@@ -131,9 +131,9 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 
 		if(runtimes && runtimes.length > 0) {
 
-			return runtimes.reduce((previous, current) => {
+			return Math.round(runtimes.reduce((previous, current) => {
 				return previous + current;
-			}, 0) / runtimes.length;
+			}, 0) / runtimes.length);
 		}
 		
 		return undefined;
