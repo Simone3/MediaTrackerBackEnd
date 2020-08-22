@@ -55,10 +55,10 @@ Main components:
 ## Run on server
 
 The app can be deployed on any server. For example, on Heroku:
-- Signup and create a project on [Heroku](https://www.heroku.com).
-- Add the mLab MongoDB addon from the Heroku dashboard.
+- Signup and create a project on [Heroku](https://www.heroku.com) (free tier available).
+- Signup and create a database cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) (free tier available).
 - Setup a production project on Firebase (see above).
-- Define the configuration for *prod* environment (see above). You can define the *MEDIA_TRACKER_BE_CONFIG* environment variable on Heroku from Settings -> Config Vars. You can also copy the database URL from *MONGODB_URI* variable (it should be already defined after adding the mLab MongoDB addon).
+- Define the configuration for *prod* environment (see above). You can define the *MEDIA_TRACKER_BE_CONFIG* environment variable on Heroku from Settings -> Config Vars. You can get the database URL from the MongoDB Atlas website (SRV URL).
 - Install [Heroku CLI](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up).
 - On the project root folder, execute:
   - `heroku login`
