@@ -1,4 +1,3 @@
-
 import { config } from 'app/config/config';
 import { AppError } from 'app/data/models/error/error';
 import { logRedactor } from 'app/loggers/log-redactor';
@@ -108,7 +107,7 @@ class MediaTrackerLogger {
 	 * @param message the log message, with optional %s placeholders
 	 * @param args the optional arguments for the placeholders
 	 */
-	public error(message: string, ...args: unknown[]): void{
+	public error(message: string, ...args: unknown[]): void {
 		
 		if(this.log4js.isErrorEnabled()) {
 

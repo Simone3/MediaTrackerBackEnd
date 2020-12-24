@@ -2,12 +2,12 @@ import { config } from 'app/config/config';
 import { AppError } from 'app/data/models/error/error';
 import { PersistedEntityInternal } from 'app/data/models/internal/common';
 import { logger, performanceLogger } from 'app/loggers/logger';
-import { CollationOptions, Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
+import { Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
 
 /**
  * Collation search options (for case insensitive ordering)
  */
-const COLLATION: CollationOptions = {
+const COLLATION = {
 	locale: 'en'
 };
 
@@ -229,13 +229,13 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	 * @param conditions filter conditions
 	 * @returns the number of updated records, as a promise
 	 */
-	public updateSelectiveMany(set: UpdateQuery<TPersistedEntity>, conditions?: FilterQuery<TDocument>): Promise<number> {
+	public updateSelectiveMany(set: UpdateQuery<TDocument>, conditions?: FilterQuery<TDocument>): Promise<number> {
 		
 		const startNs = process.hrtime.bigint();
 		
 		return new Promise((resolve, reject): void => {
 
-			this.databaseModel.updateMany(conditions ? conditions : {}, set, (error, result) => {
+			this.databaseModel.updateMany(conditions ? conditions : {}, set, undefined, (error, result) => {
 				
 				if(error) {
 					
@@ -261,8 +261,8 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 		const startNs = process.hrtime.bigint();
 		
 		return new Promise((resolve, reject): void => {
-
-			this.databaseModel.findOneAndDelete({ _id: id } as FilterQuery<TDocument>)
+			
+			this.databaseModel.findOneAndDelete({ _id: id } as FilterQuery<Document>)
 				.then((deletedDocument) => {
 
 					if(deletedDocument) {
