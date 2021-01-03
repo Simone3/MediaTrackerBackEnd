@@ -229,8 +229,7 @@ describe('Old App Import API Tests', () => {
 				markedAsRedo: true,
 				averageEpisodeRuntimeMinutes: 43,
 				creators: [ 'Creator' ],
-				episodesNumber: 22,
-				seasonsNumber: 11,
+				seasons: [],
 				inProduction: true,
 				nextEpisodeAirDate: new Date('2019-01-05T23:00:00.000Z')
 			};

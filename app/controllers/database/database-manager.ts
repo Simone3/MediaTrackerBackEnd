@@ -21,7 +21,8 @@ class DatabaseManager {
 
 			const options: ConnectionOptions = {
 				useNewUrlParser: true,
-				useUnifiedTopology: true
+				useUnifiedTopology: true,
+				useCreateIndex: true
 			};
 
 			if(config.log.databaseQueries.active) {

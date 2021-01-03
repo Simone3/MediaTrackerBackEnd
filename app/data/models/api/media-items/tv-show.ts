@@ -3,6 +3,33 @@ import { Type } from 'class-transformer';
 import { IsBoolean, IsDateString, IsDefined, IsIn, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 /**
+ * Model for a TV show season, publicly exposed via API
+ */
+export class TvShowSeason {
+
+	/**
+	 * The season number
+	 */
+	@IsDefined()
+	@IsInt()
+	public number!: number;
+
+	/**
+	 * The number of total episodes
+	 */
+	@IsOptional()
+	@IsInt()
+	public episodesNumber?: number;
+
+	/**
+	 * The number of episodes watched by the user
+	 */
+	@IsOptional()
+	@IsInt()
+	public watchedEpisodesNumber?: number;
+}
+
+/**
  * Model for a TV show, publicly exposed via API
  */
 export class TvShow extends MediaItem {
@@ -23,18 +50,15 @@ export class TvShow extends MediaItem {
 	public averageEpisodeRuntimeMinutes?: number;
 	
 	/**
-	 * The total number of episoded
+	 * The list of seasons
 	 */
 	@IsOptional()
-	@IsInt()
-	public episodesNumber?: number;
-	
-	/**
-	 * The total number of seasons
-	 */
-	@IsOptional()
-	@IsInt()
-	public seasonsNumber?: number;
+	@IsDefined({ each: true })
+	@Type(() => {
+		return TvShowSeason;
+	})
+	@ValidateNested()
+	public seasons?: TvShowSeason[];
 	
 	/**
 	 * If the show is in production or if it is concluded
@@ -225,6 +249,26 @@ export class SearchTvShowsResponse extends SearchMediaItemsResponse {
 }
 
 /**
+ * Model for a TV show season from the catalog, publicly exposed via API
+ */
+export class CatalogTvShowSeason {
+
+	/**
+	 * The season number
+	 */
+	@IsDefined()
+	@IsInt()
+	public number!: number;
+
+	/**
+	 * The number of total episodes
+	 */
+	@IsOptional()
+	@IsInt()
+	public episodesNumber?: number;
+}
+
+/**
  * Model for a TV show from the catalog, publicly exposed via API
  */
 export class CatalogTvShow extends CatalogMediaItem {
@@ -245,18 +289,15 @@ export class CatalogTvShow extends CatalogMediaItem {
 	public averageEpisodeRuntimeMinutes?: number;
 	
 	/**
-	 * The total number of episoded
+	 * The list of seasons
 	 */
 	@IsOptional()
-	@IsInt()
-	public episodesNumber?: number;
-	
-	/**
-	 * The total number of seasons
-	 */
-	@IsOptional()
-	@IsInt()
-	public seasonsNumber?: number;
+	@IsDefined({ each: true })
+	@Type(() => {
+		return CatalogTvShowSeason;
+	})
+	@ValidateNested()
+	public seasons?: CatalogTvShowSeason[];
 	
 	/**
 	 * If the show is in production or if it is concluded

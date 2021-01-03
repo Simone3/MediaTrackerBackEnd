@@ -7,17 +7,26 @@ type CoreTvShowDataInternal = {
 
 	creators?: string[];
 	averageEpisodeRuntimeMinutes?: number;
-	episodesNumber?: number;
-	seasonsNumber?: number;
 	inProduction?: boolean;
 	nextEpisodeAirDate?: Date;
 };
+
+/**
+ * Model for a TV Show season, internal type just for display purposes
+ */
+export type TvShowSeasonInternal = {
+
+	number: number;
+	episodesNumber?: number;
+	watchedEpisodesNumber?: number;
+}
 
 /**
  * Model for a media item with all properties, internal type NOT to be exposed via API
  */
 export type TvShowInternal = MediaItemInternal & CoreTvShowDataInternal & {
 
+	seasons?: TvShowSeasonInternal[];
 };
 
 /**
@@ -41,10 +50,20 @@ export type TvShowSortByInternal = MediaItemSortByInternal & {
 };
 
 /**
+ * Model for a catalog TV Show season, internal type just for display purposes
+ */
+export type CatalogTvShowSeasonInternal = {
+
+	number: number;
+	episodesNumber?: number;
+}
+
+/**
  * Model for a media item with base properties, internal type NOT to be exposed via API
  */
 export type CatalogTvShowInternal = CatalogMediaItemInternal & CoreTvShowDataInternal & {
 	
+	seasons?: CatalogTvShowSeasonInternal[];
 };
 
 /**

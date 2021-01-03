@@ -1,8 +1,8 @@
 import { config } from 'app/config/config';
 import { ModelMapper } from 'app/data/mappers/common';
 import { AppError } from 'app/data/models/error/error';
-import { TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeasonDataResponse } from 'app/data/models/external-services/media-items/tv-show';
-import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal } from 'app/data/models/internal/media-items/tv-show';
+import { TmdbTvShowDetailsResponse, TmdbTvShowSearchResult, TmdbTvShowSeason, TmdbTvShowSeasonDataResponse } from 'app/data/models/external-services/media-items/tv-show';
+import { CatalogTvShowInternal, CatalogTvShowSeasonInternal, SearchTvShowCatalogResultInternal } from 'app/data/models/internal/media-items/tv-show';
 import { dateUtils } from 'app/utilities/date-utils';
 import { miscUtils } from 'app/utilities/misc-utils';
 
@@ -66,8 +66,7 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 			imageUrl: this.getFullImagePath(source.backdrop_path),
 			creators: miscUtils.extractFilterAndSortFieldValues(source.created_by, 'name'),
 			averageEpisodeRuntimeMinutes: this.getAverageEpisodeRuntime(source.episode_run_time),
-			episodesNumber: source.number_of_episodes,
-			seasonsNumber: source.number_of_seasons,
+			seasons: this.convertToInternalSeasons(source.seasons),
 			inProduction: source.in_production,
 			nextEpisodeAirDate: extraParams ? this.getNextEpisodeAirDate(extraParams.currentSeasonData) : undefined
 		};
@@ -137,6 +136,34 @@ class TvShowExternalDetailsServiceMapper extends ModelMapper<CatalogTvShowIntern
 		}
 		
 		return undefined;
+	}
+	
+	/**
+	 * Helper to map the seasons list
+	 * @param source source seasons
+	 * @returns target seasons
+	 */
+	private convertToInternalSeasons(source?: TmdbTvShowSeason[]): CatalogTvShowSeasonInternal[] | undefined {
+		
+		if(source) {
+
+			return source
+				.filter((sourceItem) => {
+
+					return sourceItem.season_number && sourceItem.season_number > 0;
+				})
+				.map((sourceItem) => {
+
+					return {
+						number: sourceItem.season_number,
+						episodesNumber: sourceItem.episode_count
+					};
+				});
+		}
+		else {
+
+			return undefined;
+		}
 	}
 }
 

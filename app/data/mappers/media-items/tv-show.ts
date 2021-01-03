@@ -1,6 +1,6 @@
 import { MediaItemCatalogDetailsMapper, MediaItemCatalogSearchMapper, MediaItemFilterMapper, MediaItemMapper, MediaItemMapperParams, MediaItemSortMapper } from 'app/data/mappers/media-items/media-item';
-import { CatalogTvShow, IdentifiedTvShow, SearchTvShowCatalogResult, TvShowFilter, TvShowSortBy, TvShowSortField } from 'app/data/models/api/media-items/tv-show';
-import { CatalogTvShowInternal, SearchTvShowCatalogResultInternal, TvShowFilterInternal, TvShowInternal, TvShowSortByInternal, TvShowSortFieldInternal } from 'app/data/models/internal/media-items/tv-show';
+import { CatalogTvShow, CatalogTvShowSeason, IdentifiedTvShow, SearchTvShowCatalogResult, TvShowFilter, TvShowSeason, TvShowSortBy, TvShowSortField } from 'app/data/models/api/media-items/tv-show';
+import { CatalogTvShowInternal, CatalogTvShowSeasonInternal, SearchTvShowCatalogResultInternal, TvShowFilterInternal, TvShowInternal, TvShowSeasonInternal, TvShowSortByInternal, TvShowSortFieldInternal } from 'app/data/models/internal/media-items/tv-show';
 import { dateUtils } from 'app/utilities/date-utils';
 import { miscUtils } from 'app/utilities/misc-utils';
 
@@ -19,8 +19,7 @@ class TvShowMapper extends MediaItemMapper<TvShowInternal, IdentifiedTvShow> {
 			uid: source._id,
 			creators: source.creators,
 			averageEpisodeRuntimeMinutes: source.averageEpisodeRuntimeMinutes,
-			episodesNumber: source.episodesNumber,
-			seasonsNumber: source.seasonsNumber,
+			seasons: this.convertToExternalSeasons(source.seasons),
 			inProduction: miscUtils.parseBoolean(source.inProduction),
 			nextEpisodeAirDate: dateUtils.toString(source.nextEpisodeAirDate)
 		};
@@ -36,11 +35,58 @@ class TvShowMapper extends MediaItemMapper<TvShowInternal, IdentifiedTvShow> {
 			_id: source.uid ? source.uid : null,
 			creators: source.creators,
 			averageEpisodeRuntimeMinutes: source.averageEpisodeRuntimeMinutes,
-			episodesNumber: source.episodesNumber,
-			seasonsNumber: source.seasonsNumber,
+			seasons: this.convertToInternalSeasons(source.seasons),
 			inProduction: miscUtils.parseBoolean(source.inProduction),
 			nextEpisodeAirDate: dateUtils.toDate(source.nextEpisodeAirDate)
 		};
+	}
+	
+	/**
+	 * Helper to map the seasons list
+	 * @param source source seasons
+	 * @returns target seasons
+	 */
+	private convertToExternalSeasons(source?: TvShowSeasonInternal[]): TvShowSeason[] | undefined {
+		
+		if(source) {
+
+			return source.map((sourceItem) => {
+
+				return {
+					number: sourceItem.number,
+					episodesNumber: sourceItem.episodesNumber,
+					watchedEpisodesNumber: sourceItem.watchedEpisodesNumber
+				};
+			});
+		}
+		else {
+
+			return undefined;
+		}
+	}
+	
+	/**
+	 * Helper to map the seasons list
+	 * @param source source seasons
+	 * @returns target seasons
+	 */
+	private convertToInternalSeasons(source?: TvShowSeason[]): TvShowSeasonInternal[] | undefined {
+		
+		if(source) {
+
+			return source.map((sourceItem) => {
+
+				return {
+					number: sourceItem.number,
+					episodesNumber: sourceItem.episodesNumber,
+					watchedEpisodesNumber: sourceItem.watchedEpisodesNumber
+				};
+			});
+		}
+		else {
+
+			return undefined;
+		}
 	}
 }
 
@@ -158,8 +204,7 @@ class TvShowCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<CatalogTv
 			...this.commonToExternal(source),
 			creators: source.creators,
 			averageEpisodeRuntimeMinutes: source.averageEpisodeRuntimeMinutes,
-			episodesNumber: source.episodesNumber,
-			seasonsNumber: source.seasonsNumber,
+			seasons: this.convertToExternalSeasons(source.seasons),
 			inProduction: miscUtils.parseBoolean(source.inProduction),
 			nextEpisodeAirDate: dateUtils.toString(source.nextEpisodeAirDate)
 		};
@@ -174,11 +219,56 @@ class TvShowCatalogDetailsMapper extends MediaItemCatalogDetailsMapper<CatalogTv
 			...this.commonToInternal(source),
 			creators: source.creators,
 			averageEpisodeRuntimeMinutes: source.averageEpisodeRuntimeMinutes,
-			episodesNumber: source.episodesNumber,
-			seasonsNumber: source.seasonsNumber,
+			seasons: this.convertToInternalSeasons(source.seasons),
 			inProduction: miscUtils.parseBoolean(source.inProduction),
 			nextEpisodeAirDate: dateUtils.toDate(source.nextEpisodeAirDate)
 		};
+	}
+	
+	/**
+	 * Helper to map the seasons list
+	 * @param source source seasons
+	 * @returns target seasons
+	 */
+	private convertToExternalSeasons(source?: CatalogTvShowSeasonInternal[]): CatalogTvShowSeason[] | undefined {
+		
+		if(source) {
+
+			return source.map((sourceItem) => {
+
+				return {
+					number: sourceItem.number,
+					episodesNumber: sourceItem.episodesNumber
+				};
+			});
+		}
+		else {
+
+			return undefined;
+		}
+	}
+	
+	/**
+	 * Helper to map the seasons list
+	 * @param source source seasons
+	 * @returns target seasons
+	 */
+	private convertToInternalSeasons(source?: CatalogTvShowSeason[]): CatalogTvShowSeasonInternal[] | undefined {
+		
+		if(source) {
+
+			return source.map((sourceItem) => {
+
+				return {
+					number: sourceItem.number,
+					episodesNumber: sourceItem.episodesNumber
+				};
+			});
+		}
+		else {
+
+			return undefined;
+		}
 	}
 }
 

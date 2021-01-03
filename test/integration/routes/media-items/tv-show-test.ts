@@ -161,13 +161,36 @@ describe('TV show API Tests', () => {
 				description: 'This is the description!',
 				averageEpisodeRuntimeMinutes: 60,
 				creators: [ 'First Creator', 'Second Creator' ],
-				episodesNumber: 73,
+				seasons: [{
+					episodesNumber: 10,
+					number: 1
+				}, {
+					episodesNumber: 10,
+					number: 2
+				}, {
+					episodesNumber: 10,
+					number: 3
+				}, {
+					episodesNumber: 10,
+					number: 4
+				}, {
+					episodesNumber: 10,
+					number: 5
+				}, {
+					episodesNumber: 10,
+					number: 6
+				}, {
+					episodesNumber: 7,
+					number: 7
+				}, {
+					episodesNumber: 6,
+					number: 8
+				}],
 				genres: [ 'Action & Adventure', 'Drama', 'Sci-Fi & Fantasy' ],
 				imageUrl: 'http://tv-images/qsD5OHqW7DSnaQ2afwz8Ptht1Xb.jpg',
 				inProduction: true,
 				nextEpisodeAirDate: '2090-05-19T00:00:00.000Z',
 				releaseDate: '2011-04-17T00:00:00.000Z',
-				seasonsNumber: 8,
 				catalogId: '123'
 			};
 
@@ -221,10 +244,18 @@ describe('TV show API Tests', () => {
 				userComment: randomName('SomeComment'),
 				averageEpisodeRuntimeMinutes: 61,
 				creators: [ randomName('Creator1'), randomName('Creator2') ],
-				episodesNumber: 56,
+				seasons: [{
+					number: 1,
+					episodesNumber: 10,
+					watchedEpisodesNumber: 5
+				}, {
+					number: 2,
+					episodesNumber: 10
+				}, {
+					number: 3
+				}],
 				inProduction: true,
-				nextEpisodeAirDate: '2018-02-28T10:32:27.240Z',
-				seasonsNumber: 2
+				nextEpisodeAirDate: '2018-02-28T10:32:27.240Z'
 			};
 			await callHelper<AddTvShowRequest, AddMediaItemResponse>('POST', `/users/${firstUCG.user}/categories/${firstUCG.category}/tv-shows`, firstUCG.user, {
 				newTvShow: sourceTvShow

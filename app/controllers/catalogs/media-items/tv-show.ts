@@ -87,10 +87,14 @@ class TvShowCatalogController extends MediaItemCatalogController<SearchTvShowCat
 			restJsonInvoker.invoke(invocationParams)
 				.then((detailsResponse) => {
 
-					if(detailsResponse.in_production && detailsResponse.number_of_seasons && detailsResponse.number_of_seasons > 0) {
+					// Then, if the show is in production, get last season data for next episode air date
+					if(detailsResponse.in_production && detailsResponse.seasons && detailsResponse.seasons.length > 0) {
 
-						// Then, if the show is in production, get current season data for next episode air date
-						this.getSeasonData(catalogItemId, detailsResponse.number_of_seasons)
+						const lastSeason = Math.max(...detailsResponse.seasons.map((season) => {
+							return season.season_number;
+						}), 1);
+
+						this.getSeasonData(catalogItemId, lastSeason)
 							.then((seasonResponse) => {
 
 								resolve(tvShowExternalDetailsServiceMapper.toInternal(detailsResponse, { currentSeasonData: seasonResponse }));

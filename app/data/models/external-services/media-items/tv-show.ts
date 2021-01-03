@@ -54,6 +54,20 @@ export class TmdbTvShowGenre {
 }
 
 /**
+ * Season model for the external TV show details service
+ */
+export class TmdbTvShowSeason {
+
+	@IsOptional()
+	@IsInt()
+	public episode_count?: number;
+
+	@IsNotEmpty()
+	@IsInt()
+	public season_number!: number;
+}
+
+/**
  * Response of the external TV show details service
  */
 export class TmdbTvShowDetailsResponse {
@@ -91,12 +105,12 @@ export class TmdbTvShowDetailsResponse {
 	public episode_run_time?: number[];
 
 	@IsOptional()
-	@IsInt()
-	public number_of_episodes?: number;
-
-	@IsOptional()
-	@IsInt()
-	public number_of_seasons?: number;
+	@IsDefined({ each: true })
+	@Type(() => {
+		return TmdbTvShowSeason;
+	})
+	@ValidateNested()
+	public seasons?: TmdbTvShowSeason[];
 
 	@IsOptional()
 	@IsDefined({ each: true })

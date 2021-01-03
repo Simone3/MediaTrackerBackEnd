@@ -21,8 +21,7 @@ class OldAppTvShowMapper extends OldAppMediaItemMapper<TvShowInternal> {
 				...common.mediaItemData,
 				creators: source.CREATED_BY ? parseOldAppMultiValueString(source.CREATED_BY) : undefined,
 				averageEpisodeRuntimeMinutes: source.EPISODE_RUNTIME_MIN ? Number(source.EPISODE_RUNTIME_MIN) : undefined,
-				episodesNumber: source.EPISODES_NUMBER ? Number(source.EPISODES_NUMBER) : undefined,
-				seasonsNumber: source.SEASONS_NUMBER ? Number(source.SEASONS_NUMBER) : undefined,
+				seasons: undefined,
 				inProduction: parseOldAppBoolean(source.IN_PRODUCTION),
 				nextEpisodeAirDate: source.NEXT_EPISODE_AIR_DATE ? parseOldAppDate(source.NEXT_EPISODE_AIR_DATE) : undefined
 			}
