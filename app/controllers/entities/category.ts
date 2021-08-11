@@ -23,7 +23,7 @@ const CategoryModel: Model<CategoryDocument> = model<CategoryDocument>(CATEGORY_
 /**
  * Helper type for category query conditions
  */
-type QueryConditions = FilterQuery<CategoryInternal>;
+type QueryConditions = FilterQuery<CategoryDocument>;
 
 /**
  * Helper type for category sorting conditions

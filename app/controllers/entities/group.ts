@@ -22,7 +22,7 @@ const GroupModel: Model<GroupDocument> = model<GroupDocument>(GROUP_COLLECTION_N
 /**
  * Helper type for group query conditions
  */
-type QueryConditions = FilterQuery<GroupInternal>;
+type QueryConditions = FilterQuery<GroupDocument>;
 
 /**
  * Helper type for group sorting conditions

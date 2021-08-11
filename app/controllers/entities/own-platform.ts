@@ -22,7 +22,7 @@ const OwnPlatformModel: Model<OwnPlatformDocument> = model<OwnPlatformDocument>(
 /**
  * Helper type for own platform query conditions
  */
-type QueryConditions = FilterQuery<OwnPlatformInternal>;
+type QueryConditions = FilterQuery<OwnPlatformDocument>;
 
 /**
  * Helper type for own platform sorting conditions

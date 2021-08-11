@@ -162,7 +162,7 @@ export abstract class MediaItem extends CoreMediaItemData {
 	 */
 	@IsOptional()
 	@IsDefined({ each: true })
-	@IsDateString({ each: true })
+	@IsDateString(undefined, { each: true })
 	public completedOn?: string[];
 
 	/**

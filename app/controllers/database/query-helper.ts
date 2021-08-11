@@ -262,7 +262,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 		
 		return new Promise((resolve, reject): void => {
 			
-			this.databaseModel.findOneAndDelete({ _id: id } as FilterQuery<Document>)
+			this.databaseModel.findOneAndDelete({ _id: id } as FilterQuery<TDocument>)
 				.then((deletedDocument) => {
 
 					if(deletedDocument) {

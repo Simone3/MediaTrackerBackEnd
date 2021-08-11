@@ -21,13 +21,13 @@ import { Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
  */
 export abstract class MediaItemEntityController<TMediaItemInternal extends MediaItemInternal, TMediaItemSortByInternal extends MediaItemSortByInternal, TMediaItemFilterInternal extends MediaItemFilterInternal> extends AbstractEntityController {
 
-	private readonly queryHelper: QueryHelper<TMediaItemInternal, TMediaItemInternal & Document, Model<TMediaItemInternal & Document>>;
+	private readonly queryHelper: QueryHelper<TMediaItemInternal, Document & TMediaItemInternal, Model<Document & TMediaItemInternal>>;
 
 	/**
 	 * Constructor
 	 * @param model the source DB model
 	 */
-	protected constructor(model: Model<TMediaItemInternal & Document>) {
+	protected constructor(model: Model<Document & TMediaItemInternal>) {
 
 		super();
 		this.queryHelper = new QueryHelper(model);
@@ -301,7 +301,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * Must be implemented by subclasses to provide an empty Mongoose document of the linked model
 	 * @returns an empty Mongoose document
 	 */
-	protected abstract getNewEmptyDocument(): TMediaItemInternal & Document;
+	protected abstract getNewEmptyDocument(): Document & TMediaItemInternal;
 
 	/**
 	 * Must be implemented by subclasses to set the correct sort condition from a sortBy object. Implementations can call setCommonSortConditions()
@@ -320,7 +320,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param andConditions the target array of AND conditions
 	 * @param filterBy the optional source filters
 	 */
-	protected abstract addConditionsFromFilter(userId: string, categoryId: string, andConditions: FilterQuery<TMediaItemInternal & Document>[], filterBy?: TMediaItemFilterInternal): void;
+	protected abstract addConditionsFromFilter(userId: string, categoryId: string, andConditions: FilterQuery<Document & TMediaItemInternal>[], filterBy?: TMediaItemFilterInternal): void;
 
 	/**
 	 * Must be implemented by subclasses to (possibly) add more search conditions for the 'search media item' API
@@ -328,7 +328,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param termRegExp the pre-computed RegExp of the search term
 	 * @param searchConditions the common search conditions where the implementation can push other fields
 	 */
-	protected abstract setSearchByTermConditions(term: string, termRegExp: RegExp, searchConditions: FilterQuery<TMediaItemInternal & Document>[]): void;
+	protected abstract setSearchByTermConditions(term: string, termRegExp: RegExp, searchConditions: FilterQuery<Document & TMediaItemInternal>[]): void;
 
 	/**
 	 * Must be implemented by subclasses to define the linked media type
@@ -592,19 +592,19 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param conditions source
 	 * @returns cast source
 	 */
-	private castFilterQuery(conditions: FilterQuery<MediaItemInternal>): FilterQuery<TMediaItemInternal & Document> {
+	private castFilterQuery(conditions: FilterQuery<MediaItemInternal>): FilterQuery<Document & TMediaItemInternal> {
 
-		return conditions as FilterQuery<TMediaItemInternal & Document>;
+		return conditions as FilterQuery<Document & TMediaItemInternal>;
 	}
 	
-	private castFilterQueryArray(conditions: FilterQuery<MediaItemInternal>[]): FilterQuery<TMediaItemInternal & Document>[] {
+	private castFilterQueryArray(conditions: FilterQuery<MediaItemInternal>[]): FilterQuery<Document & TMediaItemInternal>[] {
 
-		return conditions as FilterQuery<TMediaItemInternal & Document>[];
+		return conditions as FilterQuery<Document & TMediaItemInternal>[];
 	}
 
-	private castUpdateQuery(set: UpdateQuery<MediaItemInternal>): UpdateQuery<TMediaItemInternal & Document> {
+	private castUpdateQuery(set: UpdateQuery<MediaItemInternal>): UpdateQuery<Document & TMediaItemInternal> {
 
-		return set as UpdateQuery<TMediaItemInternal & Document>;
+		return set as UpdateQuery<Document & TMediaItemInternal>;
 	}
 }
 
