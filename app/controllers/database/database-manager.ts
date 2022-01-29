@@ -1,7 +1,7 @@
 import { config } from 'app/config/config';
 import { AppError } from 'app/data/models/error/error';
 import { databaseLogger, logger } from 'app/loggers/logger';
-import mongoose, { ConnectionOptions } from 'mongoose';
+import mongoose from 'mongoose';
 
 /**
  * Database controller that handles generic DB setup, like its connection
@@ -19,12 +19,6 @@ class DatabaseManager {
 			
 			logger.info('Starting database connection...');
 
-			const options: ConnectionOptions = {
-				useNewUrlParser: true,
-				useUnifiedTopology: true,
-				useCreateIndex: true
-			};
-
 			if(config.log.databaseQueries.active) {
 
 				mongoose.set('debug', (collection: string, method: string, query: object, document: object): void => {
@@ -33,7 +27,7 @@ class DatabaseManager {
 				});
 			}
 	
-			mongoose.connect(databaseUrl, options);
+			mongoose.connect(databaseUrl);
 	
 			const db = mongoose.connection;
 	

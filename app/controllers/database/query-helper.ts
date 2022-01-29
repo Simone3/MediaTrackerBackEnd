@@ -245,7 +245,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 				else {
 
 					this.logPerformance('updateSelectiveMany', startNs);
-					resolve(result.nModified);
+					resolve(result.modifiedCount);
 				}
 			});
 		});
@@ -299,7 +299,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 				.then((deletedDocumentsCount) => {
 
 					this.logPerformance('delete', startNs);
-					resolve(deletedDocumentsCount && deletedDocumentsCount.n ? deletedDocumentsCount.n : 0);
+					resolve(deletedDocumentsCount && deletedDocumentsCount.deletedCount ? deletedDocumentsCount.deletedCount : 0);
 				})
 				.catch((error) => {
 

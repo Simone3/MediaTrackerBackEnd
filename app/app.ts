@@ -4,8 +4,7 @@ import { AppError } from 'app/data/models/error/error';
 import { finalizeAndCloseAllLoggers, logger } from 'app/loggers/logger';
 import { server } from 'app/server/server';
 import exitHook from 'exit-hook';
-import { credential, initializeApp } from 'firebase-admin';
-
+import { cert, initializeApp } from 'firebase-admin/app';
 /**
  * Initializes the application
  */
@@ -15,7 +14,7 @@ export const init = (): void => {
 
 	// Start Firebase
 	initializeApp({
-		credential: credential.cert(config.firebase.serviceAccountKey),
+		credential: cert(config.firebase.serviceAccountKey),
 		databaseURL: config.firebase.databaseUrl
 	});
 	

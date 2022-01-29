@@ -31,7 +31,7 @@ export class Category {
 	@IsNotEmpty()
 	@IsString()
 	@IsIn(MEDIA_TYPES)
-	public mediaType!: MediaType
+	public mediaType!: MediaType;
 
 	/**
 	 * The category color

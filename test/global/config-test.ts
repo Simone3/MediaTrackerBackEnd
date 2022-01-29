@@ -8,7 +8,7 @@ export const testConfig: Config = {
 		port: 3123
 	},
 	db: {
-		url: 'mongodb://localhost/mediaTrackerBackEndTestDatabase'
+		url: 'mongodb://127.0.0.1:27017/mediaTrackerBackEndTestDatabase'
 	},
 	externalApis: {
 		timeoutMilliseconds: 5000,
