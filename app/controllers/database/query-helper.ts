@@ -2,7 +2,7 @@ import { config } from 'app/config/config';
 import { AppError } from 'app/data/models/error/error';
 import { PersistedEntityInternal } from 'app/data/models/internal/common';
 import { logger, performanceLogger } from 'app/loggers/logger';
-import { Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
+import { Document, FilterQuery, Model, SortOrder, UpdateQuery } from 'mongoose';
 
 /**
  * Collation search options (for case insensitive ordering)
@@ -37,7 +37,7 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
 	 * @param populate list of 'joined' columns to populate
 	 * @returns a promise that will eventually contain the list of all internal model representations of the persisted elements
 	 */
-	public find(conditions?: FilterQuery<TDocument>, sortBy?: Sortable<TPersistedEntity>, populate?: Populatable<TPersistedEntity>): Promise<TPersistedEntity[]> {
+	public find(conditions?: FilterQuery<TDocument>, sortBy?: Sortable<PersistedEntityInternal>, populate?: Populatable<TPersistedEntity>): Promise<TPersistedEntity[]> {
 
 		const startNs = process.hrtime.bigint();
 
@@ -331,13 +331,8 @@ export class QueryHelper<TPersistedEntity extends PersistedEntityInternal, TDocu
  * Helper type to make all properties in T be optionally asc or desc
  */
 export type Sortable<T> = {
-	[P in keyof T]?: SortDirection;
+	[P in keyof T]?: SortOrder;
 };
-
-/**
- * Helper type to describe the sort direction
- */
-export type SortDirection = 'asc' | 'desc';
 
 /**
  * Helper type to make all properties in T be optionally true or false

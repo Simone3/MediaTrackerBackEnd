@@ -1,9 +1,9 @@
-import { Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { Sortable } from 'app/controllers/database/query-helper';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
 import { MediaTypeInternal } from 'app/data/models/internal/category';
 import { VideogameFilterInternal, VideogameInternal, VideogameSortByInternal } from 'app/data/models/internal/media-items/videogame';
 import { VideogameSchema, VIDEOGAME_COLLECTION_NAME } from 'app/schemas/media-items/videogame';
-import { Document, FilterQuery, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model, SortOrder } from 'mongoose';
 
 /**
  * Videogame document for Mongoose
@@ -63,7 +63,7 @@ class VideogameEntityController extends MediaItemEntityController<VideogameInter
 	/**
 	 * @override
 	 */
-	protected setSortConditions(sortBy: VideogameSortByInternal, sortDirection: SortDirection, sortConditions: Sortable<VideogameInternal>): void {
+	protected setSortConditions(sortBy: VideogameSortByInternal, sortDirection: SortOrder, sortConditions: Sortable<VideogameInternal>): void {
 		
 		switch(sortBy.field) {
 

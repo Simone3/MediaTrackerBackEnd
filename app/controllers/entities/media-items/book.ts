@@ -1,9 +1,9 @@
-import { Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { Sortable } from 'app/controllers/database/query-helper';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
 import { MediaTypeInternal } from 'app/data/models/internal/category';
 import { BookFilterInternal, BookInternal, BookSortByInternal } from 'app/data/models/internal/media-items/book';
 import { BookSchema, BOOK_COLLECTION_NAME } from 'app/schemas/media-items/book';
-import { Document, FilterQuery, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model, SortOrder } from 'mongoose';
 
 /**
  * Book document for Mongoose
@@ -63,7 +63,7 @@ class BookEntityController extends MediaItemEntityController<BookInternal, BookS
 	/**
 	 * @override
 	 */
-	protected setSortConditions(sortBy: BookSortByInternal, sortDirection: SortDirection, sortConditions: Sortable<BookInternal>): void {
+	protected setSortConditions(sortBy: BookSortByInternal, sortDirection: SortOrder, sortConditions: Sortable<BookInternal>): void {
 		
 		switch(sortBy.field) {
 

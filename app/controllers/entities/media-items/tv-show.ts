@@ -1,9 +1,9 @@
-import { Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { Sortable } from 'app/controllers/database/query-helper';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
 import { MediaTypeInternal } from 'app/data/models/internal/category';
 import { TvShowFilterInternal, TvShowInternal, TvShowSortByInternal } from 'app/data/models/internal/media-items/tv-show';
 import { TvShowSchema, TV_SHOW_COLLECTION_NAME } from 'app/schemas/media-items/tv-show';
-import { Document, FilterQuery, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model, SortOrder } from 'mongoose';
 
 /**
  * TvShow document for Mongoose
@@ -63,7 +63,7 @@ class TvShowEntityController extends MediaItemEntityController<TvShowInternal, T
 	/**
 	 * @override
 	 */
-	protected setSortConditions(sortBy: TvShowSortByInternal, sortDirection: SortDirection, sortConditions: Sortable<TvShowInternal>): void {
+	protected setSortConditions(sortBy: TvShowSortByInternal, sortDirection: SortOrder, sortConditions: Sortable<TvShowInternal>): void {
 		
 		switch(sortBy.field) {
 

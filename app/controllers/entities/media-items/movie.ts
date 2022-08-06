@@ -1,9 +1,9 @@
-import { Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { Sortable } from 'app/controllers/database/query-helper';
 import { MediaItemEntityController } from 'app/controllers/entities/media-items/media-item';
 import { MediaTypeInternal } from 'app/data/models/internal/category';
 import { MovieFilterInternal, MovieInternal, MovieSortByInternal } from 'app/data/models/internal/media-items/movie';
 import { MovieSchema, MOVIE_COLLECTION_NAME } from 'app/schemas/media-items/movie';
-import { Document, FilterQuery, Model, model } from 'mongoose';
+import { Document, FilterQuery, Model, model, SortOrder } from 'mongoose';
 
 /**
  * Movie document for Mongoose
@@ -63,7 +63,7 @@ class MovieEntityController extends MediaItemEntityController<MovieInternal, Mov
 	/**
 	 * @override
 	 */
-	protected setSortConditions(sortBy: MovieSortByInternal, sortDirection: SortDirection, sortConditions: Sortable<MovieInternal>): void {
+	protected setSortConditions(sortBy: MovieSortByInternal, sortDirection: SortOrder, sortConditions: Sortable<MovieInternal>): void {
 		
 		switch(sortBy.field) {
 

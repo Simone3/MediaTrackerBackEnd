@@ -1,4 +1,4 @@
-import { Populatable, QueryHelper, Sortable, SortDirection } from 'app/controllers/database/query-helper';
+import { Populatable, QueryHelper, Sortable } from 'app/controllers/database/query-helper';
 import { categoryController } from 'app/controllers/entities/category';
 import { groupController } from 'app/controllers/entities/group';
 import { AbstractEntityController } from 'app/controllers/entities/helper';
@@ -11,7 +11,7 @@ import { MediaItemFilterInternal, MediaItemInternal, MediaItemSortByInternal, Me
 import { OwnPlatformInternal } from 'app/data/models/internal/own-platform';
 import { logger } from 'app/loggers/logger';
 import { miscUtils } from 'app/utilities/misc-utils';
-import { Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
+import { Document, FilterQuery, Model, SortOrder, UpdateQuery } from 'mongoose';
 
 /**
  * Abstract controller for media item entities
@@ -127,7 +127,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 
 			for(const value of sortBy) {
 
-				const sortDirection: SortDirection = value.ascending ? 'asc' : 'desc';
+				const sortDirection: SortOrder = value.ascending ? 'asc' : 'desc';
 				this.setSortConditions(value, sortDirection, sortConditions);
 			}
 		}
@@ -310,7 +310,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param sortDirection the pre-computed sort direction to be assigned to the sort field
 	 * @param sortConditions the sort conditions where the sortDirection should be set according to the sortBy value
 	 */
-	protected abstract setSortConditions(sortBy: TMediaItemSortByInternal, sortDirection: SortDirection, sortConditions: Sortable<TMediaItemInternal>): void;
+	protected abstract setSortConditions(sortBy: TMediaItemSortByInternal, sortDirection: SortOrder, sortConditions: Sortable<TMediaItemInternal>): void;
 
 	/**
 	 * Must be implemented by subclasses to add search conditions for the 'filter media item' API. Implementations can call addCommonConditionsFromFilter()
@@ -464,7 +464,7 @@ export abstract class MediaItemEntityController<TMediaItemInternal extends Media
 	 * @param sortDirection the pre-computed sort direction to be assigned to the sort field
 	 * @param sortConditions the sort conditions where the sortDirection should be set according to the sortBy value
 	 */
-	protected setCommonSortConditions(sortByField: MediaItemSortFieldInternal, sortDirection: SortDirection, sortConditions: Sortable<TMediaItemInternal>): void {
+	protected setCommonSortConditions(sortByField: MediaItemSortFieldInternal, sortDirection: SortOrder, sortConditions: Sortable<TMediaItemInternal>): void {
 
 		switch(sortByField) {
 
