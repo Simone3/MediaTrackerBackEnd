@@ -54,14 +54,26 @@ Main components:
 
 ## Run on server
 
-The app can be deployed on any server. For example, on Heroku:
-- Signup and create a project on [Heroku](https://www.heroku.com) (free tier available).
-- Signup and create a database cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) (free tier available).
+The app can be deployed on any server. For example:
+- Signup and create a project on [Heroku](https://www.heroku.com) or [Render](https://render.com/).
+- Signup and create a database cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 - Setup a production project on Firebase (see above).
-- Define the configuration for *prod* environment (see above). You can define the *MEDIA_TRACKER_BE_CONFIG* environment variable on Heroku from Settings -> Config Vars. You can get the database URL from the MongoDB Atlas website (SRV URL).
+- Define the configuration for *prod* environment (see above). You can get the database URL from the MongoDB Atlas website (SRV URL). You can define the *MEDIA_TRACKER_BE_CONFIG* environment variable on the server.
+- You can now setup and install the [React Native app](https://github.com/Simone3/ReactMediaTracker) (*prod* environment).
+
+Heroku:
+- Define *MEDIA_TRACKER_BE_CONFIG* from Settings -> Config Vars
 - Install [Heroku CLI](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up).
 - On the project root folder, execute:
   - `heroku login`
   - `heroku git:remote -a <heroku_app_name>` 
   - `git push heroku master:master`
-- You can now setup and install the [React Native app](https://github.com/Simone3/ReactMediaTracker) (*prod* environment).
+
+Render:
+- Define *MEDIA_TRACKER_BE_CONFIG* from Settings -> Enrivonment
+- Connect the GitHub repository (master)
+- Define Build Command as *npm install && tsc && tsc-alias -p tsconfig.json*
+- Define Start Command as *npm run start*
+
+
+
