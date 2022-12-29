@@ -73,6 +73,8 @@ class MovieExternalDetailsServiceMapper extends ModelMapper<CatalogMovieInternal
 
 			return config.externalApis.theMovieDb.movies.imageBasePath + backdropPath;
 		}
+
+		return undefined;
 	}
 
 	/**
