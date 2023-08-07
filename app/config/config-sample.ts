@@ -19,7 +19,7 @@ export const sampleConfig: Config = {
 			movies: {
 				imageBasePath: 'http://image.tmdb.org/t/p/w780',
 				search: {
-					relativePath: '/search/movie/',
+					relativePath: '/search/movie',
 					queryParams: {
 						api_key: '<your_api_key_here>',
 						query: ''
@@ -37,7 +37,7 @@ export const sampleConfig: Config = {
 			tvShows: {
 				imageBasePath: 'http://image.tmdb.org/t/p/w780',
 				search: {
-					relativePath: '/search/tv/',
+					relativePath: '/search/tv',
 					queryParams: {
 						api_key: '<your_api_key_here>',
 						query: ''

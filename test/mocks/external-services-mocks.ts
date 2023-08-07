@@ -16,7 +16,7 @@ import mockVideogameSearchResponse from 'resources/mocks/external-services/mock-
 export const setupMovieExternalServicesMocks = (): void => {
 
 	nock('http://mock-movie-api')
-		.get('/search/movie/')
+		.get('/search/movie')
 		.query({
 			...config.externalApis.theMovieDb.movies.search.queryParams,
 			query: 'Mock Movie'
@@ -58,7 +58,7 @@ export const setupBookExternalServicesMocks = (): void => {
 export const setupTvShowExternalServicesMocks = (): void => {
 	
 	nock('http://mock-movie-api')
-		.get('/search/tv/')
+		.get('/search/tv')
 		.query({
 			...config.externalApis.theMovieDb.tvShows.search.queryParams,
 			query: 'Mock TV Show'

@@ -18,7 +18,7 @@ export const testConfig: Config = {
 			movies: {
 				imageBasePath: 'http://movie-images',
 				search: {
-					relativePath: '/search/movie/',
+					relativePath: '/search/movie',
 					queryParams: {
 						api_key: 'mock-api-key',
 						query: ''
@@ -36,7 +36,7 @@ export const testConfig: Config = {
 			tvShows: {
 				imageBasePath: 'http://tv-images',
 				search: {
-					relativePath: '/search/tv/',
+					relativePath: '/search/tv',
 					queryParams: {
 						api_key: 'mock-api-key',
 						query: ''
