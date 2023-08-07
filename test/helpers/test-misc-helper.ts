@@ -52,7 +52,7 @@ export const comparePickedFields = function<V extends E, E extends object>(value
 
 	for(const field of fields) {
 
-		expect(value[field], `${message} [comparing field '${field}']`).to.be.eql(expected[field]);
+		expect(value[field], `${message} [comparing field '${String(field)}']`).to.be.eql(expected[field]);
 	}
 };
 

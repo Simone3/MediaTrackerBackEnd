@@ -4,7 +4,7 @@ import { CategoryInternal } from 'app/data/models/internal/category';
 import chai from 'chai';
 import { callHelper } from 'helpers/api-caller-helper';
 import { setupTestDatabaseConnection } from 'helpers/database-handler-helper';
-import { getTestCategory, initTestUHelper, TestU } from 'helpers/entities-builder-helper';
+import { TestU, getTestCategory, initTestUHelper } from 'helpers/entities-builder-helper';
 import { setupTestServer } from 'helpers/server-handler-helper';
 import { extract, randomName } from 'helpers/test-misc-helper';
 
