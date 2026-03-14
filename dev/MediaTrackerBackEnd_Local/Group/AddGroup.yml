@@ -1,0 +1,26 @@
+info:
+  name: AddGroup
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:3000/users/SecondUser-MyTest-7857628/categories/5dfe30ba62e98a0b9c86c284/groups
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "newGroup": {
+          	"name": "BGroup1"
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

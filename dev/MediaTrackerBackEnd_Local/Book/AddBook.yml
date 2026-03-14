@@ -1,0 +1,28 @@
+info:
+  name: AddBook
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "newBook": {
+              "name": "MyBook",
+              "author": "MyAuthor",
+              "importance": 10
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

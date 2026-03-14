@@ -1,0 +1,15 @@
+info:
+  name: DeleteGroup
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups/5cb1d542a513dd2854833c77
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

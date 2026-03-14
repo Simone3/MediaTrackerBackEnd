@@ -1,0 +1,18 @@
+info:
+  name: DeleteMovie
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cc01db25876832e2877fe9f/movies/5cc01dc15876832e2877fea0
+  body:
+    type: text
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

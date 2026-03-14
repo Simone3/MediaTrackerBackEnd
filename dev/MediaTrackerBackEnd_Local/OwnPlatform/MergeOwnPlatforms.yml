@@ -1,0 +1,28 @@
+info:
+  name: MergeOwnPlatforms
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms/merge
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+      	"ownPlatformIds": ["5ccebc8760830e3ae0069aeb", "5ccebc9060830e3ae0069aec"],
+          "mergedOwnPlatform": {
+          	"name": "MergedData",
+          	"color": "#1100FF"
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

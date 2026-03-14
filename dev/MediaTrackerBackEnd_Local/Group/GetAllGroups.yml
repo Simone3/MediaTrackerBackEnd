@@ -1,0 +1,15 @@
+info:
+  name: GetAllGroups
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:3000/users/IB4EQhzDo4c2KICtcHIUTmG6XhX2/categories/5dfe30ba62e98a0b9c86c284/groups
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,27 @@
+info:
+  name: SearchMovies
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: http://localhost:3000/users/5cbdcd1129d7e425c8b891d0/categories/5cbddb30f782142eac088f63/movies/search
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+      	"filter": {
+      		"importance": 10
+      	},
+          "searchTerm": "Low"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

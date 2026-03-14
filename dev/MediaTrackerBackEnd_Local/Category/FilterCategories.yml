@@ -1,0 +1,26 @@
+info:
+  name: FilterCategories
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:3000/users/5cf3c42d8ec0aa33a8738f7f/categories/filter
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+      	"filter": {
+      		"name": "A12341243123"
+      	}
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

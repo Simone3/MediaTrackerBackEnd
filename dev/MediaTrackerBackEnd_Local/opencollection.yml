@@ -1,0 +1,28 @@
+opencollection: 1.0.0
+
+info:
+  name: MediaTrackerBackEnd_Local
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  scripts:
+    - type: before-request
+      code: |-
+        req.setMaxRedirects(0);
+        req.setHeader('Authorization', bru.getEnvVar('authorization'));
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

@@ -1,0 +1,15 @@
+info:
+  name: DeleteOwnPlatform
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms/5ccebc2360830e3ae0069ae9
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

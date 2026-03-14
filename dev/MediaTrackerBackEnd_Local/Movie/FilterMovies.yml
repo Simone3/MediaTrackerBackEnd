@@ -1,0 +1,37 @@
+info:
+  name: FilterMovies
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/movies/filter
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "filter": {
+              "importanceLevels": [ 10 ],
+              "complete": true
+          },
+          "sortBy": [
+              {
+                  "field": "GROUP",
+                  "ascending": true
+              },
+              {
+                  "field": "DIRECTOR",
+                  "ascending": true
+              }
+          ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

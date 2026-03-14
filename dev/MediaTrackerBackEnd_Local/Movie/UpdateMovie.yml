@@ -1,0 +1,28 @@
+info:
+  name: UpdateMovie
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26ea895c281b54b6737f/movies/5cc010f260b8f8088c82f395
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "movie": {
+              "name": "NEWAFTEREDIT2",
+              "director": "Anotherz",
+              "importance": 30
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

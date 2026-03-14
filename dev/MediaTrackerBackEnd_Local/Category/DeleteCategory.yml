@@ -1,0 +1,15 @@
+info:
+  name: DeleteCategory
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: http://localhost:3000/users/5ca86fb869629a26e8fdcc25/categories/5cb1d4dda513dd2854833c73
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

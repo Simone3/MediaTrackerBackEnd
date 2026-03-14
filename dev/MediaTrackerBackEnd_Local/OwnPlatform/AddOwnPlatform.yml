@@ -1,0 +1,27 @@
+info:
+  name: AddOwnPlatform
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "newOwnPlatform": {
+          	"name": "SomeOP2",
+          	"color": "#0000FF"
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

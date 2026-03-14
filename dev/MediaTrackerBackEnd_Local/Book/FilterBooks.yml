@@ -1,0 +1,36 @@
+info:
+  name: FilterBooks
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf26fe895c281b54b67381/books/filter
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "filter": {
+              "importance": 10
+          },
+          "sortBy": [
+              {
+                  "field": "GROUP",
+                  "ascending": true
+              },
+              {
+                  "field": "AUTHOR",
+                  "ascending": true
+              }
+          ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

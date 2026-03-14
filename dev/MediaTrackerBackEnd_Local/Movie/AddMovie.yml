@@ -1,0 +1,40 @@
+info:
+  name: AddMovie
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/movies
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "newMovie": {
+              "name": "Marked",
+              "director": "Another",
+              "importance": 10,
+      		"genres": ["FirstG", "SecondG"],
+      		"description": "Some description",
+      		"userComment": "Some comment",
+      		"completedOn": ["2018-05-05T10:32:27.240", "2019-05-05T10:32:27.240"],
+      		"releaseDate": "2010-05-05T10:32:27.240",
+      		"markedAsRedo": true,
+      		"catalogId": "123",
+      		"imageUrl": "http//image.url",
+      		"group": {
+      			"groupId": "5ccebb8060830e3ae0069ae7",
+      			"orderInGroup": 12
+      		}
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

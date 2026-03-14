@@ -1,0 +1,28 @@
+info:
+  name: AddTvShow
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "newTvShow": {
+              "name": "MyTest6",
+              "creator": "Tttt",
+              "importance": 10
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

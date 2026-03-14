@@ -1,0 +1,15 @@
+info:
+  name: GetAllOwnPlatforms
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/own-platforms
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

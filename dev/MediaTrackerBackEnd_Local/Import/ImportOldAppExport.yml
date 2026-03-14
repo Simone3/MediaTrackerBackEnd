@@ -1,0 +1,33 @@
+info:
+  name: ImportOldAppExport
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:3000/users/seEnlJssDRTysjTBsAUbUKly4oC2z/import/old-app
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "export": {
+      		
+      	},
+          "options": {
+      		"defaultOwnPlatform": {
+      			"name": "aaa",
+      			"color": "#aaaaaa",
+      			"icon": "aaa"
+      		}
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

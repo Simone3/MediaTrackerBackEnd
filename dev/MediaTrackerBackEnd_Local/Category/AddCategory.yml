@@ -1,0 +1,28 @@
+info:
+  name: AddCategory
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: http://localhost:3000/users/i19JHoyYvLP3ebdmxKRoBhPsfYG2/categories
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "newCategory": {
+          	"name": "My Shows",
+          	"mediaType": "TV_SHOW",
+          	"color": "#0000FF"
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

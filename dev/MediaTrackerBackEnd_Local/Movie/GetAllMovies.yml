@@ -1,0 +1,15 @@
+info:
+  name: GetAllMovies
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:3000/users/jaSwveZfyxQ2yXKoJkoWESTL14h2/categories/5e046e60c9f38115a0afd410/movies
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

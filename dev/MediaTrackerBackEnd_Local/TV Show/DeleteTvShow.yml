@@ -1,0 +1,18 @@
+info:
+  name: DeleteTvShow
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbec5fcafbc9c1f2cfec0af/tv-shows/5cbddd4ee6991f1e746c5a94
+  body:
+    type: text
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,28 @@
+info:
+  name: UpdateVideogame
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: http://localhost:3000/users/5cbec5f6afbc9c1f2cfec0ae/categories/5cbf42c8bb653c360cac66e6/videogames/5cbddd4ee6991f1e746c5a94
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "videogame": {
+              "name": "MovieTest",
+              "developer": "UpdatedMyDirector",
+              "importance": 20
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

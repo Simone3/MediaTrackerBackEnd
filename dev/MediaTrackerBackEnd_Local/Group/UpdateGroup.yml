@@ -1,0 +1,26 @@
+info:
+  name: UpdateGroup
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: http://localhost:3000/users/5ccebae360830e3ae0069ae4/categories/5ccebb3b60830e3ae0069ae5/groups/5cb1d542a513dd2854833c77
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "group": {
+          	"name": "Group1EDITED"
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
