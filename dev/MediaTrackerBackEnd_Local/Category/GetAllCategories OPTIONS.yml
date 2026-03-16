@@ -1,0 +1,15 @@
+info:
+  name: GetAllCategories OPTIONS
+  type: http
+  seq: 2
+
+http:
+  method: OPTIONS
+  url: http://localhost:3000/users/lt0poHniy1atrCirfMD93YDLr6J3/categories
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

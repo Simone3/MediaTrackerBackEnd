@@ -12,6 +12,7 @@ import { videogameCatalogRouter, videogameEntityRouter } from 'app/routes/media-
 import { miscRouter } from 'app/routes/misc';
 import { ownPlatformRouter } from 'app/routes/own-platform';
 import { requestScopeContextMiddleware } from 'app/utilities/request-scope-context';
+import cors from 'cors';
 import express from 'express';
 
 // Base setup
@@ -20,6 +21,16 @@ app.use(express.json({
 	limit: '10mb'
 }));
 app.use(requestScopeContextMiddleware);
+
+// CORS
+app.use(cors({
+	credentials: true,
+	origin: 'http://localhost:5173', //'*',
+	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+	preflightContinue: true
+}));
+
+// Authentication
 app.use(authenticationMiddleware);
 
 // Logging

@@ -1,7 +1,7 @@
 info:
   name: AddCategory
   type: http
-  seq: 3
+  seq: 4
 
 http:
   method: POST
@@ -14,9 +14,9 @@ http:
     data: |-
       {
           "newCategory": {
-          	"name": "My Shows",
-          	"mediaType": "TV_SHOW",
-          	"color": "#0000FF"
+            "name": "My Shows",
+            "mediaType": "TV_SHOW",
+            "color": "#0000FF"
           }
       }
   auth: inherit

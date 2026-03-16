@@ -10,16 +10,13 @@ import { auth } from 'firebase-admin';
  * @returns the token value
  */
 const getAuthToken = (request: Request): string | undefined => {
-	
 	if(request.headers.authorization) {
-		
 		const authorizationHeader = request.headers.authorization.split(' ');
 		if(authorizationHeader.length === 2 && authorizationHeader[0] === 'Bearer') {
-		
 			return authorizationHeader[1];
 		}
 	}
-		
+	
 	return undefined;
 };
 
@@ -29,7 +26,6 @@ const getAuthToken = (request: Request): string | undefined => {
  * @param error the error to log
  */
 const onAuthenticationError = (response: Response, error: unknown): void => {
-
 	logger.error('Authentication error: %s', error);
 
 	response
@@ -44,10 +40,14 @@ const onAuthenticationError = (response: Response, error: unknown): void => {
  * @param next the next callback
  */
 export const authenticationMiddleware: RequestHandler = (request, response, next): void => {
-	
+	// Exception for OPTIONS requests
+	if(request.method === 'OPTIONS') {
+		next();
+		return;
+	}
+
 	// Exception for simple status endpoint
 	if(request.path === STATUS_ROUTE_PATH) {
-		
 		next();
 		return;
 	}
@@ -56,7 +56,6 @@ export const authenticationMiddleware: RequestHandler = (request, response, next
 
 	// Check auth header presence
 	if(!authToken) {
-
 		onAuthenticationError(response, 'Missing or invalid Authorization header');
 		return;
 	}
@@ -64,13 +63,11 @@ export const authenticationMiddleware: RequestHandler = (request, response, next
 	// Verify token via Firebase
 	auth().verifyIdToken(authToken)
 		.then((userInfo) => {
-
 			// Save the user UID in the request-scoped global map
 			requestScopeContext.currentUserId = userInfo.uid;
 			next();
 		})
 		.catch((error) => {
-
 			onAuthenticationError(response, error);
 		});
 };
