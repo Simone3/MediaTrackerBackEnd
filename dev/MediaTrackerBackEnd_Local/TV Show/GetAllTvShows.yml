@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:3000/users/jaSwveZfyxQ2yXKoJkoWESTL14h2/categories/5e046e60c9f38115a0afd413/tv-shows
+  url: http://localhost:3000/users/lt0poHniy1atrCirfMD93YDLr6J3/categories/69b85859bd627159b93c6427/tv-shows
   auth: inherit
 
 settings:

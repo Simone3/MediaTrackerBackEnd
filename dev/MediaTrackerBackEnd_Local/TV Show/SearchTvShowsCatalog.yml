@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:3000/catalog/tv-shows/search/Breaking Bad
+  url: http://localhost:3000/catalog/tv-shows/search/Slow Horses
   auth: inherit
 
 settings:

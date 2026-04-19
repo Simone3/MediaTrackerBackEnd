@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:3000/catalog/tv-shows/1399
+  url: http://localhost:3000/catalog/tv-shows/95480
   auth: inherit
 
 settings:
